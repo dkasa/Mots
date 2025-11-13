@@ -1,0 +1,632 @@
+[
+  {
+    "french": "zéro",
+    "chinese": "零",
+    "phonetic": "[zeʀo]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "un",
+    "chinese": "一",
+    "phonetic": "[œ̃]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "deux",
+    "chinese": "二",
+    "phonetic": "[dø]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "trois",
+    "chinese": "三",
+    "phonetic": "[tʀwa]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "quatre",
+    "chinese": "四",
+    "phonetic": "[katʀ]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "cinq",
+    "chinese": "五",
+    "phonetic": "[sɛ̃k]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "six",
+    "chinese": "六",
+    "phonetic": "[sis]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "sept",
+    "chinese": "七",
+    "phonetic": "[sɛt]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "huit",
+    "chinese": "八",
+    "phonetic": "[ɥit]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "neuf",
+    "chinese": "九",
+    "phonetic": "[nœf]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "dix",
+    "chinese": "十",
+    "phonetic": "[dis]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "onze",
+    "chinese": "十一",
+    "phonetic": "[ɔ̃z]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "douze",
+    "chinese": "十二",
+    "phonetic": "[duz]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "treize",
+    "chinese": "十三",
+    "phonetic": "[tʀɛz]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "quatorze",
+    "chinese": "十四",
+    "phonetic": "[katɔʀz]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "quinze",
+    "chinese": "十五",
+    "phonetic": "[kɛ̃z]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "seize",
+    "chinese": "十六",
+    "phonetic": "[sɛz]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "dix-sept",
+    "chinese": "十七",
+    "phonetic": "[dis-sɛt]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "dix-huit",
+    "chinese": "十八",
+    "phonetic": "[dis-ɥit]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "dix-neuf",
+    "chinese": "十九",
+    "phonetic": "[dis-nœf]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "vingt",
+    "chinese": "二十",
+    "phonetic": "[vɛ̃]",
+    "part_of_speech": "数词"
+  },
+  {
+    "french": "rouge",
+    "chinese": "红色",
+    "phonetic": "[ʀuʒ]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "bleu",
+    "chinese": "蓝色",
+    "phonetic": "[blø]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "vert",
+    "chinese": "绿色",
+    "phonetic": "[vɛʀ]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "jaune",
+    "chinese": "黄色",
+    "phonetic": "[ʒon]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "orange",
+    "chinese": "橙色",
+    "phonetic": "[ɔʀɑ̃ʒ]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "blanc",
+    "chinese": "白色",
+    "phonetic": "[blɑ̃]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "noir",
+    "chinese": "黑色",
+    "phonetic": "[nwaʀ]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "gris",
+    "chinese": "灰色",
+    "phonetic": "[gʀi]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "rose",
+    "chinese": "粉色",
+    "phonetic": "[ʀoz]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "violet",
+    "chinese": "紫色",
+    "phonetic": "[vjɔlɛ]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "marron",
+    "chinese": "棕色",
+    "phonetic": "[maʀɔ̃]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "le père",
+    "chinese": "父亲",
+    "phonetic": "[lə pɛʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la mère",
+    "chinese": "母亲",
+    "phonetic": "[la mɛʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le fils",
+    "chinese": "儿子",
+    "phonetic": "[lə fis]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la fille",
+    "chinese": "女儿",
+    "phonetic": "[la fij]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le frère",
+    "chinese": "兄弟",
+    "phonetic": "[lə fʀɛʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la sœur",
+    "chinese": "姐妹",
+    "phonetic": "[la sœʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le grand-père",
+    "chinese": "祖父",
+    "phonetic": "[lə gʀɑ̃-pɛʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la grand-mère",
+    "chinese": "祖母",
+    "phonetic": "[la gʀɑ̃-mɛʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la famille",
+    "chinese": "家庭",
+    "phonetic": "[la famij]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "l'enfant",
+    "chinese": "孩子",
+    "phonetic": "[lɑ̃fɑ̃]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "l'école",
+    "chinese": "学校",
+    "phonetic": "[lekol]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le professeur",
+    "chinese": "老师",
+    "phonetic": "[lə pʀɔfəsœʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "l'élève",
+    "chinese": "学生",
+    "phonetic": "[lelev]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la classe",
+    "chinese": "教室",
+    "phonetic": "[la klas]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le livre",
+    "chinese": "书",
+    "phonetic": "[lə livʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le stylo",
+    "chinese": "钢笔",
+    "phonetic": "[lə stilo]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le crayon",
+    "chinese": "铅笔",
+    "phonetic": "[lə kʀɛjɔ̃]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la règle",
+    "chinese": "尺子",
+    "phonetic": "[la ʀɛgl]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le cahier",
+    "chinese": "笔记本",
+    "phonetic": "[lə kaje]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le sac à dos",
+    "chinese": "背包",
+    "phonetic": "[lə sak a do]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la table",
+    "chinese": "桌子",
+    "phonetic": "[la tabl]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la chaise",
+    "chinese": "椅子",
+    "phonetic": "[la ʃɛz]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "le tableau",
+    "chinese": "黑板",
+    "phonetic": "[lə tablo]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "les devoirs",
+    "chinese": "家庭作业",
+    "phonetic": "[le dəvwaʀ]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "la géographie",
+    "chinese": "地理",
+    "phonetic": "[la ʒeɔgʀafi]",
+    "part_of_speech": "名词"
+  },
+  {
+    "french": "être",
+    "chinese": "是",
+    "phonetic": "[ɛtʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "avoir",
+    "chinese": "有",
+    "phonetic": "[avwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "aller",
+    "chinese": "去",
+    "phonetic": "[ale]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "faire",
+    "chinese": "做",
+    "phonetic": "[fɛʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "dire",
+    "chinese": "说",
+    "phonetic": "[diʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "voir",
+    "chinese": "看见",
+    "phonetic": "[vwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "savoir",
+    "chinese": "知道",
+    "phonetic": "[savwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "venir",
+    "chinese": "来",
+    "phonetic": "[vəniʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "pouvoir",
+    "chinese": "能",
+    "phonetic": "[puvwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "vouloir",
+    "chinese": "想要",
+    "phonetic": "[vulwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "devoir",
+    "chinese": "必须",
+    "phonetic": "[dəvwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "prendre",
+    "chinese": "拿",
+    "phonetic": "[pʀɑ̃dʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "mettre",
+    "chinese": "放",
+    "phonetic": "[mɛtʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "finir",
+    "chinese": "完成",
+    "phonetic": "[finiʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "commencer",
+    "chinese": "开始",
+    "phonetic": "[kɔmɑ̃se]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "parler",
+    "chinese": "说话",
+    "phonetic": "[paʀle]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "écouter",
+    "chinese": "听",
+    "phonetic": "[ekute]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "manger",
+    "chinese": "吃",
+    "phonetic": "[mɑ̃ʒe]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "boire",
+    "chinese": "喝",
+    "phonetic": "[bwaʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "dormir",
+    "chinese": "睡觉",
+    "phonetic": "[dɔʀmiʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "travailler",
+    "chinese": "工作",
+    "phonetic": "[tʀavaje]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "étudier",
+    "chinese": "学习",
+    "phonetic": "[etydje]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "lire",
+    "chinese": "读",
+    "phonetic": "[liʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "écrire",
+    "chinese": "写",
+    "phonetic": "[ekʀiʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "aimer",
+    "chinese": "喜欢",
+    "phonetic": "[eme]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "regarder",
+    "chinese": "看",
+    "phonetic": "[ʀəgaʀde]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "apprendre",
+    "chinese": "学习",
+    "phonetic": "[apʀɑ̃dʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "comprendre",
+    "chinese": "理解",
+    "phonetic": "[kɔ̃pʀɑ̃dʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "arriver",
+    "chinese": "到达",
+    "phonetic": "[aʀive]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "partir",
+    "chinese": "离开",
+    "phonetic": "[paʀtiʀ]",
+    "part_of_speech": "动词"
+  },
+  {
+    "french": "bon",
+    "chinese": "好的",
+    "phonetic": "[bɔ̃]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "mauvais",
+    "chinese": "坏的",
+    "phonetic": "[move]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "grand",
+    "chinese": "大的",
+    "phonetic": "[gʀɑ̃]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "petit",
+    "chinese": "小的",
+    "phonetic": "[pəti]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "beau",
+    "chinese": "美丽的",
+    "phonetic": "[bo]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "joli",
+    "chinese": "漂亮的",
+    "phonetic": "[ʒoli]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "nouveau",
+    "chinese": "新的",
+    "phonetic": "[nuvo]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "vieux",
+    "chinese": "旧的",
+    "phonetic": "[vjø]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "facile",
+    "chinese": "容易的",
+    "phonetic": "[fasil]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "difficile",
+    "chinese": "困难的",
+    "phonetic": "[difisil]",
+    "part_of_speech": "形容词"
+  },
+  {
+    "french": "le",
+    "chinese": "阳性定冠词",
+    "phonetic": "[lə]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "la",
+    "chinese": "阴性定冠词",
+    "phonetic": "[la]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "les",
+    "chinese": "复数定冠词",
+    "phonetic": "[le]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "un",
+    "chinese": "阳性不定冠词",
+    "phonetic": "[œ̃]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "une",
+    "chinese": "阴性不定冠词",
+    "phonetic": "[yn]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "des",
+    "chinese": "复数不定冠词",
+    "phonetic": "[de]",
+    "part_of_speech": "冠词"
+  },
+  {
+    "french": "de",
+    "chinese": "从/关于",
+    "phonetic": "[də]",
+    "part_of_speech": "介词"
+  },
+  {
+    "french": "dans",
+    "chinese": "在...里面",
+    "phonetic": "[dɑ̃]",
+    "part_of_speech": "介词"
+  }
+]

@@ -1,0 +1,702 @@
+[
+  {
+    "french": "l'école",
+    "chinese": "学校",
+    "phonetic": "[le.kɔl]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le stylo",
+    "chinese": "钢笔/圆珠笔",
+    "phonetic": "[lə sti.lo]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le crayon à papier",
+    "chinese": "铅笔",
+    "phonetic": "[lə krɛ.jɔ̃ a pa.pje]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le cahier",
+    "chinese": "笔记本",
+    "phonetic": "[lə ka.je]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la règle",
+    "chinese": "尺子",
+    "phonetic": "[la rɛɡl]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la gomme",
+    "chinese": "橡皮",
+    "phonetic": "[la ɡɔm]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le sac à dos",
+    "chinese": "书包",
+    "phonetic": "[lə sak a do]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la trousse",
+    "chinese": "笔袋",
+    "phonetic": "[la tʁus]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la classe",
+    "chinese": "班级，课堂",
+    "phonetic": "[la klas]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le livre",
+    "chinese": "书",
+    "phonetic": "[lə livʁ]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le professeur",
+    "chinese": "老师",
+    "phonetic": "[lə prɔ.fə.sœʁ]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "l'élève",
+    "chinese": "学生",
+    "phonetic": "[le.lɛv]",
+    "part_of_speech": "n.m./f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le bureau",
+    "chinese": "桌子",
+    "phonetic": "[lə by.ʁo]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la chaise",
+    "chinese": "椅子",
+    "phonetic": "[la ʃɛz]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la calculatrice",
+    "chinese": "计算器",
+    "phonetic": "[la kalkylatri.s]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "les ciseaux",
+    "chinese": "剪刀",
+    "phonetic": "[le si.zo]",
+    "part_of_speech": "n.m.pl.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la colle",
+    "chinese": "胶水",
+    "phonetic": "[la kɔl]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le taille-crayon",
+    "chinese": "削笔刀",
+    "phonetic": "[lə taj krɛ.jɔ̃]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le tableau",
+    "chinese": "黑板",
+    "phonetic": "[lə ta.ble.o]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le devoir",
+    "chinese": "作业",
+    "phonetic": "[lə də.vwaʁ]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "l'examen",
+    "chinese": "考试",
+    "phonetic": "[leɡ.za.mɛ̃]",
+    "part_of_speech": "n.m.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la bibliothèque",
+    "chinese": "图书馆",
+    "phonetic": "[la biblijɔ.tɛk]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la cantine",
+    "chinese": "食堂",
+    "phonetic": "[la kɑ̃.tin]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la cour",
+    "chinese": "操场",
+    "phonetic": "[la kuʁ]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "la salle de classe",
+    "chinese": "教室",
+    "phonetic": "[la sal də klas]",
+    "part_of_speech": "n.f.",
+    "category": "学校生活"
+  },
+  {
+    "french": "le sport",
+    "chinese": "体育；运动",
+    "phonetic": "[lə spɔʁ]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la musique",
+    "chinese": "音乐",
+    "phonetic": "[la my.zik]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la lecture",
+    "chinese": "阅读",
+    "phonetic": "[la lɛk.tyʁ]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la cuisine",
+    "chinese": "烹饪",
+    "phonetic": "[la kɥi.zin]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le voyage",
+    "chinese": "旅行",
+    "phonetic": "[lə vwa.jaʒ]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le cinéma",
+    "chinese": "电影",
+    "phonetic": "[lə si.ne.ma]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le théâtre",
+    "chinese": "戏剧",
+    "phonetic": "[lə te.a.tʁ]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la danse",
+    "chinese": "舞蹈",
+    "phonetic": "[la dɑ̃s]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le football",
+    "chinese": "足球",
+    "phonetic": "[lə fut.bɔl]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le basketball",
+    "chinese": "篮球",
+    "phonetic": "[lə basket.bɔl]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le tennis",
+    "chinese": "网球",
+    "phonetic": "[lə tɛ.nis]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la natation",
+    "chinese": "游泳",
+    "phonetic": "[la na.ta.sjɔ̃]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la lecture",
+    "chinese": "阅读",
+    "phonetic": "[la lɛk.tyʁ]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "peindre",
+    "chinese": "绘画",
+    "phonetic": "[pɛ̃dʁ]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "collectionner",
+    "chinese": "收集",
+    "phonetic": "[kɔ.lɛk.sjɔ.ne]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "chanter",
+    "chinese": "唱歌",
+    "phonetic": "[ʃɑ̃.te]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "jouer de la guitare",
+    "chinese": "弹吉他",
+    "phonetic": "[ʒu.e də la ɡi.taʁ]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "faire du sport",
+    "chinese": "做运动",
+    "phonetic": "[fɛʁ dy spɔʁ]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "écrire",
+    "chinese": "写",
+    "phonetic": "[e.kʁiʁ]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "dessiner",
+    "chinese": "画画",
+    "phonetic": "[de.si.ne]",
+    "part_of_speech": "v.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la photo",
+    "chinese": "摄影",
+    "phonetic": "[la fo.to]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la peinture",
+    "chinese": "绘画",
+    "phonetic": "[la pɛ̃.tyʁ]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "l'artisanat",
+    "chinese": "手工艺",
+    "phonetic": "[lar.ti.za.nat]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "la lecture",
+    "chinese": "阅读",
+    "phonetic": "[la lɛk.tyʁ]",
+    "part_of_speech": "n.f.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "le passe-temps",
+    "chinese": "消遣",
+    "phonetic": "[lə pas.tɑ̃]",
+    "part_of_speech": "n.m.",
+    "category": "兴趣爱好"
+  },
+  {
+    "french": "lundi",
+    "chinese": "星期一",
+    "phonetic": "[lœ̃.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "mardi",
+    "chinese": "星期二",
+    "phonetic": "[maʁ.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "mercredi",
+    "chinese": "星期三",
+    "phonetic": "[mɛʁ.kʁə.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "jeudi",
+    "chinese": "星期四",
+    "phonetic": "[ʒø.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "vendredi",
+    "chinese": "星期五",
+    "phonetic": "[vɑ̃.dʁə.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "samedi",
+    "chinese": "星期六",
+    "phonetic": "[sam.di]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "dimanche",
+    "chinese": "星期天",
+    "phonetic": "[di.mɑ̃ʃ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "janvier",
+    "chinese": "一月",
+    "phonetic": "[ʒɑ̃.vje]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "février",
+    "chinese": "二月",
+    "phonetic": "[fe.vʁje]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "mars",
+    "chinese": "三月",
+    "phonetic": "[maʁs]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "avril",
+    "chinese": "四月",
+    "phonetic": "[a.vʁil]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "mai",
+    "chinese": "五月",
+    "phonetic": "[mɛ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "juin",
+    "chinese": "六月",
+    "phonetic": "[ʒɥɛ̃]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "juillet",
+    "chinese": "七月",
+    "phonetic": "[ʒɥi.jɛ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "août",
+    "chinese": "八月",
+    "phonetic": "[u]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "septembre",
+    "chinese": "九月",
+    "phonetic": "[sɛp.tɑ̃bʁ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "octobre",
+    "chinese": "十月",
+    "phonetic": "[ɔk.tɔbʁ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "novembre",
+    "chinese": "十一月",
+    "phonetic": "[nɔ.vɑ̃bʁ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "décembre",
+    "chinese": "十二月",
+    "phonetic": "[de.sɑ̃bʁ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "le printemps",
+    "chinese": "春天",
+    "phonetic": "[lə pʁɛ̃.tɑ̃]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "l'été",
+    "chinese": "夏天",
+    "phonetic": "[le.te]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "l'automne",
+    "chinese": "秋天",
+    "phonetic": "[lo.tɔn]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "l'hiver",
+    "chinese": "冬天",
+    "phonetic": "[li.vɛʁ]",
+    "part_of_speech": "n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "il fait beau",
+    "chinese": "天气很好",
+    "phonetic": "[il fɛ bo]",
+    "part_of_speech": "expression",
+    "category": "天气"
+  },
+  {
+    "french": "il pleut",
+    "chinese": "下雨了",
+    "phonetic": "[il plø]",
+    "part_of_speech": "v.",
+    "category": "天气"
+  },
+  {
+    "french": "grand",
+    "chinese": "大的",
+    "phonetic": "[ɡʁɑ̃]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "petit",
+    "chinese": "小的",
+    "phonetic": "[pə.ti]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "bon",
+    "chinese": "好的",
+    "phonetic": "[bɔ̃]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "mauvais",
+    "chinese": "坏的",
+    "phonetic": "[mo.vɛ]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "nouveau",
+    "chinese": "新的",
+    "phonetic": "[nu.vo]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "vieux",
+    "chinese": "旧的",
+    "phonetic": "[vjø]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "beau",
+    "chinese": "漂亮的",
+    "phonetic": "[bo]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "joli",
+    "chinese": "美丽的",
+    "phonetic": "[ʒo.li]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "facile",
+    "chinese": "容易的",
+    "phonetic": "[fa.sil]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "difficile",
+    "chinese": "困难的",
+    "phonetic": "[di.fi.sil]",
+    "part_of_speech": "adj.",
+    "category": "形容词"
+  },
+  {
+    "french": "faire",
+    "chinese": "做",
+    "phonetic": "[fɛʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "aller",
+    "chinese": "去",
+    "phonetic": "[a.le]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "venir",
+    "chinese": "来",
+    "phonetic": "[və.niʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "avoir",
+    "chinese": "有",
+    "phonetic": "[a.vwaʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "être",
+    "chinese": "是",
+    "phonetic": "[ɛtʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "pouvoir",
+    "chinese": "能够",
+    "phonetic": "[pu.vwaʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "vouloir",
+    "chinese": "想要",
+    "phonetic": "[vu.lwaʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "savoir",
+    "chinese": "知道",
+    "phonetic": "[sa.vwaʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "parler",
+    "chinese": "说话",
+    "phonetic": "[paʁ.le]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "écouter",
+    "chinese": "听",
+    "phonetic": "[e.ku.te]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "regarder",
+    "chinese": "看",
+    "phonetic": "[ʁə.ɡaʁ.de]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "manger",
+    "chinese": "吃",
+    "phonetic": "[mɑ̃.ʒe]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "boire",
+    "chinese": "喝",
+    "phonetic": "[bwaʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "dormir",
+    "chinese": "睡觉",
+    "phonetic": "[dɔʁ.miʁ]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  },
+  {
+    "french": "travailler",
+    "chinese": "工作",
+    "phonetic": "[tʁa.va.je]",
+    "part_of_speech": "v.",
+    "category": "动词"
+  }
+]

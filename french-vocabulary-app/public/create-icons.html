@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图标生成器</title>
+</head>
+<body>
+    <canvas id="canvas" width="512" height="512" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="generateIcon()">生成图标</button>
+    
+    <script>
+        function generateIcon() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // 绘制背景圆形
+            ctx.fillStyle = '#26C6B0';
+            ctx.beginPath();
+            ctx.arc(256, 256, 240, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 绘制白色边框
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 16;
+            ctx.beginPath();
+            ctx.arc(256, 256, 240, 0, 2 * Math.PI);
+            ctx.stroke();
+            
+            // 绘制内圈
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(256, 256, 180, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // 绘制法文字母A
+            ctx.fillStyle = '#26C6B0';
+            ctx.font = 'bold 80px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('A', 150, 200);
+            
+            // 绘制法文字母B
+            ctx.fillText('B', 256, 200);
+            
+            // 绘制法文字母C
+            ctx.fillText('C', 362, 200);
+            
+            // 绘制装饰性线条
+            ctx.fillRect(120, 300, 272, 8);
+            ctx.fillRect(160, 320, 192, 8);
+            
+            // 绘制装饰性点
+            ctx.beginPath();
+            ctx.arc(180, 360, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(256, 360, 6, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(332, 360, 6, 0, 2 * Math.PI);
+            ctx.fill();
+        }
+        
+        // 生成不同尺寸的图标
+        function saveIcon(size) {
+            const canvas = document.getElementById('canvas');
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            
+            tempCanvas.width = size;
+            tempCanvas.height = size;
+            
+            // 缩放原画布内容到新画布
+            tempCtx.drawImage(canvas, 0, 0, size, size);
+            
+            // 转换为blob并下载
+            tempCanvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // 页面加载后生成主图标
+        window.onload = function() {
+            generateIcon();
+            
+            // 添加生成按钮
+            setTimeout(() => {
+                const button = document.createElement('button');
+                button.innerHTML = '生成192x192图标';
+                button.onclick = () => saveIcon(192);
+                document.body.appendChild(button);
+                
+                const button2 = document.createElement('button');
+                button2.innerHTML = '生成512x512图标';
+                button2.onclick = () => saveIcon(512);
+                document.body.appendChild(button2);
+                
+                const button3 = document.createElement('button');
+                button3.innerHTML = '生成144x144图标';
+                button3.onclick = () => saveIcon(144);
+                document.body.appendChild(button3);
+                
+                const button4 = document.createElement('button');
+                button4.innerHTML = '生成96x96图标';
+                button4.onclick = () => saveIcon(96);
+                document.body.appendChild(button4);
+                
+                const button5 = document.createElement('button');
+                button5.innerHTML = '生成72x72图标';
+                button5.onclick = () => saveIcon(72);
+                document.body.appendChild(button5);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

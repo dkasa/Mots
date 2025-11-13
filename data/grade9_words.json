@@ -1,0 +1,662 @@
+[
+  {
+    "french": "Bonjour",
+    "chinese": "你好",
+    "phonetic": "[bɔ̃.ʒuʁ]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Merci",
+    "chinese": "谢谢",
+    "phonetic": "[mɛʁ.si]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Oui",
+    "chinese": "是",
+    "phonetic": "[wi]",
+    "part_of_speech": "adverb"
+  },
+  {
+    "french": "Non",
+    "chinese": "否",
+    "phonetic": "[nɔ̃]",
+    "part_of_speech": "adverb"
+  },
+  {
+    "french": "S'il vous plaît",
+    "chinese": "请",
+    "phonetic": "[sil vu plɛ]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Excusez-moi",
+    "chinese": "对不起/劳驾",
+    "phonetic": "[ɛks.ky.ze mwa]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Pardon",
+    "chinese": "对不起",
+    "phonetic": "[paʁ.dɔ̃]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Comment ça va?",
+    "chinese": "你好吗？",
+    "phonetic": "[kɔ.mɑ̃ sa va]",
+    "part_of_speech": "expression"
+  },
+  {
+    "french": "Je m'appelle",
+    "chinese": "我叫...",
+    "phonetic": "[ʒə ma.pɛl]",
+    "part_of_speech": "expression"
+  },
+  {
+    "french": "Enchanté(e)",
+    "chinese": "很高兴认识你",
+    "phonetic": "[ɑ̃.ʃɑ̃.te]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Au revoir",
+    "chinese": "再见",
+    "phonetic": "[o ʁə.vwaʁ]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Bonsoir",
+    "chinese": "晚上好",
+    "phonetic": "[bɔ̃.swaʁ]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Bonne nuit",
+    "chinese": "晚安",
+    "phonetic": "[bɔn nɥi]",
+    "part_of_speech": "interjection"
+  },
+  {
+    "french": "Famille",
+    "chinese": "家庭",
+    "phonetic": "[fa.mij]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Ami(e)",
+    "chinese": "朋友",
+    "phonetic": "[a.mi]",
+    "part_of_speech": "nom commun"
+  },
+  {
+    "french": "Maison",
+    "chinese": "家/房子",
+    "phonetic": "[mɛ.zɔ̃]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "École",
+    "chinese": "学校",
+    "phonetic": "[e.kɔl]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Professeur",
+    "chinese": "老师",
+    "phonetic": "[pʁɔ.fɛ.sœʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Élève",
+    "chinese": "学生",
+    "phonetic": "[e.lɛv]",
+    "part_of_speech": "nom commun"
+  },
+  {
+    "french": "Cours",
+    "chinese": "课程",
+    "phonetic": "[kuʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Devoir",
+    "chinese": "作业",
+    "phonetic": "[də.vwaʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Examen",
+    "chinese": "考试",
+    "phonetic": "[ɛɡ.za.mɛ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Note",
+    "chinese": "成绩",
+    "phonetic": "[nɔt]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Manuel",
+    "chinese": "教科书",
+    "phonetic": "[ma.nɥɛl]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Bibliothèque",
+    "chinese": "图书馆",
+    "phonetic": "[bi.bli.jɔ.tɛk]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Étudier",
+    "chinese": "学习",
+    "phonetic": "[e.ty.dje]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Leçon",
+    "chinese": "课",
+    "phonetic": "[lə.sɔ̃]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Récréation",
+    "chinese": "课间休息",
+    "phonetic": "[ʁe.kʁe.a.sjɔ̃]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Directeur",
+    "chinese": "校长",
+    "phonetic": "[di.ʁɛk.tœʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Conférence",
+    "chinese": "讲座",
+    "phonetic": "[kɔ̃.fe.ʁɑ̃s]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Aujourd'hui",
+    "chinese": "今天",
+    "phonetic": "[o.ʒuʁ.dɥi]",
+    "part_of_speech": "adverb"
+  },
+  {
+    "french": "Demain",
+    "chinese": "明天",
+    "phonetic": "[də.mɛ̃]",
+    "part_of_speech": "adverb"
+  },
+  {
+    "french": "Hier",
+    "chinese": "昨天",
+    "phonetic": "[jɛʁ]",
+    "part_of_speech": "adverb"
+  },
+  {
+    "french": "Lundi",
+    "chinese": "星期一",
+    "phonetic": "[lœ̃.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Mardi",
+    "chinese": "星期二",
+    "phonetic": "[maʁ.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Mercredi",
+    "chinese": "星期三",
+    "phonetic": "[mɛʁ.kʁə.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Jeudi",
+    "chinese": "星期四",
+    "phonetic": "[ʒø.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Vendredi",
+    "chinese": "星期五",
+    "phonetic": "[vɑ̃.dʁə.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Samedi",
+    "chinese": "星期六",
+    "phonetic": "[sam.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Dimanche",
+    "chinese": "星期日",
+    "phonetic": "[di.mɑ̃ʃ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Matin",
+    "chinese": "早上",
+    "phonetic": "[ma.tɛ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Après-midi",
+    "chinese": "下午",
+    "phonetic": "[a.pʁɛ mi.di]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Soir",
+    "chinese": "晚上",
+    "phonetic": "[swaʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Ville",
+    "chinese": "城市",
+    "phonetic": "[vil]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Pays",
+    "chinese": "国家",
+    "phonetic": "[pei]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Rue",
+    "chinese": "街道",
+    "phonetic": "[ʁy]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Magasin",
+    "chinese": "商店",
+    "phonetic": "[ma.ɡa.zɛ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Marché",
+    "chinese": "市场",
+    "phonetic": "[maʁ.ʃe]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Restaurant",
+    "chinese": "餐厅",
+    "phonetic": "[ʁɛs.to.ʁɑ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Voiture",
+    "chinese": "汽车",
+    "phonetic": "[vwa.tyʁ]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Bus",
+    "chinese": "公交车",
+    "phonetic": "[bys]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Train",
+    "chinese": "火车",
+    "phonetic": "[tʁɛ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Avion",
+    "chinese": "飞机",
+    "phonetic": "[a.vjɔ̃]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Bateau",
+    "chinese": "船",
+    "phonetic": "[ba.to]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Passeport",
+    "chinese": "护照",
+    "phonetic": "[pas.pɔʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Hôtel",
+    "chinese": "酒店",
+    "phonetic": "[o.tɛl]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Réception",
+    "chinese": "接待处",
+    "phonetic": "[ʁe.sɛp.sjɔ̃]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Chambre",
+    "chinese": "房间",
+    "phonetic": "[ʃɑ̃.bʁ]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Clé",
+    "chinese": "钥匙",
+    "phonetic": "[kle]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Ascenseur",
+    "chinese": "电梯",
+    "phonetic": "[asɑ̃.sœʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Valise",
+    "chinese": "行李箱",
+    "phonetic": "[va.liz]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Château",
+    "chinese": "城堡",
+    "phonetic": "[ʃa.to]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Musée",
+    "chinese": "博物馆",
+    "phonetic": "[my.ze]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Statue",
+    "chinese": "雕像",
+    "phonetic": "[sta.ty]",
+    "part_of_speech": "nom féminin"
+  },
+  {
+    "french": "Billet",
+    "chinese": "票",
+    "phonetic": "[bi.jɛ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Plan de ville",
+    "chinese": "城市地图",
+    "phonetic": "[plɑ̃ də vil]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Camping",
+    "chinese": "露营",
+    "phonetic": "[kɑ̃.piŋ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Appareil photo",
+    "chinese": "相机",
+    "phonetic": "[a.pa.ʁɛj fo.to]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Sac à dos",
+    "chinese": "背包",
+    "phonetic": "[sak a do]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Guide",
+    "chinese": "导游",
+    "phonetic": "[ɡid]",
+    "part_of_speech": "nom commun"
+  },
+  {
+    "french": "Souvenir",
+    "chinese": "纪念品",
+    "phonetic": "[suv.niʁ]",
+    "part_of_speech": "nom masculin"
+  },
+  {
+    "french": "Étrange",
+    "chinese": "奇怪的",
+    "phonetic": "[e.tʁɑ̃ʒ]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Magnifique",
+    "chinese": "壮丽的",
+    "phonetic": "[ma.ɲi.fik]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Délicieux",
+    "chinese": "美味的",
+    "phonetic": "[de.li.sjø]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Intéressant",
+    "chinese": "有趣的",
+    "phonetic": "[ɛ̃.te.ʁe.sɑ̃]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Facile",
+    "chinese": "容易的",
+    "phonetic": "[fa.sil]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Difficile",
+    "chinese": "困难的",
+    "phonetic": "[di.fi.sil]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Grand",
+    "chinese": "大的",
+    "phonetic": "[ɡʁɑ̃]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Petit",
+    "chinese": "小的",
+    "phonetic": "[pə.ti]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Bon",
+    "chinese": "好的",
+    "phonetic": "[bɔ̃]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Mauvais",
+    "chinese": "坏的",
+    "phonetic": "[mo.vɛ]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Beau",
+    "chinese": "美丽的",
+    "phonetic": "[bo]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Joli",
+    "chinese": "漂亮的",
+    "phonetic": "[ʒo.li]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Long",
+    "chinese": "长的",
+    "phonetic": "[lɔ̃]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Court",
+    "chinese": "短的",
+    "phonetic": "[kuʁ]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Jeune",
+    "chinese": "年轻的",
+    "phonetic": "[ʒœn]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Vieux",
+    "chinese": "老的",
+    "phonetic": "[vjø]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Fort",
+    "chinese": "强的",
+    "phonetic": "[fɔʁ]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Faible",
+    "chinese": "弱的",
+    "phonetic": "[fɛbl]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Propre",
+    "chinese": "干净的",
+    "phonetic": "[pʁɔpʁ]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Sale",
+    "chinese": "脏的",
+    "phonetic": "[sal]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Chaud",
+    "chinese": "热的",
+    "phonetic": "[ʃo]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Froid",
+    "chinese": "冷的",
+    "phonetic": "[fʁwa]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Nouveau",
+    "chinese": "新的",
+    "phonetic": "[nu.vo]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Ancien",
+    "chinese": "旧的",
+    "phonetic": "[ɑ̃.sjɛ̃]",
+    "part_of_speech": "adjectif"
+  },
+  {
+    "french": "Préférer",
+    "chinese": "更喜欢",
+    "phonetic": "[pʁe.fe.ʁe]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Aller",
+    "chinese": "去",
+    "phonetic": "[a.le]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Venir",
+    "chinese": "来",
+    "phonetic": "[və.niʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Avoir",
+    "chinese": "有",
+    "phonetic": "[a.vwaʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Être",
+    "chinese": "是",
+    "phonetic": "[ɛtʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Faire",
+    "chinese": "做",
+    "phonetic": "[fɛʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Dire",
+    "chinese": "说",
+    "phonetic": "[diʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Penser",
+    "chinese": "思考",
+    "phonetic": "[pɑ̃.se]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Parler",
+    "chinese": "说话",
+    "phonetic": "[paʁ.le]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Comprendre",
+    "chinese": "理解",
+    "phonetic": "[kɔ̃.pʁɑ̃dʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Apprendre",
+    "chinese": "学习",
+    "phonetic": "[a.pʁɑ̃dʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Voir",
+    "chinese": "看见",
+    "phonetic": "[vwaʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Donner",
+    "chinese": "给",
+    "phonetic": "[do.ne]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Prendre",
+    "chinese": "拿",
+    "phonetic": "[pʁɑ̃dʁ]",
+    "part_of_speech": "verbe"
+  },
+  {
+    "french": "Mettre",
+    "chinese": "放",
+    "phonetic": "[mɛtʁ]",
+    "part_of_speech": "verbe"
+  }
+]

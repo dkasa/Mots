@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
+  <!-- PWA配置 -->
+  <title>初中法语背单词</title>
+  <meta name="description" content="专为初中生设计的法语词汇学习应用，支持年级分类、进度跟踪、离线使用" />
+  <meta name="keywords" content="法语,背单词,学习,初中,词汇,PWA" />
+  <meta name="author" content="MiniMax Agent" />
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  
+  <!-- 主题色 -->
+  <meta name="theme-color" content="#26C6B0" />
+  <meta name="msapplication-TileColor" content="#26C6B0" />
+  <meta name="msapplication-navbutton-color" content="#26C6B0" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  
+  <!-- iOS配置 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="法语背单词" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  
+  <!-- 图标配置 -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icon-72x72.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon-192x192.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="/icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/icon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="/icon-96x96.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="/icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="/icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="57x57" href="/icon-72x72.png" />
+  
+  <!-- Splash Screen配置 -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="法语背单词" />
+  
+  <!-- Windows磁贴配置 -->
+  <meta name="msapplication-TileImage" content="/icon-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/icon-72x72.png" />
+  <meta name="msapplication-square150x150logo" content="/icon-144x144.png" />
+  <meta name="msapplication-wide310x150logo" content="/icon-192x192.png" />
+  <meta name="msapplication-square310x310logo" content="/icon-192x192.png" />
+  
+  <!-- 社交媒体优化 -->
+  <meta property="og:title" content="初中法语背单词" />
+  <meta property="og:description" content="专为初中生设计的法语词汇学习应用" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/icon-512x512.png" />
+  <meta property="og:url" content="/" />
+  
+  <!-- 禁用缩放和选择 -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  
+  <!-- 预加载关键资源 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+  <style>
+    /* 启动画面样式 */
+    #splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #26C6B0 0%, #1A9B8A 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    #splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .splash-icon {
+      width: 120px;
+      height: 120px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: bold;
+      color: #26C6B0;
+      margin-bottom: 24px;
+      animation: pulse 2s infinite;
+    }
+    
+    .splash-text {
+      color: white;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .splash-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      text-align: center;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    /* 防止页面闪烁 */
+    body {
+      background-color: #FAFAF9;
+      margin: 0;
+      padding: 0;
+    }
+    
+    #root {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 启动画面 -->
+  <div id="splash-screen">
+    <div class="splash-icon">Mots</div>
+    <div class="splash-text">法语背单词</div>
+    <div class="splash-subtitle">初中生法语词汇学习助手</div>
+  </div>
+  
+  <div id="root"></div>
+  
+  <!-- PWA安装提示 -->
+  <div id="install-prompt" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; background: #26C6B0; color: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); z-index: 1000;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <div style="font-weight: 600; margin-bottom: 4px;">安装应用</div>
+        <div style="font-size: 14px; opacity: 0.9;">添加到主屏幕，获得更好体验</div>
+      </div>
+      <div>
+        <button id="install-button" style="background: white; color: #26C6B0; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; margin-right: 8px;">安装</button>
+        <button id="close-install" style="background: transparent; color: white; border: 1px solid white; padding: 8px 16px; border-radius: 6px;">关闭</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PWA状态提示 -->
+  <div id="pwa-status" style="display: none; position: fixed; top: 20px; left: 20px; right: 20px; background: #F59E0B; color: white; padding: 12px; border-radius: 8px; text-align: center; z-index: 1000;">
+    <span id="pwa-status-text"></span>
+  </div>
+  
+  <script type="module" src="/src/main.tsx"></script>
+  
+  <!-- Service Worker注册 -->
+  <script>
+    // Service Worker 注册
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', async () => {
+        try {
+          const registration = await navigator.serviceWorker.register('/sw.js');
+          console.log('[PWA] Service Worker registered successfully:', registration.scope);
+          
+          // 检查更新
+          registration.addEventListener('updatefound', () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  showPWAStatus('应用已更新，请刷新页面获得最新版本', 'success');
+                }
+              });
+            }
+          });
+          
+        } catch (error) {
+          console.error('[PWA] Service Worker registration failed:', error);
+        }
+      });
+    }
+    
+    // PWA安装提示
+    let deferredPrompt;
+    let installPrompt = document.getElementById('install-prompt');
+    let installButton = document.getElementById('install-button');
+    let closeInstall = document.getElementById('close-install');
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // 延迟显示安装提示（让用户先熟悉应用）
+      setTimeout(() => {
+        if (!window.matchMedia('(display-mode: standalone)').matches && !localStorage.getItem('pwa-installed')) {
+          installPrompt.style.display = 'block';
+        }
+      }, 30000); // 30秒后显示
+    });
+    
+    // 安装按钮事件
+    installButton?.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        
+        if (outcome === 'accepted') {
+          console.log('[PWA] User accepted the install prompt');
+          localStorage.setItem('pwa-installed', 'true');
+          showPWAStatus('应用安装成功！', 'success');
+        }
+        
+        deferredPrompt = null;
+        installPrompt.style.display = 'none';
+      }
+    });
+    
+    // 关闭安装提示
+    closeInstall?.addEventListener('click', () => {
+      installPrompt.style.display = 'none';
+      localStorage.setItem('pwa-install-dismissed', Date.now());
+    });
+    
+    // 检查是否已安装
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] App was installed');
+      localStorage.setItem('pwa-installed', 'true');
+      installPrompt.style.display = 'none';
+      showPWAStatus('应用安装成功！', 'success');
+    });
+    
+    // PWA状态提示函数
+    function showPWAStatus(message, type = 'info') {
+      const statusElement = document.getElementById('pwa-status');
+      const textElement = document.getElementById('pwa-status-text');
+      
+      textElement.textContent = message;
+      statusElement.style.display = 'block';
+      
+      // 根据类型设置颜色
+      if (type === 'success') {
+        statusElement.style.background = '#22C55E';
+      } else if (type === 'warning') {
+        statusElement.style.background = '#F59E0B';
+      } else if (type === 'error') {
+        statusElement.style.background = '#EF4444';
+      }
+      
+      // 3秒后自动隐藏
+      setTimeout(() => {
+        statusElement.style.display = 'none';
+      }, 3000);
+    }
+    
+    // 检查网络状态
+    function updateOnlineStatus() {
+      if (navigator.onLine) {
+        showPWAStatus('网络连接已恢复', 'success');
+      } else {
+        showPWAStatus('网络连接断开，应用将在离线模式下工作', 'warning');
+      }
+    }
+    
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    
+    // 初始化启动画面隐藏
+    setTimeout(() => {
+      const splashScreen = document.getElementById('splash-screen');
+      if (splashScreen) {
+        splashScreen.classList.add('hidden');
+        setTimeout(() => {
+          splashScreen.style.display = 'none';
+        }, 500);
+      }
+    }, 2000);
+    
+    // 防止双击缩放
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+    
+    // 添加触摸反馈
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        const button = e.target.tagName === 'BUTTON' ? e.target : e.target.closest('button');
+        button.style.transform = 'scale(0.95)';
+        button.style.transition = 'transform 0.1s ease';
+      }
+    });
+    
+    document.addEventListener('touchend', function(e) {
+      if (e.target.tagName === 'BUTTON' || e.target.closest('button')) {
+        const button = e.target.tagName === 'BUTTON' ? e.target : e.target.closest('button');
+        setTimeout(() => {
+          button.style.transform = 'scale(1)';
+        }, 100);
+      }
+    });
+  </script>
+</body>
+
+</html>

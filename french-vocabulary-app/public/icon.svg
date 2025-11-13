@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="256" cy="256" r="240" fill="#26C6B0" stroke="#FFFFFF" stroke-width="16"/>
+  
+  <!-- 内圈 -->
+  <circle cx="256" cy="256" r="180" fill="#FFFFFF"/>
+  
+  <!-- 法语字母A -->
+  <text x="150" y="180" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#26C6B0" text-anchor="middle">A</text>
+  
+  <!-- 法语字母B -->
+  <text x="256" y="180" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#26C6B0" text-anchor="middle">B</text>
+  
+  <!-- 法语字母C -->
+  <text x="362" y="180" font-family="Arial, sans-serif" font-size="80" font-weight="bold" fill="#26C6B0" text-anchor="middle">C</text>
+  
+  <!-- 装饰性线条 -->
+  <rect x="120" y="280" width="272" height="8" fill="#26C6B0" rx="4"/>
+  <rect x="160" y="300" width="192" height="8" fill="#26C6B0" rx="4"/>
+  
+  <!-- 装饰性点 -->
+  <circle cx="180" cy="350" r="6" fill="#26C6B0"/>
+  <circle cx="256" cy="350" r="6" fill="#26C6B0"/>
+  <circle cx="332" cy="350" r="6" fill="#26C6B0"/>
+</svg>
