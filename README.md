@@ -5,7 +5,7 @@
 **项目名称**: Mots  
 **项目类型**: Progressive Web App (PWA)  
 **生成完成时间**: 2025年11月12日  
-**初版生成地址**: https://yuvtex7gwoe1.space.minimaxi.com
+**初版生成地址**: https://yuvtex7gwoe1.space.minimaxi.com 
 **项目状态**: 根据现有需求调整中，后续提供更新后部署版本
 
 ## 页面截图
