@@ -176,3 +176,9 @@ Service Worker (sw.js)
 - **界面切换**: 平滑过渡无卡顿
 - **操作反馈**: 实时视觉和触觉反馈
 
+## 快速运行
+### 构建命令
+docker build -f docker/Dockerfile -t mots:v1.1.0 .
+
+### 运行命令
+docker run -d -p 2402:2402 --name mots mots:v1.1.0
