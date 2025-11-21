@@ -8,13 +8,16 @@ interface GradeSelectorProps {
 
 export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProps) {
   const grades = [
-    { value: 7 as Grade, label: '初一' },
-    { value: 8 as Grade, label: '初二' },
-    { value: 9 as Grade, label: '初三' },
+    { value: 71 as Grade, label: '初一上' },
+    { value: 72 as Grade, label: '初一下' },
+    { value: 81 as Grade, label: '初二上' },
+    { value: 82 as Grade, label: '初二下' },
+    { value: 91 as Grade, label: '初三上' },
+    { value: 92 as Grade, label: '初三下' },
   ];
 
   return (
-    <div className="bg-neutral-100 rounded-md p-1 mx-5 my-4">
+    <div className="bg-neutral-100 rounded-md p-2 mx-5 mt-8 mb-4">
       <div className="flex">
         {grades.map((grade) => {
           const isActive = currentGrade === grade.value;
@@ -23,7 +26,7 @@ export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProp
               key={grade.value}
               onClick={() => onGradeChange(grade.value)}
               className={`
-                flex-1 h-12 text-base font-medium rounded-md transition-all duration-250 ease-out relative
+                flex-1 h-16 text-base font-medium rounded-md transition-all duration-250 ease-out relative
                 ${isActive 
                   ? 'bg-bg-card text-primary-700 font-semibold shadow-sm' 
                   : 'text-neutral-600 hover:bg-neutral-50'
@@ -32,7 +35,7 @@ export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProp
             >
               {grade.label}
               {isActive && (
-                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-primary-500 rounded-full" />
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-10 h-1.5 bg-primary-500 rounded-full" />
               )}
             </button>
           );

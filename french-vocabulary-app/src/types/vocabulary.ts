@@ -8,12 +8,12 @@ export interface Word {
 
 export interface WordWithStatus extends Word {
   id: string;
-  grade: 7 | 8 | 9;
+  grade: 71 | 72 | 81 | 82 | 91 | 92;
   isLearned: boolean;
   isMastered: boolean;
 }
 
-export type Grade = 7 | 8 | 9;
+export type Grade = 71 | 72 | 81 | 82 | 91 | 92;
 export type FilterType = 'all' | 'mastered' | 'not-mastered';
 export type ViewMode = 'learn' | 'list';
 

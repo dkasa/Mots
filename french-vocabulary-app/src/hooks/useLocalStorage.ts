@@ -12,8 +12,8 @@ const STORAGE_KEYS = {
 export function useLocalStorage() {
   const [currentGrade, setCurrentGrade] = useState<Grade>(() => {
     const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_GRADE);
-    const grade = saved ? parseInt(saved) as Grade : 7;
-    return (grade === 7 || grade === 8 || grade === 9) ? grade : 7;
+    const grade = saved ? parseInt(saved) as Grade : 81;
+    return (grade === 71 || grade === 72 || grade === 81 || grade === 82 || grade === 91 || grade === 92) ? grade : 81;
   });
 
   const [currentViewMode, setCurrentViewMode] = useState<ViewMode>(() => {
@@ -106,7 +106,7 @@ export function useLocalStorage() {
   const resetAllData = useCallback(() => {
     setLearnedWords({});
     setMasteredWords({});
-    setCurrentGrade(7);
+    setCurrentGrade(81);
     setCurrentViewMode('learn');
     setCurrentFilter('all');
   }, []);

@@ -49,9 +49,8 @@ function App() {
   // 处理年级切换
   const handleGradeChange = useCallback((grade: Grade) => {
     setCurrentGrade(grade);
-    // 年级切换时重置到学习模式
-    setCurrentViewMode('learn');
-  }, [setCurrentGrade, setCurrentViewMode]);
+    // 保持当前视图，不再在切换年级时强制跳到学习模式
+  }, [setCurrentGrade]);
 
   // 处理视图模式切换
   const handleViewModeChange = useCallback((mode: ViewMode) => {
@@ -119,7 +118,7 @@ function App() {
       <ProgressIndicator progress={progress} />
       
       {/* 主内容区域 */}
-      <main className="pt-56 pb-20">
+      <main className="pt-[calc(60px+40px+16px)] pb-20">
         {currentViewMode === 'learn' ? (
           <LearnMode
             words={words}

@@ -1,23 +1,25 @@
-const CACHE_NAME = 'french-vocabulary-app-v1.0.0';
-const STATIC_CACHE = 'static-cache-v1.0.0';
-const DYNAMIC_CACHE = 'dynamic-cache-v1.0.0';
+const VERSION = 'v1.0.1';
+const STATIC_CACHE = `static-cache-${VERSION}`;
+const DYNAMIC_CACHE = `dynamic-cache-${VERSION}`;
 
-// 需要缓存的资源列表
+// 需要缓存的资源列表（根据构建产物调整路径）
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon-192x192.png',
-  '/icon-512x512.png',
-  '/icon-144x144.png',
-  '/icon-96x96.png',
-  '/icon-72x72.png',
-  '/data/grade7_words.json',
-  '/data/grade8_words.json',
-  '/data/grade9_words.json'
+  '/icon/icon-192.png',
+  '/icon/icon-512.png',
+  '/icon/icon-144.png',
+  '/icon/icon-96.png',
+  '/icon/icon-72.png',
+  '/data/grade71_words.json',
+  '/data/grade72_words.json',
+  '/data/grade81_words.json',
+  '/data/grade82_words.json',
+  '/data/grade91_words.json',
+  '/data/grade92_words.json'
 ];
 
-// 动态缓存的资源类型
 const DYNAMIC_CACHE_PATTERNS = [
   /\.css$/,
   /\.js$/,
@@ -30,167 +32,141 @@ const DYNAMIC_CACHE_PATTERNS = [
   /\.woff2$/
 ];
 
-// 安装事件 - 缓存静态资源
 self.addEventListener('install', event => {
-  console.log('[Service Worker] Installing...');
-  
   event.waitUntil(
     caches.open(STATIC_CACHE)
-      .then(cache => {
-        console.log('[Service Worker] Caching static assets');
-        return cache.addAll(STATIC_ASSETS);
-      })
-      .then(() => {
-        console.log('[Service Worker] Static assets cached successfully');
-        return self.skipWaiting();
-      })
-      .catch(error => {
-        console.error('[Service Worker] Failed to cache static assets:', error);
-      })
+      .then(cache => cache.addAll(STATIC_ASSETS))
+      .then(() => self.skipWaiting())
+      .catch(err => console.error('[SW] Install failed:', err))
   );
 });
 
-// 激活事件 - 清理旧缓存
 self.addEventListener('activate', event => {
-  console.log('[Service Worker] Activating...');
-  
   event.waitUntil(
-    caches.keys()
-      .then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => {
-            if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
-              console.log('[Service Worker] Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
-        );
-      })
-      .then(() => {
-        console.log('[Service Worker] Activation complete');
-        return self.clients.claim();
-      })
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(k => {
+          if (k !== STATIC_CACHE && k !== DYNAMIC_CACHE) {
+            return caches.delete(k);
+          }
+        })
+      )
+    ).then(() => self.clients.claim())
   );
 });
 
-// 获取事件 - 缓存策略
 self.addEventListener('fetch', event => {
   const { request } = event;
-  const url = new URL(request.url);
-  
-  // 只处理GET请求
-  if (request.method !== 'GET') {
-    return;
-  }
-  
-  // 跳过非HTTP/HTTPS请求
-  if (!url.protocol.startsWith('http')) {
-    return;
-  }
-  
-  event.respondWith(
-    handleFetchRequest(request)
-  );
+  if (request.method !== 'GET') return;
+
+  event.respondWith(handleFetchRequest(request));
 });
 
-// 处理fetch请求的策略
 async function handleFetchRequest(request) {
   const url = new URL(request.url);
-  
+
+  // 导航请求 -> 优先返回 index.html（离线 SPA 支持）
+  if (request.mode === 'navigate') {
+    try {
+      const networkResp = await fetch(request);
+      // 可选：缓存 index.html 的最新版本
+      const cache = await caches.open(STATIC_CACHE);
+      cache.put('/index.html', networkResp.clone()).catch(() => {});
+      return networkResp;
+    } catch (err) {
+      const cached = await caches.match('/index.html') || await caches.match('/');
+      if (cached) return cached;
+      return offlineJsonResponse();
+    }
+  }
+
+  // 静态资源 -> cache-first
+  if (isStaticAsset(url)) {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+    try {
+      const networkResp = await fetch(request);
+      if (okToCache(networkResp)) {
+        cacheResponse(request, networkResp.clone(), STATIC_CACHE).catch(() => {});
+      }
+      return networkResp;
+    } catch {
+      // 若无法从网络获取，则尝试返回任意缓存或失败响应
+      const fallback = await caches.match('/index.html');
+      return fallback || offlineJsonResponse();
+    }
+  }
+
+  // 动态资源（脚本、图片等） -> network-first then cache fallback
+  if (DYNAMIC_CACHE_PATTERNS.some(rx => rx.test(url.pathname))) {
+    try {
+      const networkResp = await fetch(request);
+      if (okToCache(networkResp)) {
+        cacheResponse(request, networkResp.clone(), DYNAMIC_CACHE).catch(() => {});
+      }
+      return networkResp;
+    } catch {
+      const cached = await caches.match(request);
+      if (cached) return cached;
+      return offlineJsonResponse();
+    }
+  }
+
+  // 默认网络优先，失败后缓存
   try {
-    // 1. 首先尝试从缓存获取
-    const cachedResponse = await caches.match(request);
-    if (cachedResponse) {
-      console.log('[Service Worker] Serving from cache:', url.pathname);
-      return cachedResponse;
+    const networkResp = await fetch(request);
+    if (okToCache(networkResp)) {
+      cacheResponse(request, networkResp.clone(), DYNAMIC_CACHE).catch(() => {});
     }
-    
-    // 2. 如果缓存中没有，从网络获取
-    console.log('[Service Worker] Fetching from network:', url.pathname);
-    const networkResponse = await fetch(request);
-    
-    // 3. 如果网络请求成功，缓存响应
-    if (networkResponse && networkResponse.status === 200) {
-      const responseClone = networkResponse.clone();
-      await cacheResponse(request, responseClone);
-      console.log('[Service Worker] Network response cached:', url.pathname);
-    }
-    
-    return networkResponse;
-    
-  } catch (error) {
-    console.error('[Service Worker] Fetch failed:', error);
-    
-    // 4. 网络请求失败，返回离线页面或缓存的页面
-    if (request.destination === 'document') {
-      // 返回主页作为离线页面
-      const offlinePage = await caches.match('/');
-      if (offlinePage) {
-        return offlinePage;
-      }
-    }
-    
-    // 返回基本的离线响应
-    return new Response(
-      JSON.stringify({
-        error: 'offline',
-        message: '应用当前处于离线状态，请检查网络连接'
-      }),
-      {
-        status: 503,
-        statusText: 'Service Unavailable',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Offline': 'true'
-        }
-      }
-    );
+    return networkResp;
+  } catch {
+    const cached = await caches.match(request);
+    return cached || offlineJsonResponse();
   }
 }
 
-// 缓存响应的函数
-async function cacheResponse(request, response) {
-  const url = new URL(request.url);
-  
-  // 确定缓存类型
-  const isStaticAsset = STATIC_ASSETS.includes(url.pathname) || 
-                       STATIC_ASSETS.some(asset => url.pathname.endsWith(asset)) ||
-                       url.pathname.startsWith('/data/');
-  
-  const cacheName = isStaticAsset ? STATIC_CACHE : DYNAMIC_CACHE;
-  
+function isStaticAsset(url) {
+  return STATIC_ASSETS.includes(url.pathname) || url.pathname.startsWith('/data/') || url.pathname.startsWith('/static/');
+}
+
+function okToCache(response) {
+  return response && (response.status === 200 || response.type === 'opaque');
+}
+
+async function cacheResponse(request, response, cacheName) {
   try {
     const cache = await caches.open(cacheName);
     await cache.put(request, response);
-  } catch (error) {
-    console.error('[Service Worker] Failed to cache response:', error);
+  } catch (err) {
+    console.warn('[SW] cache put failed', err);
   }
 }
 
-// 监听来自主线程的消息
+function offlineJsonResponse() {
+  return new Response(JSON.stringify({
+    error: 'offline',
+    message: '应用当前处于离线状态，请检查网络连接'
+  }), {
+    status: 503,
+    statusText: 'Service Unavailable',
+    headers: { 'Content-Type': 'application/json', 'X-Offline': 'true' }
+  });
+}
+
 self.addEventListener('message', event => {
-  console.log('[Service Worker] Received message:', event.data);
-  
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
+  const data = event.data || {};
+  if (data.type === 'SKIP_WAITING') self.skipWaiting();
+  if (data.type === 'GET_VERSION') {
+    if (event.ports && event.ports[0]) event.ports[0].postMessage({ version: VERSION });
   }
-  
-  if (event.data && event.data.type === 'GET_VERSION') {
-    event.ports[0].postMessage({ version: CACHE_NAME });
-  }
-  
-  if (event.data && event.data.type === 'CLEAR_CACHE') {
+  if (data.type === 'CLEAR_CACHE') {
     event.waitUntil(
-      caches.keys().then(cacheNames => {
-        return Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
-        );
-      })
+      caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
     );
   }
 });
 
-// 后台同步（可选功能）
+// 可选：后台同步与推送通知保持不变（如需保留可以合并原有逻辑）
 self.addEventListener('sync', event => {
   console.log('[Service Worker] Background sync:', event.tag);
   
