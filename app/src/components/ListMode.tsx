@@ -13,6 +13,8 @@ interface ListModeProps {
   onFilterChange: (filter: FilterType) => void;
   onWordClick: (word: WordWithStatus) => void;
   onRetry: () => void;
+  // 新增：父组件处理切换并负责持久化与刷新
+  onToggle: (word: WordWithStatus, newIsMastered: boolean) => void;
 }
 
 export function ListMode({ 
@@ -23,7 +25,8 @@ export function ListMode({
   currentFilter, 
   onFilterChange, 
   onWordClick, 
-  onRetry 
+  onRetry,
+  onToggle
 }: ListModeProps) {
   // 统计数据
   const masteredCount = words.filter(word => word.isMastered).length;
@@ -84,7 +87,7 @@ export function ListMode({
             <WordListItem
               key={word.id}
               word={word}
-              onClick={() => onWordClick(word)}
+              onToggle={onToggle} // <- 传入父组件处理函数
             />
           ))}
         </div>

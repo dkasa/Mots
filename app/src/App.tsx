@@ -8,7 +8,7 @@ import { ProgressIndicator } from './components/ProgressIndicator';
 import { LearnMode } from './components/LearnMode';
 import { ListMode } from './components/ListMode';
 import { BottomNavigation } from './components/BottomNavigation';
-import { PullToRefresh } from './components/PullToRefresh';
+
 import { WordWithStatus } from './types/vocabulary';
 
 function App() {
@@ -78,6 +78,19 @@ function App() {
     updateWordStatus(wordId, false, false);
   }, [unmarkAsLearned, updateWordStatus]);
 
+  // 处理列表中开关切换（父组件负责刷新分组和持久化）
+  const handleToggle = useCallback((word: WordWithStatus, newIsMastered: boolean) => {
+    if (newIsMastered) {
+      markAsMastered(word.id);
+      updateWordStatus(word.id, true, true);
+    } else {
+      // 这里按你的现有逻辑：标记为未掌握时也可以同时清除已学/已掌握标记
+      unmarkAsMastered?.(word.id);
+      unmarkAsLearned?.(word.id);
+      updateWordStatus(word.id, false, false);
+    }
+  }, [markAsMastered, unmarkAsLearned, unmarkAsMastered, updateWordStatus]);
+
   // 处理单词点击（从列表进入学习）
   const handleWordClick = useCallback((word: WordWithStatus) => {
     // 切换到学习模式
@@ -93,12 +106,7 @@ function App() {
     await reloadWords();
   }, [reloadWords]);
 
-  // 下拉刷新处理（仅在列表模式启用）
-  const handlePullToRefresh = useCallback(async () => {
-    if (currentViewMode === 'list') {
-      await handleRefresh();
-    }
-  }, [currentViewMode, handleRefresh]);
+  
 
   return (
     <div className="min-h-screen bg-bg-primary font-chinese">
@@ -118,7 +126,7 @@ function App() {
       <ProgressIndicator progress={progress} />
       
       {/* 主内容区域 */}
-      <main className="pt-[calc(60px+40px+16px)] pb-20">
+      <main className={`${currentViewMode === 'learn' ? 'pt-[calc(75px+40px+16px)]' : 'pt-0'} pb-20`}>
         {currentViewMode === 'learn' ? (
           <LearnMode
             words={words}
@@ -130,18 +138,17 @@ function App() {
             onRetry={reloadWords}
           />
         ) : (
-          <PullToRefresh onRefresh={handlePullToRefresh}>
-            <ListMode
-              words={words}
-              filteredWords={filteredWords}
-              loading={loading}
-              error={error}
-              currentFilter={currentFilter}
-              onFilterChange={handleFilterChange}
-              onWordClick={handleWordClick}
-              onRetry={reloadWords}
-            />
-          </PullToRefresh>
+          <ListMode
+            words={words}
+            filteredWords={filteredWords}
+            loading={loading}
+            error={error}
+            currentFilter={currentFilter}
+            onFilterChange={handleFilterChange}
+            onWordClick={handleWordClick}
+            onRetry={reloadWords}
+            onToggle={handleToggle}
+          />
         )}
       </main>
       
