@@ -3,7 +3,7 @@ import { syncProgress, getProgress } from '../controllers/progressController';
 import { authenticateToken } from '../utils/auth';
 import { validateBody, progressSyncSchema } from '../middleware/validation';
 
-const router = Router();
+const router: Router = Router();
 
 // 所有进度路由都需要认证
 router.use(authenticateToken);

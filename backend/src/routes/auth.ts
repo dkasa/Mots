@@ -3,7 +3,7 @@ import { register, login, getUserProfile } from '../controllers/authController';
 import { authenticateToken } from '../utils/auth';
 import { validateBody, loginSchema, registerSchema } from '../middleware/validation';
 
-const router = Router();
+const router: Router = Router();
 
 // 注册
 router.post('/register', validateBody(registerSchema), register);
