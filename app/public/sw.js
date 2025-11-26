@@ -17,7 +17,12 @@ const STATIC_ASSETS = [
   '/data/grade81_words.json',
   '/data/grade82_words.json',
   '/data/grade91_words.json',
-  '/data/grade92_words.json'
+  '/data/grade92_words.json',
+  // 确保主要的 JS 和 CSS 文件被缓存
+  '/static/js/main.js',
+  '/static/js/bundle.js',
+  '/static/css/main.css',
+  '/static/css/app.css'
 ];
 
 const DYNAMIC_CACHE_PATTERNS = [
@@ -32,10 +37,37 @@ const DYNAMIC_CACHE_PATTERNS = [
   /\.woff2$/
 ];
 
+// 预缓存安装函数
+async function precacheStaticAssets() {
+  const cache = await caches.open(STATIC_CACHE);
+  const requests = STATIC_ASSETS.map(async (url) => {
+    try {
+      // 尝试从网络获取并缓存
+      const response = await fetch(url);
+      if (okToCache(response)) {
+        await cache.put(url, response);
+        console.log(`[SW] Precached: ${url}`);
+      } else {
+        console.warn(`[SW] Skip precaching (bad response): ${url}`);
+      }
+    } catch (error) {
+      console.warn(`[SW] Failed to precache ${url}:`, error);
+      // 对于关键文件，尝试创建基本响应
+      if (url === '/' || url === '/index.html') {
+        const basicHTML = `<!DOCTYPE html><html><head><title>法语背单词</title></head><body><div id="root">Loading...</div></body></html>`;
+        await cache.put(url, new Response(basicHTML, {
+          status: 200,
+          headers: { 'Content-Type': 'text/html' }
+        }));
+      }
+    }
+  });
+  await Promise.all(requests);
+}
+
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(STATIC_CACHE)
-      .then(cache => cache.addAll(STATIC_ASSETS))
+    precacheStaticAssets()
       .then(() => self.skipWaiting())
       .catch(err => console.error('[SW] Install failed:', err))
   );
@@ -43,15 +75,20 @@ self.addEventListener('install', event => {
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.map(k => {
-          if (k !== STATIC_CACHE && k !== DYNAMIC_CACHE) {
-            return caches.delete(k);
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          // 删除旧版本的缓存
+          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+            console.log(`[SW] Deleting old cache: ${cacheName}`);
+            return caches.delete(cacheName);
           }
         })
-      )
-    ).then(() => self.clients.claim())
+      );
+    }).then(() => {
+      console.log('[SW] Activation complete');
+      return self.clients.claim();
+    })
   );
 });
 
@@ -69,14 +106,33 @@ async function handleFetchRequest(request) {
   if (request.mode === 'navigate') {
     try {
       const networkResp = await fetch(request);
-      // 可选：缓存 index.html 的最新版本
+      // 始终缓存 index.html 的最新版本
       const cache = await caches.open(STATIC_CACHE);
-      cache.put('/index.html', networkResp.clone()).catch(() => {});
+      cache.put(request, networkResp.clone()).catch(() => {});
       return networkResp;
     } catch (err) {
-      const cached = await caches.match('/index.html') || await caches.match('/');
-      if (cached) return cached;
-      return offlineJsonResponse();
+      console.log('[SW] Navigation request offline, using cache');
+      // 尝试多个缓存路径
+      const cached = await caches.match(request) || 
+                    await caches.match('/index.html') || 
+                    await caches.match('/');
+      if (cached) {
+        return cached;
+      }
+      // 如果完全没有缓存，返回基本的离线页面
+      return new Response(`
+        <!DOCTYPE html>
+        <html>
+        <head><title>离线模式</title></head>
+        <body>
+          <h1>应用处于离线状态</h1>
+          <p>请检查网络连接后重试</p>
+        </body>
+        </html>
+      `, {
+        status: 200,
+        headers: { 'Content-Type': 'text/html' }
+      });
     }
   }
 
@@ -91,8 +147,16 @@ async function handleFetchRequest(request) {
       }
       return networkResp;
     } catch {
-      // 若无法从网络获取，则尝试返回任意缓存或失败响应
+      console.log('[SW] Static asset offline, trying fallback');
+      // 对于静态资源，尝试返回 index.html 作为回退
       const fallback = await caches.match('/index.html');
+      if (fallback && (url.pathname.endsWith('.js') || url.pathname.endsWith('.css'))) {
+        // 对于 JS/CSS 文件，返回空内容而不是 HTML
+        return new Response('', {
+          status: 200,
+          headers: { 'Content-Type': url.pathname.endsWith('.js') ? 'application/javascript' : 'text/css' }
+        });
+      }
       return fallback || offlineJsonResponse();
     }
   }
@@ -126,7 +190,21 @@ async function handleFetchRequest(request) {
 }
 
 function isStaticAsset(url) {
-  return STATIC_ASSETS.includes(url.pathname) || url.pathname.startsWith('/data/') || url.pathname.startsWith('/static/');
+  const pathname = url.pathname;
+  return STATIC_ASSETS.includes(pathname) || 
+         pathname.startsWith('/data/') || 
+         pathname.startsWith('/static/') ||
+         pathname.startsWith('/icon/') ||
+         pathname.endsWith('.json') ||
+         pathname.endsWith('.js') ||
+         pathname.endsWith('.css') ||
+         pathname.endsWith('.png') ||
+         pathname.endsWith('.jpg') ||
+         pathname.endsWith('.jpeg') ||
+         pathname.endsWith('.svg') ||
+         pathname.endsWith('.ico') ||
+         pathname.endsWith('.woff') ||
+         pathname.endsWith('.woff2');
 }
 
 function okToCache(response) {
