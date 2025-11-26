@@ -1,0 +1,35 @@
+FROM node:18-alpine as build
+
+WORKDIR /app
+
+ENV CI=true
+
+# 安装pnpm
+RUN npm install -g pnpm
+
+# 复制前端依赖文件
+COPY app/package.json app/pnpm-lock.yaml ./
+
+# 安装依赖
+RUN pnpm install --frozen-lockfile
+
+# 复制前端源码
+COPY app ./
+
+# 构建前端
+RUN pnpm build
+
+# 生产阶段 - 使用nginx
+FROM nginx:alpine
+
+# 复制构建产物
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# 复制nginx配置
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# 暴露端口
+EXPOSE 2402
+
+# 启动nginx
+CMD ["nginx", "-g", "daemon off;"]

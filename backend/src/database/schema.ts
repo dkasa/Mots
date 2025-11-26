@@ -1,0 +1,1 @@
+export { initDatabase, dbGet, dbAll, dbRun, db } from './jsonStorage';

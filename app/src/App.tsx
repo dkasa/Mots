@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { Grade, ViewMode, FilterType } from './types/vocabulary';
+import { ProgressSyncData } from './types/auth';
+import { useAuth } from './hooks/useAuth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useVocabularyData } from './hooks/useVocabularyData';
+import { useSyncProgress } from './hooks/useSyncProgress';
 import { TopBar } from './components/TopBar';
 import { GradeSelector } from './components/GradeSelector';
 import { ProgressIndicator } from './components/ProgressIndicator';
@@ -12,6 +15,9 @@ import { BottomNavigation } from './components/BottomNavigation';
 import { WordWithStatus } from './types/vocabulary';
 
 function App() {
+  // 认证状态
+  const { isAuthenticated } = useAuth();
+
   // 本地存储状态
   const {
     currentGrade,
@@ -26,6 +32,7 @@ function App() {
     markAsMastered,
     unmarkAsLearned,
     unmarkAsMastered,
+    updateFromCloudData,
   } = useLocalStorage();
 
   // 词汇数据
@@ -106,7 +113,31 @@ function App() {
     await reloadWords();
   }, [reloadWords]);
 
-  
+  // 云端同步
+  const { syncStatus, syncToServer } = useSyncProgress({
+    learnedWords,
+    masteredWords,
+    currentGrade,
+    currentViewMode,
+    currentFilter,
+    isAuthenticated,
+    onSyncComplete: (data: ProgressSyncData) => {
+      // 只在学习模式外才更新数据，避免打断学习流程
+      if (currentViewMode !== 'learn') {
+        updateFromCloudData(data);
+      }
+    },
+    onSyncError: (error: string) => {
+      console.error('Sync error:', error);
+    },
+  });
+
+  // 手动同步
+  const handleManualSync = useCallback(() => {
+    if (isAuthenticated) {
+      syncToServer();
+    }
+  }, [isAuthenticated, syncToServer]);
 
   return (
     <div className="min-h-screen bg-bg-primary font-chinese">
@@ -114,6 +145,8 @@ function App() {
       <TopBar 
         currentViewMode={currentViewMode}
         onViewModeChange={handleViewModeChange}
+        syncStatus={syncStatus}
+        onManualSync={handleManualSync}
       />
       
       {/* 年级选择器 */}

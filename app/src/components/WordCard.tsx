@@ -17,7 +17,7 @@ export function WordCard({ word }: WordCardProps) {
       
       {/* 法语单词 */}
       <div className="text-center mb-2">
-        <h2 className="text-xl font-bold text-neutral-800 leading-tight font-french">
+        <h2 className="text-3xl font-bold text-neutral-800 leading-tight font-french">
           {word.french}
         </h2>
       </div>

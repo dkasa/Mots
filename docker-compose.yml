@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 前端服务
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    ports:
+      - "2402:2402"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    networks:
+      - mots-network
+
+  # 后端服务
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - CORS_ORIGIN=http://localhost:2402
+    volumes:
+      - ./data:/app/data
+    networks:
+      - mots-network
+
+networks:
+  mots-network:
+    driver: bridge
+
+volumes:
+  mots-data:

@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Grade, FilterType, ViewMode } from '../types/vocabulary';
+import { ProgressSyncData } from '../types/auth';
 
 const STORAGE_KEYS = {
   CURRENT_GRADE: 'french-app-current-grade',
@@ -102,6 +103,15 @@ export function useLocalStorage() {
     });
   }, []);
 
+  // 从云端数据更新本地状态
+  const updateFromCloudData = useCallback((cloudData: ProgressSyncData) => {
+    setLearnedWords(cloudData.learnedWords);
+    setMasteredWords(cloudData.masteredWords);
+    setCurrentGrade(cloudData.currentGrade as Grade);
+    setCurrentViewMode(cloudData.currentViewMode);
+    setCurrentFilter(cloudData.currentFilter);
+  }, []);
+
   // 重置所有数据
   const resetAllData = useCallback(() => {
     setLearnedWords({});
@@ -128,5 +138,6 @@ export function useLocalStorage() {
     unmarkAsLearned,
     unmarkAsMastered,
     resetAllData,
+    updateFromCloudData,
   };
 }

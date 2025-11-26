@@ -1,0 +1,27 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# 安装pnpm
+RUN npm install -g pnpm
+
+# 复制后端依赖文件
+COPY backend/package.json backend/pnpm-lock.yaml ./
+
+# 安装依赖
+RUN pnpm install --frozen-lockfile
+
+# 复制后端源码
+COPY backend ./
+
+# 构建后端
+RUN pnpm build
+
+# 创建数据目录
+RUN mkdir -p /app/data
+
+# 暴露端口
+EXPOSE 3001
+
+# 启动应用
+CMD ["pnpm", "start"]
