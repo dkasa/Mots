@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Grade, FilterType, ViewMode } from '../types/vocabulary';
+import { Grade, FilterType, ViewMode, SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
 import { ProgressSyncData } from '../types/auth';
 
 const STORAGE_KEYS = {
@@ -8,6 +8,9 @@ const STORAGE_KEYS = {
   CURRENT_FILTER: 'french-app-current-filter',
   LEARNED_WORDS: 'french-app-learned-words',
   MASTERED_WORDS: 'french-app-mastered-words',
+  SELECTION_MODE: 'french-app-selection-mode',
+  UNIT_RANGE: 'french-app-unit-range',
+  COUNT_SELECTION: 'french-app-count-selection',
 };
 
 export function useLocalStorage() {
@@ -37,6 +40,38 @@ export function useLocalStorage() {
     return saved ? JSON.parse(saved) : {};
   });
 
+  const [selectionMode, setSelectionMode] = useState<SelectionMode>(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.SELECTION_MODE);
+    const mode = (saved === 'grade-all' || saved === 'grade-unit' || saved === 'grade-count') ? saved : 'grade-all';
+    console.log('初始化 selectionMode:', mode);
+    return mode;
+  });
+
+  // 包装 setSelectionMode 以添加调试
+  const wrappedSetSelectionMode = useCallback((mode: SelectionMode) => {
+    console.log('setSelectionMode 被调用:', mode);
+    setSelectionMode(mode);
+  }, []);
+
+  const [unitRange, setUnitRange] = useState<UnitRange>(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.UNIT_RANGE);
+    const defaultRange = { startUnit: 1, endUnit: 6 };
+    const range = saved ? JSON.parse(saved) : defaultRange;
+    console.log('初始化 unitRange:', range);
+    return range;
+  });
+
+  // 包装 setUnitRange 以添加调试
+  const wrappedSetUnitRange = useCallback((range: UnitRange) => {
+    console.log('setUnitRange 被调用:', range);
+    setUnitRange(range);
+  }, []);
+
+  const [countSelection, setCountSelection] = useState<CountSelection>(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.COUNT_SELECTION);
+    return saved ? JSON.parse(saved) : { count: 20 };
+  });
+
   // 保存到 localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.CURRENT_GRADE, currentGrade.toString());
@@ -57,6 +92,18 @@ export function useLocalStorage() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.MASTERED_WORDS, JSON.stringify(masteredWords));
   }, [masteredWords]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.SELECTION_MODE, selectionMode);
+  }, [selectionMode]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.UNIT_RANGE, JSON.stringify(unitRange));
+  }, [unitRange]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.COUNT_SELECTION, JSON.stringify(countSelection));
+  }, [countSelection]);
 
   // 标记单词为已学
   const markAsLearned = useCallback((wordId: string) => {
@@ -119,6 +166,9 @@ export function useLocalStorage() {
     setCurrentGrade(81);
     setCurrentViewMode('learn');
     setCurrentFilter('all');
+    setSelectionMode('grade-all');
+    setUnitRange({ startUnit: 1, endUnit: 6 });
+    setCountSelection({ count: 20 });
   }, []);
 
   return {
@@ -128,6 +178,9 @@ export function useLocalStorage() {
     currentFilter,
     learnedWords,
     masteredWords,
+    selectionMode,
+    unitRange,
+    countSelection,
     
     // 设置方法
     setCurrentGrade,
@@ -139,5 +192,8 @@ export function useLocalStorage() {
     unmarkAsMastered,
     resetAllData,
     updateFromCloudData,
+    setSelectionMode: wrappedSetSelectionMode,
+    setUnitRange: wrappedSetUnitRange,
+    setCountSelection,
   };
 }

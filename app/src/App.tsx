@@ -7,6 +7,7 @@ import { useVocabularyData } from './hooks/useVocabularyData';
 import { useSyncProgress } from './hooks/useSyncProgress';
 import { TopBar } from './components/TopBar';
 import { GradeSelector } from './components/GradeSelector';
+import { SelectionDrawer } from './components/SelectionDrawer';
 import { ProgressIndicator } from './components/ProgressIndicator';
 import { LearnMode } from './components/LearnMode';
 import { ListMode } from './components/ListMode';
@@ -25,6 +26,9 @@ function App() {
     currentFilter,
     learnedWords,
     masteredWords,
+    selectionMode,
+    unitRange,
+    countSelection,
     setCurrentGrade,
     setCurrentViewMode,
     setCurrentFilter,
@@ -33,6 +37,9 @@ function App() {
     unmarkAsLearned,
     unmarkAsMastered,
     updateFromCloudData,
+    setSelectionMode,
+    setUnitRange,
+    setCountSelection,
   } = useLocalStorage();
 
   // 词汇数据
@@ -47,7 +54,7 @@ function App() {
     getFilteredWords,
     updateWordStatus,
     reloadWords,
-  } = useVocabularyData(currentGrade, learnedWords, masteredWords);
+  } = useVocabularyData(currentGrade, learnedWords, masteredWords, selectionMode, unitRange, countSelection);
 
   // 进度数据
   const progress = getProgressData();
@@ -153,6 +160,16 @@ function App() {
       <GradeSelector 
         currentGrade={currentGrade}
         onGradeChange={handleGradeChange}
+      />
+      
+      {/* 范围选择器抽屉 */}
+      <SelectionDrawer
+        currentMode={selectionMode}
+        unitRange={unitRange}
+        countSelection={countSelection}
+        onModeChange={setSelectionMode}
+        onUnitRangeChange={setUnitRange}
+        onCountSelectionChange={setCountSelection}
       />
       
       {/* 进度指示器 */}
