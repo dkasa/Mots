@@ -16,7 +16,7 @@ fi
 
 # 启动开发环境
 echo "📦 构建并启动前端和后端服务..."
-docker-compose -f docker-compose.dev.yml up --build -d
+docker-compose up --build -d
 
 # 等待服务启动
 echo "⏳ 等待服务启动..."
@@ -24,18 +24,18 @@ sleep 10
 
 # 检查服务状态
 echo "🔍 检查服务状态..."
-docker-compose -f docker-compose.dev.yml ps
+docker-compose ps
 
 echo ""
 echo "✅ 开发环境启动成功！"
 echo ""
-echo "🌐 前端开发地址: http://localhost:5173"
+echo "🌐 前端开发地址: http://localhost:3000"
 echo "🔧 后端API地址: http://localhost:3001"
 echo "📊 健康检查: http://localhost:3001/health"
 echo ""
 echo "📋 常用命令:"
-echo "  查看日志: docker-compose -f docker-compose.dev.yml logs -f"
-echo "  停止服务: docker-compose -f docker-compose.dev.yml down"
-echo "  重启服务: docker-compose -f docker-compose.dev.yml restart"
+echo "  查看日志: docker-compose logs -f"
+echo "  停止服务: docker-compose down"
+echo "  重启服务: docker-compose restart"
 echo ""
 echo "💡 提示: 前端支持热重载，修改代码会自动刷新页面"

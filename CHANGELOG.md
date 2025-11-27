@@ -133,7 +133,7 @@ docker-compose up -d
 
 
 ### 📱 访问地址
-- 前端: http://localhost:2402
+- 前端: http://localhost:3000
 - 后端API: http://localhost:3001
 - 健康检查: http://localhost:3001/health
 

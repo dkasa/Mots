@@ -31,7 +31,7 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd 'd:/ai_code/Mo
 
 Write-Host "`n🎉 Mots development environment is starting!" -ForegroundColor Green
 Write-Host "`n📍 Service URLs:" -ForegroundColor Cyan
-Write-Host "   Frontend: http://localhost:2402/" -ForegroundColor White
+Write-Host "   Frontend: http://localhost:3000/" -ForegroundColor White
 Write-Host "   Backend:  http://localhost:3001/" -ForegroundColor White
 Write-Host "   Health:   http://localhost:3001/health" -ForegroundColor White
 
