@@ -35,7 +35,7 @@ pnpm install
 #### 方式一：使用脚本（推荐）
 ```bash
 # Windows PowerShell
-powershell -ExecutionPolicy Bypass -File start-dev.ps1
+powershell -ExecutionPolicy Bypass -File start.ps1
 
 # Linux/macOS
 ./start-dev.sh
