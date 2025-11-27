@@ -17,7 +17,7 @@ RUN pnpm install --frozen-lockfile
 COPY app ./
 
 # 构建前端
-RUN pnpm build
+RUN pnpm run build-linux
 
 # 生产阶段 - 使用nginx
 FROM nginx:alpine
