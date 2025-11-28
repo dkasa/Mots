@@ -187,8 +187,8 @@ function App() {
         currentGrade={currentGrade}
         onGradeChange={handleGradeChange}
         darkMode={darkMode}
-      />
-      
+      />      
+
       {/* 范围选择器抽屉 */}
       <SelectionDrawer
         currentMode={selectionMode}
@@ -197,13 +197,14 @@ function App() {
         onModeChange={setSelectionMode}
         onUnitRangeChange={setUnitRange}
         onCountSelectionChange={setCountSelection}
+        darkMode={darkMode}
       />
       
       {/* 进度指示器 */}
       <ProgressIndicator progress={progress} darkMode={darkMode} />
       
       {/* 主内容区域 */}
-      <main className={`${currentViewMode === 'learn' ? 'pt-[calc(75px+40px+16px)]' : 'pt-0'} pb-20`}>
+      <main className={`${currentViewMode === 'learn' ? 'pt-[calc(30px+40px+16px)]' : 'pt-0'} pb-20`}>
         {currentViewMode === 'learn' ? (
           <LearnMode
             words={words}

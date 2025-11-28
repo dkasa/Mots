@@ -42,7 +42,9 @@ export function FilterTabs({ currentFilter, onFilterChange, masteredCount, unmas
                 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-250
                 ${isActive 
                   ? 'bg-primary-500 text-white shadow-md' 
-                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                  : darkMode 
+                    ? 'bg-neutral-dark-200 text-neutral-dark-600 hover:bg-neutral-dark-300'
+                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
                 }
               `}
             >

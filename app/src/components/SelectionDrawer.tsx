@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
 
+
 interface SelectionDrawerProps {
   currentMode: SelectionMode;
   unitRange?: UnitRange;
@@ -8,6 +9,7 @@ interface SelectionDrawerProps {
   onModeChange: (mode: SelectionMode) => void;
   onUnitRangeChange: (range: UnitRange) => void;
   onCountSelectionChange: (selection: CountSelection) => void;
+  darkMode: boolean;
 }
 
 export function SelectionDrawer({
@@ -17,6 +19,7 @@ export function SelectionDrawer({
   onModeChange,
   onUnitRangeChange,
   onCountSelectionChange,
+  darkMode,
 }: SelectionDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [drawerHeight, setDrawerHeight] = useState(0);
@@ -24,7 +27,7 @@ export function SelectionDrawer({
   const contentRef = useRef<HTMLDivElement>(null);
 
   const modes = [
-    { value: 'grade-all' as SelectionMode, label: '全部', desc: '该年级所有单词' },
+    { value: 'grade-all' as SelectionMode, label: '全部', desc: '学期所有单词' },
     { value: 'grade-unit' as SelectionMode, label: '单元', desc: '选择指定单元' },
     { value: 'grade-count' as SelectionMode, label: '数量', desc: '随机选择' },
   ];
@@ -82,13 +85,21 @@ export function SelectionDrawer({
       {/* 触发按钮 */}
       <button
         onClick={toggleDrawer}
-        className="w-full bg-white rounded-lg border border-neutral-200 p-4 text-left hover:bg-neutral-50 transition-colors duration-200 shadow-sm"
+        className={`w-full rounded-lg border p-4 text-left transition-colors duration-200 shadow-sm ${
+          darkMode 
+            ? 'bg-neutral-dark-100 border-neutral-dark-300 hover:bg-neutral-dark-200' 
+            : 'bg-white border-neutral-200 hover:bg-neutral-50'
+        }`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+              darkMode ? 'bg-primary-dark-100' : 'bg-primary-100'
+            }`}>
               <svg 
-                className={`w-5 h-5 text-primary-600 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} ${
+                  darkMode ? 'text-primary-dark-600' : 'text-primary-600'
+                }`}
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -97,12 +108,20 @@ export function SelectionDrawer({
               </svg>
             </div>
             <div>
-              <div className="text-sm font-medium text-neutral-900">单词选择</div>
-              <div className="text-xs text-neutral-500">{getCurrentModeText()}</div>
+              <div className={`text-sm font-medium ${
+                darkMode ? 'text-neutral-dark-900' : 'text-neutral-900'
+              }`}>单词选择</div>
+              <div className={`text-xs ${
+                darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+              }`}>{getCurrentModeText()}</div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-neutral-400 bg-neutral-100 px-2 py-1 rounded">
+            <span className={`text-xs px-2 py-1 rounded ${
+              darkMode 
+                ? 'text-neutral-dark-400 bg-neutral-dark-200' 
+                : 'text-neutral-400 bg-neutral-100'
+            }`}>
               {modes.find(m => m.value === currentMode)?.label}
             </span>
           </div>
@@ -117,7 +136,11 @@ export function SelectionDrawer({
       >
         <div ref={contentRef} className="mt-2">
           {/* 模式选择 */}
-          <div className="bg-white rounded-lg border border-neutral-200 p-3">
+          <div className={`rounded-lg border p-3 ${
+            darkMode 
+              ? 'bg-neutral-dark-100 border-neutral-dark-300' 
+              : 'bg-white border-neutral-200'
+          }`}>
             <div className="grid grid-cols-3 gap-2">
               {modes.map((mode) => {
                 const isActive = currentMode === mode.value;
@@ -129,13 +152,18 @@ export function SelectionDrawer({
                       relative py-3 px-2 text-sm font-medium rounded-md transition-all duration-200
                       ${isActive 
                         ? 'bg-primary-500 text-white shadow-sm' 
-                        : 'text-neutral-600 hover:bg-neutral-50'
+                        : darkMode 
+                          ? 'text-neutral-dark-600 hover:bg-neutral-dark-200'
+                          : 'text-neutral-600 hover:bg-neutral-50'
                       }
                     `}
                   >
                     <div className="flex flex-col items-center">
                       <span className="font-medium">{mode.label}</span>
-                      <span className={`text-xs mt-0.5 ${isActive ? 'text-primary-100' : 'text-neutral-400'}`}>
+                      <span className={`text-xs mt-0.5 ${
+                        isActive ? 'text-primary-100' : 
+                        darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                      }`}>
                         {mode.desc}
                       </span>
                     </div>
@@ -150,12 +178,22 @@ export function SelectionDrawer({
 
           {/* 选项面板 */}
           {currentMode !== 'grade-all' && (
-            <div className="mt-2 bg-neutral-50 rounded-lg border border-neutral-200 p-4">
+            <div className={`mt-2 rounded-lg border p-4 ${
+              darkMode 
+                ? 'bg-neutral-dark-50 border-neutral-dark-300' 
+                : 'bg-neutral-50 border-neutral-200'
+            }`}>
               {currentMode === 'grade-unit' && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-neutral-700">单元范围</label>
-                    <span className="text-xs text-neutral-500 bg-white px-2 py-1 rounded">
+                    <label className={`text-sm font-medium ${
+                      darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+                    }`}>单元范围</label>
+                    <span className={`text-xs px-2 py-1 rounded ${
+                      darkMode 
+                        ? 'text-neutral-dark-500 bg-neutral-dark-100' 
+                        : 'text-neutral-500 bg-white'
+                    }`}>
                       单元 {unitRange.startUnit} - {unitRange.endUnit}
                     </span>
                   </div>
@@ -170,14 +208,20 @@ export function SelectionDrawer({
                           startUnit: newStartUnit 
                         });
                       }}
-                      className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
+                      className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                        darkMode 
+                          ? 'bg-neutral-dark-100 border-neutral-dark-300 text-neutral-dark-900' 
+                          : 'bg-white border-neutral-300'
+                      }`}
                     >
                       {[1, 2, 3, 4, 5].map(unit => (
                         <option key={unit} value={unit}>第 {unit} 单元</option>
                       ))}
                     </select>
                     
-                    <div className="flex items-center px-2 text-neutral-400">
+                    <div className={`flex items-center px-2 ${
+                      darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                    }`}>
                       <span>至</span>
                     </div>
                     
@@ -191,7 +235,11 @@ export function SelectionDrawer({
                           endUnit: newEndUnit 
                         });
                       }}
-                      className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
+                      className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                        darkMode 
+                          ? 'bg-neutral-dark-100 border-neutral-dark-300 text-neutral-dark-900' 
+                          : 'bg-white border-neutral-300'
+                      }`}
                     >
                       {[1, 2, 3, 4, 5].map(unit => (
                         <option key={unit} value={unit} disabled={unit < unitRange.startUnit}>
@@ -206,8 +254,14 @@ export function SelectionDrawer({
               {currentMode === 'grade-count' && (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <label className="text-sm font-medium text-neutral-700">单词数量</label>
-                    <span className="text-xs text-neutral-500 bg-white px-2 py-1 rounded">
+                    <label className={`text-sm font-medium ${
+                      darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+                    }`}>单词数量</label>
+                    <span className={`text-xs px-2 py-1 rounded ${
+                      darkMode 
+                        ? 'text-neutral-dark-500 bg-neutral-dark-100' 
+                        : 'text-neutral-500 bg-white'
+                    }`}>
                       随机选择
                     </span>
                   </div>
@@ -220,7 +274,9 @@ export function SelectionDrawer({
                           py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-200 border
                           ${countSelection.count === option.value
                             ? 'bg-primary-500 text-white border-primary-500 shadow-sm'
-                            : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                            : darkMode
+                              ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
+                              : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
                           }
                         `}
                       >
@@ -228,14 +284,18 @@ export function SelectionDrawer({
                       </button>
                     ))}
                   </div>
-                  <div className="text-xs text-neutral-500 text-center">
+                  <div className={`text-xs text-center ${
+                    darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+                  }`}>
                     每次随机选择 {countSelection.count} 个单词
                   </div>
                 </div>
               )}
 
               {/* 完成按钮 */}
-              <div className="mt-4 pt-3 border-t border-neutral-200">
+              <div className={`mt-4 pt-3 border-t ${
+                darkMode ? 'border-neutral-dark-300' : 'border-neutral-200'
+              }`}>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="w-full py-2.5 px-4 bg-primary-500 text-white text-sm font-medium rounded-lg hover:bg-primary-600 transition-colors duration-200 shadow-sm"
@@ -244,6 +304,7 @@ export function SelectionDrawer({
                 </button>
               </div>
             </div>
+
           )}
         </div>
       </div>
