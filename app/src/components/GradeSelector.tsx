@@ -4,9 +4,10 @@ import { Grade } from '../types/vocabulary';
 interface GradeSelectorProps {
   currentGrade: Grade;
   onGradeChange: (grade: Grade) => void;
+  darkMode?: boolean;
 }
 
-export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProps) {
+export function GradeSelector({ currentGrade, onGradeChange, darkMode = false }: GradeSelectorProps) {
   const grades = [
     { value: 71 as Grade, label: '初一上' },
     { value: 72 as Grade, label: '初一下' },
@@ -17,7 +18,9 @@ export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProp
   ];
 
   return (
-    <div className="bg-neutral-100 rounded-md p-2 mx-5 mt-8 mb-4">
+    <div className={`rounded-md p-2 mx-5 mt-8 mb-4 transition-colors duration-300 ${
+      darkMode ? 'bg-neutral-dark-200' : 'bg-neutral-100'
+    }`}>
       <div className="flex">
         {grades.map((grade) => {
           const isActive = currentGrade === grade.value;
@@ -28,8 +31,12 @@ export function GradeSelector({ currentGrade, onGradeChange }: GradeSelectorProp
               className={`
                 flex-1 h-16 text-base font-medium rounded-md transition-all duration-250 ease-out relative
                 ${isActive 
-                  ? 'bg-bg-card text-primary-700 font-semibold shadow-sm' 
-                  : 'text-neutral-600 hover:bg-neutral-50'
+                  ? (darkMode 
+                    ? 'bg-bg-dark-card text-primary-700 font-semibold shadow-dark-sm' 
+                    : 'bg-bg-card text-primary-700 font-semibold shadow-sm') 
+                  : (darkMode 
+                    ? 'text-neutral-dark-600 hover:bg-neutral-dark-300' 
+                    : 'text-neutral-600 hover:bg-neutral-50')
                 }
               `}
             >

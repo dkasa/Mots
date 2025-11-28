@@ -3,35 +3,50 @@ import { WordWithStatus } from '../types/vocabulary';
 
 interface WordCardProps {
   word: WordWithStatus;
+  darkMode?: boolean;
 }
 
-export function WordCard({ word }: WordCardProps) {
+export function WordCard({ word, darkMode = false }: WordCardProps) {
   return (
-    <div className="mx-4 my-4 p-4 bg-bg-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-250">
+    <div className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 ${
+      darkMode 
+        ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
+        : 'bg-bg-card shadow-md hover:shadow-lg'
+    } transition-shadow duration-250`}>
       {/* 词性标签 */}
       <div className="mb-3">
-        <span className="inline-block px-2 py-1 text-xs font-medium text-secondary-900 bg-secondary-100 rounded-full">
+        <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
+          darkMode 
+            ? 'bg-secondary-900 text-secondary-200' 
+            : 'bg-secondary-100 text-secondary-900'
+        }`}>
           {word.part_of_speech}
         </span>
       </div>
       
       {/* 法语单词 */}
       <div className="text-center mb-2">
-        <h2 className="text-3xl font-bold text-neutral-800 leading-tight font-french">
+        <h2 className={`text-3xl font-bold leading-tight font-french transition-colors duration-300 ${
+          darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+        }`}>
           {word.french}
         </h2>
       </div>
       
       {/* 音标 */}
       <div className="text-center mb-3">
-        <p className="text-sm text-neutral-600 font-phonetic italic">
+        <p className={`text-sm font-phonetic italic transition-colors duration-300 ${
+          darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
+        }`}>
           {word.phonetic}
         </p>
       </div>
       
       {/* 中文释义 */}
       <div className="text-center">
-        <p className="text-base text-neutral-800 font-chinese">
+        <p className={`text-base font-chinese transition-colors duration-300 ${
+          darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+        }`}>
           {word.chinese}
         </p>
       </div>
@@ -39,11 +54,17 @@ export function WordCard({ word }: WordCardProps) {
       {/* 学习状态指示器（仅在学习模式下显示） */}
       {word.isMastered && (
         <div className="mt-4 flex justify-center">
-          <div className="flex items-center gap-2 px-2 py-1 bg-success-50 rounded-full">
-            <svg className="w-4 h-4 text-success-600" fill="currentColor" viewBox="0 0 20 20">
+          <div className={`flex items-center gap-2 px-2 py-1 rounded-full transition-colors duration-300 ${
+            darkMode ? 'bg-success-900' : 'bg-success-50'
+          }`}>
+            <svg className={`w-4 h-4 transition-colors duration-300 ${
+              darkMode ? 'text-success-400' : 'text-success-600'
+            }`} fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="text-xs font-medium text-success-700">已掌握</span>
+            <span className={`text-xs font-medium transition-colors duration-300 ${
+              darkMode ? 'text-success-300' : 'text-success-700'
+            }`}>已掌握</span>
           </div>
         </div>
       )}

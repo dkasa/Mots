@@ -7,9 +7,10 @@ interface FilterTabsProps {
   masteredCount: number;
   unmasteredCount: number;
   totalCount: number;
+  darkMode?: boolean;
 }
 
-export function FilterTabs({ currentFilter, onFilterChange, masteredCount, unmasteredCount, totalCount }: FilterTabsProps) {
+export function FilterTabs({ currentFilter, onFilterChange, masteredCount, unmasteredCount, totalCount, darkMode = false }: FilterTabsProps) {
   const filters = [
     { 
       id: 'all' as FilterType, 

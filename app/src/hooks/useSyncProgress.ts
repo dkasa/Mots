@@ -6,7 +6,7 @@ interface UseSyncProgressOptions {
   learnedWords: Record<string, boolean>;
   masteredWords: Record<string, boolean>;
   currentGrade: number;
-  currentViewMode: 'learn' | 'list';
+  currentViewMode: 'learn' | 'list' | 'search';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   isAuthenticated: boolean;
   onSyncComplete?: (data: ProgressSyncData) => void;

@@ -15,6 +15,7 @@ interface ListModeProps {
   onRetry: () => void;
   // 新增：父组件处理切换并负责持久化与刷新
   onToggle: (word: WordWithStatus, newIsMastered: boolean) => void;
+  darkMode?: boolean;
 }
 
 export function ListMode({ 
@@ -26,7 +27,8 @@ export function ListMode({
   onFilterChange, 
   onWordClick, 
   onRetry,
-  onToggle
+  onToggle,
+  darkMode = false
 }: ListModeProps) {
   // 统计数据
   const masteredCount = words.filter(word => word.isMastered).length;
@@ -38,19 +40,31 @@ export function ListMode({
     return (
       <div className="space-y-4 px-5">
         {[...Array(5)].map((_, index) => (
-          <div key={index} className="bg-bg-card p-4 rounded-lg animate-pulse">
+          <div key={index} className={`p-4 rounded-lg animate-pulse ${
+            darkMode ? 'bg-dark-card' : 'bg-bg-card'
+          }`}>
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="h-5 bg-neutral-200 rounded w-24" />
-                  <div className="h-5 bg-neutral-200 rounded w-12" />
+                  <div className={`h-5 rounded w-24 ${
+                    darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+                  }`} />
+                  <div className={`h-5 rounded w-12 ${
+                    darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+                  }`} />
                 </div>
                 <div className="space-y-1">
-                  <div className="h-3 bg-neutral-200 rounded w-16" />
-                  <div className="h-4 bg-neutral-200 rounded w-20" />
+                  <div className={`h-3 rounded w-16 ${
+                    darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+                  }`} />
+                  <div className={`h-4 rounded w-20 ${
+                    darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+                  }`} />
                 </div>
               </div>
-              <div className="w-6 h-6 bg-neutral-200 rounded-full" />
+              <div className={`w-6 h-6 rounded-full ${
+                darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+              }`} />
             </div>
           </div>
         ))}
@@ -60,7 +74,7 @@ export function ListMode({
 
   // 错误状态
   if (error) {
-    return <ErrorState message={error} onRetry={onRetry} />;
+    return <ErrorState message={error} onRetry={onRetry} darkMode={darkMode} />;
   }
 
   return (
@@ -72,22 +86,27 @@ export function ListMode({
         masteredCount={masteredCount}
         unmasteredCount={unmasteredCount}
         totalCount={totalCount}
+        darkMode={darkMode}
       />
 
       {/* 单词列表 */}
       {filteredWords.length === 0 ? (
-        <EmptyState message={
-          currentFilter === 'mastered' ? '暂无已掌握的单词' :
-          currentFilter === 'not-mastered' ? '暂无未掌握的单词' :
-          '暂无单词'
-        } />
+        <EmptyState 
+          message={
+            currentFilter === 'mastered' ? '暂无已掌握的单词' :
+            currentFilter === 'not-mastered' ? '暂无未掌握的单词' :
+            '暂无单词'
+          }
+          darkMode={darkMode}
+        />
       ) : (
-        <div className="bg-bg-card">
+        <div>
           {filteredWords.map((word, index) => (
             <WordListItem
               key={word.id}
               word={word}
-              onToggle={onToggle} // <- 传入父组件处理函数
+              onToggle={onToggle}
+              darkMode={darkMode}
             />
           ))}
         </div>

@@ -172,7 +172,7 @@ export function SelectionDrawer({
                       }}
                       className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
                     >
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(unit => (
+                      {[1, 2, 3, 4, 5].map(unit => (
                         <option key={unit} value={unit}>第 {unit} 单元</option>
                       ))}
                     </select>
@@ -193,7 +193,7 @@ export function SelectionDrawer({
                       }}
                       className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white"
                     >
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(unit => (
+                      {[1, 2, 3, 4, 5].map(unit => (
                         <option key={unit} value={unit} disabled={unit < unitRange.startUnit}>
                           第 {unit} 单元
                         </option>

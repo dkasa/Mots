@@ -1,16 +1,19 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Grade, ViewMode, FilterType } from './types/vocabulary';
 import { ProgressSyncData } from './types/auth';
 import { useAuth } from './hooks/useAuth';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { useVocabularyData } from './hooks/useVocabularyData';
+import { useAllVocabularyData } from './hooks/useAllVocabularyData';
 import { useSyncProgress } from './hooks/useSyncProgress';
+import { useEffect } from 'react';
 import { TopBar } from './components/TopBar';
 import { GradeSelector } from './components/GradeSelector';
 import { SelectionDrawer } from './components/SelectionDrawer';
 import { ProgressIndicator } from './components/ProgressIndicator';
 import { LearnMode } from './components/LearnMode';
 import { ListMode } from './components/ListMode';
+import { WordSearch } from './components/WordSearch';
 import { BottomNavigation } from './components/BottomNavigation';
 
 import { WordWithStatus } from './types/vocabulary';
@@ -29,6 +32,7 @@ function App() {
     selectionMode,
     unitRange,
     countSelection,
+    darkMode,
     setCurrentGrade,
     setCurrentViewMode,
     setCurrentFilter,
@@ -40,6 +44,7 @@ function App() {
     setSelectionMode,
     setUnitRange,
     setCountSelection,
+    setDarkMode,
   } = useLocalStorage();
 
   // 词汇数据
@@ -55,6 +60,14 @@ function App() {
     updateWordStatus,
     reloadWords,
   } = useVocabularyData(currentGrade, learnedWords, masteredWords, selectionMode, unitRange, countSelection);
+
+  // 所有年级的词汇数据（用于搜索）- 使用记忆化优化
+  const vocabularyData = useMemo(() => ({ learnedWords, masteredWords }), [learnedWords, masteredWords]);
+  const {
+    allWords,
+    loading: allWordsLoading,
+    error: allWordsError,
+  } = useAllVocabularyData(vocabularyData.learnedWords, vocabularyData.masteredWords);
 
   // 进度数据
   const progress = getProgressData();
@@ -139,6 +152,15 @@ function App() {
     },
   });
 
+  // 应用暗色模式
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   // 手动同步
   const handleManualSync = useCallback(() => {
     if (isAuthenticated) {
@@ -147,19 +169,24 @@ function App() {
   }, [isAuthenticated, syncToServer]);
 
   return (
-    <div className="min-h-screen bg-bg-primary font-chinese">
+    <div className={`min-h-screen font-chinese transition-colors duration-300 ${
+      darkMode ? 'bg-bg-dark-primary text-neutral-dark-800' : 'bg-bg-primary text-neutral-800'
+    }`}>
       {/* 顶部导航 */}
       <TopBar 
         currentViewMode={currentViewMode}
         onViewModeChange={handleViewModeChange}
         syncStatus={syncStatus}
         onManualSync={handleManualSync}
+        darkMode={darkMode}
+        onDarkModeToggle={() => setDarkMode(!darkMode)}
       />
       
       {/* 年级选择器 */}
       <GradeSelector 
         currentGrade={currentGrade}
         onGradeChange={handleGradeChange}
+        darkMode={darkMode}
       />
       
       {/* 范围选择器抽屉 */}
@@ -173,7 +200,7 @@ function App() {
       />
       
       {/* 进度指示器 */}
-      <ProgressIndicator progress={progress} />
+      <ProgressIndicator progress={progress} darkMode={darkMode} />
       
       {/* 主内容区域 */}
       <main className={`${currentViewMode === 'learn' ? 'pt-[calc(75px+40px+16px)]' : 'pt-0'} pb-20`}>
@@ -186,7 +213,10 @@ function App() {
             onMarkAsMastered={handleMarkAsMastered}
             onMarkAsUnmastered={handleMarkAsUnmastered}
             onRetry={reloadWords}
+            darkMode={darkMode}
           />
+        ) : currentViewMode === 'search' ? (
+          <WordSearch allWords={allWords} darkMode={darkMode} />
         ) : (
           <ListMode
             words={words}
@@ -198,6 +228,7 @@ function App() {
             onWordClick={handleWordClick}
             onRetry={reloadWords}
             onToggle={handleToggle}
+            darkMode={darkMode}
           />
         )}
       </main>
@@ -206,6 +237,7 @@ function App() {
       <BottomNavigation
         currentViewMode={currentViewMode}
         onViewModeChange={handleViewModeChange}
+        darkMode={darkMode}
       />
     </div>
   );

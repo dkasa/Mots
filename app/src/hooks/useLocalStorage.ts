@@ -11,6 +11,7 @@ const STORAGE_KEYS = {
   SELECTION_MODE: 'french-app-selection-mode',
   UNIT_RANGE: 'french-app-unit-range',
   COUNT_SELECTION: 'french-app-count-selection',
+  DARK_MODE: 'french-app-dark-mode',
 };
 
 export function useLocalStorage() {
@@ -72,6 +73,11 @@ export function useLocalStorage() {
     return saved ? JSON.parse(saved) : { count: 20 };
   });
 
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.DARK_MODE);
+    return saved ? JSON.parse(saved) : false;
+  });
+
   // 保存到 localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.CURRENT_GRADE, currentGrade.toString());
@@ -104,6 +110,10 @@ export function useLocalStorage() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.COUNT_SELECTION, JSON.stringify(countSelection));
   }, [countSelection]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.DARK_MODE, JSON.stringify(darkMode));
+  }, [darkMode]);
 
   // 标记单词为已学
   const markAsLearned = useCallback((wordId: string) => {
@@ -181,6 +191,7 @@ export function useLocalStorage() {
     selectionMode,
     unitRange,
     countSelection,
+    darkMode,
     
     // 设置方法
     setCurrentGrade,
@@ -195,5 +206,6 @@ export function useLocalStorage() {
     setSelectionMode: wrappedSetSelectionMode,
     setUnitRange: wrappedSetUnitRange,
     setCountSelection,
+    setDarkMode,
   };
 }

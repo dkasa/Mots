@@ -39,6 +39,16 @@ module.exports = {
 					400: '#A8A29E',
 					600: '#57534E',
 					800: '#292524',
+					900: '#1A1A1A',
+					'dark-50': '#1A1A1A',
+					'dark-100': '#2D2D2D',
+					'dark-200': '#3A3A3A',
+					'dark-300': '#4A4A4A',
+					'dark-400': '#6A6A6A',
+					'dark-500': '#9A9A9A',
+					'dark-600': '#B8B8B8',
+					'dark-700': '#D4D4D4',
+					'dark-800': '#E8E8E8',
 				},
 				success: {
 					500: '#22C55E',
@@ -58,6 +68,9 @@ module.exports = {
 					primary: '#FAFAF9',
 					card: '#FFFFFF',
 					elevated: '#FFFFFF',
+					'dark-primary': '#1A1A1A',
+					'dark-card': '#2D2D2D',
+					'dark-elevated': '#3A3A3A',
 				},
 			},
 			fontFamily: {
@@ -103,6 +116,10 @@ module.exports = {
 				md: '0 4px 16px rgba(0, 0, 0, 0.1)',
 				lg: '0 8px 24px rgba(0, 0, 0, 0.12)',
 				colored: '0 4px 16px rgba(38, 198, 176, 0.2)',
+				'dark-sm': '0 1px 2px rgba(0, 0, 0, 0.3)',
+				'dark-base': '0 2px 8px rgba(0, 0, 0, 0.4)',
+				'dark-md': '0 4px 16px rgba(0, 0, 0, 0.5)',
+				'dark-lg': '0 8px 24px rgba(0, 0, 0, 0.6)',
 			},
 			keyframes: {
 				'accordion-down': {

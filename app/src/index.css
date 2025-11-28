@@ -25,6 +25,36 @@
     color: #292524;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* 暗色模式 */
+  .dark {
+    background-color: #1A1A1A;
+    color: #E8E8E8;
+  }
+  
+  .dark * {
+    border-color: #4A4A4A;
+  }
+  
+  /* 暗色模式下的滚动条样式 */
+  .dark ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .dark ::-webkit-scrollbar-track {
+    background: #2D2D2D;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    background: #4A4A4A;
+    border-radius: 3px;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: #6A6A6A;
   }
   
   /* 移动端安全区域 */

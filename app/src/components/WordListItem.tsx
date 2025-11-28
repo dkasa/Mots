@@ -8,9 +8,10 @@ interface WordListItemProps {
    * newIsMastered: true = 掌握, false = 未掌握
    */
   onToggle?: (word: WordWithStatus, newIsMastered: boolean) => void;
+  darkMode?: boolean;
 }
 
-export function WordListItem({ word, onToggle }: WordListItemProps) {
+export function WordListItem({ word, onToggle, darkMode = false }: WordListItemProps) {
   const [isNotMastered, setIsNotMastered] = useState<boolean>(!word.isMastered);
   const [saving, setSaving] = useState(false);
 
@@ -75,23 +76,28 @@ export function WordListItem({ word, onToggle }: WordListItemProps) {
     <div
       role="button"
       tabIndex={0}
-      className="
-        w-full px-5 py-4 bg-bg-card hover:bg-neutral-50 
-        border-b border-neutral-200
-        text-left transition-colors duration-150
-        active:bg-neutral-100
-      "
+      className={`
+        w-full px-5 py-4 transition-colors duration-150 text-left
+        ${darkMode 
+          ? 'bg-dark-card hover:bg-dark-elevated border-b-dark-200 active:bg-dark-100' 
+          : 'bg-bg-card hover:bg-neutral-50 border-b border-neutral-200 active:bg-neutral-100'
+        }
+      `}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">
           {/* 法语单词和词性 */}
           <div className="flex items-center gap-3 mb-1">
             <h3 className={`text-lg font-semibold leading-tight font-french ${
-              !isNotMastered ? 'line-through text-neutral-400' : 'text-neutral-800'
+              !isNotMastered 
+                ? darkMode ? 'line-through text-dark-400' : 'line-through text-neutral-400'
+                : darkMode ? 'text-dark-100' : 'text-neutral-800'
             }`}>
               {word.french}
             </h3>
-            <span className="text-xs px-2 py-1 bg-neutral-100 text-neutral-600 rounded-full flex-shrink-0">
+            <span className={`text-xs px-2 py-1 rounded-full flex-shrink-0 ${
+              darkMode ? 'bg-dark-200 text-dark-300' : 'bg-neutral-100 text-neutral-600'
+            }`}>
               {word.part_of_speech}
             </span>
           </div>
@@ -99,12 +105,16 @@ export function WordListItem({ word, onToggle }: WordListItemProps) {
           {/* 音标和中文释义 */}
           <div className="space-y-1">
             <p className={`text-xs font-phonetic italic ${
-              !isNotMastered ? 'text-neutral-400' : 'text-neutral-600'
+              !isNotMastered 
+                ? darkMode ? 'text-dark-400' : 'text-neutral-400'
+                : darkMode ? 'text-dark-300' : 'text-neutral-600'
             }`}>
               {word.phonetic}
             </p>
             <p className={`text-sm font-chinese ${
-              !isNotMastered ? 'text-neutral-400' : 'text-neutral-600'
+              !isNotMastered 
+                ? darkMode ? 'text-dark-400' : 'text-neutral-400'
+                : darkMode ? 'text-dark-300' : 'text-neutral-600'
             }`}>
               {word.chinese}
             </p>
@@ -122,10 +132,11 @@ export function WordListItem({ word, onToggle }: WordListItemProps) {
             onKeyDown={handleToggleKeyDown}
             onMouseDown={(e) => e.stopPropagation()}
             className={`
-              relative inline-flex items-center transition-colors duration-200
-              ${isNotMastered ? 'bg-yellow-400' : 'bg-neutral-200'}
-              rounded-full cursor-pointer
-              w-12 h-6 p-1
+              relative inline-flex items-center transition-colors duration-200 rounded-full cursor-pointer w-12 h-6 p-1
+              ${isNotMastered 
+                ? darkMode ? 'bg-yellow-500' : 'bg-yellow-400' 
+                : darkMode ? 'bg-dark-300' : 'bg-neutral-200'
+              }
             `}
             title={isNotMastered ? '未掌握（点击标记为掌握）' : '掌握（点击标记为未掌握）'}
           >

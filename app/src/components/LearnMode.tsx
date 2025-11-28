@@ -17,9 +17,10 @@ interface LearnModeProps {
   onMarkAsMastered: (wordId: string) => void;
   onMarkAsUnmastered: (wordId: string) => void;
   onRetry: () => void;
+  darkMode?: boolean;
 }
 
-export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry }: LearnModeProps) {
+export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, darkMode = false }: LearnModeProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -85,18 +86,30 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
     return (
       <div className="mx-5 my-8">
         <div className="text-center py-12">
-          <div className="w-20 h-20 mx-auto mb-6 bg-success-100 rounded-full flex items-center justify-center">
-            <svg className="w-10 h-10 text-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center transition-colors duration-300 ${
+            darkMode ? 'bg-success-900' : 'bg-success-100'
+          }`}>
+            <svg className={`w-10 h-10 transition-colors duration-300 ${
+              darkMode ? 'text-success-400' : 'text-success-600'
+            }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 className="text-xl font-bold text-neutral-800 mb-2">恭喜！</h3>
-          <p className="text-neutral-600 mb-6">本年级单词已全部掌握！</p>
+          <h3 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+          }`}>恭喜！</h3>
+          <p className={`mb-6 transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
+          }`}>本年级单词已全部掌握！</p>
           <div className="flex gap-3 justify-center">
             <button className="px-6 py-3 bg-secondary-500 hover:bg-secondary-700 text-white font-semibold rounded-md transition-colors duration-200">
               切换到下一年级
             </button>
-            <button className="px-6 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-semibold rounded-md transition-colors duration-200">
+            <button className={`px-6 py-3 font-semibold rounded-md transition-colors duration-200 ${
+              darkMode 
+                ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800' 
+                : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+            }`}>
               重新学习
             </button>
           </div>
@@ -112,10 +125,11 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
 
   return (
     <>
-      <WordCard word={currentWord} />
+      <WordCard word={currentWord} darkMode={darkMode} />
       <ActionButtons
         onMarkAsMastered={handleMarkAsMastered}
         onMarkAsUnmastered={handleMarkAsUnmastered}
+        darkMode={darkMode}
         disabled={isAnimating}
       />
     </>
