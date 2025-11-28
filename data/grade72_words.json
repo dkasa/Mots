@@ -4,21 +4,21 @@
     "chinese": "自……起",
     "phonetic": "[a paʁti də]",
     "part_of_speech": "介词性短语 loc. prép.",
-    "unit": 1
+    "unit": 5
   },
   {
     "french": "à peu près",
     "chinese": "大约，大概",
     "phonetic": "[a pø pʁɛ]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 1
+    "unit": 4
   },
   {
     "french": "adorer",
     "chinese": "热爱，喜爱",
     "phonetic": "[adɔʁe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "affaires",
@@ -39,28 +39,28 @@
     "chinese": "惬意的",
     "phonetic": "[aɡʁeabl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "aïe",
     "chinese": "哎呦（叹词）",
     "phonetic": "[ɛ]",
     "part_of_speech": "感叹词 interj.",
-    "unit": 1
+    "unit": 4
   },
   {
     "french": "animal",
     "chinese": "动物",
     "phonetic": "[anima l]",
     "part_of_speech": "阳性名词 n.m. (pl. animaux)",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "animalerie",
     "chinese": "宠物商店",
     "phonetic": "[anima ləʁi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 4
   },
   {
     "french": "année",
@@ -74,42 +74,42 @@
     "chinese": "八月",
     "phonetic": "[o]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "appétit",
     "chinese": "食欲，胃口",
     "phonetic": "[apeti]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "apprendre",
     "chinese": "学，学习；教",
     "phonetic": "[apʁɑ̃dʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 1
+    "unit": 5
   },
   {
     "french": "après",
     "chinese": "在……以后",
     "phonetic": "[apʁɛ]",
     "part_of_speech": "介词 prép.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "arbre",
     "chinese": "树",
     "phonetic": "[aʁbʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "arc-en-ciel",
     "chinese": "彩虹",
     "phonetic": "[aʁkɑ̃sjɛl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "art plastique",
@@ -123,42 +123,42 @@
     "chinese": "够，足够",
     "phonetic": "[ase]",
     "part_of_speech": "副词 adv.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "Australie",
     "chinese": "澳大利亚",
     "phonetic": "[ostʁali]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "automne",
     "chinese": "秋天",
     "phonetic": "[otɔm]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "avril",
     "chinese": "四月",
     "phonetic": "[avʁil]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "balle",
     "chinese": "球",
     "phonetic": "[bal]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 4
   },
   {
     "french": "basket-ball",
     "chinese": "篮球",
     "phonetic": "[baskɛ bɔl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 5
   },
   {
     "french": "bavarder",
@@ -179,119 +179,119 @@
     "chinese": "白色的",
     "phonetic": "[blɑ̃, ʃ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "bleu, e",
     "chinese": "蓝色的",
     "phonetic": "[blø, ə]",
     "part_of_speech": "形容词 adj.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "boeuf",
     "chinese": "牛肉",
     "phonetic": "[bœf]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "boire",
     "chinese": "喝，饮",
     "phonetic": "[bwaʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "Bon appétit !",
     "chinese": "祝你胃口好！",
     "phonetic": "[bɔ̃ apeti]!",
     "part_of_speech": "感叹语 exclam.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "Brésil",
     "chinese": "巴西",
     "phonetic": "[bʁezil]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "briller",
     "chinese": "发光，闪耀",
     "phonetic": "[bʁije]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "brouillard",
     "chinese": "雾",
     "phonetic": "[bʁu jaʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 3
   },
   {
     "french": "bruit",
     "chinese": "声音；噪音，嘈杂声，喧闹声",
     "phonetic": "[bʁɥi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 2
   },
   {
     "french": "Bund",
     "chinese": "上海外滩",
     "phonetic": "[bʏnd]",
     "part_of_speech": "专有名词 n.pr.",
-    "unit": 1
+    "unit": 5
   },
   {
     "french": "bureau",
     "chinese": "写字台，办公桌；办公室",
     "phonetic": "[byʁo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "calme",
     "chinese": "安静的，平静的",
     "phonetic": "[kalm]",
     "part_of_speech": "形容词 adj.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "campagne",
     "chinese": "田野，乡村",
     "phonetic": "[kɑ̃paɲ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "camping",
     "chinese": "露营",
     "phonetic": "[kɑ̃piŋ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "canard",
     "chinese": "鸭子",
     "phonetic": "[kanɑʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "capitale",
     "chinese": "首都",
     "phonetic": "[kapital]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "caresser",
     "chinese": "抚摸",
     "phonetic": "[kaʁese]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "carotte",
@@ -305,14 +305,14 @@
     "chinese": "大教堂",
     "phonetic": "[katedral]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "cathédrale Notre-Dame de Paris",
     "chinese": "巴黎圣母院",
     "phonetic": "[katedral nɔtʁ dam də paʁi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "CDI (centre de documentation et d’information)",
@@ -326,56 +326,56 @@
     "chinese": "椅子",
     "phonetic": "[ʃɛz]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "chanter",
     "chinese": "唱，歌唱",
     "phonetic": "[ʃɑ̃te]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 2
+    "unit": 3
   },
   {
     "french": "chat",
     "chinese": "猫",
     "phonetic": "[ʃa]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "chaud, e",
     "chinese": "热的，暖的；保暖的",
     "phonetic": "[ʃo, d]",
     "part_of_speech": "形容词 adj.",
-    "unit": 2
+    "unit": 3
   },
   {
     "french": "chercher",
     "chinese": "找，寻找",
     "phonetic": "[ʃɛʁʃe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "cheval (pl. chevaux)",
     "chinese": "马",
     "phonetic": "[ʃəval]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "chimie",
     "chinese": "化学",
     "phonetic": "[ʃimi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "choisir",
     "chinese": "选择，挑选",
     "phonetic": "[ʃwaziʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "choix",
@@ -389,7 +389,7 @@
     "chinese": "事物",
     "phonetic": "[ʃoz]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "chouette",
@@ -403,168 +403,168 @@
     "chinese": "天，天空",
     "phonetic": "[sjɛl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 3
   },
   {
     "french": "Cité interdite",
     "chinese": "紫禁城；故宫",
     "phonetic": "[site ɛ̃tɛʁdit]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "clair, e",
     "chinese": "明亮的；清晰的",
     "phonetic": "[klɛʁ, ɛʁ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 2
+    "unit": 3
   },
   {
     "french": "classe",
     "chinese": "班级；课；教室",
     "phonetic": "[klas]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "climat",
     "chinese": "气候",
     "phonetic": "[klima]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 3
   },
   {
     "french": "cochon",
     "chinese": "猪",
     "phonetic": "[kɔʃɔ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "Colisée",
     "chinese": "罗马斗兽场",
     "phonetic": "[kɔlizе]",
     "part_of_speech": "专有名词 n.pr.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "collège",
     "chinese": "初中",
     "phonetic": "[kɔleʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "compagnie",
     "chinese": "陪伴，同伴",
     "phonetic": "[kɔ̃paɲi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "concert",
     "chinese": "演唱会，音乐会",
     "phonetic": "[kɔ̃sɛʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "connaissance",
     "chinese": "认识，知道",
     "phonetic": "[kɔnɑ̃sɑ̃s]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 1
   },
   {
     "french": "connaître",
     "chinese": "认识，知道，熟悉",
     "phonetic": "[kɔnɛtʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 2
+    "unit": 4
   },
   {
     "french": "contre",
     "chinese": "反对",
     "phonetic": "[kɔ̃tʁ]",
     "part_of_speech": "介词 prép.",
-    "unit": 2
+    "unit": 5
   },
   {
     "french": "cool",
     "chinese": "(口) 酷",
     "phonetic": "[kul]",
     "part_of_speech": "不变形容词 adj. inv.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "coq",
     "chinese": "公鸡",
     "phonetic": "[kɔk]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 4
   },
   {
     "french": "cou",
     "chinese": "脖子",
     "phonetic": "[ku]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 4
   },
   {
     "french": "couloir",
     "chinese": "走廊，过道",
     "phonetic": "[kulwaʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "cour",
     "chinese": "院子，庭院",
     "phonetic": "[kuʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "courageux, se",
     "chinese": "有勇气的，勇敢的",
     "phonetic": "[kuʁaʒø, øz]",
     "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "courir",
     "chinese": "跑",
     "phonetic": "[kuʁiʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "coûter",
     "chinese": "值；花费",
     "phonetic": "[kute]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "craie",
     "chinese": "粉笔",
     "phonetic": "[kʁɛ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "croire",
     "chinese": "认为；相信",
     "phonetic": "[kʁwaʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 5
   },
   {
     "french": "d’abord",
     "chinese": "首先",
     "phonetic": "[dabɔʁ]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 3
+    "unit": 5
   },
   {
     "french": "date",
@@ -592,84 +592,84 @@
     "chinese": "美味的，可口的",
     "phonetic": "[delisjø, øz]",
     "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "derrière",
     "chinese": "在……后面，在……背后",
     "phonetic": "[dəʁjɛʁ]",
     "part_of_speech": "介词 prép.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "désolé, e",
     "chinese": "遗憾的，感到抱歉的",
     "phonetic": "[de.zɔle, ə]",
     "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "unit": 5
   },
   {
     "french": "dessert",
     "chinese": "餐后点心（甜食、水果等）",
     "phonetic": "[dɛsɛʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "dessiner",
     "chinese": "画画",
     "phonetic": "[dɛsine]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "détester",
     "chinese": "憎恶，厌恶，讨厌",
     "phonetic": "[deteste]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "deuxième",
     "chinese": "第二",
     "phonetic": "[døzjɛm]",
     "part_of_speech": "序数形容词 adj. num. ord.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "devant",
     "chinese": "在……前面，在……面前",
     "phonetic": "[dəvɑ̃]",
     "part_of_speech": "介词 prép.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "difficile",
     "chinese": "困难的，艰难的，难的",
     "phonetic": "[difisil]",
     "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "dimanche",
     "chinese": "星期日",
     "phonetic": "[dimɑ̃ʃ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "dire",
     "chinese": "说",
     "phonetic": "[diʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 5
   },
   {
     "french": "doigt",
     "chinese": "手指",
     "phonetic": "[dwɑ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 4
   },
   {
     "french": "doux, ce",
@@ -683,84 +683,77 @@
     "chinese": "坚硬的；困难的；令人难受的",
     "phonetic": "[dyʁ, ɛʁ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "eau",
     "chinese": "水",
     "phonetic": "[o]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
+    "unit": 2
   },
   {
     "french": "écouter",
     "chinese": "听",
     "phonetic": "[ekute]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 5
   },
   {
     "french": "écrire",
     "chinese": "写",
     "phonetic": "[ekʁiʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 4
   },
   {
     "french": "effacer",
     "chinese": "擦去，去掉",
     "phonetic": "[efase]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "éléphant",
     "chinese": "大象",
     "phonetic": "[elefɑ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 4
   },
   {
     "french": "élève",
     "chinese": "学生",
     "phonetic": "[elɛv]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "emploi du temps",
     "chinese": "时间表",
     "phonetic": "[ɑ̃plwa dy tɑ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 1
   },
   {
     "french": "en ce moment",
     "chinese": "此时，这会儿",
     "phonetic": "[ɑ̃ sə mɔmɑ̃]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "en face de",
     "chinese": "在……对面，面对",
     "phonetic": "[ɑ̃ fas də]",
     "part_of_speech": "介词性短语 loc. prép.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "entrée",
     "chinese": "进口，入口",
     "phonetic": "[ɑ̃tre]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "entrée",
-    "chinese": "头道菜",
-    "phonetic": "[ɑ̃tre]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "environ",
@@ -774,175 +767,175 @@
     "chinese": "菠菜",
     "phonetic": "[epinaʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "EPS (éducation physique et sportive)",
     "chinese": "体育课",
     "phonetic": "[e pe es (edykasyɔ̃ fizik e spɔʁtiv)]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "étage",
     "chinese": "楼层",
     "phonetic": "[etaʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "étagère",
     "chinese": "架子，隔板；书架",
     "phonetic": "[etaʒɛʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "etc. loc.adv.",
     "chinese": "等等（et cetera 的缩写）",
     "phonetic": "[e tse te ʁa]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "été",
     "chinese": "夏天",
     "phonetic": "[ete]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "excellent, e",
     "chinese": "出色的，卓越的，优秀的",
     "phonetic": "[ɛksɛlɑ̃, ɑ̃t]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "exposition",
     "chinese": "展览",
     "phonetic": "[eks pozisjɔ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "fenêtre",
     "chinese": "窗",
     "phonetic": "[fənɛtʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "fermer",
     "chinese": "关闭",
     "phonetic": "[fɛʁme]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "feuille",
     "chinese": "树叶",
     "phonetic": "[fœj]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "février",
     "chinese": "二月",
     "phonetic": "[fevʁije]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "film",
     "chinese": "电影，影业",
     "phonetic": "[film]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "fin",
     "chinese": "终，末",
     "phonetic": "[fɛ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "fini, e",
     "chinese": "完成的，结束的",
     "phonetic": "[fini, i]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "finir",
     "chinese": "完成，结束",
     "phonetic": "[finiʁ]",
     "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "foot (football)",
     "chinese": "足球",
     "phonetic": "[fut (futbɔl)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "forêt",
     "chinese": "森林",
     "phonetic": "[fɔʁe]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "frais, fraîche",
     "chinese": "凉爽的",
     "phonetic": "[fʁɛ, fʁɛʃ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "froid, e",
     "chinese": "冷的；凉的",
     "phonetic": "[fʁwa, d]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "fromage",
     "chinese": "奶酪",
     "phonetic": "[fʁɔmaʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "fruit",
     "chinese": "水果",
     "phonetic": "[fʁɥi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "geler",
     "chinese": "结冰",
     "phonetic": "[ʒle]",
     "part_of_speech": "无人称动词 v. impers.",
-    "unit": 4
+    "unit": 3
   },
   {
     "french": "génial, e",
     "chinese": "极妙的",
     "phonetic": "[ʒenjal, ɛl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "géographie",
     "chinese": "地理",
     "phonetic": "[ʒeɔɡʁafi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 1
   },
   {
     "french": "girafe",
@@ -956,7 +949,7 @@
     "chinese": "味道；爱好",
     "phonetic": "[gu]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "gramme",
@@ -970,63 +963,63 @@
     "chinese": "长城",
     "phonetic": "[ɡʁɑ̃d myʁaj]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
+    "unit": 5
   },
   {
     "french": "gratuit, e",
     "chinese": "免费的",
     "phonetic": "[ɡʁatyti, i]",
     "part_of_speech": "形容词 adj.",
-    "unit": 4
+    "unit": 2
   },
   {
     "french": "gris, e",
     "chinese": "灰色的；阴沉的",
     "phonetic": "[ɡʁi, i]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "gymnase",
     "chinese": "体育馆，健身房",
     "phonetic": "[ʒimnaz]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "haut",
     "chinese": "高的",
     "phonetic": "[o]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "hauteur",
     "chinese": "高度",
     "phonetic": "[otœʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "hésiter",
     "chinese": "犹豫，迟疑，踌躇",
     "phonetic": "[ezite]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "hiver",
     "chinese": "冬天",
     "phonetic": "[ivɛʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "humide",
     "chinese": "潮湿的",
     "phonetic": "[ymid]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "Hutong",
@@ -1040,1427 +1033,1427 @@
     "chinese": "理想的",
     "phonetic": "[ideal, o, o]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "idée",
     "chinese": "主意",
     "phonetic": "[ide]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "impossible",
     "chinese": "不可能的",
     "phonetic": "[ɛ̃pɔsibl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "incroyable",
     "chinese": "难以置信的，异常的",
     "phonetic": "[ɛ̃kʁwajabl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "infirmière",
     "chinese": "（学校等的）医务室，诊疗所",
     "phonetic": "[ɛ̃fiʁmjɛʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "information",
     "chinese": "信息",
     "phonetic": "[ɛ̃fɔʁmasjɔ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "informatique",
     "chinese": "信息科学，信息技术",
     "phonetic": "[ɛ̃fɔʁmatik]",
     "part_of_speech": "阴性名词 / 形容词 n.f. / adj.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "intime",
     "chinese": "私人的；亲密的",
     "phonetic": "[ɛ̃tim]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "jamais",
     "chinese": "曾经；从来没有，永远不会",
     "phonetic": "[ʒəmɛ]",
     "part_of_speech": "副词 adv.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "janvier",
     "chinese": "一月",
     "phonetic": "[ʒɑ̃vje]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "jaune",
     "chinese": "黄色的",
     "phonetic": "[ʒon]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "jaunir",
     "chinese": "变成黄色",
     "phonetic": "[ʒɔniʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "jeu",
     "chinese": "游戏",
     "phonetic": "[ʒø]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "jeudi",
     "chinese": "星期四",
     "phonetic": "[ʒødi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 1
   },
   {
     "french": "juillet",
     "chinese": "七月",
     "phonetic": "[ʒɥijɛ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "juin",
     "chinese": "六月",
     "phonetic": "[ʒɥɛ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3
   },
   {
     "french": "jus",
     "chinese": "（水果、蔬菜等的）汁",
     "phonetic": "[ʒys]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "juste",
     "chinese": "正好，恰巧",
     "phonetic": "[ʒyst]",
     "part_of_speech": "副词 adv.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "kilogramme (kilo)",
     "chinese": "公斤，千克",
     "phonetic": "[kilɔɡʁam (kilo)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "laboratoire",
     "chinese": "实验室",
     "phonetic": "[labɔʁatwaʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "lait",
     "chinese": "牛奶",
     "phonetic": "[lɛ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "lapin",
     "chinese": "兔子",
     "phonetic": "[lapɛ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "le long de",
     "chinese": "沿着",
     "phonetic": "[lə lɔ̃ɡ də]",
     "part_of_speech": "介词性短语 loc. prép.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "lecture",
     "chinese": "阅读",
     "phonetic": "[løktyʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "légume",
     "chinese": "蔬菜",
     "phonetic": "[leɡym]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 2
   },
   {
     "french": "lion",
     "chinese": "狮子",
     "phonetic": "[ljɔ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "loin",
     "chinese": "远，遥远",
     "phonetic": "[lwɛ̃]",
     "part_of_speech": "副词 adv.",
-    "unit": 5
+    "unit": 4
   },
   {
     "french": "loisirs",
     "chinese": "消遣，娱乐",
     "phonetic": "[lwa.ziʁ]",
     "part_of_speech": "阳性复数名词 n.m.pl.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "long, gue",
     "chinese": "长的",
     "phonetic": "[lɔ̃, ɡ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "longueur",
     "chinese": "长度",
     "phonetic": "[lɔ̃ɡœʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "lundi",
     "chinese": "星期一",
     "phonetic": "[lœ̃di]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "magnifique",
     "chinese": "好极了的",
     "phonetic": "[maɲifik]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "mai",
     "chinese": "五月",
     "phonetic": "[me]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "maintenant",
     "chinese": "现在",
     "phonetic": "[mɛ̃tənɑ̃]",
     "part_of_speech": "副词 adv.",
-    "unit": 6
+    "unit": 2
   },
   {
     "french": "malin, maligne",
     "chinese": "狡猾的，机灵的",
     "phonetic": "[malɛ̃, ma liɲ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "mardi",
     "chinese": "星期二",
     "phonetic": "[maʁdi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "mars",
     "chinese": "三月",
     "phonetic": "[maʁs]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "Marseille",
     "chinese": "马赛（法国城市）",
     "phonetic": "[maʁsɛj]",
     "part_of_speech": "专有名词 n.pr.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "match",
     "chinese": "比赛，竞赛",
     "phonetic": "[matʃ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "mathématiques (maths)",
     "chinese": "数学",
     "phonetic": "[matematik (mat)]",
     "part_of_speech": "阴性复数名词 n.f.pl.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "matin",
     "chinese": "早上，早晨",
     "phonetic": "[matɛ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "mauvais, e",
     "chinese": "坏的，不好的",
     "phonetic": "[mo ve, ɛz]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "même",
     "chinese": "相同的，同样的",
     "phonetic": "[mɛm]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "menu",
     "chinese": "菜单；套餐",
     "phonetic": "[məny]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 2
   },
   {
     "french": "mer",
     "chinese": "大海",
     "phonetic": "[mɛʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "mercredi",
     "chinese": "星期三",
     "phonetic": "[mɛʁkʁedi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "mesurer",
     "chinese": "测量，尺寸为",
     "phonetic": "[meyzyʁe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "météo (météorologie)",
     "chinese": "天气预报；天气",
     "phonetic": "[meteɔ (meteɔʁɔlɔʒi)]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "mètre",
     "chinese": "米",
     "phonetic": "[mɛtʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "moderne",
     "chinese": "现代的",
     "phonetic": "[mɔdɛʁn]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "mois",
     "chinese": "月，月份",
     "phonetic": "[mwa]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "Mon Dieu !",
     "chinese": "天哪！",
     "phonetic": "[mɔ̃ djø]!",
     "part_of_speech": "感叹语 exclam.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "moustache",
     "chinese": "小胡子",
     "phonetic": "[mustaʃ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "mur",
     "chinese": "墙",
     "phonetic": "[myʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "n’est-ce pas",
     "chinese": "对吗，是不是",
     "phonetic": "[ne sə pa]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 6
+    "unit": 2
   },
   {
     "french": "nager",
     "chinese": "游泳",
     "phonetic": "[neʒe]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "natation",
     "chinese": "游泳",
     "phonetic": "[natasjɔ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5
   },
   {
     "french": "nature",
     "chinese": "自然（界），大自然",
     "phonetic": "[natyʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "ne… que",
     "chinese": "只，仅仅",
     "phonetic": "[nə ke]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 6
+    "unit": 4
   },
   {
     "french": "ne… plus",
     "chinese": "不再",
     "phonetic": "[nə plys]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 6
+    "unit": 1
   },
   {
     "french": "neige",
     "chinese": "雪",
     "phonetic": "[nɛʒ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "neiger",
     "chinese": "下雪",
     "phonetic": "[nɛʒe]",
     "part_of_speech": "无人称动词 v. impers.",
-    "unit": 6
+    "unit": 3
   },
   {
     "french": "nerveux, se",
     "chinese": "烦躁的；紧张不安的",
     "phonetic": "[nɛʁvø, z]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 1
   },
   {
     "french": "Noël",
     "chinese": "圣诞节",
     "phonetic": "[nɔɛl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "nord",
     "chinese": "北，北边，北方",
     "phonetic": "[nɔʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "normal, e, aux",
     "chinese": "正常的",
     "phonetic": "[nɔʁmal, o, o]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "nourriture",
     "chinese": "食物",
     "phonetic": "[nuʁitœʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "nouveau (nouvel), elle",
     "chinese": "新的；新生",
     "phonetic": "[nuvo (nuvɛl), ɛl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 1
   },
   {
     "french": "novembre",
     "chinese": "十一月",
     "phonetic": "[nɔvɑ̃bʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "nuage",
     "chinese": "云",
     "phonetic": "[nɥaʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "nuageux, se",
     "chinese": "多云的",
     "phonetic": "[nɥaʒø, z]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "octobre",
     "chinese": "十月",
     "phonetic": "[ɔktɔbʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "œil (yeux)",
     "chinese": "眼睛",
     "phonetic": "[œj (jø)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "œuf (œufs)",
     "chinese": "蛋，鸡蛋",
     "phonetic": "[ø (øf)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "oiseau (pl. oiseaux)",
     "chinese": "鸟",
     "phonetic": "[wazo (wazo)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "opéra",
     "chinese": "歌剧院；歌剧",
     "phonetic": "[ɔpeʁa]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 5
   },
   {
     "french": "orage",
     "chinese": "雷雨，暴风雨",
     "phonetic": "[ɔʁaʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "orange",
     "chinese": "橙",
     "phonetic": "[ɔʁɑ̃ʒ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "oreille",
     "chinese": "耳朵",
     "phonetic": "[ɔʁɛj]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "os",
     "chinese": "骨，骨头",
     "phonetic": "[ɔs]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "ours",
     "chinese": "熊",
     "phonetic": "[uʁs]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "ouvert, e",
     "chinese": "开着的；开放的",
     "phonetic": "[uvɛʁt, ɛt]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "ouvrir",
     "chinese": "开，打开；开启",
     "phonetic": "[uvʁiʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 7
+    "unit": 1
   },
   {
     "french": "page",
     "chinese": "页面",
     "phonetic": "[paʒ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 1
   },
   {
     "french": "pain",
     "chinese": "面包",
     "phonetic": "[pɛ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "palais d’Été",
     "chinese": "颐和园",
     "phonetic": "[pala d ete]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 5
   },
   {
     "french": "panda",
     "chinese": "熊猫",
     "phonetic": "[pɑ̃da]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "panneau (pl. panneaux)",
     "chinese": "壁纸，版板",
     "phonetic": "[pano (pano)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "pantoufle",
     "chinese": "拖鞋",
     "phonetic": "[pɑ̃tufl]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "paresseux, se",
     "chinese": "懒惰的",
     "phonetic": "[paʁsø, z]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "parfait, e",
     "chinese": "完美的；好极了",
     "phonetic": "[paʁfɛ, ɛt]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 2
   },
   {
     "french": "parfois",
     "chinese": "有时",
     "phonetic": "[paʁfwa]",
     "part_of_speech": "副词 adv.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "parfum",
     "chinese": "芬芳，芳香，香味；香水",
     "phonetic": "[paʁfœ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 3
   },
   {
     "french": "patte",
     "chinese": "爪子，脚",
     "phonetic": "[pat]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "pendant",
     "chinese": "在……期间",
     "phonetic": "[pɑ̃dɑ̃]",
     "part_of_speech": "介词 prép.",
-    "unit": 7
+    "unit": 5
   },
   {
     "french": "perroquet",
     "chinese": "鹦鹉",
     "phonetic": "[pɛʁɔkɛ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "peser",
     "chinese": "称，过磅",
     "phonetic": "[peze]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 7
+    "unit": 4
   },
   {
     "french": "physique",
     "chinese": "物理",
     "phonetic": "[fizik]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "piano",
     "chinese": "钢琴",
     "phonetic": "[pjɑ̃o]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "ping-pong",
     "chinese": "乒乓球",
     "phonetic": "[pɛ̃g pɔ̃g]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "pique-nique",
     "chinese": "野餐",
     "phonetic": "[piknik]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 3
   },
   {
     "french": "placard",
     "chinese": "橱柜",
     "phonetic": "[plakaʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "place",
     "chinese": "位置",
     "phonetic": "[plas]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "plage",
     "chinese": "海滩，沙滩",
     "phonetic": "[plaʒ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "plat",
     "chinese": "一盘菜，一道菜",
     "phonetic": "[pla]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "plein, e",
     "chinese": "满的，充满的",
     "phonetic": "[plɛ̃, ɛ̃]",
     "part_of_speech": "形容词 adj.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "pleuvoir",
     "chinese": "下雨",
     "phonetic": "[plœvwaʁ]",
     "part_of_speech": "无人称动词 v. impers.",
-    "unit": 8
+    "unit": 3
   },
   {
     "french": "pluie",
     "chinese": "雨",
     "phonetic": "[plɥi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 3
   },
   {
     "french": "plusieurs",
     "chinese": "许多的，好几个",
     "phonetic": "[plysjøʁ]",
     "part_of_speech": "复数不定形容词 adj. indéf. pl.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "poche",
     "chinese": "口袋",
     "phonetic": "[pɔʃ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "poids",
     "chinese": "重量",
     "phonetic": "[pwa]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "poisson",
     "chinese": "鱼",
     "phonetic": "[pwason]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "pomme",
     "chinese": "苹果",
     "phonetic": "[pɔm]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "porte",
     "chinese": "门",
     "phonetic": "[pɔʁt]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "possible",
     "chinese": "可能的",
     "phonetic": "[pɔsibl]",
     "part_of_speech": "形容词 adj.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "poulet",
     "chinese": "鸡肉",
     "phonetic": "[pule]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "pousser",
     "chinese": "生长",
     "phonetic": "[pusе]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 8
+    "unit": 3
   },
   {
     "french": "préféré, e",
     "chinese": "最为人喜爱的",
     "phonetic": "[prefeʁe, ɛʁ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "préférer",
     "chinese": "更喜欢",
     "phonetic": "[prefeʁe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "premier, ère",
     "chinese": "第一的",
     "phonetic": "[pʁəmje, ɛʁ]",
     "part_of_speech": "序数形容词 adj. num. ord.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "prendre",
     "chinese": "拿；吃；喝",
     "phonetic": "[pʁɑ̃dʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "près de",
     "chinese": "在……附近",
     "phonetic": "[pʁɛ də]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "principal, e, aux",
     "chinese": "主要的，首要的",
     "phonetic": "[pʁisipal, o, o]",
     "part_of_speech": "形容词 adj.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "printemps",
     "chinese": "春天",
     "phonetic": "[pʁɛ̃tɑ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 3
   },
   {
     "french": "proposer",
     "chinese": "提出；建议",
     "phonetic": "[pʁɔpoze]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "propre",
     "chinese": "干净的",
     "phonetic": "[pʁɔpʁ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 8
+    "unit": 2
   },
   {
     "french": "pupitre",
     "chinese": "课桌",
     "phonetic": "[py pitʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "pyramide",
     "chinese": "金字塔",
     "phonetic": "[piʁamid]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "quai",
     "chinese": "码头，河堤，堤岸",
     "phonetic": "[ke]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "quand",
     "chinese": "当……的时候",
     "phonetic": "[kɑ̃]",
     "part_of_speech": "副词 adv.",
-    "unit": 8
+    "unit": 1
   },
   {
     "french": "quartier",
     "chinese": "街区，居民区",
     "phonetic": "[kaʁtje]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
+    "unit": 4
   },
   {
     "french": "quelquefois",
     "chinese": "有时候",
     "phonetic": "[kɛlkəfwa]",
     "part_of_speech": "副词 adv.",
-    "unit": 8
+    "unit": 5
   },
   {
     "french": "récolte",
     "chinese": "收货，收获季节",
     "phonetic": "[rekɔlt]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "récration (récré)",
     "chinese": "课间休息",
     "phonetic": "[rekʁeasiɔ̃ (rekʁe)]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "rencontrer",
     "chinese": "遇见",
     "phonetic": "[ʁɑ̃kɔ̃tʁe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "retourner",
     "chinese": "返回，回去",
     "phonetic": "[ʁəturne]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "rêver",
     "chinese": "梦想；渴望，向往",
     "phonetic": "[ʁeve]",
     "part_of_speech": "及物/间接动词 v.t./indir.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "riz",
     "chinese": "米饭",
     "phonetic": "[ʁi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "rougir",
     "chinese": "变成红色",
     "phonetic": "[ʁuʒiʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "s’amuser",
     "chinese": "消遣，娱乐",
     "phonetic": "[samyze]",
     "part_of_speech": "代动词 v.pr.",
-    "unit": 9
+    "unit": 5
   },
   {
     "french": "s’occuper (de)",
     "chinese": "照顾，照看",
     "phonetic": "[sɔkype (də)]",
     "part_of_speech": "代动词 v.pr.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "saison",
     "chinese": "季节",
     "phonetic": "[sɛzɔ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "salle",
     "chinese": "厅，场，室",
     "phonetic": "[sal]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "samedi",
     "chinese": "星期六",
     "phonetic": "[samdi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "sans",
     "chinese": "没有，不",
     "phonetic": "[sɑ̃]",
     "part_of_speech": "介词 prép.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "se promener",
     "chinese": "散步，闲逛",
     "phonetic": "[sə pʁɔməne]",
     "part_of_speech": "代动词 v.pr.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "se trouver",
     "chinese": "位于",
     "phonetic": "[sə tʁuve]",
     "part_of_speech": "代动词 v.pr.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "sec, sèche",
     "chinese": "干的，干燥的",
     "phonetic": "[sɛk, sɛʃ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "Seine",
     "chinese": "塞纳河",
     "phonetic": "[sɛn]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "sentir",
     "chinese": "散发气味，闻起来",
     "phonetic": "[sɑ̃tiʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "septembre",
     "chinese": "九月",
     "phonetic": "[sɛptɑ̃bʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "sérieux, se",
     "chinese": "严肃的；认真的",
     "phonetic": "[seʁjø, z]",
     "part_of_speech": "形容词 adj.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "serpent",
     "chinese": "蛇",
     "phonetic": "[sɛʁpɑ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "si",
     "chinese": "假如，如果",
     "phonetic": "[si]",
     "part_of_speech": "连词 conj.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "singe",
     "chinese": "猴子",
     "phonetic": "[sɛ̃ʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "ski",
     "chinese": "滑雪",
     "phonetic": "[ski]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "soleil",
     "chinese": "阳光；太阳",
     "phonetic": "[sɔlɛj]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "sonner",
     "chinese": "（钟，铃）响；敲钟",
     "phonetic": "[sɔne]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "sortir",
     "chinese": "出去，出来，出门",
     "phonetic": "[sɔʁtiʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 9
+    "unit": 3
   },
   {
     "french": "souris",
     "chinese": "小鼠；鼠标",
     "phonetic": "[suʁi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "sous",
     "chinese": "在……下面",
     "phonetic": "[su]",
     "part_of_speech": "介词 prép.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "sport",
     "chinese": "体育",
     "phonetic": "[spɔʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "suffire",
     "chinese": "满足，足够",
     "phonetic": "[syfiʁ]",
     "part_of_speech": "及物/间接动词 v.t./indir.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "suivre",
     "chinese": "关注，专注",
     "phonetic": "[sɥivʁ]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 9
+    "unit": 2
   },
   {
     "french": "surtout",
     "chinese": "尤其，特别",
     "phonetic": "[syʁtu]",
     "part_of_speech": "副词 adv.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "tableau",
     "chinese": "黑板；布告栏；表格",
     "phonetic": "[tablo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
+    "unit": 1
   },
   {
     "french": "tache",
     "chinese": "斑点",
     "phonetic": "[taʃ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
+    "unit": 4
   },
   {
     "french": "taille",
     "chinese": "体型，身材，尺寸",
     "phonetic": "[taj]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "température",
     "chinese": "气温；温度",
     "phonetic": "[tɑ̃peʁatyʁ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "tempéré, e",
     "chinese": "气候温和的",
     "phonetic": "[tɑ̃pere, ɛʁ]",
     "part_of_speech": "形容词 adj.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "texte",
     "chinese": "文本，作品，课文",
     "phonetic": "[tɛkst]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "ticket",
     "chinese": "票，券",
     "phonetic": "[tike]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "tigre",
     "chinese": "老虎",
     "phonetic": "[tiʒʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "toit",
     "chinese": "屋顶",
     "phonetic": "[twɑ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "Tokyo",
     "chinese": "东京（日本首都）",
     "phonetic": "[tɔkjo]",
     "part_of_speech": "专有名词 n.pr.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "tomate",
     "chinese": "西红柿",
     "phonetic": "[tɔmat]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "tomber",
     "chinese": "落下，掉下",
     "phonetic": "[tɔ̃be]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "tonne",
     "chinese": "吨",
     "phonetic": "[tɔn]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "tortue",
     "chinese": "龟，乌龟",
     "phonetic": "[tɔʁty]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "tôt",
     "chinese": "早",
     "phonetic": "[to]",
     "part_of_speech": "副词 adv.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "tour Eiffel",
     "chinese": "埃菲尔铁塔",
     "phonetic": "[tuʁ ejfɛl]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "touristique",
     "chinese": "旅游的",
     "phonetic": "[tuʁistik]",
     "part_of_speech": "形容词 adj.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "trop",
     "chinese": "太，过分地，过多地",
     "phonetic": "[tʁɔ]",
     "part_of_speech": "副词 adv.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "typiquement",
     "chinese": "典型地，地道地",
     "phonetic": "[tipikəmɑ̃]",
     "part_of_speech": "副词 adv.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "un peu de",
     "chinese": "一点",
     "phonetic": "[œ̃ pø də]",
     "part_of_speech": "副词性短语 loc. adv.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "vacances",
     "chinese": "假期",
     "phonetic": "[vakɑ̃s]",
     "part_of_speech": "阴性复数名词 n.f.pl.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "vache",
     "chinese": "奶牛",
     "phonetic": "[vaʃ]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "vélo",
     "chinese": "自行车",
     "phonetic": "[velo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "vendredi",
     "chinese": "星期五",
     "phonetic": "[vɑ̃dʁədi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "venir",
     "chinese": "来，来到",
     "phonetic": "[vəniʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "vent",
     "chinese": "风",
     "phonetic": "[vɑ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "vers",
     "chinese": "朝向",
     "phonetic": "[veʁ]",
     "part_of_speech": "介词 prép.",
-    "unit": 10
+    "unit": 3
   },
   {
     "french": "vétérinaire",
     "chinese": "兽医",
     "phonetic": "[vetɛʁinɛʁ]",
     "part_of_speech": "名词 n.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "viande",
     "chinese": "肉，肉类",
     "phonetic": "[vjɑ̃d]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "ville",
     "chinese": "城市",
     "phonetic": "[vil]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "violon",
     "chinese": "小提琴",
     "phonetic": "[vjɔlɔ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "visiter",
     "chinese": "拜访，访问",
     "phonetic": "[vizite]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "voisin, e",
     "chinese": "邻居；邻座的人",
     "phonetic": "[vwa zɛ̃, ɛ̃]",
     "part_of_speech": "名词 n.",
-    "unit": 10
+    "unit": 1
   },
   {
     "french": "voyage",
     "chinese": "旅行",
     "phonetic": "[vwa jaʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "vrai, e",
     "chinese": "确实的，真实的",
     "phonetic": "[vʁɛ, i]",
     "part_of_speech": "形容词 adj.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "week-end (pl. week-ends)",
     "chinese": "周末",
     "phonetic": "[wik ɛ̃d (wik ɛ̃d)]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 5
   },
   {
     "french": "yaourt",
     "chinese": "酸奶",
     "phonetic": "[jɔʁt]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 2
   },
   {
     "french": "zèbre",
     "chinese": "斑马",
     "phonetic": "[zɛbʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 4
   },
   {
     "french": "zoo",
     "chinese": "动物园",
     "phonetic": "[zo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 4
   }
 ]
