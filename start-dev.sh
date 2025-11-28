@@ -29,7 +29,7 @@ docker-compose ps
 echo ""
 echo "✅ 开发环境启动成功！"
 echo ""
-echo "🌐 前端开发地址: http://localhost:3000"
+echo "🌐 前端开发地址: http://localhost:2402"
 echo "🔧 后端API地址: http://localhost:3001"
 echo "📊 健康检查: http://localhost:3001/health"
 echo ""

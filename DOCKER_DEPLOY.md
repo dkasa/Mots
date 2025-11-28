@@ -16,7 +16,7 @@ docker-compose down
 ```
 
 访问地址：
-- 前端：http://localhost:3000
+- 前端：http://localhost:2402
 - 后端API：http://localhost:3001
 
 ### 2. 单独构建和运行
@@ -25,7 +25,7 @@ docker-compose down
 ```bash
 cd docker
 docker build -f Dockerfile.frontend -t mots-frontend ..
-docker run -d -p 3000:3000 --name mots-frontend mots-frontend
+docker run -d -p 2402:2402 --name mots-frontend mots-frontend
 ```
 
 #### 构建后端
