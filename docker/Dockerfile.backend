@@ -18,14 +18,17 @@ RUN npm install -g pnpm && \
 # 复制后端依赖文件
 COPY backend/package.json backend/pnpm-lock.yaml ./
 
-# 安装依赖
-RUN pnpm install --frozen-lockfile --prod
+# 安装所有依赖（包括devDependencies用于构建）
+RUN pnpm install --frozen-lockfile
 
 # 复制后端源码
 COPY backend ./
 
 # 构建后端
 RUN npm run build
+
+# 只保留生产依赖，移除开发依赖
+RUN pnpm prune --prod
 
 # 创建数据目录
 RUN mkdir -p /app/data
