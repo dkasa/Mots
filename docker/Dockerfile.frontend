@@ -5,7 +5,8 @@ WORKDIR /app
 ENV CI=true
 
 # 安装pnpm
-RUN npm install -g pnpm
+RUN npm install -g pnpm && \
+  pnpm config set registry https://registry.npmmirror.com
 
 # 复制前端依赖文件
 COPY app/package.json app/pnpm-lock.yaml ./

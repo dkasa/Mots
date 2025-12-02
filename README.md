@@ -24,7 +24,7 @@
 .\start-dev.ps1
 
 # Linux/macOS
-./start-postgres.sh
+./start.sh
 ```
 
 #### 手动启动
