@@ -36,7 +36,7 @@ async function seedDatabase(): Promise<void> {
         const userId = await users.create(userData.username, userData.email, passwordHash);
         
         // 创建用户设置
-        await userSettings.create(userId.toString());
+        await userSettings.create(userId);
         
         // 添加一些示例进度数据
         const sampleProgress = [
@@ -49,7 +49,7 @@ async function seedDatabase(): Promise<void> {
         
         for (const progress of sampleProgress) {
           await userProgress.upsert(
-            userId.toString(),
+            userId,
             progress.wordId,
             progress.grade,
             progress.isLearned,

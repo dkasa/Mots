@@ -1,4 +1,4 @@
-import { initDatabase, testConnection, getDatabaseType } from './index';
+import { initDatabase, testDbConnection, getDatabaseType } from './index';
 import { migrateFromJsonToPostgres } from './migrate';
 import fs from 'fs';
 import path from 'path';
@@ -14,7 +14,7 @@ async function resetDatabase(): Promise<void> {
       console.log('🐘 重置PostgreSQL数据库...');
       
       // 测试连接
-      const isConnected = await testConnection();
+      const isConnected = await testDbConnection();
       if (!isConnected) {
         throw new Error('PostgreSQL连接失败');
       }

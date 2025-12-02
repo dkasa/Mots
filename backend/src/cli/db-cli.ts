@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { initDatabase, testConnection, getDatabaseType } from '../database';
+import { initDatabase, testDbConnection, getDatabaseType } from '../database';
 import { migrateFromJsonToPostgres } from '../database/migrate';
 import { resetDatabase } from '../database/reset';
 import { seedDatabase } from '../database/seed';
@@ -35,7 +35,7 @@ program
   .action(async () => {
     try {
       console.log('🔍 测试数据库连接...');
-      const isConnected = await testConnection();
+      const isConnected = await testDbConnection();
       const dbType = getDatabaseType();
       
       if (isConnected) {
@@ -78,7 +78,7 @@ program
         output: process.stdout
       });
       
-      const answer = await new Promise((resolve) => {
+      const answer = await new Promise<string>((resolve) => {
         rl.question('⚠️  确定要重置数据库吗？这将删除所有数据！(y/N): ', resolve);
       });
       
@@ -120,7 +120,7 @@ program
   .action(async () => {
     try {
       const dbType = getDatabaseType();
-      const isConnected = await testConnection();
+      const isConnected = await testDbConnection();
       
       console.log('📊 数据库状态:');
       console.log(`  类型: ${dbType}`);
