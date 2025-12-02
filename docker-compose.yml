@@ -1,6 +1,29 @@
 version: '3.8'
 
 services:
+  # PostgreSQL 数据库
+  postgres:
+    image: postgres:17-alpine
+    container_name: mots-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: mots
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - mots-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mots"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # 前端服务
   frontend:
     build:
@@ -26,14 +49,31 @@ services:
       - NODE_ENV=production
       - PORT=3001
       - CORS_ORIGIN=http://localhost:2402
+      # PostgreSQL 配置
+      - USE_POSTGRES=true
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=mots
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - JWT_SECRET=mots-super-secret-jwt-key-2024-production-ready
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
-      - ./data:/app/data
+      - ./data:/app/data  # 保留词汇数据文件
     networks:
       - mots-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   mots-network:
     driver: bridge
 
 volumes:
-  mots-data:
+  postgres_data:
+    driver: local

@@ -12,11 +12,45 @@
 
 ## 快速开始
 
-### 环境要求
+### 🐘 PostgreSQL 版本（推荐）
+
+#### 环境要求
+- Docker & Docker Compose
+- Node.js 18+ (用于本地开发)
+
+#### 一键启动
+```bash
+# Windows PowerShell 开发环境（连接远程数据库）
+.\start-dev.ps1
+
+# Linux/macOS
+./start-postgres.sh
+```
+
+#### 手动启动
+```bash
+# 启动所有服务（包括 PostgreSQL）
+docker-compose up -d
+
+# 查看服务状态
+docker-compose ps
+
+# 查看日志
+docker-compose logs -f
+```
+
+#### 测试账号
+- 用户名: `demo`, 密码: `demo123`
+- 用户名: `testuser`, 密码: `test123`
+- 用户名: `admin`, 密码: `admin123`
+
+### 📄 JSON 存储版本（开发用）
+
+#### 环境要求
 - Node.js 18+
 - pnpm
 
-### 安装依赖
+#### 安装依赖
 ```bash
 # 配置国内源（推荐）
 pnpm config set registry https://registry.npmmirror.com
@@ -30,9 +64,9 @@ cd ../app
 pnpm install
 ```
 
-### 启动开发环境
+#### 启动开发环境
 
-#### 方式一：使用脚本（推荐）
+##### 方式一：使用脚本
 ```bash
 # Windows PowerShell
 powershell -ExecutionPolicy Bypass -File start.ps1
@@ -41,7 +75,7 @@ powershell -ExecutionPolicy Bypass -File start.ps1
 ./start-dev.sh
 ```
 
-#### 方式二：手动启动
+##### 方式二：手动启动
 ```bash
 # 终端1：启动后端
 cd backend

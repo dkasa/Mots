@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
 
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
+
 interface WordListItemProps {
   word: WordWithStatus;
   /**
@@ -9,53 +11,43 @@ interface WordListItemProps {
    */
   onToggle?: (word: WordWithStatus, newIsMastered: boolean) => void;
   darkMode?: boolean;
+  recallMode?: RecallMode;
 }
 
-export function WordListItem({ word, onToggle, darkMode = false }: WordListItemProps) {
+export const WordListItem = React.memo(function WordListItem({ word, onToggle, darkMode = false, recallMode = 'none' }: WordListItemProps) {
   const [isNotMastered, setIsNotMastered] = useState<boolean>(!word.isMastered);
   const [saving, setSaving] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
 
   useEffect(() => {
     setIsNotMastered(!word.isMastered);
   }, [word.isMastered]);
 
-  // 现在把持久化交给父组件（onToggle），组件只负责本地乐观显示
-  const callParentToggle = async (newIsMastered: boolean) => {
-    if (!onToggle) return;
-    try {
-      setSaving(true);
-      // 同步调用父组件处理（父组件负责持久化 & 刷新列表）
-      await Promise.resolve(onToggle(word, newIsMastered));
-    } catch (e) {
-      console.error('onToggle failed', e);
-      throw e;
-    } finally {
-      setSaving(false);
-    }
-  };
-
+  // 完全本地化的状态更新，只通知父组件持久化
   const handleToggle = async (e: React.MouseEvent | React.KeyboardEvent) => {
     e.stopPropagation();
     if (saving) return;
+    
     const newIsNotMastered = !isNotMastered;
-    setIsNotMastered(newIsNotMastered); // 乐观更新 UI (开关跳左跳右)
-    const newIsMastered = !newIsNotMastered; // 计算要保存的 isMastered 值
-
+    const newIsMastered = !newIsNotMastered;
+    
+    // 立即更新本地状态
+    setIsNotMastered(newIsNotMastered);
+    
+    // 异步通知父组件持久化，但不等待结果
+    setSaving(true);
     try {
-      console.log('[WordListItem] toggle', word.id, '-> isMastered=', newIsMastered);
-      await callParentToggle(newIsMastered);
-      // 父组件会更新列表并重新传入 props，useEffect 会同步 local state
-    } catch (err) {
-      // 出错回滚
-      setIsNotMastered(!newIsNotMastered);
-      // 如果父组件未做回滚（不太可能），这里再尝试通知父组件回退
       if (onToggle) {
-        try {
-          onToggle(word, !newIsMastered);
-        } catch (err2) {
-          console.error('rollback onToggle failed', err2);
-        }
+        // 不等待父组件完成，避免阻塞UI
+        Promise.resolve(onToggle(word, newIsMastered)).catch(err => {
+          console.error('Failed to sync toggle:', err);
+          // 如果同步失败，回滚本地状态
+          setIsNotMastered(!newIsNotMastered);
+        });
       }
+    } finally {
+      // 短暂延迟后重置saving状态
+      setTimeout(() => setSaving(false), 300);
     }
   };
 
@@ -72,6 +64,16 @@ export function WordListItem({ word, onToggle, darkMode = false }: WordListItemP
     }
   };
 
+  const handleContentClick = (e: React.MouseEvent) => {
+    if (recallMode !== 'none' && !isRevealed) {
+      e.stopPropagation();
+      setIsRevealed(true);
+    }
+  };
+
+  const shouldHideFrench = recallMode === 'hide-french' && !isRevealed;
+  const shouldHideChinese = recallMode === 'hide-chinese' && !isRevealed;
+
   return (
     <div
       role="button"
@@ -85,16 +87,28 @@ export function WordListItem({ word, onToggle, darkMode = false }: WordListItemP
       `}
     >
       <div className="flex items-start justify-between">
-        <div className="flex-1">
+        <div className="flex-1" onClick={handleContentClick}>
           {/* 法语单词和词性 */}
           <div className="flex items-center gap-3 mb-1">
-            <h3 className={`text-lg font-semibold leading-tight font-french ${
-              !isNotMastered 
-                ? darkMode ? 'line-through text-dark-400' : 'line-through text-neutral-400'
-                : darkMode ? 'text-dark-100' : 'text-neutral-800'
-            }`}>
-              {word.french}
-            </h3>
+            {shouldHideFrench ? (
+              <div className={`h-6 w-24 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                darkMode ? 'bg-neutral-dark-200' : 'bg-neutral-200'
+              }`}>
+                <span className={`text-xs font-medium transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+                }`}>
+                  点击显示
+                </span>
+              </div>
+            ) : (
+              <h3 className={`text-lg font-semibold leading-tight font-french ${
+                !isNotMastered 
+                  ? darkMode ? 'text-dark-400' : 'text-neutral-400'
+                  : darkMode ? 'text-dark-100' : 'text-neutral-800'
+              }`}>
+                {word.french}
+              </h3>
+            )}
             <span className={`text-xs px-2 py-1 rounded-full flex-shrink-0 ${
               darkMode ? 'bg-dark-200 text-dark-300' : 'bg-neutral-100 text-neutral-600'
             }`}>
@@ -111,13 +125,25 @@ export function WordListItem({ word, onToggle, darkMode = false }: WordListItemP
             }`}>
               {word.phonetic}
             </p>
-            <p className={`text-sm font-chinese ${
-              !isNotMastered 
-                ? darkMode ? 'text-dark-400' : 'text-neutral-400'
-                : darkMode ? 'text-dark-300' : 'text-neutral-600'
-            }`}>
-              {word.chinese}
-            </p>
+            {shouldHideChinese ? (
+              <div className={`h-5 w-20 rounded-lg flex items-center justify-center transition-colors duration-300 ${
+                darkMode ? 'bg-neutral-dark-200' : 'bg-neutral-200'
+              }`}>
+                <span className={`text-xs font-medium transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+                }`}>
+                  点击显示
+                </span>
+              </div>
+            ) : (
+              <p className={`text-sm font-chinese ${
+                !isNotMastered 
+                  ? darkMode ? 'text-dark-400' : 'text-neutral-400'
+                  : darkMode ? 'text-dark-300' : 'text-neutral-600'
+              }`}>
+                {word.chinese}
+              </p>
+            )}
           </div>
         </div>
 
@@ -152,4 +178,4 @@ export function WordListItem({ word, onToggle, darkMode = false }: WordListItemP
       </div>
     </div>
   );
-}
+});

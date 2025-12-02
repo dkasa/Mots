@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
+
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
 
 interface WordCardProps {
   word: WordWithStatus;
   darkMode?: boolean;
+  recallMode?: RecallMode;
 }
 
-export function WordCard({ word, darkMode = false }: WordCardProps) {
+export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCardProps) {
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  const handleCardClick = () => {
+    if (recallMode !== 'none') {
+      setIsRevealed(true);
+    }
+  };
+
+  const shouldHideFrench = recallMode === 'hide-french' && !isRevealed;
+  const shouldHideChinese = recallMode === 'hide-chinese' && !isRevealed;
+
   return (
-    <div className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 ${
-      darkMode 
-        ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
-        : 'bg-bg-card shadow-md hover:shadow-lg'
-    } transition-shadow duration-250`}>
+    <div 
+      className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 ${
+        darkMode 
+          ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
+          : 'bg-bg-card shadow-md hover:shadow-lg'
+      } transition-shadow duration-250 ${
+        recallMode !== 'none' && !isRevealed ? 'cursor-pointer' : ''
+      }`}
+      onClick={handleCardClick}
+    >
       {/* 词性标签 */}
       <div className="mb-3">
         <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
@@ -26,11 +45,23 @@ export function WordCard({ word, darkMode = false }: WordCardProps) {
       
       {/* 法语单词 */}
       <div className="text-center mb-2">
-        <h2 className={`text-3xl font-bold leading-tight font-french transition-colors duration-300 ${
-          darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-        }`}>
-          {word.french}
-        </h2>
+        {shouldHideFrench ? (
+          <div className={`h-12 flex items-center justify-center rounded-lg transition-colors duration-300 ${
+            darkMode ? 'bg-neutral-dark-200' : 'bg-neutral-200'
+          }`}>
+            <span className={`text-sm font-medium transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+            }`}>
+              点击显示答案
+            </span>
+          </div>
+        ) : (
+          <h2 className={`text-3xl font-bold leading-tight font-french transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+          }`}>
+            {word.french}
+          </h2>
+        )}
       </div>
       
       {/* 音标 */}
@@ -44,15 +75,27 @@ export function WordCard({ word, darkMode = false }: WordCardProps) {
       
       {/* 中文释义 */}
       <div className="text-center">
-        <p className={`text-base font-chinese transition-colors duration-300 ${
-          darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-        }`}>
-          {word.chinese}
-        </p>
+        {shouldHideChinese ? (
+          <div className={`h-6 flex items-center justify-center rounded-lg transition-colors duration-300 ${
+            darkMode ? 'bg-neutral-dark-200' : 'bg-neutral-200'
+          }`}>
+            <span className={`text-sm font-medium transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+            }`}>
+              点击显示答案
+            </span>
+          </div>
+        ) : (
+          <p className={`text-base font-chinese transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+          }`}>
+            {word.chinese}
+          </p>
+        )}
       </div>
       
       {/* 学习状态指示器（仅在学习模式下显示） */}
-      {word.isMastered && (
+      {word.isMastered && isRevealed && (
         <div className="mt-4 flex justify-center">
           <div className={`flex items-center gap-2 px-2 py-1 rounded-full transition-colors duration-300 ${
             darkMode ? 'bg-success-900' : 'bg-success-50'

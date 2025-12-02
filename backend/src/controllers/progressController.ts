@@ -1,31 +1,32 @@
-import { Request, Response } from 'express';
-import { dbGet, dbAll, dbRun } from '../database/schema';
+import { Response } from 'express';
+import { 
+  userProgress, 
+  userSettings, 
+  DatabaseTransaction
+} from '../database';
 import { ProgressSyncRequest, ProgressSyncResponse } from '../types';
 
 export async function syncProgress(req: any, res: Response) {
   try {
-    const userId = req.user.id;
-    const { learnedWords, masteredWords, currentGrade, currentViewMode, currentFilter, clientTimestamp }: ProgressSyncRequest = req.body;
-
-    // 开始事务
-    await dbRun('BEGIN TRANSACTION');
+    const userId = parseInt(req.user.id);
+    const { learnedWords, masteredWords, currentGrade, currentViewMode, currentFilter }: ProgressSyncRequest = req.body;
 
     try {
+      // 使用事务确保数据一致性
+      const tx = new DatabaseTransaction();
+      await tx.begin();
+
       // 更新用户设置
-      await dbRun(
-        `UPDATE user_settings 
-         SET current_grade = ?, current_view_mode = ?, current_filter = ? 
-         WHERE user_id = ?`,
-        [currentGrade, currentViewMode, currentFilter, userId]
-      );
+      await (userSettings.update as any)(userId, currentGrade, currentViewMode, currentFilter);
 
       // 获取当前数据库中的进度（包含时间戳）
-      const existingProgress = await dbAll(
-        'SELECT word_id, is_learned, is_mastered, updated_at FROM user_progress WHERE user_id = ?',
-        [userId]
-      );
+      const existingProgress = await (userProgress.findByUserId as any)(userId);
 
-      const existingProgressMap = new Map();
+      const existingProgressMap = new Map<string, {
+        is_learned: boolean;
+        is_mastered: boolean;
+        updated_at: Date;
+      }>();
       existingProgress.forEach((row: any) => {
         existingProgressMap.set(row.word_id, {
           is_learned: Boolean(row.is_learned),
@@ -41,6 +42,10 @@ export async function syncProgress(req: any, res: Response) {
         ...Array.from(existingProgressMap.keys())
       ]);
 
+      // 准备批量更新数据
+      const updates: Array<{wordId: string, grade: number, isLearned: boolean, isMastered: boolean}> = [];
+      const deletions: string[] = [];
+
       // 智能同步：基于时间戳和状态变化
       for (const wordId of allWordIds) {
         const clientLearned = learnedWords[wordId] || false;
@@ -54,39 +59,32 @@ export async function syncProgress(req: any, res: Response) {
           
           if (clientLearnedChanged || clientMasteredChanged) {
             // 客户端有变化，更新云端
-            await dbRun(
-              `UPDATE user_progress 
-               SET is_learned = ?, is_mastered = ?, updated_at = CURRENT_TIMESTAMP 
-               WHERE user_id = ? AND word_id = ?`,
-              [clientLearned, clientMastered, userId, wordId]
-            );
+            const grade = parseInt(wordId.split('_')[0]) || parseInt(wordId.split('-')[0]) || 81;
+            updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
           }
         } else if (clientLearned || clientMastered) {
           // 云端没有记录，但客户端有，插入新记录
-          const grade = parseInt(wordId.split('_')[0]); // 假设word_id格式为 "grade_wordindex"
-          await dbRun(
-            `INSERT INTO user_progress (user_id, word_id, grade, is_learned, is_mastered) 
-             VALUES (?, ?, ?, ?, ?)`,
-            [userId, wordId, grade, clientLearned, clientMastered]
-          );
+          const grade = parseInt(wordId.split('_')[0]) || parseInt(wordId.split('-')[0]) || 81;
+          updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
         }
         // 如果云端有记录但客户端没有，且客户端状态为false，则删除云端记录
         else if (existing && !clientLearned && !clientMastered) {
-          await dbRun(
-            'DELETE FROM user_progress WHERE user_id = ? AND word_id = ?',
-            [userId, wordId]
-          );
+          deletions.push(wordId);
         }
       }
 
-      // 提交事务
-      await dbRun('COMMIT');
+      // 执行批量更新
+      if (updates.length > 0) {
+        await (userProgress.batchUpdate as any)(userId, updates, tx);
+      }
+
+      // 执行删除操作
+      for (const wordId of deletions) {
+        await (userProgress.delete as any)(userId, wordId);
+      }
 
       // 获取更新后的完整进度数据
-      const updatedProgress = await dbAll(
-        'SELECT word_id, is_learned, is_mastered FROM user_progress WHERE user_id = ?',
-        [userId]
-      );
+      const updatedProgress = await (userProgress.findByUserId as any)(userId);
 
       const updatedLearnedWords: Record<string, boolean> = {};
       const updatedMasteredWords: Record<string, boolean> = {};
@@ -101,10 +99,9 @@ export async function syncProgress(req: any, res: Response) {
       });
 
       // 获取用户设置
-      const settings = await dbGet(
-        'SELECT current_grade, current_view_mode, current_filter FROM user_settings WHERE user_id = ?',
-        [userId]
-      );
+      const settings = await (userSettings.findByUserId as any)(userId);
+
+      await tx.commit();
 
       const response: ProgressSyncResponse = {
         success: true,
@@ -119,8 +116,9 @@ export async function syncProgress(req: any, res: Response) {
 
       res.json(response);
     } catch (error) {
-      // 回滚事务
-      await dbRun('ROLLBACK');
+      // 事务回滚
+      const tx = new DatabaseTransaction();
+      await tx.rollback();
       throw error;
     }
   } catch (error) {
@@ -131,19 +129,13 @@ export async function syncProgress(req: any, res: Response) {
 
 export async function getProgress(req: any, res: Response) {
   try {
-    const userId = req.user.id;
+    const userId = parseInt(req.user.id);
 
     // 获取用户进度
-    const progress = await dbAll(
-      'SELECT word_id, is_learned, is_mastered FROM user_progress WHERE user_id = ?',
-      [userId]
-    );
+    const progress = await (userProgress.findByUserId as any)(userId);
 
     // 获取用户设置
-    const settings = await dbGet(
-      'SELECT current_grade, current_view_mode, current_filter FROM user_settings WHERE user_id = ?',
-      [userId]
-    );
+    const settings = await (userSettings.findByUserId as any)(userId);
 
     const learnedWords: Record<string, boolean> = {};
     const masteredWords: Record<string, boolean> = {};
@@ -171,6 +163,35 @@ export async function getProgress(req: any, res: Response) {
     res.json(response);
   } catch (error) {
     console.error('Get progress error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+export async function getLastSyncTimestamp(req: any, res: Response) {
+  try {
+    const userId = parseInt(req.user.id);
+
+    // 获取用户进度中最新更新时间
+    const progressLastUpdated = await (userProgress.getLastUpdatedTime as any)(userId);
+
+    // 获取用户设置中最新更新时间
+    const settings = await (userSettings.findByUserId as any)(userId);
+
+    // 比较两个时间戳，返回最新的
+    let lastTimestamp = progressLastUpdated;
+    
+    if (settings && settings.updated_at) {
+      const settingsTimestamp = new Date(settings.updated_at);
+      if (!lastTimestamp || settingsTimestamp > new Date(lastTimestamp)) {
+        lastTimestamp = settings.updated_at;
+      }
+    }
+
+    res.json({ 
+      timestamp: lastTimestamp 
+    });
+  } catch (error) {
+    console.error('Get last sync timestamp error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }

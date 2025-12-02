@@ -3,8 +3,8 @@ import { Word, WordWithStatus, Grade, SelectionMode, UnitRange, CountSelection }
 
 export function useVocabularyData(
   grade: Grade, 
-  learnedWords: Record<string, boolean>, 
-  masteredWords: Record<string, boolean>,
+  initialLearnedWords: Record<string, boolean>, 
+  initialMasteredWords: Record<string, boolean>,
   selectionMode: SelectionMode = 'grade-all',
   unitRange?: UnitRange,
   countSelection?: CountSelection
@@ -18,11 +18,6 @@ export function useVocabularyData(
   // 加载词汇数据（只负责加载原始数据）
   const loadWords = useCallback(async (targetGrade: Grade) => {
     console.log('=== loadWords 开始 ===', 'targetGrade:', targetGrade);
-    
-    // 临时清除缓存，强制重新加载
-    if (targetGrade === 81) {
-      console.log('清除 grade 81 的缓存');
-    }
     
     setLoading(true);
     setError(null);
@@ -45,7 +40,7 @@ export function useVocabularyData(
     } finally {
       setLoading(false);
     }
-  }, [learnedWords, masteredWords]);
+  }, []);
 
   // 应用筛选逻辑
   const applyFiltering = useCallback(() => {
@@ -63,8 +58,8 @@ export function useVocabularyData(
         ...word,
         id: wordId,
         grade: grade,
-        isLearned: learnedWords[wordId] || false,
-        isMastered: masteredWords[wordId] || false,
+        isLearned: initialLearnedWords[wordId] || false,
+        isMastered: initialMasteredWords[wordId] || false,
       };
     });
 
@@ -117,7 +112,7 @@ export function useVocabularyData(
     }
     
     setWords(filteredWords);
-  }, [rawWords, selectionMode, unitRange, countSelection, selectedWordIds, grade, learnedWords, masteredWords]);
+  }, [rawWords, selectionMode, unitRange, countSelection, selectedWordIds, grade, initialLearnedWords, initialMasteredWords]);
 
   // 当年级改变时重新加载数据
   useEffect(() => {
@@ -130,12 +125,7 @@ export function useVocabularyData(
     applyFiltering();
   }, [applyFiltering]);
 
-  // 当learnedWords或masteredWords变化时，重新应用筛选
-  useEffect(() => {
-    if (rawWords.length > 0) {
-      applyFiltering();
-    }
-  }, [learnedWords, masteredWords, rawWords.length, applyFiltering]);
+
 
   // 获取进度数据
   const getProgressData = useCallback(() => {
@@ -188,15 +178,20 @@ export function useVocabularyData(
     }
   }, [words, getMasteredWords, getUnmasteredWords]);
 
-  // 更新单词状态
+  // 更新单词状态 - 直接更新，避免重新创建数组
   const updateWordStatus = useCallback((wordId: string, isLearned: boolean, isMastered: boolean) => {
-    setWords(prevWords => 
-      prevWords.map(word => 
-        word.id === wordId 
-          ? { ...word, isLearned, isMastered }
-          : word
-      )
-    );
+    // 使用函数式更新，确保我们基于最新的状态进行更新
+    setWords(prevWords => {
+      // 找到要更新的单词的索引
+      const wordIndex = prevWords.findIndex(word => word.id === wordId);
+      if (wordIndex === -1) return prevWords; // 如果找不到单词，返回原数组
+      
+      // 创建新数组，只更新特定单词
+      const newWords = [...prevWords];
+      newWords[wordIndex] = { ...newWords[wordIndex], isLearned, isMastered };
+      
+      return newWords;
+    });
   }, []);
 
   return {

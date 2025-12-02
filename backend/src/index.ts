@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { initDatabase } from './database/schema';
+import { initDatabase, healthCheck, getDatabaseType } from './database';
 
 // 导入路由
 import authRoutes from './routes/auth';
@@ -28,12 +28,28 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 健康检查端点
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
-  });
+app.get('/health', async (req, res) => {
+  try {
+    const dbHealth = await healthCheck();
+    res.json({ 
+      status: 'ok', 
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      database: {
+        type: getDatabaseType(),
+        ...dbHealth
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: 'error', 
+      timestamp: new Date().toISOString(),
+      database: {
+        type: getDatabaseType(),
+        error: 'Database connection failed'
+      }
+    });
+  }
 });
 
 // API路由

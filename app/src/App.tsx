@@ -33,6 +33,7 @@ function App() {
     unitRange,
     countSelection,
     darkMode,
+    recallMode,
     setCurrentGrade,
     setCurrentViewMode,
     setCurrentFilter,
@@ -45,6 +46,7 @@ function App() {
     setUnitRange,
     setCountSelection,
     setDarkMode,
+    setRecallMode,
   } = useLocalStorage();
 
   // 词汇数据
@@ -105,18 +107,16 @@ function App() {
     updateWordStatus(wordId, false, false);
   }, [unmarkAsLearned, updateWordStatus]);
 
-  // 处理列表中开关切换（父组件负责刷新分组和持久化）
-  const handleToggle = useCallback((word: WordWithStatus, newIsMastered: boolean) => {
+  // 处理列表中开关切换 - 只负责持久化，UI 更新完全由 WordListItem 本地处理
+  const handleToggle = useCallback(async (word: WordWithStatus, newIsMastered: boolean) => {
+    // 只更新 localStorage，不更新 UI（UI 已经在 WordListItem 中乐观更新了）
     if (newIsMastered) {
       markAsMastered(word.id);
-      updateWordStatus(word.id, true, true);
     } else {
-      // 这里按你的现有逻辑：标记为未掌握时也可以同时清除已学/已掌握标记
       unmarkAsMastered?.(word.id);
       unmarkAsLearned?.(word.id);
-      updateWordStatus(word.id, false, false);
     }
-  }, [markAsMastered, unmarkAsLearned, unmarkAsMastered, updateWordStatus]);
+  }, [markAsMastered, unmarkAsLearned, unmarkAsMastered]);
 
   // 处理单词点击（从列表进入学习）
   const handleWordClick = useCallback((word: WordWithStatus) => {
@@ -180,6 +180,8 @@ function App() {
         onManualSync={handleManualSync}
         darkMode={darkMode}
         onDarkModeToggle={() => setDarkMode(!darkMode)}
+        recallMode={recallMode}
+        onRecallModeChange={setRecallMode}
       />
       
       {/* 年级选择器 */}
@@ -215,6 +217,7 @@ function App() {
             onMarkAsUnmastered={handleMarkAsUnmastered}
             onRetry={reloadWords}
             darkMode={darkMode}
+            recallMode={recallMode}
           />
         ) : currentViewMode === 'search' ? (
           <WordSearch allWords={allWords} darkMode={darkMode} />
@@ -230,6 +233,7 @@ function App() {
             onRetry={reloadWords}
             onToggle={handleToggle}
             darkMode={darkMode}
+            recallMode={recallMode}
           />
         )}
       </main>

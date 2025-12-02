@@ -77,6 +77,18 @@ class ApiService {
     return response.data;
   }
 
+  async getLastSyncTimestamp(): Promise<string | null> {
+    try {
+      console.log('获取服务器最后同步时间戳...');
+      const response = await this.client.get('/api/progress/timestamp');
+      console.log('服务器时间戳:', response.data.timestamp);
+      return response.data.timestamp || null;
+    } catch (error) {
+      console.error('Failed to get last sync timestamp:', error);
+      return null;
+    }
+  }
+
   // 健康检查
   async healthCheck() {
     const response = await this.client.get('/health');

@@ -4,6 +4,8 @@ import { WordCard } from './WordCard';
 import { ActionButtons } from './ActionButtons';
 import { LoadingSkeleton, ErrorState, EmptyState } from './LoadingStates';
 
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
+
 interface LearnModeProps {
   words: WordWithStatus[];
   loading: boolean;
@@ -18,9 +20,10 @@ interface LearnModeProps {
   onMarkAsUnmastered: (wordId: string) => void;
   onRetry: () => void;
   darkMode?: boolean;
+  recallMode?: RecallMode;
 }
 
-export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, darkMode = false }: LearnModeProps) {
+export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, darkMode = false, recallMode = 'none' }: LearnModeProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -125,7 +128,7 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
 
   return (
     <>
-      <WordCard word={currentWord} darkMode={darkMode} />
+      <WordCard word={currentWord} darkMode={darkMode} recallMode={recallMode} />
       <ActionButtons
         onMarkAsMastered={handleMarkAsMastered}
         onMarkAsUnmastered={handleMarkAsUnmastered}

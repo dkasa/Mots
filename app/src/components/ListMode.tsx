@@ -4,6 +4,8 @@ import { WordListItem } from './WordListItem';
 import { FilterTabs } from './FilterTabs';
 import { LoadingSkeleton, ErrorState, EmptyState } from './LoadingStates';
 
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
+
 interface ListModeProps {
   words: WordWithStatus[];
   filteredWords: WordWithStatus[];
@@ -16,9 +18,10 @@ interface ListModeProps {
   // 新增：父组件处理切换并负责持久化与刷新
   onToggle: (word: WordWithStatus, newIsMastered: boolean) => void;
   darkMode?: boolean;
+  recallMode?: RecallMode;
 }
 
-export function ListMode({ 
+export const ListMode = React.memo(function ListMode({ 
   words, 
   filteredWords, 
   loading, 
@@ -28,7 +31,8 @@ export function ListMode({
   onWordClick, 
   onRetry,
   onToggle,
-  darkMode = false
+  darkMode = false,
+  recallMode = 'none'
 }: ListModeProps) {
   // 统计数据
   const masteredCount = words.filter(word => word.isMastered).length;
@@ -101,16 +105,17 @@ export function ListMode({
         />
       ) : (
         <div>
-          {filteredWords.map((word, index) => (
+          {filteredWords.map((word) => (
             <WordListItem
               key={word.id}
               word={word}
               onToggle={onToggle}
               darkMode={darkMode}
+              recallMode={recallMode}
             />
           ))}
         </div>
       )}
     </div>
   );
-}
+});

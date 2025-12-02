@@ -1,8 +1,10 @@
-import React from 'react';
-import { Settings, Search, Moon, Sun } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, Moon, Sun, Eye, EyeOff, WifiOff, RefreshCw, CheckCircle } from 'lucide-react';
 import { ViewMode } from '../types/vocabulary';
 import { UserMenu } from './UserMenu';
 import { SyncStatusIndicator } from './SyncStatusIndicator';
+
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
 
 interface TopBarProps {
   currentViewMode: ViewMode;
@@ -16,6 +18,8 @@ interface TopBarProps {
   onManualSync?: () => void;
   darkMode?: boolean;
   onDarkModeToggle?: () => void;
+  recallMode?: RecallMode;
+  onRecallModeChange?: (mode: RecallMode) => void;
 }
 
 export function TopBar({ 
@@ -24,8 +28,12 @@ export function TopBar({
   syncStatus,
   onManualSync,
   darkMode = false,
-  onDarkModeToggle
+  onDarkModeToggle,
+  recallMode = 'none',
+  onRecallModeChange
 }: TopBarProps) {
+  const [showRecallMenu, setShowRecallMenu] = useState(false);
+
   const getTitle = () => {
     switch (currentViewMode) {
       case 'learn':
@@ -43,6 +51,22 @@ export function TopBar({
     onViewModeChange('search');
   };
 
+  const handleRecallModeChange = (mode: RecallMode) => {
+    onRecallModeChange?.(mode);
+    setShowRecallMenu(false);
+  };
+
+  const getRecallModeTitle = () => {
+    switch (recallMode) {
+      case 'hide-french':
+        return '隐藏法语';
+      case 'hide-chinese':
+        return '隐藏中文';
+      default:
+        return '主动回忆';
+    }
+  };
+
   return (
     <div className={`fixed top-0 left-0 right-0 z-50 safe-area-inset-top transition-colors duration-300 ${
       darkMode 
@@ -55,26 +79,102 @@ export function TopBar({
         }`}>{getTitle()}</h1>
         
         <div className="flex items-center gap-2">
-          {/* 搜索按钮 - 在非搜索模式下显示 */}
-          {currentViewMode !== 'search' && (
-            <button 
-              onClick={handleSearchClick}
-              className={`p-2 rounded-md transition-colors ${
+          {/* 主动回忆模式切换按钮 - 仅在学习模式和列表模式下显示 */}
+          {(currentViewMode === 'learn' || currentViewMode === 'list') && (
+            <div className="relative">
+              <button 
+                onClick={() => setShowRecallMenu(!showRecallMenu)}
+                className={`p-2 rounded-md transition-colors ${
+                  recallMode !== 'none'
+                    ? darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-100 text-blue-600'
+                    : darkMode 
+                      ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
+                      : 'hover:bg-neutral-50 text-neutral-600'
+                }`}
+                title={getRecallModeTitle()}
+              >
+                {recallMode === 'none' ? (
+                  <Eye className="w-5 h-5" />
+                ) : (
+                  <EyeOff className="w-5 h-5" />
+                )}
+              </button>
+              
+              {/* 回忆模式下拉菜单 */}
+              {showRecallMenu && (
+                <div className={`absolute right-0 mt-2 w-40 rounded-lg shadow-lg border ${
+                  darkMode 
+                    ? 'bg-bg-dark-card border-neutral-dark-300' 
+                    : 'bg-bg-card border-neutral-200'
+                }`}>
+                  <button
+                    onClick={() => handleRecallModeChange('none')}
+                    className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                      recallMode === 'none'
+                        ? darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-50 text-blue-600'
+                        : darkMode 
+                          ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
+                          : 'hover:bg-neutral-50 text-neutral-600'
+                    }`}
+                  >
+                    显示全部
+                  </button>
+                  <button
+                    onClick={() => handleRecallModeChange('hide-french')}
+                    className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                      recallMode === 'hide-french'
+                        ? darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-50 text-blue-600'
+                        : darkMode 
+                          ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
+                          : 'hover:bg-neutral-50 text-neutral-600'
+                    }`}
+                  >
+                    隐藏法语
+                  </button>
+                  <button
+                    onClick={() => handleRecallModeChange('hide-chinese')}
+                    className={`w-full text-left px-4 py-2 text-sm transition-colors ${
+                      recallMode === 'hide-chinese'
+                        ? darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-50 text-blue-600'
+                        : darkMode 
+                          ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
+                          : 'hover:bg-neutral-50 text-neutral-600'
+                    }`}
+                  >
+                    隐藏中文
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          
+          {/* 同步状态指示器 - 仅显示图标，不显示文字 */}
+          {syncStatus && (
+            <div 
+              className={`p-2 rounded-md transition-colors cursor-pointer ${
                 darkMode 
                   ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
                   : 'hover:bg-neutral-50 text-neutral-600'
               }`}
-              title="查单词"
+              onClick={() => {
+                if (onManualSync && (syncStatus.isOnline || syncStatus.hasUnsyncedChanges) && !syncStatus.syncInProgress) {
+                  onManualSync();
+                }
+              }}
+              title={syncStatus.syncInProgress ? '同步中...' : 
+                     !syncStatus.isOnline ? '离线状态' : 
+                     syncStatus.hasUnsyncedChanges ? '待同步' : '已同步'}
             >
-              <Search className="w-5 h-5" />
-            </button>
-          )}
-          
-          {syncStatus && (
-            <SyncStatusIndicator 
-              syncStatus={syncStatus} 
-              onSyncClick={onManualSync}
-            />
+              {syncStatus.syncInProgress ? (
+                <RefreshCw className="w-5 h-5 animate-spin" />
+              ) : !syncStatus.isOnline ? (
+                <WifiOff className="w-5 h-5" />
+              ) : syncStatus.hasUnsyncedChanges ? (
+                <RefreshCw className="w-5 h-5 text-orange-500" />
+              ) : (
+                <CheckCircle className="w-5 h-5 text-green-500" />
+              )}
+            </div>
           )}
           
           {/* 夜间模式切换按钮 */}
@@ -94,15 +194,23 @@ export function TopBar({
             )}
           </button>
           
-          <UserMenu />
+          {/* 搜索按钮 - 在非搜索模式下显示 */}
+          {currentViewMode !== 'search' && (
+            <button 
+              onClick={handleSearchClick}
+              className={`p-2 rounded-md transition-colors ${
+                darkMode 
+                  ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
+                  : 'hover:bg-neutral-50 text-neutral-600'
+              }`}
+              title="查单词"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+          )}
           
-          <button className={`p-2 rounded-md transition-colors ${
-            darkMode 
-              ? 'hover:bg-neutral-dark-200 text-neutral-dark-600' 
-              : 'hover:bg-neutral-50 text-neutral-600'
-          }`}>
-            <Settings className="w-5 h-5" />
-          </button>
+          {/* 用户菜单 - 放在最右边 */}
+          <UserMenu />
         </div>
       </div>
     </div>

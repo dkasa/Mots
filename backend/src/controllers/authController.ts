@@ -1,48 +1,43 @@
-import { Request, Response } from 'express';
-import { dbGet, dbRun } from '../database/schema';
+import { Response } from 'express';
+import { users, userSettings } from '../database';
 import { hashPassword, verifyPassword, generateToken } from '../utils/auth';
 import { LoginRequest, RegisterRequest, AuthResponse } from '../types';
 
-export async function register(req: Request, res: Response) {
+export async function register(req: any, res: Response) {
   try {
     const { username, email, password }: RegisterRequest = req.body;
 
     // 检查用户名是否已存在
-    const existingUser = await dbGet('SELECT id FROM users WHERE username = ?', [username]);
+    const existingUser = await users.findByUsername(username);
     if (existingUser) {
       return res.status(400).json({ error: 'Username already exists' });
     }
 
     // 检查邮箱是否已存在
-    const existingEmail = await dbGet('SELECT id FROM users WHERE email = ?', [email]);
+    const existingEmail = await users.findByEmail(email);
     if (existingEmail) {
       return res.status(400).json({ error: 'Email already exists' });
     }
 
     // 创建新用户
     const passwordHash = await hashPassword(password);
-    const result = await dbRun(
-      'INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)',
-      [username, email, passwordHash]
-    );
+    const userId = await users.create(username, email, passwordHash);
 
     // 创建默认用户设置
-    await dbRun(
-      'INSERT INTO user_settings (user_id) VALUES (?)',
-      [result.lastID]
-    );
+    await userSettings.create(userId);
 
     // 获取创建的用户
-    const user = await dbGet(
-      'SELECT id, username, email FROM users WHERE id = ?',
-      [result.lastID]
-    );
+    const user = await users.findById(userId);
 
     const token = generateToken(user!);
 
     const response: AuthResponse = {
       success: true,
-      user: user!,
+      user: {
+        id: user!.id,
+        username: user!.username,
+        email: user!.email
+      },
       token
     };
 
@@ -53,15 +48,12 @@ export async function register(req: Request, res: Response) {
   }
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(req: any, res: Response) {
   try {
     const { username, password }: LoginRequest = req.body;
 
     // 查找用户
-    const user = await dbGet(
-      'SELECT id, username, email, password_hash FROM users WHERE username = ?',
-      [username]
-    );
+    const user = await users.findByUsername(username);
 
     if (!user) {
       return res.status(401).json({ error: 'Invalid username or password' });
@@ -95,10 +87,7 @@ export async function login(req: Request, res: Response) {
 
 export async function getUserProfile(req: any, res: Response) {
   try {
-    const user = await dbGet(
-      'SELECT id, username, email, created_at FROM users WHERE id = ?',
-      [req.user.id]
-    );
+    const user = await users.findById(parseInt(req.user.id));
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

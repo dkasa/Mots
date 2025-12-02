@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { Grade, FilterType, ViewMode, SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
 import { ProgressSyncData } from '../types/auth';
 
+type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
+
 const STORAGE_KEYS = {
   CURRENT_GRADE: 'french-app-current-grade',
   CURRENT_VIEW_MODE: 'french-app-current-view-mode',
@@ -12,6 +14,7 @@ const STORAGE_KEYS = {
   UNIT_RANGE: 'french-app-unit-range',
   COUNT_SELECTION: 'french-app-count-selection',
   DARK_MODE: 'french-app-dark-mode',
+  RECALL_MODE: 'french-app-recall-mode',
 };
 
 export function useLocalStorage() {
@@ -78,6 +81,11 @@ export function useLocalStorage() {
     return saved ? JSON.parse(saved) : false;
   });
 
+  const [recallMode, setRecallMode] = useState<RecallMode>(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.RECALL_MODE);
+    return (saved === 'none' || saved === 'hide-french' || saved === 'hide-chinese') ? saved : 'none';
+  });
+
   // 保存到 localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.CURRENT_GRADE, currentGrade.toString());
@@ -114,6 +122,10 @@ export function useLocalStorage() {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.DARK_MODE, JSON.stringify(darkMode));
   }, [darkMode]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.RECALL_MODE, recallMode);
+  }, [recallMode]);
 
   // 标记单词为已学
   const markAsLearned = useCallback((wordId: string) => {
@@ -192,6 +204,7 @@ export function useLocalStorage() {
     unitRange,
     countSelection,
     darkMode,
+    recallMode,
     
     // 设置方法
     setCurrentGrade,
@@ -207,5 +220,6 @@ export function useLocalStorage() {
     setUnitRange: wrappedSetUnitRange,
     setCountSelection,
     setDarkMode,
+    setRecallMode,
   };
 }
