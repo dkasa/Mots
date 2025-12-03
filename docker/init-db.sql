@@ -3,7 +3,7 @@
 
 -- 设置数据库编码和时区
 SET client_encoding = 'UTF8';
-SET timezone = 'UTC';
+SET timezone = 'Asia/Shanghai';
 
 -- 创建扩展（如果需要）
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
