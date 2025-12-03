@@ -10,7 +10,7 @@ const pool = new Pool({
   max: 20, // 最大连接数
   idleTimeoutMillis: 30000, // 空闲连接超时
   connectionTimeoutMillis: 2000, // 连接超时
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+  ssl: false
 });
 
 // 数据库连接测试
