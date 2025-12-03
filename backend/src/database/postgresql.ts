@@ -17,21 +17,8 @@ const pool = new Pool({
 export async function testConnection(): Promise<boolean> {
   try {
     const client = await pool.connect();
-    
-    // 检查当前数据库
-    const dbResult = await client.query('SELECT current_database()');
-    console.log('🗄️ 当前数据库:', dbResult.rows[0].current_database);
-    
     const result = await client.query('SELECT NOW()');
     console.log('✅ PostgreSQL连接成功:', result.rows[0]);
-    
-    // 检查现有表
-    const tableResult = await client.query("SELECT tablename FROM pg_tables WHERE schemaname = 'public'");
-    console.log('📋 现有表数量:', tableResult.rows.length);
-    if (tableResult.rows.length > 0) {
-      console.log('📋 现有表:', tableResult.rows.map(row => row.tablename));
-    }
-    
     client.release();
     return true;
   } catch (error) {
@@ -114,35 +101,10 @@ export async function initDatabase(): Promise<void> {
   `;
 
   try {
-    console.log('🔍 开始执行SQL创建表...');
-    
-    // 分步执行SQL，便于调试
-    const steps = [
-      '-- 用户表',
-      'CREATE TABLE IF NOT EXISTS users (id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(100) UNIQUE NOT NULL, password_hash VARCHAR(255) NOT NULL, created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP);',
-      '-- 用户设置表',
-      'CREATE TABLE IF NOT EXISTS user_settings (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, current_grade INTEGER DEFAULT 81, current_view_mode VARCHAR(20) DEFAULT \'learn\', current_filter VARCHAR(20) DEFAULT \'all\', created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, UNIQUE(user_id));',
-      '-- 用户进度表',
-      'CREATE TABLE IF NOT EXISTS user_progress (id SERIAL PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE, word_id VARCHAR(50) NOT NULL, grade INTEGER NOT NULL, is_learned BOOLEAN DEFAULT FALSE, is_mastered BOOLEAN DEFAULT FALSE, created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP, UNIQUE(user_id, word_id));'
-    ];
-    
-    for (let i = 0; i < steps.length; i += 2) {
-      console.log(`📝 执行步骤 ${Math.floor(i/2) + 1}: ${steps[i]}`);
-      await pool.query(steps[i + 1]);
-      console.log(`✅ 步骤 ${Math.floor(i/2) + 1} 完成`);
-    }
-    
+    await pool.query(createTablesSQL);
     console.log('✅ PostgreSQL数据库表结构初始化完成');
-    
-    // 验证表是否创建成功
-    const checkResult = await pool.query("SELECT tablename FROM pg_tables WHERE schemaname = 'public'");
-    console.log('📋 当前数据库中的表:', checkResult.rows.map(row => row.tablename));
-    
   } catch (error) {
     console.error('❌ 数据库初始化失败:', error);
-    if (error instanceof Error) {
-      console.error('错误详情:', error.message);
-    }
     throw error;
   }
 }

@@ -8,7 +8,8 @@ async function seedDatabase(): Promise<void> {
   try {
     const dbType = getDatabaseType();
     
-    // 创建测试用户
+    // 创建测试用户 - 已注释，如需使用请取消注释
+    /*
     const testUsers = [
       {
         username: 'demo',
@@ -62,12 +63,13 @@ async function seedDatabase(): Promise<void> {
         console.log(`ℹ️ 用户已存在: ${userData.username}`);
       }
     }
+    */
     
     console.log('🎉 种子数据添加完成！');
-    console.log('\n📋 测试账号:');
-    console.log('用户名: demo,    密码: demo123');
-    console.log('用户名: testuser, 密码: test123');
-    console.log('用户名: admin,   密码: admin123');
+    // console.log('\n📋 测试账号:');
+    // console.log('用户名: demo,    密码: demo123');
+    // console.log('用户名: testuser, 密码: test123');
+    // console.log('用户名: admin,   密码: admin123');
     
   } catch (error) {
     console.error('❌ 种子数据添加失败:', error);
