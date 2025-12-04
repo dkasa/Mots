@@ -10,6 +10,7 @@ $env:DB_USER = "postgres"
 $env:DB_PASSWORD = "password"
 $env:USE_POSTGRES = "true"
 $env:NODE_ENV = "development"
+$env:TZ = "Asia/Shanghai"
 
 # Get current directory path
 $currentDir = Get-Location
@@ -23,7 +24,7 @@ if (-not (Test-Path "node_modules")) {
 
 # Start backend service in new window
 Write-Host "Starting backend service in new window..." -ForegroundColor Yellow
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\backend'; npm run dev"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\backend'; `$env:TZ='Asia/Shanghai'; npm run dev"
 
 # Start frontend service in new window
 Write-Host "Starting frontend service in new window..." -ForegroundColor Yellow
@@ -33,7 +34,7 @@ if (-not (Test-Path "node_modules")) {
     npm install
 }
 
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\app'; `$env:VITE_PORT='3000'; npm run dev"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\app'; `$env:VITE_PORT='3000'; `$env:TZ='Asia/Shanghai'; npm run dev"
 
 Set-Location ..
 

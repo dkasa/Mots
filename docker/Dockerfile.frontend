@@ -23,6 +23,13 @@ RUN pnpm run build-linux
 # 生产阶段 - 使用nginx
 FROM nginx:alpine
 
+# 安装时区数据
+RUN apk add --no-cache tzdata
+
+# 设置时区为中国时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # 复制构建产物
 COPY --from=build /app/dist /usr/share/nginx/html
 
