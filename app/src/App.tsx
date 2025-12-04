@@ -20,7 +20,7 @@ import { WordWithStatus } from './types/vocabulary';
 
 function App() {
   // 认证状态
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   // 本地存储状态
   const {
@@ -134,21 +134,32 @@ function App() {
   }, [reloadWords]);
 
   // 云端同步
-  const { syncStatus, syncToServer } = useSyncProgress({
+  const { syncStatus, syncToServer, smartSync, manualSync, syncAfterLearning, resetSyncState } = useSyncProgress({
     learnedWords,
     masteredWords,
     currentGrade,
     currentViewMode,
     currentFilter,
     isAuthenticated,
+    userId: user?.id,
     onSyncComplete: (data: ProgressSyncData) => {
-      // 只在学习模式外才更新数据，避免打断学习流程
-      if (currentViewMode !== 'learn') {
-        updateFromCloudData(data);
-      }
+      console.log('🔄 同步完成，更新本地数据');
+      console.log('📊 服务器返回掌握单词数:', Object.keys(data.masteredWords || {}).length);
+      console.log('📊 服务器返回学习单词数:', Object.keys(data.learnedWords || {}).length);
+      
+      // 使用同步后的数据更新本地状态
+      updateFromCloudData({
+        learnedWords: data.learnedWords || {},
+        masteredWords: data.masteredWords || {},
+        currentGrade: data.currentGrade,
+        currentViewMode: data.currentViewMode,
+        currentFilter: data.currentFilter,
+      });
+      
+      console.log('✅ 同步完成，本地数据已更新');
     },
     onSyncError: (error: string) => {
-      console.error('Sync error:', error);
+      console.error('同步错误:', error);
     },
   });
 
@@ -164,9 +175,15 @@ function App() {
   // 手动同步
   const handleManualSync = useCallback(() => {
     if (isAuthenticated) {
-      syncToServer();
+      // 如果同步已经卡住超过30秒，先重置状态
+      if (syncStatus.syncInProgress) {
+        console.warn('⚠️ 检测到同步卡住，重置状态');
+        resetSyncState();
+        return;
+      }
+      manualSync();
     }
-  }, [isAuthenticated, syncToServer]);
+  }, [isAuthenticated, manualSync, syncStatus.syncInProgress, resetSyncState]);
 
   return (
     <div className={`min-h-screen font-chinese transition-colors duration-300 ${
@@ -216,6 +233,7 @@ function App() {
             onMarkAsMastered={handleMarkAsMastered}
             onMarkAsUnmastered={handleMarkAsUnmastered}
             onRetry={reloadWords}
+            onSyncAfterLearning={syncAfterLearning}
             darkMode={darkMode}
             recallMode={recallMode}
           />

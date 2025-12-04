@@ -68,7 +68,22 @@ class ApiService {
 
   // 进度同步相关API
   async syncProgress(progressData: ProgressSyncData) {
+    console.log('🚀 发送同步请求到服务器:', {
+      learnedWordsCount: Object.keys(progressData.learnedWords || {}).length,
+      masteredWordsCount: Object.keys(progressData.masteredWords || {}).length,
+      currentGrade: progressData.currentGrade,
+      currentViewMode: progressData.currentViewMode,
+      currentFilter: progressData.currentFilter,
+      masteredWordsSample: Object.keys(progressData.masteredWords || {}).slice(0, 5)
+    });
+    
     const response = await this.client.post('/api/progress/sync', progressData);
+    console.log('✅ 同步响应:', {
+      success: response.data.success,
+      learnedWordsCount: Object.keys(response.data.data?.learnedWords || {}).length,
+      masteredWordsCount: Object.keys(response.data.data?.masteredWords || {}).length
+    });
+    
     return response.data;
   }
 

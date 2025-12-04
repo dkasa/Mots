@@ -1,0 +1,319 @@
+import { Response } from 'express';
+import { 
+  userProgress, 
+  userSettings, 
+  DatabaseTransaction
+} from '../database';
+import { ProgressSyncRequest, ProgressSyncResponse } from '../types';
+
+export async function syncProgress(req: any, res: Response) {
+  try {
+    const userId = parseInt(req.user.id);
+    const { learnedWords, masteredWords, currentGrade, currentViewMode, currentFilter }: ProgressSyncRequest = req.body;
+
+    // 添加调试日志
+    console.log(`🔄 用户 ${userId} 开始同步`);
+    console.log('📤 发送的掌握单词数:', Object.keys(masteredWords || {}).length);
+    console.log('📤 发送的学习单词数:', Object.keys(learnedWords || {}).length);
+    console.log('📤 掌握的单词示例:', Object.keys(masteredWords || {}).slice(0, 5));
+    console.log('📤 学习的单词示例:', Object.keys(learnedWords || {}).slice(0, 5));
+    console.log('📤 所有客户端单词ID格式检查:', 
+      Array.from(new Set([
+        ...Object.keys(learnedWords || {}),
+        ...Object.keys(masteredWords || {})
+      ])).slice(0, 10).map(id => `${id}(${id.includes('_') ? '下划线' : '横线'})`));
+
+    try {
+      // 使用事务确保数据一致性
+      const tx = new DatabaseTransaction();
+      await tx.begin();
+
+      // 更新用户设置
+      await (userSettings.update as any)(userId, currentGrade, currentViewMode, currentFilter);
+
+      // 获取当前数据库中的进度（包含时间戳）
+      const existingProgress = await (userProgress.findByUserId as any)(userId);
+
+      const existingProgressMap = new Map<string, {
+        is_learned: boolean;
+        is_mastered: boolean;
+        updated_at: Date;
+      }>();
+      existingProgress.forEach((row: any) => {
+        existingProgressMap.set(row.word_id, {
+          is_learned: Boolean(row.is_learned),
+          is_mastered: Boolean(row.is_mastered),
+          updated_at: new Date(row.updated_at)
+        });
+      });
+
+      // 准备批量更新数据 - 完整同步逻辑
+      const updates: Array<{wordId: string, grade: number, isLearned: boolean, isMastered: boolean}> = [];
+      const deletions: string[] = [];
+      
+      // 获取客户端明确发送的所有单词ID（learnedWords和masteredWords的并集）
+      const clientWordIds = new Set([
+        ...Object.keys(learnedWords),
+        ...Object.keys(masteredWords)
+      ]);
+
+      // 标准化ID格式：创建一个包含两种格式的匹配集合
+      const normalizedClientWordIds = new Set(clientWordIds);
+      
+      // 为每个客户端ID添加格式变体（横线转下划线，下划线转横线）
+      for (const wordId of clientWordIds) {
+        if (wordId.includes('-')) {
+          normalizedClientWordIds.add(wordId.replace('-', '_'));
+        } else if (wordId.includes('_')) {
+          normalizedClientWordIds.add(wordId.replace('_', '-'));
+        }
+      }
+
+      // 1. 处理客户端发送的单词
+      for (const wordId of clientWordIds) {
+        const clientLearned = learnedWords[wordId] || false;
+        const clientMastered = masteredWords[wordId] || false;
+        const existing = existingProgressMap.get(wordId);
+
+        // 检查是否有变化（包括新记录）
+        const isNewRecord = !existing;
+        const clientLearnedChanged = !isNewRecord && existing.is_learned !== clientLearned;
+        const clientMasteredChanged = !isNewRecord && existing.is_mastered !== clientMastered;
+        
+        if (isNewRecord || clientLearnedChanged || clientMasteredChanged) {
+          // 新记录或有变化，更新云端
+          const grade = parseInt(wordId.split('_')[0]) || parseInt(wordId.split('-')[0]) || 81;
+          updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
+        }
+      }
+
+      // 2. 处理数据库中存在但客户端没有发送的单词（需要重置为未学习状态）
+      let resetCount = 0;
+      let alreadyResetCount = 0;
+      let formatMatchedCount = 0;
+      
+      for (const [wordId, existing] of existingProgressMap) {
+        if (!normalizedClientWordIds.has(wordId)) {
+          if (existing.is_learned || existing.is_mastered) {
+            // 客户端没有发送这个单词，但数据库中标记为已学习或已掌握，需要重置
+            const grade = parseInt(wordId.split('_')[0]) || parseInt(wordId.split('-')[0]) || 81;
+            updates.push({ wordId, grade, isLearned: false, isMastered: false });
+            console.log(`🔄 重置单词 ${wordId} 为未学习状态 (原状态: learned=${existing.is_learned}, mastered=${existing.is_mastered})`);
+            resetCount++;
+          } else {
+            console.log(`📝 单词 ${wordId} 在数据库中已是未学习状态，无需处理`);
+            alreadyResetCount++;
+          }
+        } else if (!clientWordIds.has(wordId) && normalizedClientWordIds.has(wordId)) {
+          // 通过格式转换匹配到了，记录一下
+          console.log(`🔧 单词 ${wordId} 通过格式转换匹配客户端数据`);
+          formatMatchedCount++;
+        }
+      }
+      
+      console.log(`🔄 总计重置 ${resetCount} 个单词`);
+      console.log(`📝 已是未学习状态的单词 ${alreadyResetCount} 个`);
+      console.log(`🔧 通过格式转换匹配的单词 ${formatMatchedCount} 个`);
+
+      // 详细对比分析
+      const clientWordsArray = Array.from(clientWordIds);
+      const databaseWordsArray = Array.from(existingProgressMap.keys());
+      const extraInDatabase = databaseWordsArray.filter(word => !clientWordIds.has(word));
+      const extraInClient = clientWordsArray.filter(word => !existingProgressMap.has(word));
+      
+      console.log('📊 详细对比分析:');
+      console.log(`- 客户端发送: ${clientWordsArray.length} 个单词`);
+      console.log(`- 数据库现有: ${databaseWordsArray.length} 个单词`);
+      console.log(`- 数据库多出: ${extraInDatabase.length} 个单词:`, extraInDatabase);
+      console.log(`- 客户端多出: ${extraInClient.length} 个单词:`, extraInClient.slice(0, 10));
+      
+      // 检查ID格式匹配问题
+      const formatMismatch = extraInDatabase.filter(dbWord => {
+        // 尝试将数据库中的横线格式转为下划线格式，看是否能匹配客户端
+        const convertedWord = dbWord.replace('-', '_');
+        const convertedWord2 = dbWord.replace('_', '-');
+        return clientWordIds.has(convertedWord) || clientWordIds.has(convertedWord2);
+      });
+      
+      if (formatMismatch.length > 0) {
+        console.log(`⚠️ 发现ID格式不匹配问题 (${formatMismatch.length} 个):`, formatMismatch);
+        console.log('🔧 这些单词可能因为ID格式不同而未被正确处理');
+      }
+      
+      // 添加调试日志
+      console.log('📊 准备更新的记录数:', updates.length);
+      console.log('📊 客户端发送的单词总数:', clientWordIds.size);
+      console.log('📊 数据库中现有记录数:', existingProgressMap.size);
+      
+      if (updates.length > 0) {
+        console.log('📝 更新示例:', updates.slice(0, 5));
+        
+        // 分类统计更新类型
+        const newRecords = updates.filter(u => !existingProgressMap.has(u.wordId));
+        const changedRecords = updates.filter(u => {
+          const existing = existingProgressMap.get(u.wordId);
+          return existing && (existing.is_learned !== u.isLearned || existing.is_mastered !== u.isMastered);
+        });
+        const resetRecords = updates.filter(u => {
+          const existing = existingProgressMap.get(u.wordId);
+          return existing && !u.isLearned && !u.isMastered && (existing.is_learned || existing.is_mastered);
+        });
+        
+        console.log('📈 更新统计:', {
+          新记录: newRecords.length,
+          变更记录: changedRecords.length,
+          重置记录: resetRecords.length
+        });
+      }
+
+      // 执行批量更新
+      if (updates.length > 0) {
+        console.log('🔄 执行批量更新，记录数:', updates.length);
+        console.log('🔄 更新内容示例:', updates.slice(0, 5));
+        await (userProgress.batchUpdate as any)(userId, updates, tx);
+        console.log('✅ 批量更新完成');
+      }
+
+      // 关键修复：完全信任客户端数据，因为这是用户最新的操作
+      // 客户端发送的 masteredWords 和 learnedWords 就是最终状态
+      const updatedLearnedWords = { ...learnedWords };
+      const updatedMasteredWords = { ...masteredWords };
+      
+      // 从数据库获取所有单词状态，用于调试和验证
+      const updatedProgress = await (userProgress.findByUserId as any)(userId);
+      const databaseLearnedWords: Record<string, boolean> = {};
+      const databaseMasteredWords: Record<string, boolean> = {};
+
+      updatedProgress.forEach((row: any) => {
+        if (row.is_learned) {
+          databaseLearnedWords[row.word_id] = true;
+        }
+        if (row.is_mastered) {
+          databaseMasteredWords[row.word_id] = true;
+        }
+      });
+
+      const finalMasteredCount = Object.keys(updatedMasteredWords).length;
+      const finalLearnedCount = Object.keys(updatedLearnedWords).length;
+      
+      console.log('📥 同步后掌握单词数:', finalMasteredCount);
+      console.log('📥 同步后学习单词数:', finalLearnedCount);
+      console.log('📥 数据库掌握单词数:', Object.keys(databaseMasteredWords).length);
+      console.log('📥 客户端掌握单词数:', Object.keys(masteredWords || {}).length);
+      console.log('📥 合并后掌握单词数:', finalMasteredCount);
+      
+      // 验证数据完整性
+      const sentMasteredCount = Object.keys(masteredWords || {}).length;
+      const sentLearnedCount = Object.keys(learnedWords || {}).length;
+      
+      if (sentMasteredCount > finalMasteredCount) {
+        console.error('⚠️ 数据丢失警告:');
+        console.error('- 发送掌握单词数:', sentMasteredCount);
+        console.error('- 返回掌握单词数:', finalMasteredCount);
+        
+        // 找出丢失的单词
+        const sentWords = new Set(Object.keys(masteredWords || {}));
+        const returnedWords = new Set(Object.keys(updatedMasteredWords));
+        const missingWords = Array.from(sentWords).filter(word => !returnedWords.has(word));
+        console.error('- 丢失的单词示例:', missingWords.slice(0, 10));
+      } else {
+        console.log('✅ 数据同步完整，无丢失');
+      }
+
+      // 获取用户设置
+      const settings = await (userSettings.findByUserId as any)(userId);
+
+      await tx.commit();
+
+      const response: ProgressSyncResponse = {
+        success: true,
+        data: {
+          learnedWords: updatedLearnedWords,
+          masteredWords: updatedMasteredWords,
+          currentGrade: settings?.current_grade || 81,
+          currentViewMode: settings?.current_view_mode || 'learn',
+          currentFilter: settings?.current_filter || 'all'
+        }
+      };
+
+      res.json(response);
+    } catch (error) {
+      // 事务回滚
+      const tx = new DatabaseTransaction();
+      await tx.rollback();
+      throw error;
+    }
+  } catch (error) {
+    console.error('Sync progress error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+export async function getProgress(req: any, res: Response) {
+  try {
+    const userId = parseInt(req.user.id);
+
+    // 获取用户进度
+    const progress = await (userProgress.findByUserId as any)(userId);
+
+    // 获取用户设置
+    const settings = await (userSettings.findByUserId as any)(userId);
+
+    const learnedWords: Record<string, boolean> = {};
+    const masteredWords: Record<string, boolean> = {};
+
+    progress.forEach((row: any) => {
+      if (row.is_learned) {
+        learnedWords[row.word_id] = true;
+      }
+      if (row.is_mastered) {
+        masteredWords[row.word_id] = true;
+      }
+    });
+
+    const response: ProgressSyncResponse = {
+      success: true,
+      data: {
+        learnedWords,
+        masteredWords,
+        currentGrade: settings?.current_grade || 81,
+        currentViewMode: settings?.current_view_mode || 'learn',
+        currentFilter: settings?.current_filter || 'all'
+      }
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.error('Get progress error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+export async function getLastSyncTimestamp(req: any, res: Response) {
+  try {
+    const userId = parseInt(req.user.id);
+
+    // 获取用户进度中最新更新时间
+    const progressLastUpdated = await (userProgress.getLastUpdatedTime as any)(userId);
+
+    // 获取用户设置中最新更新时间
+    const settings = await (userSettings.findByUserId as any)(userId);
+
+    // 比较两个时间戳，返回最新的
+    let lastTimestamp = progressLastUpdated;
+    
+    if (settings && settings.updated_at) {
+      const settingsTimestamp = new Date(settings.updated_at);
+      if (!lastTimestamp || settingsTimestamp > new Date(lastTimestamp)) {
+        lastTimestamp = settings.updated_at;
+      }
+    }
+
+    res.json({ 
+      timestamp: lastTimestamp 
+    });
+  } catch (error) {
+    console.error('Get last sync timestamp error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

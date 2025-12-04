@@ -22,7 +22,7 @@ export interface UserSettings {
   id: number;
   user_id: number;
   current_grade: number;
-  current_view_mode: 'learn' | 'list';
+  current_view_mode: 'learn' | 'list' | 'search';
   current_filter: 'all' | 'mastered' | 'not-mastered';
   created_at: string;
   updated_at: string;
@@ -61,7 +61,7 @@ export interface ProgressSyncRequest {
   learnedWords: Record<string, boolean>;
   masteredWords: Record<string, boolean>;
   currentGrade: number;
-  currentViewMode: 'learn' | 'list';
+  currentViewMode: 'learn' | 'list' | 'search';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   clientTimestamp?: string; // 客户端时间戳
 }
@@ -72,7 +72,7 @@ export interface ProgressSyncResponse {
     learnedWords: Record<string, boolean>;
     masteredWords: Record<string, boolean>;
     currentGrade: number;
-    currentViewMode: 'learn' | 'list';
+    currentViewMode: 'learn' | 'list' | 'search';
     currentFilter: 'all' | 'mastered' | 'not-mastered';
   };
 }

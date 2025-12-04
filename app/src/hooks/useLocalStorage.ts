@@ -4,7 +4,8 @@ import { ProgressSyncData } from '../types/auth';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
 
-const STORAGE_KEYS = {
+// 基础存储键
+const BASE_STORAGE_KEYS = {
   CURRENT_GRADE: 'french-app-current-grade',
   CURRENT_VIEW_MODE: 'french-app-current-view-mode',
   CURRENT_FILTER: 'french-app-current-filter',
@@ -17,35 +18,83 @@ const STORAGE_KEYS = {
   RECALL_MODE: 'french-app-recall-mode',
 };
 
+// 获取用户特定的存储键
+const getUserStorageKey = (baseKey: string, userId: string): string => {
+  return `${baseKey}-user-${userId}`;
+};
+
+// 辅助函数：从localStorage获取值
+const getStorageValue = <T>(key: string, defaultValue: T): T => {
+  try {
+    const saved = localStorage.getItem(key);
+    return saved ? JSON.parse(saved) : defaultValue;
+  } catch (error) {
+    console.error(`Error parsing localStorage key "${key}":`, error);
+    return defaultValue;
+  }
+};
+
+// 辅助函数：设置localStorage值
+const setStorageValue = <T>(key: string, value: T): void => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`Error setting localStorage key "${key}":`, error);
+  }
+};
+
 export function useLocalStorage() {
+  // 用户ID状态
+  const [userId, setUserId] = useState<string | undefined>(() => {
+    const saved = localStorage.getItem('french-app-current-user-id');
+    return saved ? saved : undefined;
+  });
+  
+  // 将用户ID转换为字符串，用于存储键
+  const userIdStr = userId?.toString();
+  
+  // 获取当前用户的存储键
+  const storageKeys = {
+    CURRENT_GRADE: getUserStorageKey(BASE_STORAGE_KEYS.CURRENT_GRADE, userIdStr || 'default'),
+    CURRENT_VIEW_MODE: getUserStorageKey(BASE_STORAGE_KEYS.CURRENT_VIEW_MODE, userIdStr || 'default'),
+    CURRENT_FILTER: getUserStorageKey(BASE_STORAGE_KEYS.CURRENT_FILTER, userIdStr || 'default'),
+    LEARNED_WORDS: getUserStorageKey(BASE_STORAGE_KEYS.LEARNED_WORDS, userIdStr || 'default'),
+    MASTERED_WORDS: getUserStorageKey(BASE_STORAGE_KEYS.MASTERED_WORDS, userIdStr || 'default'),
+    SELECTION_MODE: getUserStorageKey(BASE_STORAGE_KEYS.SELECTION_MODE, userIdStr || 'default'),
+    UNIT_RANGE: getUserStorageKey(BASE_STORAGE_KEYS.UNIT_RANGE, userIdStr || 'default'),
+    COUNT_SELECTION: getUserStorageKey(BASE_STORAGE_KEYS.COUNT_SELECTION, userIdStr || 'default'),
+    DARK_MODE: getUserStorageKey(BASE_STORAGE_KEYS.DARK_MODE, userIdStr || 'default'),
+    RECALL_MODE: getUserStorageKey(BASE_STORAGE_KEYS.RECALL_MODE, userIdStr || 'default'),
+  };
+
   const [currentGrade, setCurrentGrade] = useState<Grade>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_GRADE);
+    const saved = localStorage.getItem(storageKeys.CURRENT_GRADE);
     const grade = saved ? parseInt(saved) as Grade : 81;
     return (grade === 71 || grade === 72 || grade === 81 || grade === 82 || grade === 91 || grade === 92) ? grade : 81;
   });
 
   const [currentViewMode, setCurrentViewMode] = useState<ViewMode>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_VIEW_MODE);
+    const saved = localStorage.getItem(storageKeys.CURRENT_VIEW_MODE);
     return (saved === 'learn' || saved === 'list') ? saved : 'learn';
   });
 
   const [currentFilter, setCurrentFilter] = useState<FilterType>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.CURRENT_FILTER);
+    const saved = localStorage.getItem(storageKeys.CURRENT_FILTER);
     return (saved === 'all' || saved === 'mastered' || saved === 'not-mastered') ? saved : 'all';
   });
 
   const [learnedWords, setLearnedWords] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.LEARNED_WORDS);
+    const saved = localStorage.getItem(storageKeys.LEARNED_WORDS);
     return saved ? JSON.parse(saved) : {};
   });
 
   const [masteredWords, setMasteredWords] = useState<Record<string, boolean>>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.MASTERED_WORDS);
+    const saved = localStorage.getItem(storageKeys.MASTERED_WORDS);
     return saved ? JSON.parse(saved) : {};
   });
 
   const [selectionMode, setSelectionMode] = useState<SelectionMode>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.SELECTION_MODE);
+    const saved = localStorage.getItem(storageKeys.SELECTION_MODE);
     const mode = (saved === 'grade-all' || saved === 'grade-unit' || saved === 'grade-count') ? saved : 'grade-all';
     console.log('初始化 selectionMode:', mode);
     return mode;
@@ -58,7 +107,7 @@ export function useLocalStorage() {
   }, []);
 
   const [unitRange, setUnitRange] = useState<UnitRange>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.UNIT_RANGE);
+    const saved = localStorage.getItem(storageKeys.UNIT_RANGE);
     const defaultRange = { startUnit: 1, endUnit: 6 };
     const range = saved ? JSON.parse(saved) : defaultRange;
     console.log('初始化 unitRange:', range);
@@ -72,60 +121,60 @@ export function useLocalStorage() {
   }, []);
 
   const [countSelection, setCountSelection] = useState<CountSelection>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.COUNT_SELECTION);
+    const saved = localStorage.getItem(storageKeys.COUNT_SELECTION);
     return saved ? JSON.parse(saved) : { count: 20 };
   });
 
   const [darkMode, setDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.DARK_MODE);
+    const saved = localStorage.getItem(storageKeys.DARK_MODE);
     return saved ? JSON.parse(saved) : false;
   });
 
   const [recallMode, setRecallMode] = useState<RecallMode>(() => {
-    const saved = localStorage.getItem(STORAGE_KEYS.RECALL_MODE);
+    const saved = localStorage.getItem(storageKeys.RECALL_MODE);
     return (saved === 'none' || saved === 'hide-french' || saved === 'hide-chinese') ? saved : 'none';
   });
 
   // 保存到 localStorage
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.CURRENT_GRADE, currentGrade.toString());
-  }, [currentGrade]);
+    localStorage.setItem(storageKeys.CURRENT_GRADE, currentGrade.toString());
+  }, [currentGrade, storageKeys.CURRENT_GRADE]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.CURRENT_VIEW_MODE, currentViewMode);
-  }, [currentViewMode]);
+    localStorage.setItem(storageKeys.CURRENT_VIEW_MODE, currentViewMode);
+  }, [currentViewMode, storageKeys.CURRENT_VIEW_MODE]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.CURRENT_FILTER, currentFilter);
-  }, [currentFilter]);
+    localStorage.setItem(storageKeys.CURRENT_FILTER, currentFilter);
+  }, [currentFilter, storageKeys.CURRENT_FILTER]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.LEARNED_WORDS, JSON.stringify(learnedWords));
-  }, [learnedWords]);
+    localStorage.setItem(storageKeys.LEARNED_WORDS, JSON.stringify(learnedWords));
+  }, [learnedWords, storageKeys.LEARNED_WORDS]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.MASTERED_WORDS, JSON.stringify(masteredWords));
-  }, [masteredWords]);
+    localStorage.setItem(storageKeys.MASTERED_WORDS, JSON.stringify(masteredWords));
+  }, [masteredWords, storageKeys.MASTERED_WORDS]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.SELECTION_MODE, selectionMode);
-  }, [selectionMode]);
+    localStorage.setItem(storageKeys.SELECTION_MODE, selectionMode);
+  }, [selectionMode, storageKeys.SELECTION_MODE]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.UNIT_RANGE, JSON.stringify(unitRange));
-  }, [unitRange]);
+    localStorage.setItem(storageKeys.UNIT_RANGE, JSON.stringify(unitRange));
+  }, [unitRange, storageKeys.UNIT_RANGE]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.COUNT_SELECTION, JSON.stringify(countSelection));
-  }, [countSelection]);
+    localStorage.setItem(storageKeys.COUNT_SELECTION, JSON.stringify(countSelection));
+  }, [countSelection, storageKeys.COUNT_SELECTION]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.DARK_MODE, JSON.stringify(darkMode));
-  }, [darkMode]);
+    localStorage.setItem(storageKeys.DARK_MODE, JSON.stringify(darkMode));
+  }, [darkMode, storageKeys.DARK_MODE]);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEYS.RECALL_MODE, recallMode);
-  }, [recallMode]);
+    localStorage.setItem(storageKeys.RECALL_MODE, recallMode);
+  }, [recallMode, storageKeys.RECALL_MODE]);
 
   // 标记单词为已学
   const markAsLearned = useCallback((wordId: string) => {

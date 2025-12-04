@@ -1,15 +1,50 @@
 import { Pool, PoolClient } from 'pg';
 
-// PostgreSQL连接配置
+// PostgreSQL连接配置 - 根据环境自动选择
+const getDatabaseConfig = () => {
+  // 如果是 Docker 环境（通过环境变量判断）
+  if (process.env.DB_HOST === 'postgres') {
+    return {
+      host: 'postgres',
+      port: parseInt(process.env.DB_PORT || '5432'),
+      database: process.env.DB_NAME || 'mots',
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || 'password',
+    };
+  }
+  
+  // 如果是 Windows 开发环境（通过环境变量或默认值判断）
+  if (process.platform === 'win32' && process.env.DB_HOST) {
+    return {
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '5432'),
+      database: process.env.DB_NAME || 'mots',
+      user: process.env.DB_USER || 'postgres',
+      password: process.env.DB_PASSWORD || 'password',
+    };
+  }
+  
+  // Linux/生产环境默认使用 localhost
+  return {
+    host: process.env.DB_HOST || 'localhost',
+    port: parseInt(process.env.DB_PORT || '5432'),
+    database: process.env.DB_NAME || 'mots',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || 'password',
+  };
+};
+
+const config = getDatabaseConfig();
+
 const pool = new Pool({
-  host: process.env.DB_HOST || 'localhost',
-  port: parseInt(process.env.DB_PORT || '5432'),
-  database: process.env.DB_NAME || 'mots',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'password',
+  host: config.host,
+  port: config.port,
+  database: config.database,
+  user: config.user,
+  password: config.password,
   max: 20, // 最大连接数
   idleTimeoutMillis: 30000, // 空闲连接超时
-  connectionTimeoutMillis: 2000, // 连接超时
+  connectionTimeoutMillis: 5000, // 连接超时，远程连接需要更长时间
   ssl: false
 });
 
@@ -45,8 +80,8 @@ export async function initDatabase(): Promise<void> {
       id SERIAL PRIMARY KEY,
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       current_grade INTEGER DEFAULT 81,
-      current_view_mode VARCHAR(20) DEFAULT 'learn',
-      current_filter VARCHAR(20) DEFAULT 'all',
+      current_view_mode VARCHAR(20) DEFAULT 'learn' CHECK (current_view_mode IN ('learn', 'list', 'search')),
+      current_filter VARCHAR(20) DEFAULT 'all' CHECK (current_filter IN ('all', 'mastered', 'not-mastered')),
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(user_id)

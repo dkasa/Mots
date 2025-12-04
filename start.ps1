@@ -21,45 +21,43 @@ if (-not (Test-Path "node_modules")) {
     npm install
 }
 
-# Start backend service
-Write-Host "Starting backend service..." -ForegroundColor Yellow
-$backendJob = Start-Job -ScriptBlock {
-    param($projectPath)
-    Set-Location "$projectPath\backend"
-    npm run dev
-} -ArgumentList $currentDir
+# Start backend service in new window
+Write-Host "Starting backend service in new window..." -ForegroundColor Yellow
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\backend'; npm run dev"
 
-# Start frontend service
-Write-Host "Starting frontend service..." -ForegroundColor Yellow
+# Start frontend service in new window
+Write-Host "Starting frontend service in new window..." -ForegroundColor Yellow
 Set-Location ..\app
 if (-not (Test-Path "node_modules")) {
     Write-Host "Installing frontend dependencies..." -ForegroundColor Yellow
     npm install
 }
 
-$frontendJob = Start-Job -ScriptBlock {
-    param($projectPath)
-    Set-Location "$projectPath\app"
-    $env:VITE_PORT = "3000"
-    npm run dev
-} -ArgumentList $currentDir
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\app'; `$env:VITE_PORT='3000'; npm run dev"
 
 Set-Location ..
 
 Write-Host ""
-Write-Host "Services started!" -ForegroundColor Green
+Write-Host "Services started in separate windows!" -ForegroundColor Green
 Write-Host "Frontend: http://localhost:3000" -ForegroundColor White
 Write-Host "Backend: http://localhost:3001" -ForegroundColor White
 Write-Host ""
 
-# Wait a moment for services to start
-Start-Sleep -Seconds 5
+Write-Host ""
+Write-Host "📝 两个新的 PowerShell 窗口已打开：" -ForegroundColor Cyan
+Write-Host "   - 后端服务窗口（蓝色标题）" -ForegroundColor Gray
+Write-Host "   - 前端服务窗口（蓝色标题）" -ForegroundColor Gray
+Write-Host ""
 
+Write-Host "🛑 停止服务的方法：" -ForegroundColor Yellow
+Write-Host "   1. 关闭对应的 PowerShell 窗口" -ForegroundColor White
+Write-Host "   2. 或在窗口中按 Ctrl+C" -ForegroundColor White
+Write-Host "   3. 或使用以下命令强制停止所有 Node.js 进程：" -ForegroundColor White
+Write-Host "      taskkill /F /IM node.exe" -ForegroundColor Gray
 Write-Host ""
-Write-Host "To stop services manually, run:" -ForegroundColor Yellow
-Write-Host "Stop-Job -Id $($backendJob.Id), $($frontendJob.Id); Remove-Job -Id $($backendJob.Id), $($frontendJob.Id) -Force" -ForegroundColor Gray
-Write-Host ""
-Write-Host "Or kill Node.js processes:" -ForegroundColor Yellow
-Write-Host "taskkill /F /IM node.exe" -ForegroundColor Gray
-Write-Host ""
-Write-Host "Press Ctrl+C to exit this script (services will continue running)" -ForegroundColor Cyan
+
+Write-Host "⏳ 等待服务启动中..." -ForegroundColor Yellow
+Start-Sleep -Seconds 3
+
+Write-Host "✅ 启动完成！请查看新打开的窗口中的日志信息。" -ForegroundColor Green
+Write-Host "🚀 你可以关闭此窗口，前后端服务会继续运行。" -ForegroundColor Cyan

@@ -2,6 +2,16 @@
 
 echo "🚀 启动 Mots PostgreSQL 版本..."
 
+# 设置 Linux 环境默认变量
+export DB_TYPE="postgresql"
+export DB_HOST="${DB_HOST:-localhost}"  # 如果未设置，默认使用 localhost
+export DB_PORT="${DB_PORT:-5432}"
+export DB_NAME="${DB_NAME:-mots}"
+export DB_USER="${DB_USER:-postgres}"
+export DB_PASSWORD="${DB_PASSWORD:-password}"
+export USE_POSTGRES="true"
+export NODE_ENV="development"
+
 # 检查 Docker 是否运行
 if ! docker info > /dev/null 2>&1; then
     echo "❌ Docker 未运行，请先启动 Docker"
