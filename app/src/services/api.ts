@@ -52,17 +52,17 @@ class ApiService {
 
   // 认证相关API
   async login(credentials: LoginRequest): Promise<AuthResponse> {
-    const response = await this.client.post('/api/auth/login', credentials);
+    const response = await this.client.post('/auth/login', credentials);
     return response.data;
   }
 
   async register(userData: RegisterRequest): Promise<AuthResponse> {
-    const response = await this.client.post('/api/auth/register', userData);
+    const response = await this.client.post('/auth/register', userData);
     return response.data;
   }
 
   async getUserProfile() {
-    const response = await this.client.get('/api/auth/profile');
+    const response = await this.client.get('/auth/profile');
     return response.data;
   }
 
@@ -77,7 +77,7 @@ class ApiService {
       masteredWordsSample: Object.keys(progressData.masteredWords || {}).slice(0, 5)
     });
     
-    const response = await this.client.post('/api/progress/sync', progressData);
+    const response = await this.client.post('/progress/sync', progressData);
     console.log('✅ 同步响应:', {
       success: response.data.success,
       learnedWordsCount: Object.keys(response.data.data?.learnedWords || {}).length,
@@ -88,14 +88,14 @@ class ApiService {
   }
 
   async getProgress() {
-    const response = await this.client.get('/api/progress');
+    const response = await this.client.get('/progress');
     return response.data;
   }
 
   async getLastSyncTimestamp(): Promise<string | null> {
     try {
       console.log('获取服务器最后同步时间戳...');
-      const response = await this.client.get('/api/progress/timestamp');
+      const response = await this.client.get('/progress/timestamp');
       console.log('服务器时间戳:', response.data.timestamp);
       return response.data.timestamp || null;
     } catch (error) {
