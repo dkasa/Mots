@@ -56,6 +56,31 @@ app.get('/health', async (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
 
+// API健康检查路由
+app.get('/api/health', async (req, res) => {
+  try {
+    const dbHealth = await healthCheck();
+    res.json({ 
+      status: 'ok', 
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || 'development',
+      database: {
+        type: getDatabaseType(),
+        ...dbHealth
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: 'error', 
+      timestamp: new Date().toISOString(),
+      database: {
+        type: getDatabaseType(),
+        error: 'Database connection failed'
+      }
+    });
+  }
+});
+
 // 404处理
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
