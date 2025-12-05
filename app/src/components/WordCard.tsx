@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
@@ -11,6 +11,16 @@ interface WordCardProps {
 
 export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCardProps) {
   const [isRevealed, setIsRevealed] = useState(false);
+
+  // 当回忆模式改变时重置显示状态
+  useEffect(() => {
+    setIsRevealed(false);
+  }, [recallMode]);
+
+  // 当单词改变时重置显示状态
+  useEffect(() => {
+    setIsRevealed(false);
+  }, [word.id]);
 
   const handleCardClick = () => {
     if (recallMode !== 'none') {

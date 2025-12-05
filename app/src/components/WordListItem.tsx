@@ -23,6 +23,16 @@ export const WordListItem = React.memo(function WordListItem({ word, onToggle, d
     setIsNotMastered(!word.isMastered);
   }, [word.isMastered]);
 
+  // 当回忆模式改变时重置显示状态
+  useEffect(() => {
+    setIsRevealed(false);
+  }, [recallMode]);
+
+  // 当单词改变时重置显示状态（虽然WordListItem有key属性，但为了保险起见）
+  useEffect(() => {
+    setIsRevealed(false);
+  }, [word.id]);
+
   // 完全本地化的状态更新，只通知父组件持久化
   const handleToggle = async (e: React.MouseEvent | React.KeyboardEvent) => {
     e.stopPropagation();
