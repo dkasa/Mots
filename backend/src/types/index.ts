@@ -64,6 +64,7 @@ export interface ProgressSyncRequest {
   currentViewMode: 'learn' | 'list' | 'search';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   clientTimestamp?: string; // 客户端时间戳
+  wordProgressTimestamps?: Record<string, string>; // 单词级别的时间戳
 }
 
 export interface ProgressSyncResponse {

@@ -52,9 +52,12 @@ app.get('/health', async (req, res) => {
   }
 });
 
-// API路由
+// API路由 - 支持两种路径格式以兼容不同环境
 app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
+// 兼容生产环境nginx配置（移除/api前缀）
+app.use('/auth', authRoutes);
+app.use('/progress', progressRoutes);
 
 // API健康检查路由
 app.get('/api/health', async (req, res) => {

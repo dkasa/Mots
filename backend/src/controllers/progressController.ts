@@ -9,12 +9,13 @@ import { ProgressSyncRequest, ProgressSyncResponse } from '../types';
 export async function syncProgress(req: any, res: Response) {
   try {
     const userId = parseInt(req.user.id);
-    const { learnedWords, masteredWords, currentGrade, currentViewMode, currentFilter, clientTimestamp }: ProgressSyncRequest = req.body;
+    const { learnedWords, masteredWords, currentGrade, currentViewMode, currentFilter, clientTimestamp, wordProgressTimestamps }: ProgressSyncRequest & { wordProgressTimestamps?: Record<string, string> } = req.body;
 
     console.log(`🔄 用户 ${userId} 开始同步`);
     console.log('📤 发送的掌握单词数:', Object.keys(masteredWords || {}).length);
     console.log('📤 发送的学习单词数:', Object.keys(learnedWords || {}).length);
     console.log('📤 客户端时间戳:', clientTimestamp);
+    console.log('📤 单词时间戳数量:', Object.keys(wordProgressTimestamps || {}).length);
 
     try {
       const tx = new DatabaseTransaction();
@@ -52,8 +53,8 @@ export async function syncProgress(req: any, res: Response) {
         ...Object.keys(masteredWords || {})
       ]);
 
-      // 基于时间的合并策略
-      console.log('🔄 开始基于时间的合并...');
+      // 基于精确时间戳的合并策略
+      console.log('🔄 开始基于精确时间戳的合并...');
       
       // 首先处理客户端发送的单词
       for (const wordId of clientWordIds) {
@@ -71,24 +72,63 @@ export async function syncProgress(req: any, res: Response) {
             updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
           }
         } else {
-          // 现有记录，比较时间戳
-          // 注意：这里假设客户端时间戳较新，实际应该从请求中获取每个单词的具体时间戳
-          // 为了简化，我们使用 clientTimestamp 作为所有单词的时间戳
-          const clientUpdatedAt = clientTimestamp ? new Date(clientTimestamp) : new Date();
+          // 现有记录，比较每个单词的精确时间戳
+          const wordTimestamp = wordProgressTimestamps?.[wordId];
+          const clientUpdatedAt = wordTimestamp ? new Date(wordTimestamp) : (clientTimestamp ? new Date(clientTimestamp) : new Date());
           const serverUpdatedAt = existing.updated_at;
           
-          if (clientUpdatedAt > serverUpdatedAt) {
-            // 客户端数据较新
-            if (clientLearned || clientMastered) { // 只有在学习或掌握时才更新
+          console.log(`📊 单词 ${wordId} 时间戳比较:`, {
+            客户端: clientUpdatedAt.toISOString(),
+            服务器: serverUpdatedAt.toISOString(),
+            客户端较新: clientUpdatedAt > serverUpdatedAt,
+            客户端学习: clientLearned,
+            客户端掌握: clientMastered,
+            服务器学习: existing.is_learned,
+            服务器掌握: existing.is_mastered
+          });
+          
+          // 如果状态有变化，优先使用客户端数据（即时效性更重要）
+          const hasStateChange = (
+            existing.is_learned !== clientLearned || 
+            existing.is_mastered !== clientMastered
+          );
+          
+          if (hasStateChange) {
+            console.log(`📝 检测到状态变化: ${wordId}`);
+            // 如果客户端状态与服务器不同，且客户端有时间戳，优先使用客户端数据
+            if (wordTimestamp && clientUpdatedAt >= serverUpdatedAt) {
               mergedLearnedWords[wordId] = clientLearned;
               mergedMasteredWords[wordId] = clientMastered;
               updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
+              console.log(`✨ 使用客户端数据（状态变化）: ${wordId}`);
+            } else if (clientUpdatedAt > serverUpdatedAt) {
+              mergedLearnedWords[wordId] = clientLearned;
+              mergedMasteredWords[wordId] = clientMastered;
+              updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
+              console.log(`✨ 使用客户端数据（时间戳较新）: ${wordId}`);
+            } else {
+              // 客户端数据较旧，但状态不同，仍然保留服务器数据
+              if (existing.is_learned || existing.is_mastered) {
+                mergedLearnedWords[wordId] = existing.is_learned;
+                mergedMasteredWords[wordId] = existing.is_mastered;
+                console.log(`🔄 保留服务器数据（客户端较旧）: ${wordId}`);
+              }
             }
           } else {
-            // 服务器数据较新
-            if (existing.is_learned || existing.is_mastered) { // 只有在学习或掌握时才保留
-              mergedLearnedWords[wordId] = existing.is_learned;
-              mergedMasteredWords[wordId] = existing.is_mastered;
+            // 状态相同，使用较新的时间戳的数据
+            if (clientUpdatedAt > serverUpdatedAt) {
+              if (clientLearned || clientMastered) {
+                mergedLearnedWords[wordId] = clientLearned;
+                mergedMasteredWords[wordId] = clientMastered;
+                updates.push({ wordId, grade, isLearned: clientLearned, isMastered: clientMastered });
+                console.log(`✨ 使用客户端数据（状态相同，时间戳较新）: ${wordId}`);
+              }
+            } else {
+              if (existing.is_learned || existing.is_mastered) {
+                mergedLearnedWords[wordId] = existing.is_learned;
+                mergedMasteredWords[wordId] = existing.is_mastered;
+                console.log(`🔄 使用服务器数据（状态相同，服务器较新）: ${wordId}`);
+              }
             }
           }
         }

@@ -20,7 +20,7 @@ import { WordWithStatus } from './types/vocabulary';
 
 function App() {
   // 认证状态
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, login, logout } = useAuth();
 
   // 本地存储状态
   const {
@@ -143,25 +143,54 @@ function App() {
     isAuthenticated,
     userId: user?.id,
     onSyncComplete: (data: ProgressSyncData) => {
-      console.log('🔄 同步完成，更新本地数据');
+      console.log('🔄 同步完成，检查是否需要更新本地数据');
       console.log('📊 服务器返回掌握单词数:', Object.keys(data.masteredWords || {}).length);
       console.log('📊 服务器返回学习单词数:', Object.keys(data.learnedWords || {}).length);
       
-      // 使用同步后的数据更新本地状态
-      updateFromCloudData({
-        learnedWords: data.learnedWords || {},
-        masteredWords: data.masteredWords || {},
-        currentGrade: data.currentGrade,
-        currentViewMode: data.currentViewMode,
-        currentFilter: data.currentFilter,
-      });
+      // 不要立即覆盖本地数据，让同步逻辑自己处理合并
+      // updateFromCloudData 注释掉，避免覆盖本地最新更改
       
-      console.log('✅ 同步完成，本地数据已更新');
+      console.log('✅ 同步完成，本地数据保持不变');
     },
     onSyncError: (error: string) => {
       console.error('同步错误:', error);
     },
   });
+
+  // 退出登录前同步到服务器
+  const syncBeforeLogout = useCallback(async () => {
+    if (isAuthenticated) {
+      console.log('🔄 退出登录前同步到服务器...');
+      try {
+        await syncToServer();
+        console.log('✅ 退出前同步完成');
+      } catch (error) {
+        console.error('❌ 退出前同步失败:', error);
+        throw error;
+      }
+    }
+  }, [isAuthenticated, syncToServer]);
+
+  // 将同步函数暴露到全局，供退出登录时使用
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).syncBeforeLogout = syncBeforeLogout;
+    }
+    
+    return () => {
+      if (typeof window !== 'undefined') {
+        delete (window as any).syncBeforeLogout;
+      }
+    };
+  }, [syncBeforeLogout]);
+
+  // 监听登录事件，强制从服务端拉取进度
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      console.log('🔄 用户登录成功，强制从服务端拉取进度覆盖本地...');
+      smartSync(true); // 传递 forceFromServer 参数
+    }
+  }, [isAuthenticated, user, smartSync]);
 
   // 应用暗色模式
   useEffect(() => {

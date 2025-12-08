@@ -70,7 +70,7 @@ export function useAuth() {
       
       if (response.success) {
         setAuthData(response.token, response.user);
-        return { success: true };
+        return { success: true, forceSyncFromServer: true };
       } else {
         throw new Error('Login failed');
       }
@@ -100,7 +100,16 @@ export function useAuth() {
     }
   }, [setAuthData]);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async (syncBeforeLogout: boolean = true) => {
+    try {
+      // 如果有同步回调，先同步一次到服务器
+      if (syncBeforeLogout && typeof window !== 'undefined' && (window as any).syncBeforeLogout) {
+        await (window as any).syncBeforeLogout();
+      }
+    } catch (error) {
+      console.error('同步失败，但仍继续退出登录:', error);
+    }
+    
     clearAuthData();
     setAuthState({
       user: null,

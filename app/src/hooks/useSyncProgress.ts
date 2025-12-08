@@ -43,6 +43,7 @@ export function useSyncProgress({
   const isSyncingFromCompletion = useRef<boolean>(false);
   const lastUserIdRef = useRef<number | null>(null);
   const smartSyncRef = useRef<(() => Promise<void>) | null>(null);
+  const lastSyncTriggerTimeRef = useRef<number>(0); // 防止频繁同步
 
   // 检查服务器连接状态
   const checkServerConnection = useCallback(async () => {
@@ -80,15 +81,43 @@ export function useSyncProgress({
     };
   }, [learnedWords, masteredWords]);
 
-  // 更新本地单词进度（包含时间戳）
+  // 更新本地单词进度（仅在状态真正改变时更新时间戳）
   const updateLocalWordProgress = useCallback((wordId: string, isLearned: boolean, isMastered: boolean) => {
     const key = `word_progress_${wordId}`;
-    const progress: WordProgress = {
-      is_learned: isLearned,
-      is_mastered: isMastered,
-      updated_at: new Date().toISOString()
-    };
-    localStorage.setItem(key, JSON.stringify(progress));
+    const existing = localStorage.getItem(key);
+    
+    let needUpdate = false;
+    let updatedAt = new Date().toISOString();
+    
+    if (existing) {
+      try {
+        const existingProgress = JSON.parse(existing) as WordProgress;
+        // 只有当状态真正改变时才更新时间戳
+        if (existingProgress.is_learned !== isLearned || existingProgress.is_mastered !== isMastered) {
+          needUpdate = true;
+        } else {
+          // 状态没有改变，使用原来的时间戳
+          updatedAt = existingProgress.updated_at;
+        }
+      } catch {
+        needUpdate = true;
+      }
+    } else {
+      // 新记录，需要更新
+      needUpdate = true;
+    }
+    
+    if (needUpdate) {
+      const progress: WordProgress = {
+        is_learned: isLearned,
+        is_mastered: isMastered,
+        updated_at: updatedAt
+      };
+      localStorage.setItem(key, JSON.stringify(progress));
+      console.log(`更新单词 ${wordId} 进度和时间戳:`, { isLearned, isMastered, updatedAt });
+    } else {
+      console.log(`单词 ${wordId} 状态未改变，保持原时间戳:`, updatedAt);
+    }
   }, []);
 
   // 检查是否有未同步的更改（只比较学习进度数据，不比较UI状态）
@@ -121,6 +150,26 @@ export function useSyncProgress({
 
     const hasChanges = currentProgressData !== lastSyncProgressData;
     
+    if (hasChanges) {
+      console.log('🔍 检测到本地更改:');
+      console.log('📊 当前学习单词数:', Object.keys(learnedWords).length);
+      console.log('📊 当前掌握单词数:', Object.keys(masteredWords).length);
+      
+      if (lastSyncDataRef.current) {
+        try {
+          const lastSyncData = JSON.parse(lastSyncDataRef.current);
+          console.log('📊 上次同步学习单词数:', Object.keys(lastSyncData.learnedWords || {}).length);
+          console.log('📊 上次同步掌握单词数:', Object.keys(lastSyncData.masteredWords || {}).length);
+        } catch {
+          console.log('⚠️ 无法解析上次同步数据');
+        }
+      } else {
+        console.log('📊 无上次同步数据记录');
+      }
+    } else {
+      console.log('🔍 无本地更改');
+    }
+    
     setSyncStatus(prev => ({
       ...prev,
       hasUnsyncedChanges: hasChanges,
@@ -138,35 +187,54 @@ export function useSyncProgress({
     try {
       setSyncStatus(prev => ({ ...prev, syncInProgress: true }));
 
-      // 发送完整的学习状态，而不是增量更新
-      // 这样可以确保用户数据隔离，避免不同用户数据混合
-      const progressData: ProgressSyncData = {
+      // 收集所有单词的精确时间戳
+      const wordProgressTimestamps: Record<string, string> = {};
+      
+      // 获取所有单词ID
+      const allWordIds = new Set([
+        ...Object.keys(learnedWords),
+        ...Object.keys(masteredWords)
+      ]);
+
+      // 收集每个单词的时间戳
+      for (const wordId of allWordIds) {
+        const localProgress = getLocalWordProgress(wordId);
+        wordProgressTimestamps[wordId] = localProgress.updated_at;
+      }
+
+      // 发送完整的学习状态，包含精确时间戳
+      const progressData: ProgressSyncData & { wordProgressTimestamps?: Record<string, string> } = {
         learnedWords,
         masteredWords,
         currentGrade,
         currentViewMode,
         currentFilter,
         clientTimestamp: new Date().toISOString(),
+        wordProgressTimestamps,
       };
 
       console.log('📤 同步数据统计:', {
         学习单词数: Object.keys(learnedWords).length,
-        掌握单词数: Object.keys(masteredWords).length
+        掌握单词数: Object.keys(masteredWords).length,
+        时间戳数量: Object.keys(wordProgressTimestamps).length
       });
 
       const response = await apiService.syncProgress(progressData);
 
       if (response.success) {
-        // 更新本地时间戳
-        for (const [wordId, isLearned] of Object.entries(learnedWords)) {
-          const isMastered = masteredWords[wordId];
-          updateLocalWordProgress(wordId, isLearned, isMastered);
-        }
-
-        // 存储服务器返回的进度数据，格式与 checkForChanges 一致
+        console.log('🔄 同步成功，不覆盖本地数据...');
+        
+        // 获取服务器返回的数据，但不覆盖本地最新更改
+        const serverLearnedWords = response.data.learnedWords || {};
+        const serverMasteredWords = response.data.masteredWords || {};
+        
+        // 不再更新本地状态，保留用户的最新更改
+        // 同步完成后，只更新 lastSyncDataRef 用于下次 checkForChanges 比较
+        
+        // 使用本地当前状态作为基准，因为本地可能包含最新的更改
         lastSyncDataRef.current = JSON.stringify({
-          learnedWords: response.data.learnedWords || {},
-          masteredWords: response.data.masteredWords || {},
+          learnedWords: learnedWords,
+          masteredWords: masteredWords,
         });
         setSyncStatus(prev => ({
           ...prev,
@@ -206,6 +274,7 @@ export function useSyncProgress({
     onSyncComplete,
     onSyncError,
     updateLocalWordProgress,
+    getLocalWordProgress,
   ]);
 
   // 双向合并策略
@@ -401,7 +470,10 @@ export function useSyncProgress({
   }, [isAuthenticated, syncStatus.syncInProgress, syncStatus.isOnline, onSyncError, syncToServer, currentGrade, currentViewMode, currentFilter, updateLocalWordProgress, onSyncComplete]);
 
   // 智能同步：根据用户状态选择合适的同步策略
-  const smartSync = useCallback(async () => {
+  const smartSync = useCallback(async (forceFromServer: boolean = false) => {
+    const now = Date.now();
+    
+    // 防止过于频繁的同步调用
     if (syncStatus.syncInProgress) {
       console.log('🚫 同步正在进行中，跳过');
       return;
@@ -409,6 +481,12 @@ export function useSyncProgress({
 
     if (isSyncingFromCompletion.current) {
       console.log('🚫 防止同步完成后立即重新同步');
+      return;
+    }
+
+    // 非强制同步时，检查最小同步间隔
+    if (!forceFromServer && (now - lastSyncTriggerTimeRef.current) < 5000) {
+      console.log('🚫 距离上次同步时间太短，跳过');
       return;
     }
 
@@ -432,6 +510,9 @@ export function useSyncProgress({
       setSyncStatus(prev => ({ ...prev, hasUnsyncedChanges: true }));
       return;
     }
+
+    // 记录同步触发时间
+    lastSyncTriggerTimeRef.current = now;
 
     // 检查是否是切换账号
     if (lastUserIdRef.current !== null && userId !== undefined && lastUserIdRef.current !== userId) {
@@ -472,6 +553,13 @@ export function useSyncProgress({
       lastUserIdRef.current = userId;
     }
 
+    // 强制从服务端拉取进度覆盖本地（登录时使用）
+    if (forceFromServer) {
+      console.log('🔄 强制从服务端拉取进度覆盖本地');
+      await firstTimeSync();
+      return;
+    }
+
     // 检查是否是首次登录
     const hasLocalData = Object.keys(learnedWords).length > 0 || Object.keys(masteredWords).length > 0;
     
@@ -500,22 +588,30 @@ export function useSyncProgress({
         console.log('📱 检测到本地修改，推送到服务器');
         await syncToServer();
       } else if (serverTimestamp && localLastSync && serverTimestamp > localLastSync) {
-        console.log('☁️ 服务器数据更新，拉取到本地');
-        const response = await apiService.getProgress();
-        if (response.success) {
-          // 更新本地数据和时间戳
-          const learnedWordsData = response.data.learnedWords as Record<string, boolean>;
-          const masteredWordsData = response.data.masteredWords as Record<string, boolean>;
-          for (const [wordId, isLearned] of Object.entries(learnedWordsData || {})) {
-            const isMastered = Boolean(masteredWordsData?.[wordId]) || false;
-            updateLocalWordProgress(wordId, isLearned, isMastered);
-          }
+        console.log('☁️ 服务器数据更新，但检查是否需要拉取到本地');
+        
+        // 先检查本地是否有最近的更改
+        const localChanges = [];
+        for (const wordId of Object.keys(learnedWords)) {
+          const localProgress = getLocalWordProgress(wordId);
+          const localTime = new Date(localProgress.updated_at);
+          const lastSyncTime = new Date(localLastSync);
           
-          // 存储服务器返回的进度数据，格式与 checkForChanges 一致
-          lastSyncDataRef.current = JSON.stringify({
-            learnedWords: response.data.learnedWords || {},
-            masteredWords: response.data.masteredWords || {},
-          });
+          if (localTime > lastSyncTime) {
+            localChanges.push({
+              wordId,
+              localTime: localTime.toISOString(),
+              isLearned: learnedWords[wordId],
+              isMastered: masteredWords[wordId] || false
+            });
+          }
+        }
+        
+        if (localChanges.length > 0) {
+          console.log(`📱 检测到 ${localChanges.length} 个本地最近更改，不拉取服务器数据`);
+          console.log('本地更改:', localChanges.slice(0, 3)); // 只显示前3个
+          
+          // 保留本地更改，但更新同步状态
           setSyncStatus(prev => ({
             ...prev,
             lastSyncTime: new Date(),
@@ -523,14 +619,49 @@ export function useSyncProgress({
             hasUnsyncedChanges: false,
           }));
           
+          // 使用当前本地状态作为基准
+          lastSyncDataRef.current = JSON.stringify({
+            learnedWords: learnedWords,
+            masteredWords: masteredWords,
+          });
+          
           isSyncingFromCompletion.current = true;
           setTimeout(() => {
             isSyncingFromCompletion.current = false;
           }, 2000);
-          
-          onSyncComplete?.(response.data);
         } else {
-          setSyncStatus(prev => ({ ...prev, syncInProgress: false }));
+          console.log('🔄 本地无最近更改，拉取服务器数据');
+          const response = await apiService.getProgress();
+          if (response.success) {
+            // 更新本地数据和时间戳
+            const learnedWordsData = response.data.learnedWords as Record<string, boolean>;
+            const masteredWordsData = response.data.masteredWords as Record<string, boolean>;
+            for (const [wordId, isLearned] of Object.entries(learnedWordsData || {})) {
+              const isMastered = Boolean(masteredWordsData?.[wordId]) || false;
+              updateLocalWordProgress(wordId, isLearned, isMastered);
+            }
+            
+            // 存储服务器返回的进度数据，格式与 checkForChanges 一致
+            lastSyncDataRef.current = JSON.stringify({
+              learnedWords: response.data.learnedWords || {},
+              masteredWords: response.data.masteredWords || {},
+            });
+            setSyncStatus(prev => ({
+              ...prev,
+              lastSyncTime: new Date(),
+              syncInProgress: false,
+              hasUnsyncedChanges: false,
+            }));
+            
+            isSyncingFromCompletion.current = true;
+            setTimeout(() => {
+              isSyncingFromCompletion.current = false;
+            }, 2000);
+            
+            onSyncComplete?.(response.data);
+          } else {
+            setSyncStatus(prev => ({ ...prev, syncInProgress: false }));
+          }
         }
       } else {
         console.log('✅ 无需同步：本地无修改，服务器无更新');
@@ -583,11 +714,33 @@ export function useSyncProgress({
     }
 
     if (syncStatus.isOnline && !syncStatus.syncInProgress) {
-      console.log('📚 学习完成，触发同步');
-      // 防抖延迟，避免频繁同步
-      setTimeout(() => {
-        smartSync();
-      }, 30000); // 30秒后同步
+      console.log('📚 学习完成，准备延迟同步');
+      
+      // 清除之前的同步定时器
+      if (syncTimeoutRef.current) {
+        clearTimeout(syncTimeoutRef.current);
+        syncTimeoutRef.current = null;
+      }
+      
+      // 防抖延迟，避免频繁同步，但增加最小间隔限制
+      const now = Date.now();
+      const timeSinceLastSync = now - lastSyncTriggerTimeRef.current;
+      const minSyncInterval = 10000; // 最小同步间隔10秒
+      
+      let delay = 30000; // 默认30秒延迟
+      if (timeSinceLastSync < minSyncInterval) {
+        // 如果最近刚同步过，延长延迟时间
+        delay = Math.max(60000 - timeSinceLastSync, 30000); // 延长到60秒或至少30秒
+      }
+      
+      console.log(`📚 设置同步延迟: ${delay}ms (距离上次同步: ${timeSinceLastSync}ms)`);
+      
+      syncTimeoutRef.current = setTimeout(async () => {
+        lastSyncTriggerTimeRef.current = Date.now();
+        console.log('📚 延迟同步执行');
+        await smartSync();
+        syncTimeoutRef.current = null;
+      }, delay);
     }
   }, [isAuthenticated, syncStatus.isOnline, syncStatus.syncInProgress, learnedWords, masteredWords, smartSync, updateLocalWordProgress]);
 
@@ -619,23 +772,29 @@ export function useSyncProgress({
       clearInterval(connectionIntervalId);
       if (syncTimeoutRef.current) {
         clearTimeout(syncTimeoutRef.current);
+        syncTimeoutRef.current = null;
       }
+      lastSyncTriggerTimeRef.current = 0;
     };
   }, [syncStatus.hasUnsyncedChanges, isAuthenticated, checkServerConnection, syncStatus.isOnline, syncStatus.syncInProgress]);
 
-  // 后台静默同步（间隔60秒）
+  // 后台静默同步（间隔延长到5分钟，减少频率）
   useEffect(() => {
     if (isAuthenticated && syncStatus.isOnline) {
       const syncIntervalId = setInterval(() => {
-        if (!syncStatus.syncInProgress) {
-          console.log('⏰ 后台静默同步触发');
+        // 检查是否有未同步的更改，没有就不同步
+        const hasChanges = checkForChanges();
+        if (hasChanges && !syncStatus.syncInProgress) {
+          console.log('⏰ 后台静默同步触发（有未同步更改）');
           smartSyncRef.current?.();
+        } else {
+          console.log('⏰ 后台静默同步跳过（无更改或正在同步）');
         }
-      }, 60000); // 60秒间隔
+      }, 300000); // 5分钟间隔
 
       return () => clearInterval(syncIntervalId);
     }
-  }, [isAuthenticated, syncStatus.isOnline, syncStatus.syncInProgress]);
+  }, [isAuthenticated, syncStatus.isOnline, syncStatus.syncInProgress, checkForChanges]);
 
   // 应用启动时的同步
   useEffect(() => {

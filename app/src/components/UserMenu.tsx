@@ -21,8 +21,15 @@ export function UserMenu() {
     setIsAuthModalOpen(true);
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    try {
+      // 使用新的logout逻辑，会自动先同步一次到服务器
+      await logout(true);
+    } catch (error) {
+      console.error('退出登录时发生错误:', error);
+      // 即使同步失败，也继续退出登录
+      await logout(false);
+    }
   };
 
   // 显示加载状态
