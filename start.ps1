@@ -34,7 +34,7 @@ if (-not (Test-Path "node_modules")) {
     npm install
 }
 
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\app'; `$env:VITE_PORT='3000'; `$env:TZ='Asia/Shanghai'; npm run dev"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "Set-Location '$currentDir\app'; `$env:VITE_PORT='3000'; `$env:VITE_HOST='0.0.0.0'; `$env:TZ='Asia/Shanghai'; npm run dev"
 
 Set-Location ..
 

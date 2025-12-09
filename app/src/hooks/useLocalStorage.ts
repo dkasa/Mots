@@ -44,14 +44,24 @@ const setStorageValue = <T>(key: string, value: T): void => {
 };
 
 export function useLocalStorage() {
-  // 用户ID状态
+  // 用户ID状态 - 改为从认证状态获取
   const [userId, setUserId] = useState<string | undefined>(() => {
-    const saved = localStorage.getItem('french-app-current-user-id');
-    return saved ? saved : undefined;
+    // 尝试从认证token获取用户ID
+    const token = localStorage.getItem('mots-auth-token');
+    const userStr = localStorage.getItem('mots-user');
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        return user.id?.toString();
+      } catch {
+        // 如果解析失败，返回undefined
+      }
+    }
+    return undefined;
   });
   
   // 将用户ID转换为字符串，用于存储键
-  const userIdStr = userId?.toString();
+  const userIdStr = userId?.toString() || 'anonymous';
   
   // 获取当前用户的存储键
   const storageKeys = {

@@ -176,15 +176,24 @@ export async function syncProgress(req: any, res: Response) {
         console.log('✅ 批量更新完成');
       }
 
-      // 使用合并后的数据作为最终返回数据，而不是重新查询数据库
-      // 这样可以确保用户数据隔离，避免返回其他用户的数据
-      const finalLearnedWords = mergedLearnedWords;
-      const finalMasteredWords = mergedMasteredWords;
+      await tx.commit();
+
+      // 重新查询数据库获取最终状态（确保数据一致性）
+      const finalProgress = await (userProgress.findByUserId as any)(userId);
+      const finalLearnedWords: Record<string, boolean> = {};
+      const finalMasteredWords: Record<string, boolean> = {};
+
+      finalProgress.forEach((row: any) => {
+        if (row.is_learned) {
+          finalLearnedWords[row.word_id] = true;
+        }
+        if (row.is_mastered) {
+          finalMasteredWords[row.word_id] = true;
+        }
+      });
 
       // 获取用户设置
       const settings = await (userSettings.findByUserId as any)(userId);
-
-      await tx.commit();
 
       console.log('✅ 同步完成:', {
         最终掌握单词数: Object.keys(finalMasteredWords).length,
