@@ -43,7 +43,7 @@ export function useAuth() {
     };
 
     initAuth();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clearAuthData = useCallback(() => {
     localStorage.removeItem(STORAGE_TOKEN_KEY);
@@ -101,15 +101,27 @@ export function useAuth() {
   }, [setAuthData]);
 
   const logout = useCallback(async (syncBeforeLogout: boolean = true) => {
+    console.log('🚪 开始退出登录流程', { syncBeforeLogout });
+    
     try {
-      // 如果有同步回调，先同步一次到服务器
-      if (syncBeforeLogout && typeof window !== 'undefined' && (window as any).syncBeforeLogout) {
-        await (window as any).syncBeforeLogout();
+      // 如果有同步回调，先同步一次到服务器，并等待完成
+      if (syncBeforeLogout && typeof window !== 'undefined' && (window as any).__MOTS_APP__?.syncBeforeLogout) {
+        console.log('🔄 退出登录前开始同步...');
+        await (window as any).__MOTS_APP__.syncBeforeLogout();
+        console.log('✅ 退出前同步完成，继续退出登录');
+      } else {
+        console.log('🔄 跳过退出前同步', { 
+          syncBeforeLogout, 
+          hasWindow: typeof window !== 'undefined',
+          hasSyncFunction: !!(window as any).__MOTS_APP__?.syncBeforeLogout
+        });
       }
     } catch (error) {
-      console.error('同步失败，但仍继续退出登录:', error);
+      console.error('❌ 退出前同步失败，但仍继续退出登录:', error);
+      // 同步失败不应该阻止用户退出，继续执行退出流程
     }
     
+    // 清除认证数据
     clearAuthData();
     setAuthState({
       user: null,
@@ -117,6 +129,8 @@ export function useAuth() {
       isAuthenticated: false,
       isLoading: false,
     });
+    
+    console.log('✅ 退出登录完成');
   }, [clearAuthData]);
 
   const refreshToken = useCallback(async () => {

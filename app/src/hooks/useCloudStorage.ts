@@ -12,6 +12,41 @@ interface CloudStorageOptions {
   onCloudDataUpdate: (data: ProgressSyncData) => void;
 }
 
+// 独立的下载函数，用于紧急情况
+export const downloadFromCloud = async () => {
+  console.log('开始从云端下载数据（紧急下载）...');
+  
+  try {
+    const currentHost = window.location.hostname;
+    const response = await fetch(`${import.meta.env.VITE_API_URL || `http://${currentHost}:3001`}/api/progress`, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('mots-auth-token')}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('收到服务器响应:', response.status, response.statusText);
+
+    if (!response.ok) {
+      console.error('服务器响应失败:', response.status, response.statusText);
+      throw new Error(`Failed to fetch cloud data: ${response.status} ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('解析后的响应数据:', result);
+    
+    if (result.success) {
+      console.log('服务器返回成功，数据已获取');
+      return result.data;
+    } else {
+      console.error('服务器返回失败状态:', result);
+      throw new Error('Server returned failure status');
+    }
+  } catch (error) {
+    console.error('云端下载失败:', error);
+    throw error;
+  }
+};
+
 export function useCloudStorage({
   currentGrade,
   currentViewMode,
@@ -32,33 +67,47 @@ export function useCloudStorage({
 
   // 从云端下载数据
   const downloadFromCloud = useCallback(async () => {
-    if (!isAuthenticated || syncInProgress) return;
+    console.log('开始从云端下载数据...', { isAuthenticated, syncInProgress });
+    if (!isAuthenticated || syncInProgress) {
+      console.log('跳过下载：未认证或同步正在进行中', { isAuthenticated, syncInProgress });
+      return;
+    }
 
     try {
       setSyncInProgress(true);
+      console.log('设置同步进行中状态为true');
       
       const currentHost = window.location.hostname;
+      console.log('准备请求云端数据，API地址:', `${import.meta.env.VITE_API_URL || `http://${currentHost}:3001`}/api/progress`);
       const response = await fetch(`${import.meta.env.VITE_API_URL || `http://${currentHost}:3001`}/api/progress`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('mots-auth-token')}`,
           'Content-Type': 'application/json',
         },
       });
+      console.log('收到服务器响应:', response.status, response.statusText);
 
       if (!response.ok) {
-        throw new Error('Failed to fetch cloud data');
+        console.error('服务器响应失败:', response.status, response.statusText);
+        throw new Error(`Failed to fetch cloud data: ${response.status} ${response.statusText}`);
       }
 
       const result = await response.json();
+      console.log('解析后的响应数据:', result);
       
       if (result.success) {
+        console.log('服务器返回成功，准备更新本地数据...');
         onCloudDataUpdate(result.data);
         setLastCloudSync(new Date());
+        console.log('本地数据更新完成，设置最后同步时间为当前时间');
+      } else {
+        console.error('服务器返回失败状态:', result);
       }
     } catch (error) {
-      console.error('Cloud download failed:', error);
+      console.error('云端下载失败:', error);
     } finally {
       setSyncInProgress(false);
+      console.log('设置同步进行中状态为false');
     }
   }, [isAuthenticated, syncInProgress, onCloudDataUpdate]);
 
@@ -114,12 +163,16 @@ export function useCloudStorage({
     onCloudDataUpdate,
   ]);
 
-  // 自动同步：当用户登录时从云端下载
-  useEffect(() => {
-    if (isAuthenticated && !lastCloudSync) {
-      downloadFromCloud();
-    }
-  }, [isAuthenticated, lastCloudSync, downloadFromCloud]);
+  // 移除自动同步：不再在用户登录时自动从云端下载
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     // 如果从未同步过，或者距离上次同步超过一定时间，则触发同步
+  //     if (!lastCloudSync || (Date.now() - lastCloudSync.getTime()) > 5000) {
+  //       console.log('检测到用户登录，准备从云端下载数据...');
+  //       downloadFromCloud();
+  //     }
+  //   }
+  // }, [isAuthenticated, lastCloudSync, downloadFromCloud]);
 
   return {
     isCloudEnabled,

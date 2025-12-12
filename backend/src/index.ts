@@ -19,9 +19,27 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
+// 更宽松的CORS配置，支持移动设备访问
 app.use(cors({
-  origin: true, // 允许所有来源
-  credentials: true
+  origin: [
+    'http://localhost:3000', 
+    'http://127.0.0.1:3000', 
+    'http://192.168.0.28:3000',
+    // 允许所有localhost和127.0.0.1的端口
+    /^http:\/\/localhost:\d+$/,
+    /^http:\/\/127\.0\.0\.1:\d+$/,
+    // 允许192.168.x.x网段的所有端口
+    /^http:\/\/192\.168\.0\.\d+:\d+$/,
+    /^http:\/\/192\.168\.\d+\.\d+:\d+$/,
+    // 允许手机可能使用的其他IP段
+    /^http:\/\/10\.\d+\.\d+\.\d+:\d+$/,
+    /^http:\/\/172\.(1[6-9]|2[0-9]|3[01])\.\d+\.\d+:\d+$/
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  // 添加预检请求缓存时间
+  maxAge: 86400 // 24小时
 }));
 
 app.use(express.json({ limit: '10mb' }));
@@ -31,6 +49,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.get('/health', async (req, res) => {
   try {
     const dbHealth = await healthCheck();
+    
     res.json({ 
       status: 'ok', 
       timestamp: new Date().toISOString(),
@@ -63,6 +82,7 @@ app.use('/progress', progressRoutes);
 app.get('/api/health', async (req, res) => {
   try {
     const dbHealth = await healthCheck();
+    
     res.json({ 
       status: 'ok', 
       timestamp: new Date().toISOString(),

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Search, Moon, Sun, Eye, EyeOff, WifiOff, RefreshCw, CheckCircle } from 'lucide-react';
 import { ViewMode } from '../types/vocabulary';
 import { UserMenu } from './UserMenu';
-import { SyncStatusIndicator } from './SyncStatusIndicator';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
 
@@ -15,6 +14,7 @@ interface TopBarProps {
     lastSyncTime: Date | null;
     hasUnsyncedChanges: boolean;
   };
+  syncError?: string | null;
   onManualSync?: () => void;
   darkMode?: boolean;
   onDarkModeToggle?: () => void;
@@ -26,6 +26,7 @@ export function TopBar({
   currentViewMode, 
   onViewModeChange, 
   syncStatus,
+  syncError,
   onManualSync,
   darkMode = false,
   onDarkModeToggle,
@@ -64,6 +65,44 @@ export function TopBar({
         return '隐藏中文';
       default:
         return '主动回忆';
+    }
+  };
+
+  // 获取同步状态图标
+  const getSyncStatusIcon = (status: any) => {
+    if (syncError) {
+      return <RefreshCw className="w-5 h-5 text-red-500" />;
+    } else if (status.syncInProgress) {
+      return <RefreshCw className="w-5 h-5 animate-spin text-blue-500" />;
+    } else if (!status.isOnline) {
+      return <WifiOff className="w-5 h-5 text-gray-500" />;
+    } else if (status.hasUnsyncedChanges) {
+      return <RefreshCw className="w-5 h-5 text-orange-500" />;
+    } else {
+      return <CheckCircle className="w-5 h-5 text-green-500" />;
+    }
+  };
+
+  // 获取同步状态提示文本
+  const getSyncStatusTooltip = (status: any) => {
+    if (syncError) {
+      return `同步错误: ${syncError}`;
+    } else if (status.syncInProgress) {
+      return '同步中...';
+    } else if (!status.isOnline) {
+      return '离线状态';
+    } else if (status.hasUnsyncedChanges) {
+      return '有待同步数据，点击同步';
+    } else {
+      const lastTime = status.lastSyncTime;
+      if (lastTime) {
+        const timeAgo = new Date(lastTime).toLocaleTimeString('zh-CN', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        return `已同步 (${timeAgo})`;
+      }
+      return '已同步';
     }
   };
 
@@ -148,7 +187,7 @@ export function TopBar({
             </div>
           )}
           
-          {/* 同步状态指示器 - 仅显示图标，不显示文字 */}
+          {/* 同步状态指示器（增强版） */}
           {syncStatus && (
             <div 
               className={`p-2 rounded-md transition-colors cursor-pointer ${
@@ -157,26 +196,19 @@ export function TopBar({
                   : 'hover:bg-neutral-50 text-neutral-600'
               }`}
               onClick={() => {
-                if (onManualSync && (syncStatus.isOnline || syncStatus.hasUnsyncedChanges) && !syncStatus.syncInProgress) {
+                if (onManualSync) {
+                  console.log('🔄 手动同步按钮被点击');
                   onManualSync();
                 }
               }}
-              title={syncStatus.syncInProgress ? '同步中...' : 
-                     !syncStatus.isOnline ? '离线状态' : 
-                     syncStatus.hasUnsyncedChanges ? '待同步' : '已同步'}
+              title={getSyncStatusTooltip(syncStatus)}
             >
-              {syncStatus.syncInProgress ? (
-                <RefreshCw className="w-5 h-5 animate-spin" />
-              ) : !syncStatus.isOnline ? (
-                <WifiOff className="w-5 h-5" />
-              ) : syncStatus.hasUnsyncedChanges ? (
-                <RefreshCw className="w-5 h-5 text-orange-500" />
-              ) : (
-                <CheckCircle className="w-5 h-5 text-green-500" />
-              )}
+              {getSyncStatusIcon(syncStatus)}
             </div>
           )}
           
+
+
           {/* 夜间模式切换按钮 */}
           <button 
             onClick={onDarkModeToggle}

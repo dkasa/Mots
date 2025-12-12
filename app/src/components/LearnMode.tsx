@@ -19,12 +19,12 @@ interface LearnModeProps {
   onMarkAsMastered: (wordId: string) => void;
   onMarkAsUnmastered: (wordId: string) => void;
   onRetry: () => void;
-  onSyncAfterLearning?: () => void; // 学习完成后的同步回调
+  // onSyncAfterLearning?: () => void; // 学习完成后的同步回调 - 已移除
   darkMode?: boolean;
   recallMode?: RecallMode;
 }
 
-export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, onSyncAfterLearning, darkMode = false, recallMode = 'none' }: LearnModeProps) {
+export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, darkMode = false, recallMode = 'none' }: LearnModeProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -57,8 +57,8 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
     setIsAnimating(true);
     onMarkAsMastered(currentWord.id);
     
-    // 触发学习完成后的同步
-    onSyncAfterLearning?.();
+    // 移除自动同步，只在切换页面或手动同步时触发
+    // onSyncAfterLearning?.();
     
     // 动画延迟后重新选择下一个单词
     setTimeout(() => {
@@ -73,8 +73,8 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
     setIsAnimating(true);
     onMarkAsUnmastered(currentWord.id);
     
-    // 触发学习完成后的同步
-    onSyncAfterLearning?.();
+    // 移除自动同步，只在切换页面或手动同步时触发
+    // onSyncAfterLearning?.();
     
     setTimeout(() => {
       setIsAnimating(false);

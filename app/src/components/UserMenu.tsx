@@ -22,13 +22,26 @@ export function UserMenu() {
   };
 
   const handleLogout = async () => {
+    console.log('🚪 用户点击退出登录按钮');
     try {
       // 使用新的logout逻辑，会自动先同步一次到服务器
       await logout(true);
+      console.log('✅ 退出登录成功，准备刷新页面');
+      // 退出登录成功后刷新页面，确保所有状态都被重置
+      window.location.reload();
     } catch (error) {
-      console.error('退出登录时发生错误:', error);
+      console.error('❌ 退出登录时发生错误:', error);
       // 即使同步失败，也继续退出登录
-      await logout(false);
+      try {
+        await logout(false);
+        console.log('✅ 强制退出登录成功，准备刷新页面');
+        // 强制退出成功后也刷新页面
+        window.location.reload();
+      } catch (forceError) {
+        console.error('❌ 强制退出登录也失败:', forceError);
+        // 即使失败也尝试刷新页面
+        window.location.reload();
+      }
     }
   };
 

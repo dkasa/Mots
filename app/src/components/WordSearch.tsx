@@ -4,6 +4,8 @@ import { Word, WordWithStatus, Grade } from '../types/vocabulary';
 interface WordSearchProps {
   allWords: WordWithStatus[];
   darkMode?: boolean;
+  onSync?: () => void;
+  onToggle?: (word: WordWithStatus, newIsMastered: boolean) => void;
 }
 
 interface SearchResult {
@@ -11,11 +13,12 @@ interface SearchResult {
   grade: string;
 }
 
-export function WordSearch({ allWords, darkMode = false }: WordSearchProps) {
+export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: WordSearchProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedWord, setSelectedWord] = useState<SearchResult | null>(null);
+  const [isNotMastered, setIsNotMastered] = useState(true);
 
 
 
@@ -101,11 +104,26 @@ export function WordSearch({ allWords, darkMode = false }: WordSearchProps) {
   const handleWordSelect = (result: SearchResult) => {
     if (result && result.word) {
       setSelectedWord(result);
+      setIsNotMastered(!result.word.isMastered);
+      // 查看单词详情时触发同步
+      if (onSync) {
+        console.log('🔍 查单词页面：查看单词详情，触发同步');
+        setTimeout(() => {
+          onSync();
+        }, 300);
+      }
     }
   };
 
   const handleBack = () => {
     setSelectedWord(null);
+    // 返回搜索结果时触发同步
+    if (onSync) {
+      console.log('🔍 查单词页面：返回搜索结果，触发同步');
+      setTimeout(() => {
+        onSync();
+      }, 300);
+    }
   };
 
   // 如果没有单词数据，显示加载状态
@@ -212,18 +230,59 @@ export function WordSearch({ allWords, darkMode = false }: WordSearchProps) {
               </p>
             </div>
 
-            {/* 操作按钮 */}
-            <div className="flex gap-3 mt-8">
-              <button className="flex-1 py-3 px-4 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors duration-200">
-                加入学习列表
-              </button>
-              <button className={`flex-1 py-3 px-4 font-medium rounded-lg transition-colors duration-200 ${
-                darkMode 
-                  ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800' 
-                  : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
-              }`}>
-                标记为已掌握
-              </button>
+            {/* 掌握状态切换 */}
+            <div className="mt-8">
+              <div className="flex items-center justify-between mb-3">
+                <span className={`text-sm font-medium transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
+                }`}>
+                  掌握状态
+                </span>
+                <div className={`text-sm transition-colors duration-300 ${
+                  isNotMastered 
+                    ? 'text-yellow-600' 
+                    : 'text-green-600'
+                }`}>
+                  {isNotMastered ? '未掌握' : '已掌握'}
+                </div>
+              </div>
+              
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setIsNotMastered(true);
+                    if (onToggle && selectedWord) {
+                      onToggle(selectedWord.word, false);
+                    }
+                  }}
+                  className={`flex-1 py-3 px-4 font-medium rounded-lg transition-all duration-200 ${
+                    isNotMastered
+                      ? 'bg-yellow-500 hover:bg-yellow-600 text-white'
+                      : darkMode
+                        ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800'
+                        : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                  }`}
+                >
+                  未掌握
+                </button>
+                <button
+                  onClick={() => {
+                    setIsNotMastered(false);
+                    if (onToggle && selectedWord) {
+                      onToggle(selectedWord.word, true);
+                    }
+                  }}
+                  className={`flex-1 py-3 px-4 font-medium rounded-lg transition-all duration-200 ${
+                    !isNotMastered
+                      ? 'bg-green-500 hover:bg-green-600 text-white'
+                      : darkMode
+                        ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800'
+                        : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                  }`}
+                >
+                  已掌握
+                </button>
+              </div>
             </div>
           </div>
 
@@ -444,7 +503,16 @@ export function WordSearch({ allWords, darkMode = false }: WordSearchProps) {
                 {['bonjour', 'merci', 'au revoir', 'comment'].map((term) => (
                   <button
                     key={term}
-                    onClick={() => setSearchTerm(term)}
+                    onClick={() => {
+                      setSearchTerm(term);
+                      // 使用热门搜索时触发同步
+                      if (onSync) {
+                        console.log('🔍 查单词页面：使用热门搜索，触发同步');
+                        setTimeout(() => {
+                          onSync();
+                        }, 300);
+                      }
+                    }}
                     className={`px-3 py-1.5 text-sm border rounded-full transition-colors duration-200 ${
                       darkMode 
                         ? 'bg-bg-dark-card border-neutral-dark-300 hover:bg-primary-900 hover:border-primary-700 hover:text-primary-300' 
