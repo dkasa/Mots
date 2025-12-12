@@ -28,17 +28,11 @@
   <meta name="apple-touch-fullscreen" content="yes" />
   
   <!-- 图标配置 -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/icon-72x72.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/icon-192x192.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="/icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="/icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="/icon-96x96.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="/icon-96x96.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="/icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="/icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="/icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="57x57" href="/icon-72x72.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-72.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-72.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-144.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="/icons/icon-96.png" />
   
   <!-- Splash Screen配置 -->
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -46,17 +40,17 @@
   <meta name="apple-mobile-web-app-title" content="法语背单词" />
   
   <!-- Windows磁贴配置 -->
-  <meta name="msapplication-TileImage" content="/icon-144x144.png" />
-  <meta name="msapplication-square70x70logo" content="/icon-72x72.png" />
-  <meta name="msapplication-square150x150logo" content="/icon-144x144.png" />
-  <meta name="msapplication-wide310x150logo" content="/icon-192x192.png" />
-  <meta name="msapplication-square310x310logo" content="/icon-192x192.png" />
+  <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
+  <meta name="msapplication-square70x70logo" content="/icons/icon-72.png" />
+  <meta name="msapplication-square150x150logo" content="/icons/icon-144.png" />
+  <meta name="msapplication-wide310x150logo" content="/icons/icon-192.png" />
+  <meta name="msapplication-square310x310logo" content="/icons/icon-192.png" />
   
   <!-- 社交媒体优化 -->
   <meta property="og:title" content="Mots-背单词" />
   <meta property="og:description" content="专为初中生设计的法语词汇学习应用" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/icon-512x512.png" />
+  <meta property="og:image" content="/icons/icon-512.png" />
   <meta property="og:url" content="/" />
   
   <!-- 禁用缩放和选择 -->
@@ -90,18 +84,24 @@
     }
     
     .splash-icon {
+      /* 启动logo外圈大小 */
       width: 120px;
-      height: 120px;
+      height:120px;
       background: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
-      font-weight: bold;
-      color: #26C6B0;
       margin-bottom: 24px;
       animation: pulse 2s infinite;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .splash-icon img {
+      /* 启动logo内圈大小 */
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
     }
     
     .splash-text {
@@ -113,7 +113,7 @@
     
     .splash-subtitle {
       color: rgba(255, 255, 255, 0.8);
-      font-size: 14px;
+      font-size: 18px;
       text-align: center;
     }
     
@@ -139,7 +139,9 @@
 <body>
   <!-- 启动画面 -->
   <div id="splash-screen">
-    <div class="splash-icon">Mots</div>
+    <div class="splash-icon">
+      <img src="/icons/icon-192.png" alt="Mots" width="120" height="120" />
+    </div>
     <div class="splash-text">法语背单词</div>
     <div class="splash-subtitle">初中生法语词汇学习助手</div>
   </div>
