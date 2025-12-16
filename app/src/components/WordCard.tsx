@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
@@ -11,6 +11,8 @@ interface WordCardProps {
 
 export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCardProps) {
   const [isRevealed, setIsRevealed] = useState(false);
+  const [audioGender, setAudioGender] = useState<'male' | 'female'>('male');
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // 当回忆模式改变时重置显示状态
   useEffect(() => {
@@ -20,6 +22,7 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   // 当单词改变时重置显示状态
   useEffect(() => {
     setIsRevealed(false);
+    setAudioGender('male');
   }, [word.id]);
 
   const handleCardClick = () => {
@@ -28,12 +31,69 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
     }
   };
 
+  // 根据法语单词生成文件名
+  const getAudioFileName = (frenchWord: string, gender: 'male' | 'female') => {
+    let filename = frenchWord.toLowerCase()
+      .replace(/'/g, '')
+      .replace(/,/g, '_')
+      .replace(/ /g, '_');
+    // 移除非字母数字字符
+    filename = filename.replace(/[^a-z0-9_]/g, '');
+    return filename;
+  };
+
+  const playAudio = () => {
+    const gender = audioGender;
+    const nextGender = audioGender === 'male' ? 'female' : 'male';
+    
+    // 切换性别状态
+    setAudioGender(nextGender as 'male' | 'female');
+
+    // 生成音频文件路径 - 指向public目录下的audio文件夹
+    const filename = getAudioFileName(word.french, gender);
+    const audioPath = `/audio/grade${word.grade}/${gender}/${filename}.mp3`;
+    
+    // 如果已有音频元素，停止当前播放
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    // 创建新的音频元素并播放
+    const audio = new Audio(audioPath);
+    audioRef.current = audio;
+    
+    audio.play().catch(error => {
+      console.log(`Audio play failed for ${audioPath}:`, error);
+      // 如果播放失败，回退到下一个性别
+      setTimeout(() => {
+        const fallbackFilename = getAudioFileName(word.french, nextGender);
+        const fallbackAudioPath = `/audio/grade${word.grade}/${nextGender}/${fallbackFilename}.mp3`;
+        const fallbackAudio = new Audio(fallbackAudioPath);
+        audioRef.current = fallbackAudio;
+        fallbackAudio.play().catch(e => {
+          console.log(`Fallback audio also failed for ${fallbackAudioPath}:`, e);
+        });
+      }, 100);
+    });
+  };
+
   const shouldHideFrench = recallMode === 'hide-french' && !isRevealed;
   const shouldHideChinese = recallMode === 'hide-chinese' && !isRevealed;
 
+  // 组件卸载时清理音频
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
   return (
     <div 
-      className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 ${
+      className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 relative ${
         darkMode 
           ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
           : 'bg-bg-card shadow-md hover:shadow-lg'
@@ -42,6 +102,30 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
       }`}
       onClick={handleCardClick}
     >
+      {/* 右上角语音按钮 */}
+      <div className="absolute top-3 right-3 z-10">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            playAudio();
+          }}
+          className={`p-2 rounded-full transition-all duration-200 shadow-md ${
+            audioGender === 'male' 
+              ? (darkMode 
+                  ? 'bg-info-500 text-white hover:bg-info-600' 
+                  : 'bg-info-500 text-white hover:bg-info-600')
+              : (darkMode 
+                  ? 'bg-secondary-500 text-white hover:bg-secondary-600' 
+                  : 'bg-secondary-500 text-white hover:bg-secondary-600')
+          }`}
+          title={`播放语音（当前：${audioGender === 'male' ? '男声' : '女声'}，点击切换）`}
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 a1 1 0 010-1.415z" clipRule="evenodd" />
+          </svg>
+        </button>
+      </div>
+
       {/* 词性标签 */}
       <div className="mb-3">
         <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
@@ -66,11 +150,13 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
             </span>
           </div>
         ) : (
-          <h2 className={`text-3xl font-bold leading-tight font-french transition-colors duration-300 ${
-            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-          }`}>
-            {word.french}
-          </h2>
+          <div className="flex items-center justify-center">
+            <h2 className={`text-3xl font-bold leading-tight font-french transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+            }`}>
+              {word.french}
+            </h2>
+          </div>
         )}
       </div>
       

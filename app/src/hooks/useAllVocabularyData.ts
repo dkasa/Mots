@@ -22,7 +22,15 @@ export function useAllVocabularyData(
         try {
           const response = await fetch(`/data/grade${grade}_words.json`);
           if (!response.ok) {
-            console.warn(`Failed to load grade ${grade} words`);
+            console.warn(`Failed to load grade ${grade} words: ${response.status} ${response.statusText}`);
+            continue;
+          }
+          
+          // Check if response is valid JSON
+          const contentType = response.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            const text = await response.text();
+            console.warn(`Invalid content type for grade ${grade}: ${contentType}. Response starts with: ${text.substring(0, 100)}`);
             continue;
           }
           

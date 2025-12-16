@@ -19,6 +19,7 @@ export default defineConfig({
     strictPort: true,
     open: false,
   },
+  publicDir: 'public',
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
