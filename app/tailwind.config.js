@@ -63,6 +63,11 @@ module.exports = {
 				info: {
 					500: '#3B82F6',
 				},
+				// 添加紫色定义
+				purple: {
+					500: '#8B5CF6',
+					700: '#7C3AED',
+				},
 				// 背景色
 				bg: {
 					primary: '#FAFAF9',
