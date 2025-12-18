@@ -75,9 +75,19 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent 
+        className="sm:max-w-[425px] bg-white/85 backdrop-blur-sm font-sans"
+        style={{
+          backgroundImage: `url(/icons/logo01.png)`,
+          backgroundSize: '250px 250px',
+          backgroundRepeat: 'repeat',
+          backgroundPosition: '0 0',
+          backgroundBlendMode: 'soft-light',
+          backgroundColor: 'rgba(255, 255, 255, 0.85)'
+        }}
+      >
         <DialogHeader>
-          <DialogTitle>账户登录 / 注册</DialogTitle>
+          <DialogTitle className="text-[#1F4F3D] text-xl font-medium">账户登录 / 注册</DialogTitle>
         </DialogHeader>
         
         <Tabs defaultValue="login" className="w-full">
@@ -89,7 +99,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           <TabsContent value="login">
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="login-username">用户名</Label>
+                <Label htmlFor="login-username" className="text-[#244E40] font-medium">用户名</Label>
                 <Input
                   id="login-username"
                   type="text"
@@ -97,11 +107,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   onChange={(e) => setLoginForm(prev => ({ ...prev, username: e.target.value }))}
                   required
                   disabled={isLoading}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请输入用户名"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="login-password">密码</Label>
+                <Label htmlFor="login-password" className="text-[#244E40] font-medium">密码</Label>
                 <Input
                   id="login-password"
                   type="password"
@@ -109,6 +121,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
                   required
                   disabled={isLoading}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请输入密码"
                 />
               </div>
               
@@ -118,7 +132,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 </Alert>
               )}
               
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="w-full bg-[#2E8B6F] hover:bg-[#267A5F] text-white font-medium" 
+                disabled={isLoading}
+              >
                 {isLoading ? '登录中...' : '登录'}
               </Button>
             </form>
@@ -127,7 +145,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           <TabsContent value="register">
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="register-username">用户名</Label>
+                <Label htmlFor="register-username" className="text-[#244E40] font-medium">用户名</Label>
                 <Input
                   id="register-username"
                   type="text"
@@ -137,11 +155,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   disabled={isLoading}
                   minLength={3}
                   maxLength={20}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请输入用户名（3-20位）"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="register-email">邮箱</Label>
+                <Label htmlFor="register-email" className="text-[#244E40] font-medium">邮箱</Label>
                 <Input
                   id="register-email"
                   type="email"
@@ -149,11 +169,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   onChange={(e) => setRegisterForm(prev => ({ ...prev, email: e.target.value }))}
                   required
                   disabled={isLoading}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请输入邮箱"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="register-password">密码</Label>
+                <Label htmlFor="register-password" className="text-[#244E40] font-medium">密码</Label>
                 <Input
                   id="register-password"
                   type="password"
@@ -162,11 +184,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   required
                   disabled={isLoading}
                   minLength={6}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请输入密码（至少6位）"
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="register-confirm-password">确认密码</Label>
+                <Label htmlFor="register-confirm-password" className="text-[#244E40] font-medium">确认密码</Label>
                 <Input
                   id="register-confirm-password"
                   type="password"
@@ -174,6 +198,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   onChange={(e) => setRegisterForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
                   required
                   disabled={isLoading}
+                  className="text-[#244E40] placeholder:text-[#6F8F83] bg-white/85"
+                  placeholder="请再次输入密码"
                 />
               </div>
               
@@ -183,7 +209,11 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 </Alert>
               )}
               
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="w-full bg-[#2E8B6F] hover:bg-[#267A5F] text-white font-medium" 
+                disabled={isLoading}
+              >
                 {isLoading ? '注册中...' : '注册'}
               </Button>
             </form>
