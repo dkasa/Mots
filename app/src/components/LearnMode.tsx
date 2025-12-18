@@ -19,12 +19,13 @@ interface LearnModeProps {
   onMarkAsMastered: (wordId: string) => void;
   onMarkAsUnmastered: (wordId: string) => void;
   onRetry: () => void;
+  onRelearn: () => void;
   // onSyncAfterLearning?: () => void; // 学习完成后的同步回调 - 已移除
   darkMode?: boolean;
   recallMode?: RecallMode;
 }
 
-export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, darkMode = false, recallMode = 'none' }: LearnModeProps) {
+export function LearnMode({ words, loading, error, progress, onMarkAsMastered, onMarkAsUnmastered, onRetry, onRelearn, darkMode = false, recallMode = 'none' }: LearnModeProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -110,16 +111,16 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
           }`}>恭喜！</h3>
           <p className={`mb-6 transition-colors duration-300 ${
             darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
-          }`}>本年级单词已全部掌握！</p>
+          }`}>本阶段单词已全部掌握！</p>
           <div className="flex gap-3 justify-center">
-            <button className="px-6 py-3 bg-secondary-500 hover:bg-secondary-700 text-white font-semibold rounded-md transition-colors duration-200">
-              切换到下一年级
-            </button>
-            <button className={`px-6 py-3 font-semibold rounded-md transition-colors duration-200 ${
-              darkMode 
-                ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800' 
-                : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
-            }`}>
+            <button 
+              onClick={onRelearn}
+              className={`px-6 py-3 font-semibold rounded-md transition-colors duration-200 ${
+                darkMode 
+                  ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800' 
+                  : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+              }`}
+            >
               重新学习
             </button>
           </div>

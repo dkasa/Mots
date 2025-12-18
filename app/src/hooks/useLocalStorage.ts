@@ -252,6 +252,45 @@ export function useLocalStorage() {
     setCountSelection({ count: 20 });
   }, []);
 
+  // 重置当前单元范围的单词状态
+  const resetCurrentUnitWords = useCallback(async (currentGrade: Grade, unitRange: UnitRange) => {
+    try {
+      // 动态加载当前年级的单词数据
+      const response = await fetch(`/data/grade${currentGrade}_words.json`);
+      if (!response.ok) {
+        throw new Error(`Failed to load grade ${currentGrade} words`);
+      }
+      
+      const allWords = await response.json();
+      
+      // 获取当前年级和单元范围的所有单词ID
+      // 单词ID的格式是 `${grade}-${index}`，其中index是单词在数组中的位置
+      const currentUnitWordIds = allWords
+        .map((word: any, index: number) => ({ word, index }))
+        .filter(({ word }) => word.unit >= unitRange.startUnit && 
+          word.unit <= unitRange.endUnit)
+        .map(({ index }) => `${currentGrade}-${index}`);
+      
+      // 重置这些单词的状态
+      setLearnedWords(prev => {
+        const updated = { ...prev };
+        currentUnitWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      setMasteredWords(prev => {
+        const updated = { ...prev };
+        currentUnitWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      console.log(`🔄 重置了 ${currentUnitWordIds.length} 个单词的状态`);
+      console.log('重置的单词ID示例:', currentUnitWordIds.slice(0, 5));
+    } catch (error) {
+      console.error('重置单词状态失败:', error);
+    }
+  }, []);
+
   return {
     // 状态
     currentGrade,
@@ -274,6 +313,7 @@ export function useLocalStorage() {
     unmarkAsLearned,
     unmarkAsMastered,
     resetAllData,
+    resetCurrentUnitWords,
     updateFromCloudData,
     setSelectionMode: wrappedSetSelectionMode,
     setUnitRange: wrappedSetUnitRange,

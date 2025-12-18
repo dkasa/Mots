@@ -43,6 +43,7 @@ function App() {
     markAsMastered,
     unmarkAsLearned,
     unmarkAsMastered,
+    resetCurrentUnitWords,
     updateFromCloudData,
     setSelectionMode,
     setUnitRange,
@@ -189,6 +190,14 @@ function App() {
       setCurrentGrade(word.grade);
     }
   }, [currentGrade, setCurrentViewMode, setCurrentGrade]);
+
+  // 处理重新学习（重置当前单元范围的单词状态）
+  const handleRelearn = useCallback(() => {
+    console.log('🔄 重新学习：重置当前单元范围的单词状态');
+    resetCurrentUnitWords(currentGrade, unitRange);
+    // 重新加载单词数据
+    reloadWords();
+  }, [resetCurrentUnitWords, currentGrade, unitRange, reloadWords]);
 
   // 退出登录前同步到服务器 - 参考页面切换时的同步方式，但要等待同步完成
   const syncBeforeLogout = useCallback(async () => {
@@ -431,6 +440,7 @@ function App() {
             onMarkAsMastered={handleMarkAsMastered}
             onMarkAsUnmastered={handleMarkAsUnmastered}
             onRetry={reloadWords}
+            onRelearn={handleRelearn}
             // onSyncAfterLearning={syncAfterLearning} - 已移除自动同步
             darkMode={darkMode}
             recallMode={recallMode}
