@@ -56,6 +56,13 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
     if (!currentWord || isAnimating) return;
     
     setIsAnimating(true);
+    
+    // 播放成功音频反馈
+    const audio = new Audio('/audio/success.mp3');
+    audio.play().catch(error => {
+      console.log('Audio feedback failed for success.mp3:', error);
+    });
+    
     onMarkAsMastered(currentWord.id);
     
     // 移除自动同步，只在切换页面或手动同步时触发
@@ -72,6 +79,13 @@ export function LearnMode({ words, loading, error, progress, onMarkAsMastered, o
     if (!currentWord || isAnimating) return;
     
     setIsAnimating(true);
+    
+    // 播放失败音频反馈
+    const audio = new Audio('/audio/failure.mp3');
+    audio.play().catch(error => {
+      console.log('Audio feedback failed for failure.mp3:', error);
+    });
+    
     onMarkAsUnmastered(currentWord.id);
     
     // 移除自动同步，只在切换页面或手动同步时触发

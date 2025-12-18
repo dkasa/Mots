@@ -198,6 +198,13 @@ export const WordListItem = React.memo(function WordListItem({
     const nextIsNotMastered = !isNotMastered;
     setIsNotMastered(nextIsNotMastered);
 
+    // 播放音频反馈
+    const audioPath = nextIsNotMastered ? '/audio/failure.mp3' : '/audio/success.mp3';
+    const audio = new Audio(audioPath);
+    audio.play().catch(error => {
+      console.log(`Audio feedback failed for ${audioPath}:`, error);
+    });
+
     onToggle?.(word, !nextIsNotMastered);
   };
 

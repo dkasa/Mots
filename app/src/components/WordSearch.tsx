@@ -470,6 +470,13 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
                 <button
                   onClick={() => {
                     setIsNotMastered(true);
+                    
+                    // 播放音频反馈
+                    const audio = new Audio('/audio/failure.mp3');
+                    audio.play().catch(error => {
+                      console.log('Audio feedback failed for failure.mp3:', error);
+                    });
+                    
                     if (onToggle && selectedWord) {
                       onToggle(selectedWord.word, false);
                     }
@@ -487,6 +494,13 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
                 <button
                   onClick={() => {
                     setIsNotMastered(false);
+                    
+                    // 播放音频反馈
+                    const audio = new Audio('/audio/success.mp3');
+                    audio.play().catch(error => {
+                      console.log('Audio feedback failed for success.mp3:', error);
+                    });
+                    
                     if (onToggle && selectedWord) {
                       onToggle(selectedWord.word, true);
                     }
