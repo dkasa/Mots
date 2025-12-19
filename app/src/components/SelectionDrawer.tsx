@@ -1,23 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
+import { SelectionMode, CourseSelection, CountSelection } from '../types/vocabulary';
 
 
 interface SelectionDrawerProps {
   currentMode: SelectionMode;
-  unitRange?: UnitRange;
+  courseSelection?: CourseSelection;
   countSelection?: CountSelection;
   onModeChange: (mode: SelectionMode) => void;
-  onUnitRangeChange: (range: UnitRange) => void;
+  onCourseSelectionChange: (selection: CourseSelection) => void;
   onCountSelectionChange: (selection: CountSelection) => void;
   darkMode: boolean;
 }
 
 export function SelectionDrawer({
   currentMode,
-  unitRange = { startUnit: 1, endUnit: 6 },
+  courseSelection = { selectedUnits: [1], selectedLessons: ["1"] },
   countSelection = { count: 20 },
   onModeChange,
-  onUnitRangeChange,
+  onCourseSelectionChange,
   onCountSelectionChange,
   darkMode,
 }: SelectionDrawerProps) {
@@ -28,7 +28,7 @@ export function SelectionDrawer({
 
   const modes = [
     { value: 'grade-all' as SelectionMode, label: '全部', desc: '学期所有单词' },
-    { value: 'grade-unit' as SelectionMode, label: '单元', desc: '选择指定单元' },
+    { value: 'grade-course' as SelectionMode, label: '课程', desc: '选择课程范围' },
     { value: 'grade-count' as SelectionMode, label: '数量', desc: '随机选择' },
   ];
 
@@ -47,8 +47,8 @@ export function SelectionDrawer({
     switch (currentMode) {
       case 'grade-all':
         return mode.desc;
-      case 'grade-unit':
-        return `单元 ${unitRange.startUnit}-${unitRange.endUnit}`;
+      case 'grade-course':
+        return `单元 ${courseSelection.selectedUnits.join(',')} 课次 ${courseSelection.selectedLessons.join(',')}`;
       case 'grade-count':
         return `随机 ${countSelection.count} 个`;
       default:
@@ -64,7 +64,7 @@ export function SelectionDrawer({
     } else {
       setDrawerHeight(0);
     }
-  }, [isOpen, currentMode, unitRange, countSelection]);
+  }, [isOpen, currentMode, courseSelection, countSelection]);
 
   // 切换抽屉状态
   const toggleDrawer = () => {
@@ -183,70 +183,106 @@ export function SelectionDrawer({
                 ? 'bg-neutral-dark-50 border-neutral-dark-300' 
                 : 'bg-neutral-50 border-neutral-200'
             }`}>
-              {currentMode === 'grade-unit' && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <label className={`text-sm font-medium ${
-                      darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
-                    }`}>单元范围</label>
-                    <span className={`text-xs px-2 py-1 rounded ${
-                      darkMode 
-                        ? 'text-neutral-dark-500 bg-neutral-dark-100' 
-                        : 'text-neutral-500 bg-white'
-                    }`}>
-                      单元 {unitRange.startUnit} - {unitRange.endUnit}
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <select
-                      value={unitRange.startUnit}
-                      onChange={(e) => {
-                        const newStartUnit = parseInt(e.target.value);
-                        console.log('选择起始单元:', newStartUnit);
-                        onUnitRangeChange({ 
-                          ...unitRange, 
-                          startUnit: newStartUnit 
-                        });
-                      }}
-                      className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+              {currentMode === 'grade-course' && (
+                <div className="space-y-4">
+                  {/* 单元选择 */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className={`text-sm font-medium ${
+                        darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+                      }`}>选择单元</label>
+                      <span className={`text-xs px-2 py-1 rounded ${
                         darkMode 
-                          ? 'bg-neutral-dark-100 border-neutral-dark-300 text-neutral-dark-900' 
-                          : 'bg-white border-neutral-300'
-                      }`}
-                    >
-                      {[1, 2, 3, 4, 5].map(unit => (
-                        <option key={unit} value={unit}>第 {unit} 单元</option>
-                      ))}
-                    </select>
-                    
-                    <div className={`flex items-center px-2 ${
-                      darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
-                    }`}>
-                      <span>至</span>
+                          ? 'text-neutral-dark-500 bg-neutral-dark-100' 
+                          : 'text-neutral-500 bg-white'
+                      }`}>
+                        已选 {courseSelection.selectedUnits.length} 个
+                      </span>
                     </div>
-                    
-                    <select
-                      value={unitRange.endUnit}
-                      onChange={(e) => {
-                        const newEndUnit = parseInt(e.target.value);
-                        console.log('选择结束单元:', newEndUnit);
-                        onUnitRangeChange({ 
-                          ...unitRange, 
-                          endUnit: newEndUnit 
-                        });
-                      }}
-                      className={`flex-1 px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
+                    <div className="grid grid-cols-5 gap-2">
+                      {[1, 2, 3, 4, 5].map(unit => {
+                        const isSelected = courseSelection.selectedUnits.includes(unit);
+                        return (
+                          <button
+                            key={unit}
+                            onClick={() => {
+                              const newSelectedUnits = isSelected
+                                ? courseSelection.selectedUnits.filter(u => u !== unit)
+                                : [...courseSelection.selectedUnits, unit];
+                              
+                              // 确保至少选择一个单元
+                              if (newSelectedUnits.length === 0) {
+                                newSelectedUnits.push(unit);
+                              }
+                              
+                              onCourseSelectionChange({
+                                ...courseSelection,
+                                selectedUnits: newSelectedUnits.sort((a, b) => a - b)
+                              });
+                            }}
+                            className={`py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-200 border ${
+                              isSelected
+                                ? 'bg-primary-500 text-white border-primary-500 shadow-sm'
+                                : darkMode
+                                  ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
+                                  : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                            }`}
+                          >
+                            U {unit}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  
+                  {/* 课次选择 */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className={`text-sm font-medium ${
+                        darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+                      }`}>选择课次</label>
+                      <span className={`text-xs px-2 py-1 rounded ${
                         darkMode 
-                          ? 'bg-neutral-dark-100 border-neutral-dark-300 text-neutral-dark-900' 
-                          : 'bg-white border-neutral-300'
-                      }`}
-                    >
-                      {[1, 2, 3, 4, 5].map(unit => (
-                        <option key={unit} value={unit} disabled={unit < unitRange.startUnit}>
-                          第 {unit} 单元
-                        </option>
-                      ))}
-                    </select>
+                          ? 'text-neutral-dark-500 bg-neutral-dark-100' 
+                          : 'text-neutral-500 bg-white'
+                      }`}>
+                        已选 {courseSelection.selectedLessons.length} 个
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                      {["1", "2", "Atelier"].map(lesson => {
+                        const isSelected = courseSelection.selectedLessons.includes(lesson);
+                        return (
+                          <button
+                            key={lesson}
+                            onClick={() => {
+                              const newSelectedLessons = isSelected
+                                ? courseSelection.selectedLessons.filter(l => l !== lesson)
+                                : [...courseSelection.selectedLessons, lesson];
+                              
+                              // 确保至少选择一个课次
+                              if (newSelectedLessons.length === 0) {
+                                newSelectedLessons.push(lesson);
+                              }
+                              
+                              onCourseSelectionChange({
+                                ...courseSelection,
+                                selectedLessons: newSelectedLessons
+                              });
+                            }}
+                            className={`py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-200 border ${
+                              isSelected
+                                ? 'bg-primary-500 text-white border-primary-500 shadow-sm'
+                                : darkMode
+                                  ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
+                                  : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                            }`}
+                          >
+                            {lesson === "Atelier" ? "Atelier" : `Leçon ${lesson}`}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               )}

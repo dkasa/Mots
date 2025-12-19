@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Word, WordWithStatus, Grade, SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
+import { Word, WordWithStatus, Grade, SelectionMode, UnitRange, LessonRange, CountSelection, CourseSelection } from '../types/vocabulary';
 
 export function useVocabularyData(
   grade: Grade, 
   initialLearnedWords: Record<string, boolean>, 
   initialMasteredWords: Record<string, boolean>,
   selectionMode: SelectionMode = 'grade-all',
-  unitRange?: UnitRange,
+  courseSelection?: CourseSelection,
   countSelection?: CountSelection
 ) {
   const [words, setWords] = useState<WordWithStatus[]>([]);
@@ -14,6 +14,29 @@ export function useVocabularyData(
   const [selectedWordIds, setSelectedWordIds] = useState<string[]>([]); // 保存随机选择的单词ID
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // 比较课次的辅助函数
+  const compareLessons = (lesson1: string | number, lesson2: string | number): number => {
+    // 将课次转换为字符串进行比较
+    const str1 = String(lesson1);
+    const str2 = String(lesson2);
+    
+    // 特殊处理 Atelier，让它排在最后
+    if (str1 === 'Atelier' && str2 === 'Atelier') return 0;
+    if (str1 === 'Atelier') return 1;
+    if (str2 === 'Atelier') return -1;
+    
+    // 比较数字课次
+    const num1 = parseInt(str1);
+    const num2 = parseInt(str2);
+    
+    if (isNaN(num1) || isNaN(num2)) {
+      // 如果无法转换为数字，按字符串比较
+      return str1.localeCompare(str2);
+    }
+    
+    return num1 - num2;
+  };
 
   // 加载词汇数据（只负责加载原始数据）
   const loadWords = useCallback(async (targetGrade: Grade) => {
@@ -47,7 +70,7 @@ export function useVocabularyData(
     console.log('=== applyFiltering 调用 ===');
     console.log('rawWords.length:', rawWords.length);
     console.log('selectionMode:', selectionMode);
-    console.log('unitRange:', unitRange);
+    console.log('courseSelection:', courseSelection);
     
     if (rawWords.length === 0) return;
 
@@ -65,22 +88,22 @@ export function useVocabularyData(
 
     let filteredWords = wordsWithStatus;
     
-    if (selectionMode === 'grade-unit' && unitRange) {
-      console.log('执行单元过滤...');
-      console.log('前3个原始单词的unit:', wordsWithStatus.slice(0, 3).map(w => ({ id: w.id, unit: w.unit, french: w.french, hasUnit: 'unit' in w })));
+    if (selectionMode === 'grade-course' && courseSelection) {
+      console.log('执行课程过滤...');
+      console.log('前3个原始单词的unit和lesson:', wordsWithStatus.slice(0, 3).map(w => ({ id: w.id, unit: w.unit, lesson: w.lesson, french: w.french })));
       
       filteredWords = wordsWithStatus.filter(word => {
         const hasUnit = word.unit !== undefined && word.unit !== null;
-        const inRange = hasUnit && word.unit >= unitRange.startUnit && word.unit <= unitRange.endUnit;
-        if (!hasUnit && wordsWithStatus.indexOf(word) < 5) {
-          console.log(`单词 ${word.id} 没有 unit 字段或为空:`, word);
-        }
-        return inRange;
+        const hasLesson = word.lesson !== undefined && word.lesson !== null;
+        const inSelectedUnits = courseSelection.selectedUnits.includes(word.unit);
+        const inSelectedLessons = courseSelection.selectedLessons.includes(word.lesson?.toString() || '');
+        
+        return hasUnit && hasLesson && inSelectedUnits && inSelectedLessons;
       });
       
       console.log('过滤后单词数:', filteredWords.length);
       if (filteredWords.length > 0) {
-        console.log('前3个过滤后单词的unit:', filteredWords.slice(0, 3).map(w => ({ id: w.id, unit: w.unit, french: w.french })));
+        console.log('前3个过滤后单词的unit和lesson:', filteredWords.slice(0, 3).map(w => ({ id: w.id, unit: w.unit, lesson: w.lesson, french: w.french })));
       }
     } else if (selectionMode === 'grade-count' && countSelection) {
       // 对于随机选择，只在第一次或数量改变时重新选择
@@ -112,7 +135,7 @@ export function useVocabularyData(
     }
     
     setWords(filteredWords);
-  }, [rawWords, selectionMode, unitRange, countSelection, selectedWordIds, grade, initialLearnedWords, initialMasteredWords]);
+  }, [rawWords, selectionMode, courseSelection, countSelection, selectedWordIds, grade, initialLearnedWords, initialMasteredWords]);
 
   // 当年级改变时重新加载数据
   useEffect(() => {

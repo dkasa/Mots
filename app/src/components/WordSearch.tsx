@@ -371,29 +371,40 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
             
             {/* 词性标签 */}
             <div className="mb-4">
-              <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
-                darkMode 
-                  ? 'bg-primary-900 text-primary-200' 
-                  : 'bg-primary-100 text-primary-700'
-              }`}>
-                {selectedWord.word.part_of_speech}
-              </span>
-              <span className={`ml-2 inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
-                darkMode 
-                  ? 'bg-neutral-dark-300 text-neutral-dark-700' 
-                  : 'bg-neutral-100 text-neutral-600'
-              }`}>
-                {selectedWord.grade}
-              </span>
-              {selectedWord.word.unit && (
-                <span className={`ml-2 inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
+              <div className="flex flex-wrap gap-2">
+                <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
                   darkMode 
                     ? 'bg-neutral-dark-300 text-neutral-dark-700' 
                     : 'bg-neutral-100 text-neutral-600'
                 }`}>
-                  第{selectedWord.word.unit}单元
+                  {selectedWord.grade}
                 </span>
-              )}
+                {selectedWord.word.unit && (
+                  <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
+                    darkMode 
+                      ? 'bg-neutral-dark-300 text-neutral-dark-700' 
+                      : 'bg-neutral-100 text-neutral-600'
+                  }`}>
+                    U {selectedWord.word.unit}
+                  </span>
+                )}
+                {selectedWord.word.lesson && (
+                  <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
+                    darkMode 
+                      ? 'bg-neutral-dark-300 text-neutral-dark-700' 
+                      : 'bg-neutral-100 text-neutral-600'
+                  }`}>
+                    {selectedWord.word.lesson === 'Atelier' ? 'Atelier' : `Leçon ${selectedWord.word.lesson}`}
+                  </span>
+                )}
+                <span className={`inline-block px-3 py-1 text-sm font-medium rounded-full transition-colors duration-300 ${
+                  darkMode 
+                    ? 'bg-primary-900 text-primary-200' 
+                    : 'bg-primary-100 text-primary-700'
+                }`}>
+                  {selectedWord.word.part_of_speech}
+                </span>
+              </div>
             </div>
             
             {/* 法语单词 */}
@@ -699,7 +710,14 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
                         <div className={`text-xs transition-colors duration-300 ${
                           darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
                         }`}>
-                          第{result.word.unit}单元
+                          U {result.word.unit}
+                        </div>
+                      )}
+                      {result.word.lesson && (
+                        <div className={`text-xs transition-colors duration-300 ${
+                          darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                        }`}>
+                          {result.word.lesson === 'Atelier' ? 'Atelier' : `Leçon ${result.word.lesson}`}
                         </div>
                       )}
                     </div>

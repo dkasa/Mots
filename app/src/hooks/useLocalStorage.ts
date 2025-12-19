@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Grade, FilterType, ViewMode, SelectionMode, UnitRange, CountSelection } from '../types/vocabulary';
+import { Grade, FilterType, ViewMode, SelectionMode, UnitRange, CountSelection, LessonRange, CourseSelection } from '../types/vocabulary';
 import { ProgressSyncData } from '../types/auth';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
@@ -13,6 +13,8 @@ const BASE_STORAGE_KEYS = {
   MASTERED_WORDS: 'french-app-mastered-words',
   SELECTION_MODE: 'french-app-selection-mode',
   UNIT_RANGE: 'french-app-unit-range',
+  LESSON_RANGE: 'french-app-lesson-range',
+  COURSE_SELECTION: 'french-app-course-selection',
   COUNT_SELECTION: 'french-app-count-selection',
   DARK_MODE: 'french-app-dark-mode',
   RECALL_MODE: 'french-app-recall-mode',
@@ -72,6 +74,8 @@ export function useLocalStorage() {
     MASTERED_WORDS: getUserStorageKey(BASE_STORAGE_KEYS.MASTERED_WORDS, userIdStr || 'default'),
     SELECTION_MODE: getUserStorageKey(BASE_STORAGE_KEYS.SELECTION_MODE, userIdStr || 'default'),
     UNIT_RANGE: getUserStorageKey(BASE_STORAGE_KEYS.UNIT_RANGE, userIdStr || 'default'),
+    LESSON_RANGE: getUserStorageKey(BASE_STORAGE_KEYS.LESSON_RANGE, userIdStr || 'default'),
+    COURSE_SELECTION: getUserStorageKey(BASE_STORAGE_KEYS.COURSE_SELECTION, userIdStr || 'default'),
     COUNT_SELECTION: getUserStorageKey(BASE_STORAGE_KEYS.COUNT_SELECTION, userIdStr || 'default'),
     DARK_MODE: getUserStorageKey(BASE_STORAGE_KEYS.DARK_MODE, userIdStr || 'default'),
     RECALL_MODE: getUserStorageKey(BASE_STORAGE_KEYS.RECALL_MODE, userIdStr || 'default'),
@@ -135,6 +139,42 @@ export function useLocalStorage() {
     return saved ? JSON.parse(saved) : { count: 20 };
   });
 
+  const [lessonRange, setLessonRange] = useState<LessonRange>(() => {
+    const saved = localStorage.getItem(storageKeys.LESSON_RANGE);
+    const defaultRange = { unit: 1, startLesson: "1", endLesson: "1" };
+    const range = saved ? JSON.parse(saved) : defaultRange;
+    console.log('初始化 lessonRange:', range);
+    return range;
+  });
+
+  // 包装 setLessonRange 以添加调试
+  const wrappedSetLessonRange = useCallback((range: LessonRange) => {
+    console.log('setLessonRange 被调用:', range);
+    setLessonRange(range);
+  }, []);
+
+  // 课程选择状态（合并单元和课次）
+  const [courseSelection, setCourseSelection] = useState<CourseSelection>(() => {
+    try {
+      const stored = localStorage.getItem(storageKeys.COURSE_SELECTION);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        console.log('从localStorage加载courseSelection:', parsed);
+        return parsed;
+      }
+    } catch (error) {
+      console.error('加载courseSelection失败:', error);
+    }
+    console.log('使用默认courseSelection:', { selectedUnits: [1], selectedLessons: ["1"] });
+    return { selectedUnits: [1], selectedLessons: ["1"] };
+  });
+
+  // 包装setCourseSelection以添加调试日志
+  const wrappedSetCourseSelection = useCallback((newCourseSelection: CourseSelection) => {
+    console.log('设置courseSelection:', newCourseSelection);
+    setCourseSelection(newCourseSelection);
+  }, []);
+
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     const saved = localStorage.getItem(storageKeys.DARK_MODE);
     return saved ? JSON.parse(saved) : false;
@@ -177,6 +217,14 @@ export function useLocalStorage() {
   useEffect(() => {
     localStorage.setItem(storageKeys.COUNT_SELECTION, JSON.stringify(countSelection));
   }, [countSelection, storageKeys.COUNT_SELECTION]);
+
+  useEffect(() => {
+    localStorage.setItem(storageKeys.COURSE_SELECTION, JSON.stringify(courseSelection));
+  }, [courseSelection, storageKeys.COURSE_SELECTION]);
+
+  useEffect(() => {
+    localStorage.setItem(storageKeys.LESSON_RANGE, JSON.stringify(lessonRange));
+  }, [lessonRange, storageKeys.LESSON_RANGE]);
 
   useEffect(() => {
     localStorage.setItem(storageKeys.DARK_MODE, JSON.stringify(darkMode));
@@ -291,6 +339,112 @@ export function useLocalStorage() {
     }
   }, []);
 
+  // 重置当前课次范围的单词状态
+  const resetCurrentLessonWords = useCallback(async (currentGrade: Grade, lessonRange: LessonRange) => {
+    try {
+      // 动态加载当前年级的单词数据
+      const response = await fetch(`/data/grade${currentGrade}_words.json`);
+      if (!response.ok) {
+        throw new Error(`Failed to load grade ${currentGrade} words`);
+      }
+      
+      const allWords = await response.json();
+      
+      // 获取当前年级和课次范围的所有单词ID
+      // 单词ID的格式是 `${grade}-${index}`，其中index是单词在数组中的位置
+      const currentLessonWordIds = allWords
+        .map((word: any, index: number) => ({ word, index }))
+        .filter(({ word }) => {
+          const hasUnit = word.unit !== undefined && word.unit !== null;
+          const hasLesson = word.lesson !== undefined && word.lesson !== null;
+          const sameUnit = hasUnit && word.unit === lessonRange.unit;
+          const inLessonRange = hasLesson && 
+            compareLessons(word.lesson, lessonRange.startLesson) >= 0 &&
+            compareLessons(word.lesson, lessonRange.endLesson) <= 0;
+          
+          return sameUnit && inLessonRange;
+        })
+        .map(({ index }) => `${currentGrade}-${index}`);
+      
+      // 重置这些单词的状态
+      setLearnedWords(prev => {
+        const updated = { ...prev };
+        currentLessonWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      setMasteredWords(prev => {
+        const updated = { ...prev };
+        currentLessonWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      console.log(`🔄 重置了 ${currentLessonWordIds.length} 个单词的状态（课次范围）`);
+      console.log('重置的单词ID示例:', currentLessonWordIds.slice(0, 5));
+    } catch (error) {
+      console.error('重置单词状态失败（课次范围）:', error);
+    }
+  }, []);
+
+  // 重置当前课程范围的单词状态
+  const resetCurrentCourseWords = useCallback(async (currentGrade: Grade, courseSelection: CourseSelection) => {
+    try {
+      // 动态加载当前年级的单词数据
+      const response = await fetch(`/data/grade${currentGrade}_words.json`);
+      if (!response.ok) {
+        throw new Error(`Failed to load grade ${currentGrade} words`);
+      }
+      
+      const allWords = await response.json();
+      
+      // 获取当前年级和课程范围的所有单词ID
+      // 单词ID的格式是 `${grade}-${index}`，其中index是单词在数组中的位置
+      const currentCourseWordIds = allWords
+        .map((word: any, index: number) => ({ word, index }))
+        .filter(({ word }) => {
+          const hasUnit = word.unit !== undefined && word.unit !== null;
+          const hasLesson = word.lesson !== undefined && word.lesson !== null;
+          const inSelectedUnits = courseSelection.selectedUnits.includes(word.unit);
+          const inSelectedLessons = courseSelection.selectedLessons.includes(word.lesson);
+          
+          return hasUnit && hasLesson && inSelectedUnits && inSelectedLessons;
+        })
+        .map(({ index }) => `${currentGrade}-${index}`);
+      
+      // 重置这些单词的状态
+      setLearnedWords(prev => {
+        const updated = { ...prev };
+        currentCourseWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      setMasteredWords(prev => {
+        const updated = { ...prev };
+        currentCourseWordIds.forEach(id => delete updated[id]);
+        return updated;
+      });
+      
+      console.log(`🔄 重置了 ${currentCourseWordIds.length} 个单词的状态（课程范围）`);
+      console.log('重置的单词ID示例:', currentCourseWordIds.slice(0, 5));
+    } catch (error) {
+      console.error('重置单词状态失败（课程范围）:', error);
+    }
+  }, []);
+
+  // 比较课次值的辅助函数
+  const compareLessons = (a: string | number, b: string | number): number => {
+    // 特殊处理："Atelier" 排在最后
+    if (a === "Atelier" && b === "Atelier") return 0;
+    if (a === "Atelier") return 1;
+    if (b === "Atelier") return -1;
+    
+    // 将字符串转换为数字进行比较
+    const numA = typeof a === 'string' ? parseInt(a, 10) : a;
+    const numB = typeof b === 'string' ? parseInt(b, 10) : b;
+    
+    return numA - numB;
+  };
+
   return {
     // 状态
     currentGrade,
@@ -301,6 +455,8 @@ export function useLocalStorage() {
     selectionMode,
     unitRange,
     countSelection,
+    lessonRange,
+    courseSelection,
     darkMode,
     recallMode,
     
@@ -312,12 +468,16 @@ export function useLocalStorage() {
     markAsMastered,
     unmarkAsLearned,
     unmarkAsMastered,
-    resetAllData,
     resetCurrentUnitWords,
+    resetCurrentLessonWords,
+    resetCurrentCourseWords,
+    resetAllData,
     updateFromCloudData,
     setSelectionMode: wrappedSetSelectionMode,
     setUnitRange: wrappedSetUnitRange,
     setCountSelection,
+    setLessonRange: wrappedSetLessonRange,
+    setCourseSelection: wrappedSetCourseSelection,
     setDarkMode,
     setRecallMode,
   };

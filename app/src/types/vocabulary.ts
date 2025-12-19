@@ -5,6 +5,7 @@ export interface Word {
   part_of_speech: string;
   category?: string;
   unit?: number; // 单元编号
+  lesson?: string | number; // 课次编号，可以是数字或字符串（如"Atelier"）
 }
 
 export interface WordWithStatus extends Word {
@@ -19,12 +20,25 @@ export type FilterType = 'all' | 'mastered' | 'not-mastered';
 export type ViewMode = 'learn' | 'list' | 'search';
 
 // 新增范围选择类型
-export type SelectionMode = 'grade-all' | 'grade-unit' | 'grade-count';
+export type SelectionMode = 'grade-all' | 'grade-course' | 'grade-unit' | 'grade-lesson' | 'grade-count';
 
 // 单元选择范围
 export interface UnitRange {
   startUnit: number;
   endUnit: number;
+}
+
+// 课次选择范围
+export interface LessonRange {
+  unit: number; // 所属单元
+  startLesson: string | number; // 开始课次
+  endLesson: string | number; // 结束课次
+}
+
+// 课程选择（合并单元和课次）
+export interface CourseSelection {
+  selectedUnits: number[]; // 选中的单元列表
+  selectedLessons: string[]; // 选中的课次列表
 }
 
 // 单词数量选择
@@ -42,7 +56,7 @@ export interface AppState {
   
   // 新增范围选择状态
   selectionMode: SelectionMode;
-  unitRange?: UnitRange;
+  courseSelection?: CourseSelection;
   countSelection?: CountSelection;
 }
 

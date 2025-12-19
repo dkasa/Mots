@@ -34,6 +34,8 @@ function App() {
     selectionMode,
     unitRange,
     countSelection,
+    lessonRange,
+    courseSelection,
     darkMode,
     recallMode,
     setCurrentGrade,
@@ -44,10 +46,15 @@ function App() {
     unmarkAsLearned,
     unmarkAsMastered,
     resetCurrentUnitWords,
+    resetCurrentLessonWords,
+    resetCurrentCourseWords,
+    resetAllData,
     updateFromCloudData,
     setSelectionMode,
     setUnitRange,
     setCountSelection,
+    setLessonRange,
+    setCourseSelection,
     setDarkMode,
     setRecallMode,
   } = useLocalStorage();
@@ -64,7 +71,7 @@ function App() {
     getFilteredWords,
     updateWordStatus,
     reloadWords,
-  } = useVocabularyData(currentGrade, learnedWords, masteredWords, selectionMode, unitRange, countSelection);
+  } = useVocabularyData(currentGrade, learnedWords, masteredWords, selectionMode, courseSelection, countSelection);
 
   // 所有年级的词汇数据（用于搜索）- 使用记忆化优化
   const vocabularyData = useMemo(() => ({ learnedWords, masteredWords }), [learnedWords, masteredWords]);
@@ -191,13 +198,27 @@ function App() {
     }
   }, [currentGrade, setCurrentViewMode, setCurrentGrade]);
 
-  // 处理重新学习（重置当前单元范围的单词状态）
+  // 处理重新学习（重置当前选择范围的单词状态）
   const handleRelearn = useCallback(() => {
-    console.log('🔄 重新学习：重置当前单元范围的单词状态');
-    resetCurrentUnitWords(currentGrade, unitRange);
+    console.log('🔄 重新学习：重置当前选择范围的单词状态', { selectionMode });
+    
+    if (selectionMode === 'grade-unit') {
+      // 重置单元范围的单词状态
+      resetCurrentUnitWords(currentGrade, unitRange);
+    } else if (selectionMode === 'grade-lesson') {
+      // 重置课次范围的单词状态
+      resetCurrentLessonWords(currentGrade, lessonRange);
+    } else if (selectionMode === 'grade-course' && courseSelection) {
+      // 重置课程范围的单词状态
+      resetCurrentCourseWords(currentGrade, courseSelection);
+    } else {
+      // 对于其他模式（全部、数量），重置整个年级的单词状态
+      resetAllData();
+    }
+    
     // 重新加载单词数据
     reloadWords();
-  }, [resetCurrentUnitWords, currentGrade, unitRange, reloadWords]);
+  }, [resetCurrentUnitWords, resetCurrentLessonWords, resetCurrentCourseWords, resetAllData, currentGrade, unitRange, lessonRange, courseSelection, selectionMode, reloadWords]);
 
   // 退出登录前同步到服务器 - 参考页面切换时的同步方式，但要等待同步完成
   const syncBeforeLogout = useCallback(async () => {
@@ -418,10 +439,10 @@ function App() {
       {/* 范围选择器抽屉 */}
       <SelectionDrawer
         currentMode={selectionMode}
-        unitRange={unitRange}
+        courseSelection={courseSelection}
         countSelection={countSelection}
         onModeChange={setSelectionMode}
-        onUnitRangeChange={setUnitRange}
+        onCourseSelectionChange={setCourseSelection}
         onCountSelectionChange={setCountSelection}
         darkMode={darkMode}
       />
