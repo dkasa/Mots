@@ -82,6 +82,7 @@
     #splash-screen.hidden {
       opacity: 0;
       pointer-events: none;
+      visibility: hidden;
     }
     
     .splash-icon {
@@ -209,6 +210,10 @@
       background-color: #1a1f2b;
       margin: 0;
       padding: 0;
+    }
+    
+    /* 只在启动画面显示时禁用滚动 */
+    body:not(.app-ready) {
       overflow: hidden;
     }
     
@@ -502,8 +507,14 @@
       const splashScreen = document.getElementById('splash-screen');
       if (splashScreen) {
         splashScreen.classList.add('hidden');
+        
+        // 立即恢复页面滚动能力
+        document.body.classList.add('app-ready');
+        
         setTimeout(() => {
+          // 完全移除启动画面，确保不影响页面滚动
           splashScreen.style.display = 'none';
+          splashScreen.remove(); // 从DOM中完全移除
         }, 500);
       }
       // 清除定时器
@@ -524,12 +535,18 @@
     document.addEventListener('click', hideSplashScreen, { once: true });
     document.addEventListener('touchstart', hideSplashScreen, { once: true });
     
-    // 防止双击缩放
+    // 防止双击缩放 - 只在按钮等可点击元素上阻止
     let lastTouchEnd = 0;
     document.addEventListener('touchend', function (event) {
       const now = (new Date()).getTime();
       if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
+        // 只在点击可交互元素时阻止双击缩放
+        const target = event.target;
+        if (target.tagName === 'BUTTON' || target.closest('button') || 
+            target.tagName === 'A' || target.closest('a') ||
+            target.tagName === 'INPUT' || target.closest('input')) {
+          event.preventDefault();
+        }
       }
       lastTouchEnd = now;
     }, false);
