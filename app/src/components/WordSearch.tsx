@@ -46,12 +46,24 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
     const lowerTerm = term.toLowerCase().trim();
     const results: SearchResult[] = [];
 
+    // 创建模糊匹配模式：将音标字符转换为普通字符
+    const createFuzzyPattern = (str: string) => {
+      return str
+        .normalize('NFD') // 将带音标的字符分解为基本字符和音标
+        .replace(/[\u0300-\u036f]/g, '') // 移除音标符号
+        .toLowerCase();
+    };
+
     // 优化：单次遍历同时搜索法语和中文
     allWords.forEach(word => {
       let matched = false;
       
       // 搜索法语单词（不区分大小写）
       if (word.french.toLowerCase().includes(lowerTerm)) {
+        matched = true;
+      }
+      // 如果法语没匹配，尝试模糊匹配（处理音标字符）
+      else if (createFuzzyPattern(word.french).includes(createFuzzyPattern(term))) {
         matched = true;
       }
       // 如果法语没匹配，搜索中文释义（区分大小写）
