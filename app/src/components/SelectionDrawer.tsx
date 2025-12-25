@@ -9,6 +9,7 @@ interface SelectionDrawerProps {
   onModeChange: (mode: SelectionMode) => void;
   onCourseSelectionChange: (selection: CourseSelection) => void;
   onCountSelectionChange: (selection: CountSelection) => void;
+  onResetWords: () => void;
   darkMode: boolean;
 }
 
@@ -19,10 +20,12 @@ export function SelectionDrawer({
   onModeChange,
   onCourseSelectionChange,
   onCountSelectionChange,
+  onResetWords,
   darkMode,
 }: SelectionDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [drawerHeight, setDrawerHeight] = useState(0);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -80,6 +83,24 @@ export function SelectionDrawer({
     }
   };
 
+  // 处理重置按钮点击
+  const handleResetClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 阻止事件冒泡到父按钮
+    setShowResetConfirm(true);
+  };
+
+  // 确认重置
+  const handleResetConfirm = () => {
+    onResetWords();
+    setShowResetConfirm(false);
+    setIsOpen(false);
+  };
+
+  // 取消重置
+  const handleResetCancel = () => {
+    setShowResetConfirm(false);
+  };
+
   return (
     <div className="mx-5 mb-4">
       {/* 触发按钮 */}
@@ -124,6 +145,20 @@ export function SelectionDrawer({
             }`}>
               {modes.find(m => m.value === currentMode)?.label}
             </span>
+            {/* 重置按钮 */}
+            <button
+              onClick={handleResetClick}
+              className={`p-2 rounded-lg transition-colors duration-200 ${
+                darkMode 
+                  ? 'text-neutral-dark-400 hover:bg-neutral-dark-200 hover:text-neutral-dark-600' 
+                  : 'text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600'
+              }`}
+              title="重置当前范围内的单词状态"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
           </div>
         </div>
       </button>
@@ -344,6 +379,58 @@ export function SelectionDrawer({
           )}
         </div>
       </div>
+
+      {/* 重置确认对话框 */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className={`mx-4 w-full max-w-sm rounded-lg p-6 shadow-lg ${
+            darkMode 
+              ? 'bg-neutral-dark-100 border-neutral-dark-300' 
+              : 'bg-white border-neutral-200'
+          } border`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                darkMode ? 'bg-warning-dark-100' : 'bg-warning-100'
+              }`}>
+                <svg 
+                  className={`w-5 h-5 ${darkMode ? 'text-warning-dark-600' : 'text-warning-600'}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.354 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className={`text-lg font-semibold ${
+                  darkMode ? 'text-neutral-dark-900' : 'text-neutral-900'
+                }`}>确认重置</h3>
+                <p className={`text-sm ${
+                  darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
+                }`}>这将重置当前选择范围内的所有单词为未掌握状态，确定要继续吗？</p>
+              </div>
+            </div>
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={handleResetCancel}
+                className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-lg transition-colors duration-200 border ${
+                  darkMode 
+                    ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:bg-neutral-dark-200' 
+                    : 'bg-white text-neutral-600 border-neutral-300 hover:bg-neutral-50'
+                }`}
+              >
+                取消
+              </button>
+              <button
+                onClick={handleResetConfirm}
+                className="flex-1 py-2.5 px-4 bg-warning-500 text-white text-sm font-medium rounded-lg hover:bg-warning-600 transition-colors duration-200 shadow-sm"
+              >
+                确认重置
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

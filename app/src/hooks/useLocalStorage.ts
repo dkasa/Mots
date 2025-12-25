@@ -109,30 +109,22 @@ export function useLocalStorage() {
 
   const [selectionMode, setSelectionMode] = useState<SelectionMode>(() => {
     const saved = localStorage.getItem(storageKeys.SELECTION_MODE);
-    const mode = (saved === 'grade-all' || saved === 'grade-unit' || saved === 'grade-count') ? saved : 'grade-all';
-    console.log('初始化 selectionMode:', mode);
+    const mode = (saved === 'grade-all' || saved === 'grade-course' || saved === 'grade-count') ? saved : 'grade-all';
+
     return mode;
   });
 
-  // 包装 setSelectionMode 以添加调试
-  const wrappedSetSelectionMode = useCallback((mode: SelectionMode) => {
-    console.log('setSelectionMode 被调用:', mode);
-    setSelectionMode(mode);
-  }, []);
+
 
   const [unitRange, setUnitRange] = useState<UnitRange>(() => {
     const saved = localStorage.getItem(storageKeys.UNIT_RANGE);
     const defaultRange = { startUnit: 1, endUnit: 6 };
     const range = saved ? JSON.parse(saved) : defaultRange;
-    console.log('初始化 unitRange:', range);
+
     return range;
   });
 
-  // 包装 setUnitRange 以添加调试
-  const wrappedSetUnitRange = useCallback((range: UnitRange) => {
-    console.log('setUnitRange 被调用:', range);
-    setUnitRange(range);
-  }, []);
+
 
   const [countSelection, setCountSelection] = useState<CountSelection>(() => {
     const saved = localStorage.getItem(storageKeys.COUNT_SELECTION);
@@ -143,15 +135,11 @@ export function useLocalStorage() {
     const saved = localStorage.getItem(storageKeys.LESSON_RANGE);
     const defaultRange = { unit: 1, startLesson: "1", endLesson: "1" };
     const range = saved ? JSON.parse(saved) : defaultRange;
-    console.log('初始化 lessonRange:', range);
+
     return range;
   });
 
-  // 包装 setLessonRange 以添加调试
-  const wrappedSetLessonRange = useCallback((range: LessonRange) => {
-    console.log('setLessonRange 被调用:', range);
-    setLessonRange(range);
-  }, []);
+
 
   // 课程选择状态（合并单元和课次）
   const [courseSelection, setCourseSelection] = useState<CourseSelection>(() => {
@@ -159,13 +147,13 @@ export function useLocalStorage() {
       const stored = localStorage.getItem(storageKeys.COURSE_SELECTION);
       if (stored) {
         const parsed = JSON.parse(stored);
-        console.log('从localStorage加载courseSelection:', parsed);
+
         return parsed;
       }
     } catch (error) {
       console.error('加载courseSelection失败:', error);
     }
-    console.log('使用默认courseSelection:', { selectedUnits: [1], selectedLessons: ["1"] });
+
     return { selectedUnits: [1], selectedLessons: ["1"] };
   });
 
@@ -404,8 +392,13 @@ export function useLocalStorage() {
         .filter(({ word }) => {
           const hasUnit = word.unit !== undefined && word.unit !== null;
           const hasLesson = word.lesson !== undefined && word.lesson !== null;
+          
+          // 处理课次类型不匹配的问题：将数字转换为字符串进行比较
+          const wordLessonStr = word.lesson.toString();
+          const selectedLessonsStr = courseSelection.selectedLessons.map(lesson => lesson.toString());
+          
           const inSelectedUnits = courseSelection.selectedUnits.includes(word.unit);
-          const inSelectedLessons = courseSelection.selectedLessons.includes(word.lesson);
+          const inSelectedLessons = selectedLessonsStr.includes(wordLessonStr);
           
           return hasUnit && hasLesson && inSelectedUnits && inSelectedLessons;
         })
@@ -423,9 +416,6 @@ export function useLocalStorage() {
         currentCourseWordIds.forEach(id => delete updated[id]);
         return updated;
       });
-      
-      console.log(`🔄 重置了 ${currentCourseWordIds.length} 个单词的状态（课程范围）`);
-      console.log('重置的单词ID示例:', currentCourseWordIds.slice(0, 5));
     } catch (error) {
       console.error('重置单词状态失败（课程范围）:', error);
     }
@@ -473,11 +463,11 @@ export function useLocalStorage() {
     resetCurrentCourseWords,
     resetAllData,
     updateFromCloudData,
-    setSelectionMode: wrappedSetSelectionMode,
-    setUnitRange: wrappedSetUnitRange,
+    setSelectionMode,
+    setUnitRange,
     setCountSelection,
-    setLessonRange: wrappedSetLessonRange,
-    setCourseSelection: wrappedSetCourseSelection,
+    setLessonRange,
+    setCourseSelection,
     setDarkMode,
     setRecallMode,
   };

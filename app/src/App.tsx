@@ -200,25 +200,25 @@ function App() {
 
   // 处理重新学习（重置当前选择范围的单词状态）
   const handleRelearn = useCallback(() => {
-    console.log('🔄 重新学习：重置当前选择范围的单词状态', { selectionMode });
+    console.log('🔄 重新学习：重置当前选择范围的单词状态', { selectionMode, courseSelection });
     
-    if (selectionMode === 'grade-unit') {
-      // 重置单元范围的单词状态
-      resetCurrentUnitWords(currentGrade, unitRange);
-    } else if (selectionMode === 'grade-lesson') {
-      // 重置课次范围的单词状态
-      resetCurrentLessonWords(currentGrade, lessonRange);
+    if (selectionMode === 'grade-all') {
+      // 重置当前年级的所有单词状态，而不是所有年级
+      resetCurrentCourseWords(currentGrade, { selectedUnits: [1, 2, 3, 4, 5], selectedLessons: ["1", "2", "Atelier"] });
     } else if (selectionMode === 'grade-course' && courseSelection) {
       // 重置课程范围的单词状态
       resetCurrentCourseWords(currentGrade, courseSelection);
+    } else if (selectionMode === 'grade-count') {
+      // 重置当前年级的所有单词状态
+      resetCurrentCourseWords(currentGrade, { selectedUnits: [1, 2, 3, 4, 5], selectedLessons: ["1", "2", "Atelier"] });
     } else {
-      // 对于其他模式（全部、数量），重置整个年级的单词状态
-      resetAllData();
+      // 默认重置当前年级的所有单词状态
+      resetCurrentCourseWords(currentGrade, { selectedUnits: [1, 2, 3, 4, 5], selectedLessons: ["1", "2", "Atelier"] });
     }
     
     // 重新加载单词数据
     reloadWords();
-  }, [resetCurrentUnitWords, resetCurrentLessonWords, resetCurrentCourseWords, resetAllData, currentGrade, unitRange, lessonRange, courseSelection, selectionMode, reloadWords]);
+  }, [resetCurrentCourseWords, currentGrade, courseSelection, selectionMode, reloadWords]);
 
   // 退出登录前同步到服务器 - 参考页面切换时的同步方式，但要等待同步完成
   const syncBeforeLogout = useCallback(async () => {
@@ -444,6 +444,7 @@ function App() {
         onModeChange={setSelectionMode}
         onCourseSelectionChange={setCourseSelection}
         onCountSelectionChange={setCountSelection}
+        onResetWords={handleRelearn}
         darkMode={darkMode}
       />
       
