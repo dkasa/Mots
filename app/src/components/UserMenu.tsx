@@ -84,31 +84,39 @@ export function UserMenu({ currentVersion }: UserMenuProps) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-64" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
+          {/* 用户信息区域 - 浅蓝色背景 */}
+          <DropdownMenuLabel className="font-normal bg-blue-50/80 dark:bg-blue-950/30 rounded-t-lg">
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium leading-none">{user?.username}</p>
-              <p className="text-xs leading-none text-muted-foreground">
+              <p className="text-sm font-medium leading-none text-blue-900 dark:text-blue-100">{user?.username}</p>
+              <p className="text-xs leading-none text-blue-700/80 dark:text-blue-300/80">
                 {user?.email}
               </p>
             </div>
           </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <Cloud className="mr-2 h-4 w-4" />
-            <span>云端同步已启用</span>
+          
+          {/* 云同步区域 - 浅绿色背景 */}
+          <DropdownMenuItem className="bg-green-50/70 dark:bg-green-950/25 hover:bg-green-100/80 dark:hover:bg-green-900/40">
+            <Cloud className="mr-2 h-4 w-4 text-green-600 dark:text-green-400" />
+            <span className="text-green-800 dark:text-green-200">云端同步已启用</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>设置</span>
+          
+          {/* 设置区域 - 浅紫色背景 */}
+          <DropdownMenuItem className="bg-purple-50/70 dark:bg-purple-950/25 hover:bg-purple-100/80 dark:hover:bg-purple-900/40">
+            <Settings className="mr-2 h-4 w-4 text-purple-600 dark:text-purple-400" />
+            <span className="text-purple-800 dark:text-purple-200">设置</span>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <div className="flex items-center justify-between px-2 py-1">
-            <DropdownMenuItem onClick={handleLogout} className="flex-1">
-              <LogOut className="h-4 w-4 mr-2" />
-              <span>退出登录</span>
+          
+          {/* 退出登录和版本号区域 - 浅灰色背景 */}
+          <div className="flex items-center justify-between px-2 py-1 bg-gray-50/70 dark:bg-gray-950/25 rounded-b-lg">
+            <DropdownMenuItem 
+              onClick={handleLogout} 
+              className="flex-1 bg-red-50/70 dark:bg-red-950/25 hover:bg-red-100/80 dark:hover:bg-red-900/40 rounded"
+            >
+              <LogOut className="h-4 w-4 mr-2 text-red-600 dark:text-red-400" />
+              <span className="text-red-800 dark:text-red-200">退出登录</span>
             </DropdownMenuItem>
             {currentVersion && (
-              <div className="px-2 py-1 text-xs text-muted-foreground">
+              <div className="px-2 py-1 text-xs text-gray-600 dark:text-gray-400">
                 <span>{currentVersion}</span>
               </div>
             )}
