@@ -170,7 +170,12 @@ class VersionGenerator {
   run() {
     console.log('🚀 开始生成版本信息...');
     
+    const gitInfo = this.getGitInfo();
+    console.log('📊 Git信息:', JSON.stringify(gitInfo, null, 2));
+    
     const versionInfo = this.generateVersionInfo();
+    console.log('📦 新版本信息:', JSON.stringify(versionInfo, null, 2));
+    
     const success = this.writeVersionFile(versionInfo);
     
     if (success) {

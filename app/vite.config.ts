@@ -19,9 +19,9 @@ export default defineConfig({
         if (process.env.NODE_ENV === 'production') {
           try {
             // 在构建开始时生成版本信息
-            require('./scripts/version-generator.js');
+            import('./scripts/version-generator.js');
           } catch (error) {
-            console.warn('版本生成器执行失败:', error.message);
+            console.warn('版本生成器执行失败:', error instanceof Error ? error.message : String(error));
           }
         }
       }
