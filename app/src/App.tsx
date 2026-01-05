@@ -412,7 +412,7 @@ function App() {
 
 
 
-  // 应用启动时检查版本更新
+  // 应用启动时检查版本更新，并在页面可见性变化时检查
   useEffect(() => {
     const checkVersion = async () => {
       try {
@@ -450,6 +450,28 @@ function App() {
 
     // 应用启动时检查一次版本
     checkVersion();
+
+    // 监听页面可见性变化，当用户切换回页面时检查版本
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // 页面变为可见时检查版本
+        checkVersion();
+      }
+    };
+
+    // 监听页面焦点变化，当用户切换回标签页时检查版本
+    const handleFocus = () => {
+      checkVersion();
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('focus', handleFocus);
+
+    // 清理事件监听器
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, [currentVersion]);
 
   // 应用暗色模式
