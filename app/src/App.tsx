@@ -20,9 +20,86 @@ import { BottomNavigation } from './components/BottomNavigation';
 
 import { WordWithStatus } from './types/vocabulary';
 
+// 版本检查Hook
+const useVersionCheck = () => {
+  const [currentVersion, setCurrentVersion] = useState<string>('v1.0.1');
+  const [newVersionAvailable, setNewVersionAvailable] = useState(false);
+
+  // 检查版本更新
+  const checkForUpdates = useCallback(async () => {
+    try {
+      // 添加时间戳避免缓存
+      const response = await fetch('/version.json?t=' + Date.now());
+      if (response.ok) {
+        const versionData = await response.json();
+        const serverVersion = versionData.version || versionData.buildVersion || 'v1.0.1';
+        
+        console.log('🔍 版本检查:', { 
+          current: currentVersion, 
+          server: serverVersion,
+          hasUpdate: serverVersion !== currentVersion 
+        });
+        
+        if (serverVersion !== currentVersion) {
+          setNewVersionAvailable(true);
+          setCurrentVersion(serverVersion);
+          
+          // 显示更新提示
+          if ('serviceWorker' in navigator) {
+            // 通知Service Worker有新版本
+            navigator.serviceWorker.controller?.postMessage({
+              type: 'NEW_VERSION_AVAILABLE',
+              version: serverVersion
+            });
+          }
+          
+          return true;
+        }
+      }
+    } catch (error) {
+      console.warn('版本检查失败:', error);
+    }
+    return false;
+  }, [currentVersion]);
+
+  // 应用更新
+  const applyUpdate = useCallback(() => {
+    console.log('🔄 应用版本更新');
+    setNewVersionAvailable(false);
+    
+    // 清除所有缓存并重新加载
+    if ('caches' in window) {
+      caches.keys().then(cacheNames => {
+        cacheNames.forEach(cacheName => {
+          caches.delete(cacheName);
+        });
+        console.log('🗑️ 缓存已清除');
+      });
+    }
+    
+    // 重新加载页面
+    window.location.reload();
+  }, []);
+
+  return {
+    currentVersion,
+    newVersionAvailable,
+    checkForUpdates,
+    applyUpdate
+  };
+};
+
 function App() {
   // 认证状态
   const { isAuthenticated, user, login, logout } = useAuth();
+
+  // 版本检查
+  const { 
+    currentVersion, 
+    newVersionAvailable, 
+    checkForUpdates, 
+    applyUpdate 
+  } = useVersionCheck();
 
   // 本地存储状态
   const {
@@ -403,6 +480,53 @@ function App() {
     }
   }, [isAuthenticated, user, retrySync, updateFromCloudData]);
 
+  // 应用启动时检查版本更新
+  useEffect(() => {
+    console.log('🚀 应用启动，开始版本检查...');
+    
+    // 立即检查一次版本
+    checkForUpdates();
+    
+    // 设置定时检查（每5分钟检查一次）
+    const versionCheckInterval = setInterval(() => {
+      console.log('⏰ 定时版本检查...');
+      checkForUpdates();
+    }, 5 * 60 * 1000); // 5分钟
+    
+    // 监听页面可见性变化，当页面重新可见时检查版本
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        console.log('👀 页面重新可见，检查版本更新');
+        checkForUpdates();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      clearInterval(versionCheckInterval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [checkForUpdates]);
+
+  // 监听Service Worker消息（版本更新通知）
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data && event.data.type === 'NEW_VERSION_AVAILABLE') {
+          console.log('📢 Service Worker通知有新版本:', event.data.version);
+          setNewVersionAvailable(true);
+        }
+      };
+      
+      navigator.serviceWorker.addEventListener('message', handleMessage);
+      
+      return () => {
+        navigator.serviceWorker.removeEventListener('message', handleMessage);
+      };
+    }
+  }, []);
+
   // 应用暗色模式
   useEffect(() => {
     if (darkMode) {
@@ -416,6 +540,19 @@ function App() {
     <div className={`min-h-screen font-chinese transition-colors duration-300 ${
       darkMode ? 'bg-bg-dark-primary text-neutral-dark-800' : 'bg-bg-primary text-neutral-800'
     }`}>
+      {/* 版本更新提示 */}
+      {newVersionAvailable && (
+        <div className="fixed top-4 right-4 z-50 bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center space-x-2">
+          <span>🔄 新版本可用</span>
+          <button 
+            onClick={applyUpdate}
+            className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-sm"
+          >
+            立即更新
+          </button>
+        </div>
+      )}
+      
       {/* 顶部导航 */}
       <TopBar 
         currentViewMode={currentViewMode}
@@ -501,4 +638,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

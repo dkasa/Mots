@@ -381,12 +381,32 @@ async function checkForUpdates() {
     
     if (latestVersion && latestVersion !== BUILD_VERSION) {
       console.log(`[SW] New version detected: ${latestVersion} (current: ${BUILD_VERSION})`);
-      // 立即刷新所有客户端
-      refreshAllClients();
+      // 更新本地版本信息
+      BUILD_VERSION = latestVersion;
+      STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
+      DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
+      
+      // 通知所有客户端有新版本可用
+      notifyClientsAboutUpdate(latestVersion);
     }
   } catch (error) {
     console.log('[SW] Version check failed:', error);
   }
+}
+
+// 通知所有客户端有新版本可用
+function notifyClientsAboutUpdate(newVersion) {
+  self.clients.matchAll().then(clients => {
+    clients.forEach(client => {
+      console.log('[SW] 通知客户端有新版本:', client.url, '版本:', newVersion);
+      // 发送新版本可用消息
+      client.postMessage({
+        type: 'NEW_VERSION_AVAILABLE',
+        version: newVersion,
+        message: '检测到新版本，请刷新页面获取更新'
+      });
+    });
+  });
 }
 
 // 自动刷新所有客户端
@@ -438,6 +458,12 @@ self.addEventListener('message', event => {
         caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
           .then(() => self.skipWaiting())
       );
+      break;
+      
+    case 'NEW_VERSION_AVAILABLE':
+      // 处理来自客户端的版本更新通知
+      console.log('[SW] Received version update notification from client:', data.version);
+      // 可以在这里触发缓存清理和更新
       break;
   }
 });
