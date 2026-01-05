@@ -103,10 +103,10 @@ export function SelectionDrawer({
 
   return (
     <div className="mx-5 mb-4">
-      {/* 触发按钮 */}
-      <button
+      {/* 触发区域 */}
+      <div
         onClick={toggleDrawer}
-        className={`w-full rounded-lg border p-4 text-left transition-colors duration-200 shadow-sm ${
+        className={`w-full rounded-lg border p-4 text-left transition-colors duration-200 shadow-sm cursor-pointer ${
           darkMode 
             ? 'bg-neutral-dark-100 border-neutral-dark-300 hover:bg-neutral-dark-200' 
             : 'bg-white border-neutral-200 hover:bg-neutral-50'
@@ -161,7 +161,7 @@ export function SelectionDrawer({
             </button>
           </div>
         </div>
-      </button>
+      </div>
 
       {/* 抽屉内容 */}
       <div

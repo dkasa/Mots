@@ -9,11 +9,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
-import { User, LogOut, Settings, Cloud } from 'lucide-react';
+import { User, LogOut, Settings, Cloud, Tag } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { AuthModal } from './AuthModal';
 
-export function UserMenu() {
+interface UserMenuProps {
+  currentVersion?: string | null;
+}
+
+export function UserMenu({ currentVersion }: UserMenuProps) {
   const { user, isAuthenticated, logout, isLoading } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -79,7 +83,7 @@ export function UserMenu() {
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuContent className="w-64" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium leading-none">{user?.username}</p>
@@ -98,10 +102,17 @@ export function UserMenu() {
             <span>设置</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>
-            <LogOut className="mr-2 h-4 w-4" />
-            <span>退出登录</span>
-          </DropdownMenuItem>
+          <div className="flex items-center justify-between px-2 py-1">
+            <DropdownMenuItem onClick={handleLogout} className="flex-1">
+              <LogOut className="h-4 w-4 mr-2" />
+              <span>退出登录</span>
+            </DropdownMenuItem>
+            {currentVersion && (
+              <div className="px-2 py-1 text-xs text-muted-foreground">
+                <span>{currentVersion}</span>
+              </div>
+            )}
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
       

@@ -13,19 +13,6 @@ export default defineConfig({
       attributePrefix: 'data-matrix',
       includeProps: true,
     }),
-    {
-      name: 'version-generator',
-      buildStart() {
-        if (process.env.NODE_ENV === 'production') {
-          try {
-            // 在构建开始时生成版本信息
-            require('./scripts/version-generator.js');
-          } catch (error) {
-            console.warn('版本生成器执行失败:', error.message);
-          }
-        }
-      }
-    }
   ],
   server: {
     host: '0.0.0.0',

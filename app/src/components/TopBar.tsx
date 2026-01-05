@@ -20,6 +20,7 @@ interface TopBarProps {
   onDarkModeToggle?: () => void;
   recallMode?: RecallMode;
   onRecallModeChange?: (mode: RecallMode) => void;
+  currentVersion?: string | null;
 }
 
 export function TopBar({ 
@@ -31,7 +32,8 @@ export function TopBar({
   darkMode = false,
   onDarkModeToggle,
   recallMode = 'none',
-  onRecallModeChange
+  onRecallModeChange,
+  currentVersion
 }: TopBarProps) {
   const [showRecallMenu, setShowRecallMenu] = useState(false);
 
@@ -242,7 +244,7 @@ export function TopBar({
           )}
           
           {/* 用户菜单 - 放在最右边 */}
-          <UserMenu />
+          <UserMenu currentVersion={currentVersion} />
         </div>
       </div>
     </div>
