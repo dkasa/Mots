@@ -25,7 +25,7 @@ interface UseSyncProgressOptions {
   learnedWords: Record<string, boolean>;
   masteredWords: Record<string, boolean>;
   currentGrade: number;
-  currentViewMode: 'learn' | 'list' | 'search';
+  currentViewMode: 'learn' | 'list' | 'search' | 'quiz';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   isAuthenticated: boolean;
   userId?: number; // 当前用户ID，用于切换账号

@@ -7,6 +7,7 @@ import { initDatabase, healthCheck, getDatabaseType } from './database';
 // 导入路由
 import authRoutes from './routes/auth';
 import progressRoutes from './routes/progress';
+import quizRoutes from './routes/quiz';
 
 // 加载环境变量
 dotenv.config();
@@ -74,9 +75,11 @@ app.get('/health', async (req, res) => {
 // API路由 - 支持两种路径格式以兼容不同环境
 app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
+app.use('/api/quiz', quizRoutes);
 // 兼容生产环境nginx配置（移除/api前缀）
 app.use('/auth', authRoutes);
 app.use('/progress', progressRoutes);
+app.use('/quiz', quizRoutes);
 
 // API健康检查路由
 app.get('/api/health', async (req, res) => {

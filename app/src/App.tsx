@@ -16,6 +16,7 @@ import { ProgressIndicator } from './components/ProgressIndicator';
 import { LearnMode } from './components/LearnMode';
 import { ListMode } from './components/ListMode';
 import { WordSearch } from './components/WordSearch';
+import { QuizMode } from './components/QuizMode';
 import { BottomNavigation } from './components/BottomNavigation';
 
 import { WordWithStatus } from './types/vocabulary';
@@ -546,6 +547,14 @@ function App() {
             darkMode={darkMode} 
             onSync={handleManualSync}
             onToggle={handleToggle}
+          />
+        ) : currentViewMode === 'quiz' ? (
+          <QuizMode
+            words={words}
+            loading={loading}
+            error={error}
+            onSync={handleManualSync}
+            darkMode={darkMode}
           />
         ) : (
           <ListMode

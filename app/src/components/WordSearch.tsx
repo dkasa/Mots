@@ -616,13 +616,19 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value.slice(0, 50))} // 限制输入长度
               placeholder="输入法语单词或中文释义..."
-              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300 ${
+              className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-300 transform-gpu transition-transform duration-200 focus:scale-105 ${
                 darkMode 
                   ? 'bg-neutral-dark-200 border-neutral-dark-400 text-neutral-dark-800 placeholder-neutral-dark-500' 
                   : 'bg-neutral-50 border-neutral-300'
               }`}
               autoFocus
               maxLength={50}
+              onFocus={(e) => {
+                // 移动端优化：输入法弹出时自动滚动
+                setTimeout(() => {
+                  e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+              }}
             />
             {searchTerm && (
               <button

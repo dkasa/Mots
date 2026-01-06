@@ -45,6 +45,8 @@ export function TopBar({
         return '单词列表';
       case 'search':
         return '查单词';
+      case 'quiz':
+        return '单词小测';
       default:
         return 'Mots';
     }

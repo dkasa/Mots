@@ -95,9 +95,31 @@ export async function initDatabase(): Promise<void> {
       grade INTEGER NOT NULL,
       is_learned BOOLEAN DEFAULT FALSE,
       is_mastered BOOLEAN DEFAULT FALSE,
+      total_attempts INTEGER DEFAULT 0,
+      correct_attempts INTEGER DEFAULT 0,
+      last_attempted TIMESTAMP WITH TIME ZONE,
+      last_correct TIMESTAMP WITH TIME ZONE,
+      consecutive_correct INTEGER DEFAULT 0,
+      memory_level INTEGER DEFAULT 0,
+      average_time INTEGER DEFAULT 0,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(user_id, word_id)
+    );
+
+    -- 测试会话表
+    CREATE TABLE IF NOT EXISTS quiz_sessions (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      mode VARCHAR(50) NOT NULL,
+      grade INTEGER NOT NULL,
+      question_count INTEGER NOT NULL,
+      correct_count INTEGER DEFAULT 0,
+      total_time INTEGER DEFAULT 0,
+      start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+      end_time TIMESTAMP WITH TIME ZONE,
+      is_completed BOOLEAN DEFAULT FALSE,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
     -- 创建索引以提高查询性能
@@ -108,6 +130,8 @@ export async function initDatabase(): Promise<void> {
     CREATE INDEX IF NOT EXISTS idx_user_progress_grade ON user_progress(grade);
     CREATE INDEX IF NOT EXISTS idx_user_progress_mastered ON user_progress(is_mastered);
     CREATE INDEX IF NOT EXISTS idx_user_settings_user_id ON user_settings(user_id);
+    CREATE INDEX IF NOT EXISTS idx_quiz_sessions_user_id ON quiz_sessions(user_id);
+    CREATE INDEX IF NOT EXISTS idx_quiz_sessions_start_time ON quiz_sessions(start_time);
 
     -- 创建触发器自动更新 updated_at 字段
     CREATE OR REPLACE FUNCTION update_updated_at_column()

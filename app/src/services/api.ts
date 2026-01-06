@@ -278,6 +278,16 @@ class ApiService {
     return false;
   }
 
+  // 测试数据相关API
+  async saveQuizData(quizData: { session: any; results: any[] }): Promise<any> {
+    const response = await this.client.post('/quiz/save', quizData);
+    return response.data;
+  }
+
+  async getWordMemories(wordIds: string[]): Promise<any> {
+    const response = await this.client.post('/quiz/memories', { wordIds });
+    return response.data;
+  }
 
 }
 
