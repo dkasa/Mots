@@ -79,7 +79,7 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
     const session: QuizSession = {
       id: Date.now().toString(),
       mode: config.mode,
-      grade: config.mode === 'current-unit' ? words[0]?.grade : undefined,
+      grade: config.mode === 'current-range' ? words[0]?.grade : undefined,
       questions,
       results: [],
       startTime: Date.now(),
@@ -217,26 +217,17 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
 // 辅助函数：根据模式筛选单词
 function filterWordsByMode(mode: QuizModeType, words: WordWithStatus[], wordMemories: WordMemory[]): WordWithStatus[] {
   switch (mode) {
-    case 'current-unit':
-      // 返回当前单元/课程的单词
+    case 'current-range':
+      // 返回当前范围的单词（未掌握的）
       return words.filter(word => !word.isMastered);
-    
-    case 'forgotten-words':
-      // 返回遗忘的单词（基于记忆等级）
-      return getForgottenWords(words, wordMemories);
     
     case 'previous-errors':
       // 返回上次错误的单词
       return getPreviousErrorWords(words, wordMemories);
     
-    case 'daily-5min':
-      // 返回需要复习的单词（5分钟快速测试）
-      return getDailyReviewWords(words, wordMemories);
-    
-    case 'random-mixed':
     default:
-      // 随机混合所有单词
-      return shuffleArray([...words]);
+      // 默认返回所有单词
+      return [...words];
   }
 }
 
@@ -422,16 +413,6 @@ function getWordMemory(wordId: string, wordMemories: WordMemory[]): WordMemory |
   return wordMemories.find(memory => memory.wordId === wordId) || null;
 }
 
-// 辅助函数：获取遗忘单词
-function getForgottenWords(words: WordWithStatus[], wordMemories: WordMemory[]): WordWithStatus[] {
-  // 基于记忆等级筛选：返回记忆等级为0-1级的单词
-  return words.filter(word => {
-    const memory = getWordMemory(word.id, wordMemories);
-    // 记忆等级为0-1，或者没有记忆数据的新词
-    return !word.isMastered && (!memory || memory.memoryLevel <= 1);
-  });
-}
-
 // 辅助函数：获取上次错误单词
 function getPreviousErrorWords(words: WordWithStatus[], wordMemories: WordMemory[]): WordWithStatus[] {
   // 获取上次测试中答错的单词
@@ -443,38 +424,8 @@ function getPreviousErrorWords(words: WordWithStatus[], wordMemories: WordMemory
   });
 }
 
-// 辅助函数：获取每日复习单词
-function getDailyReviewWords(words: WordWithStatus[], wordMemories: WordMemory[]): WordWithStatus[] {
-  // 获取需要复习的单词（基于复习间隔）
-  const now = Date.now();
-  return words.filter(word => {
-    const memory = getWordMemory(word.id, wordMemories);
-    if (!memory) return true; // 新词需要复习
-    
-    // 确保 lastAttempted 存在
-    if (!memory.lastAttempted) return true;
-    
-    const daysSinceLastReview = (now - memory.lastAttempted) / (1000 * 60 * 60 * 24);
-    const reviewInterval = getReviewInterval(memory.memoryLevel);
-    return daysSinceLastReview >= reviewInterval;
-  });
-}
-
-// 辅助函数：计算记忆等级
-function calculateMemoryLevel(memory: WordMemory & { isCorrect: boolean }): number {
-  if (memory.totalAttempts === 0) return 0;
-  
-  const accuracy = memory.correctAttempts / memory.totalAttempts;
-  
-  if (accuracy >= 0.9 && memory.consecutiveCorrect >= 3) return 4;
-  if (accuracy >= 0.8 && memory.consecutiveCorrect >= 2) return 3;
-  if (accuracy >= 0.6) return 2;
-  if (accuracy >= 0.3) return 1;
-  return 0;
-}
-
-// 辅助函数：获取复习间隔
-function getReviewInterval(memoryLevel: number): number {
-  const intervals = [1, 1, 3, 7, 30];
-  return intervals[memoryLevel] || 1;
+// 辅助函数：计算是否已掌握
+function calculateIsMastered(memory: WordMemory & { isCorrect: boolean }): boolean {
+  // 连续正确3次变成已掌握
+  return memory.consecutiveCorrect >= 3;
 }

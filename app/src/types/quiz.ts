@@ -50,11 +50,8 @@ export type QuizType =
   | 'spelling'               // 拼写/填空
 
 export type QuizMode = 
-  | 'current-unit'           // 按当前单元小测
-  | 'forgotten-words'        // 按遗忘词小测
-  | 'random-mixed'           // 随机混合小测
-  | 'daily-5min'             // 今日5分钟小测
-  | 'previous-errors'        // 上次错误词复测
+  | 'current-range'          // 当前范围小测
+  | 'previous-errors'        // 错词复测
 
 export type MemoryLevel = 0 | 1 | 2 | 3 | 4;
 

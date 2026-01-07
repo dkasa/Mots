@@ -70,10 +70,10 @@ export class QuizController {
                   WHEN $3 = 1 THEN consecutive_correct + 1 
                   ELSE 0 
                 END,
-                memory_level = CASE 
-                  WHEN $3 = 1 AND consecutive_correct >= 3 THEN LEAST(4, memory_level + 1)
-                  WHEN $3 = 0 THEN GREATEST(0, memory_level - 1)
-                  ELSE memory_level
+                is_mastered = CASE 
+                  WHEN consecutive_correct >= 2 AND $3 = 1 THEN true  -- 连续正确3次（当前是第3次）
+                  WHEN $3 = 0 THEN false  -- 错一次就取消已掌握状态
+                  ELSE is_mastered
                 END,
                 average_time = CASE 
                   WHEN total_attempts = 0 THEN $4

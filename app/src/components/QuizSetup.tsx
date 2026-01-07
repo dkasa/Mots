@@ -11,7 +11,7 @@ interface QuizSetupProps {
 }
 
 export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: QuizSetupProps) {
-  const [selectedMode, setSelectedMode] = useState<QuizMode>('current-unit');
+  const [selectedMode, setSelectedMode] = useState<QuizMode>('current-range');
   const [questionCount, setQuestionCount] = useState(10);
   const [includeAudio, setIncludeAudio] = useState(true);
   const [includeSpelling, setIncludeSpelling] = useState(false);
@@ -38,16 +38,9 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
   // 可用的测试模式配置
   const quizModes = [
     {
-      id: 'daily-5min' as QuizMode,
-      name: '5分钟小测',
-      description: '快速测试今日需要复习的单词',
-      icon: '⏱️',
-      available: getDailyReviewCount(words, wordMemories) > 0
-    },
-    {
-      id: 'current-unit' as QuizMode,
-      name: '当前单元小测',
-      description: '测试当前选择单元/课程的单词',
+      id: 'current-range' as QuizMode,
+      name: '当前范围小测',
+      description: '测试当前选择范围的单词',
       icon: '📚',
       available: true
     },
@@ -57,20 +50,6 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
       description: '重新测试上次答错的单词',
       icon: '🔄',
       available: getPreviousErrorCount(words, wordMemories) > 0
-    },
-    {
-      id: 'forgotten-words' as QuizMode,
-      name: '遗忘词小测',
-      description: '重点复习容易忘记的单词',
-      icon: '🧠',
-      available: getForgottenWordCount(words, wordMemories) > 0
-    },
-    {
-      id: 'random-mixed' as QuizMode,
-      name: '随机混合小测',
-      description: '随机抽取单词进行综合测试',
-      icon: '🎲',
-      available: true
     }
   ];
 
@@ -92,14 +71,10 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
   // 获取可用单词数量
   const getAvailableWordCount = (mode: QuizMode): number => {
     switch (mode) {
-      case 'current-unit':
+      case 'current-range':
         return words.filter(word => !word.isMastered).length;
-      case 'forgotten-words':
-        return getForgottenWordCount(words, wordMemories);
       case 'previous-errors':
         return getPreviousErrorCount(words, wordMemories);
-      case 'daily-5min':
-        return getDailyReviewCount(words, wordMemories);
       default:
         return words.length;
     }
@@ -120,116 +95,177 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
   const maxQuestions = getAvailableWordCount(selectedMode);
   const isStartDisabled = maxQuestions === 0;
 
+  // 题型选项
+  const questionTypeOptions = [
+    {
+      id: 'audio',
+      name: '听力题型',
+      description: '包含听音频选中文/法语题目',
+      icon: '🎵',
+      isSelected: includeAudio
+    },
+    {
+      id: 'spelling',
+      name: '拼写题型',
+      description: '包含填空和拼写题目（较难）',
+      icon: '✏️',
+      isSelected: includeSpelling
+    }
+  ];
+
   return (
     <div className={`mx-5 my-8 transition-colors duration-300 ${darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'}`}>
-      {/* 测试模式选择 */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-3">选择测试模式</h2>
-        <div className="grid gap-3">
-          {quizModes.map(mode => (
-            <button
-              key={mode.id}
-              onClick={() => setSelectedMode(mode.id)}
-              disabled={!mode.available}
-              className={`p-4 rounded-lg border-2 text-left transition-all duration-200 ${
-                selectedMode === mode.id
-                  ? darkMode
-                    ? 'border-primary-500 bg-primary-900/20'
-                    : 'border-primary-500 bg-primary-50'
-                  : darkMode
-                  ? 'border-neutral-dark-300 hover:border-neutral-dark-400'
-                  : 'border-neutral-200 hover:border-neutral-300'
-              } ${
-                !mode.available
-                  ? 'opacity-50 cursor-not-allowed'
-                  : 'cursor-pointer'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{mode.icon}</span>
-                <div className="flex-1">
-                  <div className="font-medium">{mode.name}</div>
-                  <div className={`text-xs ${darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}`}>
-                    {mode.description}
+      {/* 测试模式与题型设置 - 合并为一个区域 */}
+      <div className={`mb-6 rounded-lg border p-4 ${
+        darkMode 
+          ? 'bg-neutral-dark-100 border-neutral-dark-300' 
+          : 'bg-white border-neutral-200'
+      }`}>
+        <h2 className="text-lg font-semibold mb-4">测试设置</h2>
+        
+        {/* 测试模式选择 */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <label className={`text-sm font-medium ${
+              darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+            }`}>测试模式</label>
+            <span className={`text-xs px-2 py-1 rounded ${
+              darkMode 
+                ? 'text-neutral-dark-500 bg-neutral-dark-200' 
+                : 'text-neutral-500 bg-neutral-100'
+            }`}>
+              {quizModes.find(m => m.id === selectedMode)?.name}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {quizModes.map(mode => {
+              const isActive = selectedMode === mode.id;
+              return (
+                <button
+                  key={mode.id}
+                  onClick={() => setSelectedMode(mode.id)}
+                  disabled={!mode.available}
+                  className={`
+                    relative py-3 px-2 text-sm font-medium rounded-lg transition-all duration-200 border
+                    ${isActive 
+                      ? 'bg-primary-500 text-white border-primary-500 shadow-sm' 
+                      : darkMode 
+                        ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
+                        : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                    }
+                    ${!mode.available ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+                  `}
+                >
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium">{mode.name}</span>
+                    <span className={`text-xs mt-0.5 ${
+                      isActive ? 'text-primary-100' : 
+                      darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                    }`}>
+                      {mode.description}
+                    </span>
                   </div>
-                </div>
-                {!mode.available && (
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    darkMode ? 'bg-neutral-dark-700 text-neutral-dark-300' : 'bg-neutral-100 text-neutral-500'
-                  }`}>
-                    暂无单词
-                  </span>
-                )}
-              </div>
-            </button>
-          ))}
+                  {isActive && (
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* 问题数量设置 */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-3">
-          题目数量 
-          <span className={`text-sm font-normal ml-2 ${
-            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
-          }`}>
-            ({maxQuestions} 个单词可用)
-          </span>
-        </h2>
-        <div className="flex items-center gap-4">
-          <input
-            type="range"
-            min="5"
-            max={Math.min(50, maxQuestions)}
-            value={questionCount}
-            onChange={(e) => setQuestionCount(Number(e.target.value))}
-            className="flex-1"
-            disabled={maxQuestions === 0}
-          />
-          <span className="font-mono text-lg w-12 text-center">{questionCount}</span>
+        {/* 题型设置 */}
+        <div className="mb-4">
+          <div className="flex items-center justify-between mb-3">
+            <label className={`text-sm font-medium ${
+              darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+            }`}>题型设置</label>
+            <span className={`text-xs px-2 py-1 rounded ${
+              darkMode 
+                ? 'text-neutral-dark-500 bg-neutral-dark-200' 
+                : 'text-neutral-500 bg-neutral-100'
+            }`}>
+              {includeAudio && includeSpelling ? '全部' : 
+               includeAudio ? '听力' : 
+               includeSpelling ? '拼写' : '基础'}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {questionTypeOptions.map(option => {
+              const isActive = option.isSelected;
+              return (
+                <button
+                  key={option.id}
+                  onClick={() => {
+                    if (option.id === 'audio') {
+                      setIncludeAudio(!includeAudio);
+                    } else if (option.id === 'spelling') {
+                      setIncludeSpelling(!includeSpelling);
+                    }
+                  }}
+                  className={`
+                    relative py-3 px-2 text-sm font-medium rounded-lg transition-all duration-200 border
+                    ${isActive 
+                      ? 'bg-primary-500 text-white border-primary-500 shadow-sm' 
+                      : darkMode 
+                        ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
+                        : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                    }
+                  `}
+                >
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium">{option.name}</span>
+                    <span className={`text-xs mt-0.5 ${
+                      isActive ? 'text-primary-100' : 
+                      darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                    }`}>
+                      {option.description}
+                    </span>
+                  </div>
+                  {isActive && (
+                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <div className="flex justify-between text-xs mt-1">
-          <span>5题</span>
-          <span>快速</span>
-          <span>适中</span>
-          <span>深度</span>
-          <span>{Math.min(50, maxQuestions)}题</span>
-        </div>
-      </div>
 
-      {/* 题型设置 */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-3">题型设置</h2>
-        <div className="space-y-3">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={includeAudio}
-              onChange={(e) => setIncludeAudio(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="flex-1">
-              <span className="font-medium">听力题型</span>
-              <span className={`block text-xs ${darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}`}>
-                包含听音频选中文/法语题目
-              </span>
+        {/* 问题数量设置 */}
+        <div>
+          <div className="flex items-center justify-between mb-3">
+            <label className={`text-sm font-medium ${
+              darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+            }`}>题目数量</label>
+            <span className={`text-xs px-2 py-1 rounded ${
+              darkMode 
+                ? 'text-neutral-dark-500 bg-neutral-dark-200' 
+                : 'text-neutral-500 bg-neutral-100'
+            }`}>
+              {maxQuestions} 个可用
             </span>
-          </label>
-          
-          <label className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={includeSpelling}
-              onChange={(e) => setIncludeSpelling(e.target.checked)}
-              className="w-4 h-4"
-            />
-            <span className="flex-1">
-              <span className="font-medium">拼写题型</span>
-              <span className={`block text-xs ${darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}`}>
-                包含填空和拼写题目（较难）
-              </span>
-            </span>
-          </label>
+          </div>
+          <div className="space-y-3">
+            <div className="flex items-center gap-4">
+              <input
+                type="range"
+                min="5"
+                max={Math.min(50, maxQuestions)}
+                value={questionCount}
+                onChange={(e) => setQuestionCount(Number(e.target.value))}
+                className="flex-1"
+                disabled={maxQuestions === 0}
+              />
+              <span className="font-mono text-lg w-12 text-center">{questionCount}</span>
+            </div>
+            <div className="flex justify-between text-xs">
+              <span>5题</span>
+              <span>快速</span>
+              <span>适中</span>
+              <span>深度</span>
+              <span>{Math.min(50, maxQuestions)}题</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -262,11 +298,11 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
             <span className="ml-2 font-medium">{words.filter(w => w.isMastered).length}</span>
           </div>
           <div>
-            <span className={darkMode ? 'text-neutral-300' : 'text-neutral-600'}>需复习:</span>
-            <span className="ml-2 font-medium">{getForgottenWordCount(words, wordMemories)}</span>
+            <span className={darkMode ? 'text-neutral-300' : 'text-neutral-600'}>未掌握:</span>
+            <span className="ml-2 font-medium">{words.filter(w => !w.isMastered).length}</span>
           </div>
           <div>
-            <span className={darkMode ? 'text-neutral-300' : 'text-neutral-600'}>上次错误:</span>
+            <span className={darkMode ? 'text-neutral-300' : 'text-neutral-600'}>错词复测:</span>
             <span className="ml-2 font-medium">{getPreviousErrorCount(words, wordMemories)}</span>
           </div>
         </div>
@@ -280,16 +316,6 @@ function getWordMemory(wordId: string, wordMemories: WordMemory[]): WordMemory |
   return wordMemories.find(memory => memory.wordId === wordId) || null;
 }
 
-// 辅助函数：获取遗忘单词数量
-function getForgottenWordCount(words: WordWithStatus[], wordMemories: WordMemory[]): number {
-  // 基于记忆等级筛选：只返回记忆等级为0-1级的单词
-  return words.filter(word => {
-    const memory = getWordMemory(word.id, wordMemories);
-    // 记忆等级为0-1，或者没有记忆数据的新词
-    return !word.isMastered && (!memory || memory.memoryLevel <= 1);
-  }).length;
-}
-
 // 辅助函数：获取上次错误单词数量
 function getPreviousErrorCount(words: WordWithStatus[], wordMemories: WordMemory[]): number {
   // 获取上次测试中答错的单词数量
@@ -299,27 +325,4 @@ function getPreviousErrorCount(words: WordWithStatus[], wordMemories: WordMemory
     return memory && memory.lastAttempted && 
            (!memory.lastCorrect || memory.lastAttempted > memory.lastCorrect);
   }).length;
-}
-
-// 辅助函数：获取每日复习单词数量
-function getDailyReviewCount(words: WordWithStatus[], wordMemories: WordMemory[]): number {
-  // 获取需要复习的单词（基于复习间隔）
-  const now = Date.now();
-  return words.filter(word => {
-    const memory = getWordMemory(word.id, wordMemories);
-    if (!memory) return true; // 新词需要复习
-    
-    // 确保 lastAttempted 存在
-    if (!memory.lastAttempted) return true;
-    
-    const daysSinceLastReview = (now - memory.lastAttempted) / (1000 * 60 * 60 * 24);
-    const reviewInterval = getReviewInterval(memory.memoryLevel);
-    return daysSinceLastReview >= reviewInterval;
-  }).length;
-}
-
-// 辅助函数：获取复习间隔
-function getReviewInterval(memoryLevel: number): number {
-  const intervals = [1, 1, 3, 7, 30];
-  return intervals[memoryLevel] || 1;
 }
