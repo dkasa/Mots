@@ -303,13 +303,47 @@ export function QuizQuestionCard({
       </div>
 
       {/* 问题内容 */}
-      <div className="mb-8">
+      <div className="mb-6">
         {renderQuestionContent()}
       </div>
 
+      {/* 反馈信息 - 移动到这里，确保在手机模式下也能直接看到 */}
+      {showFeedback && question.explanation && (
+        <div className={`p-4 rounded-lg mb-6 animate-fade-in ${
+          isCorrect
+            ? darkMode ? 'bg-success-900/20 border-success-500' : 'bg-success-50 border-success-200'
+            : darkMode ? 'bg-error-900/20 border-error-500' : 'bg-error-50 border-error-200'
+        } border`}>
+          <div className="flex items-center gap-2 mb-2">
+            {isCorrect ? (
+              <>
+                <svg className="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
+                  回答正确！
+                </span>
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5 text-error-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
+                  回答错误
+                </span>
+              </>
+            )}
+          </div>
+          <div className={`text-sm ${darkMode ? 'text-neutral-dark-400' : 'text-neutral-600'}`}>
+            {question.explanation}
+          </div>
+        </div>
+      )}
+
       {/* 选项列表 */}
       {question.options.length > 0 && (
-        <div className="space-y-3 mb-8">
+        <div className="space-y-3">
           {question.options.map((option, index) => {
             const isSelected = selectedOption === option;
             const isCorrectOption = option === question.correctAnswer;
@@ -370,40 +404,6 @@ export function QuizQuestionCard({
               </button>
             );
           })}
-        </div>
-      )}
-
-      {/* 反馈信息 */}
-      {showFeedback && question.explanation && (
-        <div className={`p-4 rounded-lg mb-4 animate-fade-in ${
-          isCorrect
-            ? darkMode ? 'bg-success-900/20 border-success-500' : 'bg-success-50 border-success-200'
-            : darkMode ? 'bg-error-900/20 border-error-500' : 'bg-error-50 border-error-200'
-        } border`}>
-          <div className="flex items-center gap-2 mb-2">
-            {isCorrect ? (
-              <>
-                <svg className="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
-                  回答正确！
-                </span>
-              </>
-            ) : (
-              <>
-                <svg className="w-5 h-5 text-error-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
-                  回答错误
-                </span>
-              </>
-            )}
-          </div>
-          <div className={`text-sm ${darkMode ? 'text-neutral-dark-400' : 'text-neutral-600'}`}>
-            {question.explanation}
-          </div>
         </div>
       )}
 

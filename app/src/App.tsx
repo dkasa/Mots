@@ -155,6 +155,11 @@ function App() {
         }
       }, 500);
     }
+    
+    // 特殊处理：切换到测试页面时，不发送currentViewMode: 'quiz'，而是保持当前有效的视图模式
+    if (mode === 'quiz' && syncPages.includes(previousMode)) {
+      console.log('🔄 切换到测试页面，同步时保持previousMode:', previousMode);
+    }
   }, [currentViewMode, setCurrentViewMode, setCurrentFilter, isAuthenticated, syncStatus.isOnline, smartSync]);
 
   // 处理筛选器切换

@@ -298,11 +298,14 @@ export function useSyncProgress({
     // 使用当前时间作为客户端数据更新时间戳
     const currentTimestamp = new Date().toISOString();
     
+    // 特殊处理：如果当前视图模式是'quiz'，则使用'learn'作为默认值，避免后端验证失败
+    const validViewMode = currentViewMode === 'quiz' ? 'learn' : currentViewMode;
+    
     const syncData: ProgressSyncData = data || {
       learnedWords,
       masteredWords,
       currentGrade,
-      currentViewMode,
+      currentViewMode: validViewMode,
       currentFilter,
       clientTimestamp: currentTimestamp,
     };
@@ -389,11 +392,14 @@ export function useSyncProgress({
     // 使用当前时间作为客户端数据更新时间戳
     const currentTimestamp = new Date().toISOString();
     
+    // 特殊处理：如果当前视图模式是'quiz'，则使用'learn'作为默认值，避免后端验证失败
+    const validViewMode = currentViewMode === 'quiz' ? 'learn' : currentViewMode;
+    
     const uploadData: ProgressSyncData = data || {
       learnedWords,
       masteredWords,
       currentGrade,
-      currentViewMode,
+      currentViewMode: validViewMode,
       currentFilter,
       clientTimestamp: currentTimestamp,
     };
@@ -527,6 +533,9 @@ export function useSyncProgress({
       console.log('syncToServer: 开始同步到服务器...');
       const currentTimestamp = new Date().toISOString();
       
+      // 特殊处理：如果当前视图模式是'quiz'，则使用'learn'作为默认值，避免后端验证失败
+      const validViewMode = currentViewMode === 'quiz' ? 'learn' : currentViewMode;
+      
       await addToSyncQueue({
         type: 'sync',
         priority: 1,
@@ -534,7 +543,7 @@ export function useSyncProgress({
           learnedWords,
           masteredWords,
           currentGrade,
-          currentViewMode,
+          currentViewMode: validViewMode,
           currentFilter,
           clientTimestamp: currentTimestamp,
         }
@@ -560,6 +569,9 @@ export function useSyncProgress({
       if (hasLocalData) {
         const currentTimestamp = new Date().toISOString();
         
+        // 特殊处理：如果当前视图模式是'quiz'，则使用'learn'作为默认值，避免后端验证失败
+        const validViewMode = currentViewMode === 'quiz' ? 'learn' : currentViewMode;
+        
         await addToSyncQueue({
           type: 'upload',
           priority: 2,
@@ -567,7 +579,7 @@ export function useSyncProgress({
             learnedWords,
             masteredWords,
             currentGrade,
-            currentViewMode,
+            currentViewMode: validViewMode,
             currentFilter,
             clientTimestamp: currentTimestamp,
           }
