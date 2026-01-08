@@ -1,2438 +1,2274 @@
 [
   {
-    "french": "à propos",
-    "chinese": "顺便提一下；关于",
-    "phonetic": "[a pʁɔ.po]",
+    "french": "serveur, serveuse",
+    "chinese": "服务员",
+    "phonetic": "[sɛʁ.vœʁ, sɛʁ.vøz]",
+    "part_of_speech": "名词 n.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "steak",
+    "chinese": "牛排",
+    "phonetic": "[stɛk]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "conseiller",
+    "chinese": "建议，指导",
+    "phonetic": "[kɔ̃.sɛ.je]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "entrecôte",
+    "chinese": "(牛)肋排肉",
+    "phonetic": "[ɑ̃.tʁə.kot]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "petits pois",
+    "chinese": "四季豆",
+    "phonetic": "[pə.ti pwa]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "boisson",
+    "chinese": "饮料",
+    "phonetic": "[bwa.sɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "addition",
+    "chinese": "账单；增加",
+    "phonetic": "[a.di.sjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "euro",
+    "chinese": "欧元",
+    "phonetic": "[ø.ʁo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "client, cliente",
+    "chinese": "顾客",
+    "phonetic": "[kli.jɑ̃, kli.jɑ̃t]",
+    "part_of_speech": "名词 n.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "carte",
+    "chinese": "卡片；菜单",
+    "phonetic": "[kaʁt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "nappe",
+    "chinese": "桌布",
+    "phonetic": "[nap]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "couteau",
+    "chinese": "刀",
+    "phonetic": "[ku.to]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "cuillère",
+    "chinese": "匙，勺",
+    "phonetic": "[kɥi.jɛʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "serviette",
+    "chinese": "餐巾；毛巾",
+    "phonetic": "[sɛʁ.vjɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "tire-bouchon",
+    "chinese": "开塞器",
+    "phonetic": "[tiʁ.bu.ʃɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "assiette",
+    "chinese": "碟，盘",
+    "phonetic": "[a.sjɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "fourchette",
+    "chinese": "叉子",
+    "phonetic": "[fuʁ.ʃɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "non-fumeur",
+    "chinese": "不吸烟者",
+    "phonetic": "[nɔ̃.fy.mœʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "chef cuisinier",
+    "chinese": "厨师长",
+    "phonetic": "[ʃɛf kɥi.zi.nje]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "commander",
+    "chinese": "点菜；命令",
+    "phonetic": "[kɔ.mɑ̃.de]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "place",
+    "chinese": "广场；地方",
+    "phonetic": "[plas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 1
+  },
+  {
+    "french": "sur place",
+    "chinese": "现场，原地",
+    "phonetic": "[syʁ plas]",
     "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 1
   },
   {
-    "french": "absent,e",
-    "chinese": "不在（场）的，缺席的",
-    "phonetic": "[ab.sɑ̃, ab.sɑ̃t]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 1
-  },
-  {
-    "french": "accident",
-    "chinese": "意外事故",
-    "phonetic": "[ak.si.dɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "accro",
-    "chinese": "入了迷的（人）",
-    "phonetic": "[a.kʁo]",
-    "part_of_speech": "形容词 / 名词 adj. / n.",
-    "unit": 1
-  },
-  {
-    "french": "accueillir",
-    "chinese": "迎接，接待",
-    "phonetic": "[a.kœ.jiʁ]",
+    "french": "emporter",
+    "chinese": "带走，拿走",
+    "phonetic": "[ɑ̃.pɔʁ.te]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 1
   },
   {
-    "french": "actuellement",
-    "chinese": "现时，目前",
-    "phonetic": "[ak.ty.ɛl.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 1
-  },
-  {
-    "french": "admirable",
-    "chinese": "令人赞赏的",
-    "phonetic": "[ad.mi.ʁa.bl]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 1
-  },
-  {
-    "french": "aéroport",
-    "chinese": "机场",
-    "phonetic": "[a.e.ʁɔ.pɔʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "Ah bon ?",
-    "chinese": "真的？",
-    "phonetic": "[a bɔ̃]",
-    "part_of_speech": "感叹词 interj.",
-    "unit": 1
-  },
-  {
-    "french": "aider",
-    "chinese": "帮助",
-    "phonetic": "[ɛ.de]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 1
-  },
-  {
-    "french": "allô",
-    "chinese": "（电话用语）喂！",
-    "phonetic": "[a.lo]",
-    "part_of_speech": "感叹词 interj.",
-    "unit": 1
-  },
-  {
-    "french": "ancien,ne",
-    "chinese": "古老的；从前的",
-    "phonetic": "[ɑ̃.sjɛ̃, ɑ̃.sjɛn]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 1
-  },
-  {
-    "french": "appareil",
-    "chinese": "仪器；电话机",
-    "phonetic": "[a.pa.ʁɛj]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "appartement",
-    "chinese": "公寓套间",
-    "phonetic": "[a.paʁ.tə.mɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "appeler",
-    "chinese": "呼唤；命名",
-    "phonetic": "[a.plə]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 1
-  },
-  {
-    "french": "application",
-    "chinese": "应用；实施",
-    "phonetic": "[a.pli.ka.sjɔ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
-  },
-  {
-    "french": "apporter",
-    "chinese": "带来；携带",
-    "phonetic": "[a.pɔʁ.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 1
-  },
-  {
-    "french": "armoire",
-    "chinese": "衣橱，衣柜",
-    "phonetic": "[aʁ.mwaʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
-  },
-  {
-    "french": "arrêt",
-    "chinese": "停止；（公交车的）站",
-    "phonetic": "[a.ʁɛ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "arrondissement",
-    "chinese": "（法国大城市的）区",
-    "phonetic": "[a.ʁɔ̃.di.sə.mɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "ascenseur",
-    "chinese": "电梯，升降机",
-    "phonetic": "[a.sɑ̃.sœʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
-  },
-  {
-    "french": "assister (à)",
-    "chinese": "参加；目击",
-    "phonetic": "[a.si.ste]",
-    "part_of_speech": "间接及物动词 v.t.indir.",
-    "unit": 1
-  },
-  {
-    "french": "attendre",
-    "chinese": "等待；期望",
-    "phonetic": "[a.tɑ̃dʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 1
-  },
-  {
-    "french": "attentivement",
-    "chinese": "小心地，专心地",
-    "phonetic": "[a.tɑ̃.tiv.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 1
-  },
-  {
-    "french": "autour de",
-    "chinese": "在……周围",
-    "phonetic": "[o.tuʁ də]",
-    "part_of_speech": "介词 prép.",
-    "unit": 1
-  },
-  {
-    "french": "avant de",
-    "chinese": "在……之前",
-    "phonetic": "[a.vɑ̃ də]",
-    "part_of_speech": "介词 prép.",
-    "unit": 1
-  },
-  {
-    "french": "avec plaisir",
-    "chinese": "十分乐意",
-    "phonetic": "[a.vɛk plɛ.ziʁ]",
+    "french": "à emporter",
+    "chinese": "外带",
+    "phonetic": "[a ɑ̃.pɔʁ.te]",
     "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 1
   },
   {
-    "french": "avenue",
-    "chinese": "林荫大道",
-    "phonetic": "[a.və.ny]",
+    "french": "proposer",
+    "chinese": "提出，建议",
+    "phonetic": "[pʁo.po.ze]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "varié, variée",
+    "chinese": "多样化的",
+    "phonetic": "[va.ʁje]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "équilibré, équilibrée",
+    "chinese": "均衡的",
+    "phonetic": "[e.ki.li.bʁe]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "omelette",
+    "chinese": "煎蛋卷",
+    "phonetic": "[ɔm.lɛt]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 2
   },
   {
-    "french": "avion",
-    "chinese": "飞机",
-    "phonetic": "[a.vjɔ̃]",
+    "french": "silence",
+    "chinese": "沉默，宁静",
+    "phonetic": "[si.lɑ̃s]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 2
   },
   {
-    "french": "avoir envie de",
-    "chinese": "想要做某事",
-    "phonetic": "[a.vwaʁ ɑ̃.vi də]",
-    "part_of_speech": "词组 loc.",
-    "unit": 1
+    "french": "se servir",
+    "chinese": "自取，自用",
+    "phonetic": "[sə sɛʁ.viʁ]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 1,
+    "lesson": 2
   },
   {
-    "french": "baguette",
-    "chinese": "长棍面包",
-    "phonetic": "[ba.ɡɛt]",
+    "french": "attention",
+    "chinese": "注意，专心",
+    "phonetic": "[a.tɑ̃.sjɔ̃]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 1,
+    "lesson": 2
   },
   {
-    "french": "balcon",
-    "chinese": "阳台",
-    "phonetic": "[bal.kɔ̃]",
+    "french": "manière",
+    "chinese": "方式；举止",
+    "phonetic": "[ma.njɛʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "goûter",
+    "chinese": "品尝；下午点心",
+    "phonetic": "[ɡu.te]",
+    "part_of_speech": "动词 / 名词 v. / n.m.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "découvrir",
+    "chinese": "发现",
+    "phonetic": "[de.ku.vʁiʁ]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "saveur",
+    "chinese": "味道，滋味",
+    "phonetic": "[sa.vœʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "sauce",
+    "chinese": "调味汁",
+    "phonetic": "[sos]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "savoureux, savoureuse",
+    "chinese": "美味的",
+    "phonetic": "[sa.vu.ʁø]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "juteux, juteuse",
+    "chinese": "多汁的",
+    "phonetic": "[ʒy.tø]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "sucré, sucrée",
+    "chinese": "甜的",
+    "phonetic": "[sy.kʁe]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "salé, salée",
+    "chinese": "咸的",
+    "phonetic": "[sa.le]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "piquant, piquante",
+    "chinese": "辣的",
+    "phonetic": "[pi.kɑ̃]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "amer, amère",
+    "chinese": "苦的",
+    "phonetic": "[a.mɛʁ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "acide",
+    "chinese": "酸的",
+    "phonetic": "[a.sid]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "immangeable",
+    "chinese": "难吃的",
+    "phonetic": "[i.mɑ̃.ʒabl]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "échanger",
+    "chinese": "交换",
+    "phonetic": "[e.ʃɑ̃.ʒe]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "moins",
+    "chinese": "更少",
+    "phonetic": "[mwɛ̃]",
+    "part_of_speech": "副词 adv.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "au moins",
+    "chinese": "至少",
+    "phonetic": "[o mwɛ̃]",
+    "part_of_speech": "副词性词组 loc. adv.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "ambiance",
+    "chinese": "环境，气氛",
+    "phonetic": "[ɑ̃.bjɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 1,
+    "lesson": 2
+  },
+  {
+    "french": "sondage",
+    "chinese": "调查，民意测验",
+    "phonetic": "[sɔ̃.daʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 1
+    "unit": 1,
+    "lesson": "Atelier"
   },
   {
-    "french": "banane",
-    "chinese": "香蕉",
-    "phonetic": "[ba.nan]",
+    "french": "traditionnel, traditionnelle",
+    "chinese": "传统的",
+    "phonetic": "[tʁa.di.sjɔ.nɛl]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 1,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "moyenne",
+    "chinese": "平均值",
+    "phonetic": "[mwa.jɛn]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "unit": 1,
+    "lesson": "Atelier"
   },
   {
-    "french": "banlieue",
-    "chinese": "郊区，市郊",
-    "phonetic": "[bɑ̃.ljo]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 1
+    "french": "en moyenne",
+    "chinese": "平均",
+    "phonetic": "[ɑ̃ mwa.jɛn]",
+    "part_of_speech": "副词性词组 loc. adv.",
+    "unit": 1,
+    "lesson": "Atelier"
   },
   {
-    "french": "banque",
-    "chinese": "银行",
-    "phonetic": "[bɑ̃k]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
-  },
-  {
-    "french": "bateau",
-    "chinese": "轮船",
-    "phonetic": "[ba.to]",
+    "french": "sushi",
+    "chinese": "寿司",
+    "phonetic": "[sy.ʃi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 1,
+    "lesson": "Atelier"
   },
   {
-    "french": "beurre",
-    "chinese": "黄油",
-    "phonetic": "[bœʁ]",
+    "french": "dépenser",
+    "chinese": "花费（钱）",
+    "phonetic": "[de.pɑ̃.se]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 1,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "grande surface",
+    "chinese": "大型超市",
+    "phonetic": "[ɡʁɑ̃d syʁ.fas]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "commerce",
+    "chinese": "商业；商店",
+    "phonetic": "[kɔ.mɛʁs]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
   },
   {
-    "french": "bienvenue",
-    "chinese": "欢迎",
-    "phonetic": "[bjɛ̃.vy]",
+    "french": "épicerie",
+    "chinese": "食品杂货店",
+    "phonetic": "[e.pi.sʁi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
   },
   {
-    "french": "bip sonore",
-    "chinese": "嘟嘟声",
-    "phonetic": "[bi sɔ.noʁ]",
+    "french": "cerise",
+    "chinese": "樱桃",
+    "phonetic": "[sə.ʁiz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "farine",
+    "chinese": "面粉",
+    "phonetic": "[fa.ʁin]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "paquet",
+    "chinese": "包；盒",
+    "phonetic": "[pa.kɛ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "frais, fraîche",
+    "chinese": "新鲜的；凉的",
+    "phonetic": "[fʁɛ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "autre",
+    "chinese": "别的，其他的",
+    "phonetic": "[otʁ]",
+    "part_of_speech": "形容词 adj. ind.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "devoir",
+    "chinese": "欠；应该",
+    "phonetic": "[də.vwaʁ]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "monnaie",
+    "chinese": "零钱；找零",
+    "phonetic": "[mɔ.nɛ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "litre",
+    "chinese": "升",
+    "phonetic": "[litʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "douzaine",
+    "chinese": "一打，十二个",
+    "phonetic": "[du.zɛn]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "tablette",
+    "chinese": "搁板；板状物",
+    "phonetic": "[ta.blɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "pot",
+    "chinese": "罐；壶",
+    "phonetic": "[po]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 1
   },
   {
     "french": "biscuit",
     "chinese": "饼干",
     "phonetic": "[bis.kɥi]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
   },
   {
-    "french": "blessé,e",
-    "chinese": "受伤的（人）",
-    "phonetic": "[blɛ.se, blɛ.se]",
-    "part_of_speech": "形容词 / 名词 adj. / n.",
-    "unit": 2
-  },
-  {
-    "french": "boulangerie",
-    "chinese": "面包店",
-    "phonetic": "[bu.lɑ̃.ʒə.ʁi]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
-  },
-  {
-    "french": "brocoli",
-    "chinese": "西蓝花",
-    "phonetic": "[bʁɔ.kɔ.li]",
+    "french": "bouquet",
+    "chinese": "一束",
+    "phonetic": "[bu.kɛ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
   },
   {
-    "french": "bus",
-    "chinese": "公共汽车",
-    "phonetic": "[bys]",
+    "french": "vendre",
+    "chinese": "卖，出售",
+    "phonetic": "[vɑ̃dʁ]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": 1
+  },
+  {
+    "french": "melon",
+    "chinese": "甜瓜",
+    "phonetic": "[mə.lɔ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 1
   },
   {
-    "french": "café",
-    "chinese": "咖啡；咖啡馆",
-    "phonetic": "[ka.fe]",
+    "french": "supermarché",
+    "chinese": "超市",
+    "phonetic": "[sy.pɛʁ.maʁ.ʃe]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "café au lait",
-    "chinese": "牛奶咖啡",
-    "phonetic": "[ka.fe o lɛ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "french": "en dehors de",
+    "chinese": "在……外面",
+    "phonetic": "[ɑ̃ də.ɔʁ də]",
+    "part_of_speech": "介词词组 loc. prep.",
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "café noir",
-    "chinese": "清咖，黑咖啡",
-    "phonetic": "[ka.fe nwaʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "camarade",
-    "chinese": "同学；同事",
-    "phonetic": "[ka.ma.ʁad]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "canapé",
-    "chinese": "长沙发",
-    "phonetic": "[ka.na.pe]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "centre-ville",
-    "chinese": "市中心",
-    "phonetic": "[sɑ̃tʁ vil]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "céréales",
-    "chinese": "谷物（燕麦片等）",
-    "phonetic": "[se.ʁe.al]",
-    "part_of_speech": "阴性复数名词 n.f.pl.",
-    "unit": 2
-  },
-  {
-    "french": "cérémonie",
-    "chinese": "仪式，礼节",
-    "phonetic": "[se.ʁe.mɔ.ni]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
-  },
-  {
-    "french": "chambre",
-    "chinese": "卧室，房间",
-    "phonetic": "[ʃɑ̃bʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
-  },
-  {
-    "french": "changer",
-    "chinese": "调换；改变",
-    "phonetic": "[ʃɑ̃.ʒe]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 2
-  },
-  {
-    "french": "chatter",
-    "chinese": "聊天",
-    "phonetic": "[ʃa.te]",
+    "french": "revenir",
+    "chinese": "回来；再来",
+    "phonetic": "[ʁə.və.niʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "chemin",
-    "chinese": "道路；路线",
-    "phonetic": "[ʃə.mɛ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "chercher",
-    "chinese": "寻找",
-    "phonetic": "[ʃɛʁ.ʃe]",
+    "french": "garer",
+    "chinese": "停放（车辆）",
+    "phonetic": "[ɡa.ʁe]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "chocolat",
-    "chinese": "巧克力",
-    "phonetic": "[ʃɔ.kɔ.la]",
+    "french": "bon marché",
+    "chinese": "便宜的",
+    "phonetic": "[bɔ̃ maʁ.ʃe]",
+    "part_of_speech": "形容词 adj. inv.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "payer",
+    "chinese": "支付",
+    "phonetic": "[pɛ.je]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "article",
+    "chinese": "商品；文章",
+    "phonetic": "[aʁ.tikl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "coca",
-    "chinese": "可乐",
-    "phonetic": "[kɔ.ka]",
+    "french": "qualité",
+    "chinese": "质量；优点",
+    "phonetic": "[ka.li.te]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "amical, amicale",
+    "chinese": "友好的，亲切的",
+    "phonetic": "[a.mi.kal]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "satisfait, satisfaite",
+    "chinese": "满意的",
+    "phonetic": "[sa.tis.fɛ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "papeterie",
+    "chinese": "文具店",
+    "phonetic": "[pap.tʁi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "papetier, papetière",
+    "chinese": "文具商",
+    "phonetic": "[pa.pə.tje]",
+    "part_of_speech": "名词 n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "pâtisserie",
+    "chinese": "糕点店",
+    "phonetic": "[pɑ.tis.ʁi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "pâtissier, pâtissière",
+    "chinese": "糕点师",
+    "phonetic": "[pɑ.ti.sje]",
+    "part_of_speech": "名词 n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "boucherie",
+    "chinese": "肉店",
+    "phonetic": "[bu.ʃə.ʁi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "agneau",
+    "chinese": "小羊；羊肉",
+    "phonetic": "[a.ɲo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "coin",
-    "chinese": "角落；一小块",
-    "phonetic": "[kwa]",
+    "french": "veau",
+    "chinese": "小牛；牛肉",
+    "phonetic": "[vo]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
+    "unit": 2,
+    "lesson": 2
   },
   {
-    "french": "comme d'habitude",
-    "chinese": "像平常一样",
-    "phonetic": "[kɔm dabi.tyd]",
+    "french": "boucher",
+    "chinese": "肉店老板；屠夫",
+    "phonetic": "[bu.ʃe]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "centre commercial",
+    "chinese": "购物中心",
+    "phonetic": "[sɑ̃tʁ kɔ.mɛʁ.sjal]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "bijou",
+    "chinese": "首饰",
+    "phonetic": "[bi.ʒu]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "librairie",
+    "chinese": "书店",
+    "phonetic": "[li.bʁɛ.ʁi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "libraire",
+    "chinese": "书商",
+    "phonetic": "[li.bʁɛʁ]",
+    "part_of_speech": "名词 n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "chariot",
+    "chinese": "手推车",
+    "phonetic": "[ʃa.ʁjo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "rayon",
+    "chinese": "货架；柜台",
+    "phonetic": "[ʁɛ.jɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "caisse",
+    "chinese": "收银台；箱子",
+    "phonetic": "[kɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "caissier, caissière",
+    "chinese": "收银员",
+    "phonetic": "[kɛ.sje]",
+    "part_of_speech": "名词 n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "fidélité",
+    "chinese": "忠诚",
+    "phonetic": "[fi.de.li.te]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "carte de fidélité",
+    "chinese": "会员卡",
+    "phonetic": "[kaʁt də fi.de.li.te]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "paiement",
+    "chinese": "支付",
+    "phonetic": "[pɛ.mɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "accepter",
+    "chinese": "接受",
+    "phonetic": "[ak.sɛp.te]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "espèce",
+    "chinese": "种类；现金",
+    "phonetic": "[ɛs.pɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "payer en espèces",
+    "chinese": "现金支付",
+    "phonetic": "[pɛ.je ɑ̃ nɛs.pɛs]",
+    "part_of_speech": "动词词组 loc. v.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "chèque",
+    "chinese": "支票",
+    "phonetic": "[ʃɛk]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": 2
+  },
+  {
+    "french": "joli, jolie",
+    "chinese": "漂亮的",
+    "phonetic": "[ʒo.li]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "commode",
+    "chinese": "方便的",
+    "phonetic": "[kɔ.mɔd]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "marque",
+    "chinese": "品牌；标记",
+    "phonetic": "[maʁk]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "sac à dos",
+    "chinese": "背包",
+    "phonetic": "[sak a do]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "comparer",
+    "chinese": "比较",
+    "phonetic": "[kɔ̃.pa.ʁe]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "commentaire",
+    "chinese": "评论；注释",
+    "phonetic": "[kɔ.mɑ̃.tɛʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "gagner",
+    "chinese": "赢得；挣得",
+    "phonetic": "[ɡa.ɲe]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 2,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "tranquillement",
+    "chinese": "平静地，安静地",
+    "phonetic": "[tʁɑ̃.ki.lə.mɑ̃]",
+    "part_of_speech": "副词 adv.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "marathon",
+    "chinese": "马拉松赛跑",
+    "phonetic": "[ma.ʁa.tɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "sportif, sportive",
+    "chinese": "运动员；爱好运动的",
+    "phonetic": "[spɔʁ.tif]",
+    "part_of_speech": "名词 / 形容词 n. / adj.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "de bon matin",
+    "chinese": "一大早，清早",
+    "phonetic": "[də bɔ̃ ma.tɛ̃]",
     "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 2
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "composer",
-    "chinese": "组成；撰写；拨号",
-    "phonetic": "[kɔ̃.po.ze]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 2
-  },
-  {
-    "french": "comprendre",
-    "chinese": "理解，明白",
-    "phonetic": "[kɔ̃.pʁɑ̃dʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 2
-  },
-  {
-    "french": "conduire",
-    "chinese": "带领；驾驶",
-    "phonetic": "[kɔ̃.dɥiʁ]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 2
-  },
-  {
-    "french": "confiture",
-    "chinese": "果酱",
-    "phonetic": "[kɔ̃.fi.tyʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 2
-  },
-  {
-    "french": "connecté,e",
-    "chinese": "联网的；连接的",
-    "phonetic": "[kɔ̃.nekte, kɔ̃.nekte]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 2
-  },
-  {
-    "french": "conseil",
-    "chinese": "建议，劝告",
-    "phonetic": "[kɔ̃.sɛj]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 2
-  },
-  {
-    "french": "construire",
-    "chinese": "建造；构思",
-    "phonetic": "[kɔ̃.stʁɥiʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 2
-  },
-  {
-    "french": "content,e",
-    "chinese": "高兴的，开心的",
-    "phonetic": "[kɔ̃.tɑ̃, kɔ̃.tɑ̃t]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "continuer",
-    "chinese": "继续",
-    "phonetic": "[kɔ̃.ti.nɥe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 3
-  },
-  {
-    "french": "contrôle",
-    "chinese": "检验；考查",
-    "phonetic": "[kɔ̃.tʁɔl]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
-  },
-  {
-    "french": "copier",
-    "chinese": "抄写，抄袭",
-    "phonetic": "[kɔ.pje]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 3
-  },
-  {
-    "french": "couper",
-    "chinese": "割，切断",
-    "phonetic": "[ku.pe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 3
-  },
-  {
-    "french": "crêpe",
-    "chinese": "法国薄饼，可丽饼",
-    "phonetic": "[kʁɛp]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
-  },
-  {
-    "french": "croissant",
-    "chinese": "羊角面包",
-    "phonetic": "[kʁwa.sɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
-  },
-  {
-    "french": "cuisine",
-    "chinese": "厨房；烹饪",
-    "phonetic": "[kɥi.zin]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
-  },
-  {
-    "french": "cuit,e",
-    "chinese": "熟的",
-    "phonetic": "[kɥi, kɥit]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "début",
-    "chinese": "开始，开头",
-    "phonetic": "[de.byu]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
-  },
-  {
-    "french": "découverte",
-    "chinese": "发现，探索",
-    "phonetic": "[de.ku.vɛʁt]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
-  },
-  {
-    "french": "décrocher",
-    "chinese": "拿起（电话听筒）",
-    "phonetic": "[de.kʁɔ.ʃe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 3
-  },
-  {
-    "french": "décu,e",
-    "chinese": "失望的",
-    "phonetic": "[de.sy, de.sy]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "demander",
-    "chinese": "要求；询问",
-    "phonetic": "[də.mɑ̃.de]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 3
-  },
-  {
-    "french": "déménager",
-    "chinese": "迁居，搬家",
-    "phonetic": "[de.me.na.ʒe]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 3
-  },
-  {
-    "french": "descendre",
-    "chinese": "下来，走下",
-    "phonetic": "[de.sɑ̃dʁ]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 3
-  },
-  {
-    "french": "devenir",
-    "chinese": "变成，成为",
-    "phonetic": "[də.və.niʁ]",
+    "french": "piquer-niquer",
+    "chinese": "野餐",
+    "phonetic": "[pi.ke ni.ke]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 3
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "direction",
-    "chinese": "领导；方向",
-    "phonetic": "[di.ʁɛk.sjɔ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
+    "french": "au bord de",
+    "chinese": "在……边",
+    "phonetic": "[o bɔʁ də]",
+    "part_of_speech": "介词词组 loc. prep.",
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "donner sur",
-    "chinese": "朝向",
-    "phonetic": "[dɔ.ne syʁ]",
-    "part_of_speech": "词组 loc.",
-    "unit": 3
-  },
-  {
-    "french": "doré,e",
-    "chinese": "金黄色的",
-    "phonetic": "[dɔ.ʁe, dɔ.ʁe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "douche",
-    "chinese": "淋浴，淋浴设备",
-    "phonetic": "[duʃ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
-  },
-  {
-    "french": "droit,e",
-    "chinese": "直的，笔直的；右边的",
-    "phonetic": "[dʁwa, dʁwat]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "droite",
-    "chinese": "右边的；右面",
-    "phonetic": "[dʁwat]",
-    "part_of_speech": "形容词 / 阴性名词 adj. / n.f.",
-    "unit": 3
-  },
-  {
-    "french": "écolier,ère",
-    "chinese": "小学生",
-    "phonetic": "[e.kɔ.lje, e.kɔ.ljɛʁ]",
-    "part_of_speech": "名词 n.",
-    "unit": 3
-  },
-  {
-    "french": "écran",
-    "chinese": "屏幕",
-    "phonetic": "[ek.ʁɑ̃]",
+    "french": "bricolage",
+    "chinese": "修修弄弄；手工活",
+    "phonetic": "[bʁi.kɔ.laʒ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "église",
-    "chinese": "教堂",
-    "phonetic": "[e.ɡliz]",
+    "french": "jardinage",
+    "chinese": "园艺",
+    "phonetic": "[ʒaʁ.di.naʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "ménage",
+    "chinese": "家务",
+    "phonetic": "[me.naʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "fréquence",
+    "chinese": "频率；经常性",
+    "phonetic": "[fʁe.kɑ̃s]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 3
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "embarrassé,e",
-    "chinese": "尴尬的，困惑的",
-    "phonetic": "[ɑ̃.ba.ʁa.se, ɑ̃.ba.ʁa.se]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "french": "action",
+    "chinese": "动作；行为",
+    "phonetic": "[ak.sjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 3,
+    "lesson": 1
   },
   {
-    "french": "en fait",
-    "chinese": "事实上",
-    "phonetic": "[ɑ̃ fɛ]",
+    "french": "rarement",
+    "chinese": "很少地",
+    "phonetic": "[ʁaʁ.mɑ̃]",
+    "part_of_speech": "副词 adv.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "crevette",
+    "chinese": "虾",
+    "phonetic": "[kʁə.vɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 3,
+    "lesson": 1
+  },
+  {
+    "french": "policier",
+    "chinese": "警察",
+    "phonetic": "[pɔ.li.sje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "noter",
+    "chinese": "记下；注意",
+    "phonetic": "[nɔ.te]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "carnet",
+    "chinese": "记事本",
+    "phonetic": "[kaʁ.nɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "suspect",
+    "chinese": "嫌疑人",
+    "phonetic": "[sys.pɛkt]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "de bonne heure",
+    "chinese": "清晨；很早",
+    "phonetic": "[də bɔn œʁ]",
     "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 3
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "en général",
-    "chinese": "一般地，通常",
-    "phonetic": "[ɑ̃ ʒe.ne.ʁal]",
-    "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 3
+    "french": "se brosser",
+    "chinese": "刷（牙）",
+    "phonetic": "[sə bʁɔ.se]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "ennuyeux,se",
-    "chinese": "令人讨厌的，使人无聊的",
-    "phonetic": "[ɑ̃.nɥi.jø, ɑ̃.nɥi.jøz]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
+    "french": "se maquiller",
+    "chinese": "化妆",
+    "phonetic": "[sə ma.ki.je]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "enregistrement",
-    "chinese": "录音；登记",
-    "phonetic": "[ɑ̃.ʁe.ʒist.ʁə.mɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 3
-  },
-  {
-    "french": "ensoleillé,e",
-    "chinese": "充满阳光的",
-    "phonetic": "[ɑ̃.sɔ.lɛ.je, ɑ̃.sɔ.lɛ.je]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 3
-  },
-  {
-    "french": "ensuite",
-    "chinese": "然后，其次",
-    "phonetic": "[ɑ̃.sɥit]",
-    "part_of_speech": "副词 adv.",
-    "unit": 3
-  },
-  {
-    "french": "entendre",
-    "chinese": "听到",
-    "phonetic": "[ɑ̃.tɑ̃dʁ]",
+    "french": "terminer",
+    "chinese": "结束；完成",
+    "phonetic": "[tɛʁ.mi.ne]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 3
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "entier,ère",
-    "chinese": "整个的，完整的",
-    "phonetic": "[ɑ̃.tje, ɑ̃.tjɛʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "envie",
-    "chinese": "羡慕，渴望",
-    "phonetic": "[ɑ̃.vi]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "envoyer",
-    "chinese": "派遣；寄",
-    "phonetic": "[ɑ̃.vwa.je]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 4
-  },
-  {
-    "french": "équipé,e",
-    "chinese": "配有必要设施的",
-    "phonetic": "[e.ki.pe, e.ki.pe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "esclave",
-    "chinese": "奴隶",
-    "phonetic": "[es.klav]",
+    "french": "collègue",
+    "chinese": "同事",
+    "phonetic": "[kɔ.lɛɡ]",
     "part_of_speech": "名词 n.",
-    "unit": 4
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "espérer",
-    "chinese": "希望",
-    "phonetic": "[ɛs.pe.ʁe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 4
-  },
-  {
-    "french": "essayer",
-    "chinese": "试验，尝试",
-    "phonetic": "[ɛ.se.je]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 4
-  },
-  {
-    "french": "éteindre",
-    "chinese": "熄灭；关闭（电器）",
-    "phonetic": "[et.ɛ̃dʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 4
-  },
-  {
-    "french": "étonné,e",
-    "chinese": "惊讶的，吃惊的",
-    "phonetic": "[e.tɔ.ne, e.tɔ.ne]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "être à l'heure",
-    "chinese": "准时",
-    "phonetic": "[ɛtʁ a lœʁ]",
-    "part_of_speech": "词组 loc.",
-    "unit": 4
-  },
-  {
-    "french": "être dans la lune",
-    "chinese": "心不在焉",
-    "phonetic": "[ɛtʁ dɑ̃ la lyn]",
-    "part_of_speech": "词组 loc.",
-    "unit": 4
-  },
-  {
-    "french": "être en train de",
-    "chinese": "正在…",
-    "phonetic": "[ɛtʁ ɑ̃ tʁɑ̃ də]",
-    "part_of_speech": "词组 loc.",
-    "unit": 4
-  },
-  {
-    "french": "études",
-    "chinese": "学习，学习期间",
-    "phonetic": "[e.tyd]",
-    "part_of_speech": "阴性复数名词 n.f.pl.",
-    "unit": 4
-  },
-  {
-    "french": "étudier",
-    "chinese": "学习；研究",
-    "phonetic": "[e.ty.dje]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 4
-  },
-  {
-    "french": "examen",
-    "chinese": "考试，检查",
-    "phonetic": "[ɛg.za.mɛ̃]",
+    "french": "appel",
+    "chinese": "电话；呼唤",
+    "phonetic": "[a.pɛl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "excité,e",
-    "chinese": "激动的",
-    "phonetic": "[ɛk.si.te, ɛk.si.te]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "exercice",
-    "chinese": "练习，作业",
-    "phonetic": "[ɛk.sɛʁ.sis]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
-  },
-  {
-    "french": "fâché,e",
-    "chinese": "生气的",
-    "phonetic": "[fa.ʃe, fa.ʃe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "facile",
-    "chinese": "容易的，方便的",
-    "phonetic": "[fa.sil]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "façon",
-    "chinese": "样子；方式",
-    "phonetic": "[fa.sɔ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "faible",
-    "chinese": "弱的；成绩差的",
-    "phonetic": "[fɛbl]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "faire partie de",
-    "chinese": "是……的一部分",
-    "phonetic": "[fɛʁ paʁ.ti də]",
-    "part_of_speech": "词组 loc.",
-    "unit": 4
-  },
-  {
-    "french": "fauteuil",
-    "chinese": "扶手椅",
-    "phonetic": "[fo.tœj]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
-  },
-  {
-    "french": "faux,sse",
-    "chinese": "假的；错误的",
-    "phonetic": "[fo, fɔs]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "feu",
-    "chinese": "火；信号灯",
-    "phonetic": "[fø]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
-  },
-  {
-    "french": "fin",
-    "chinese": "末尾，结束",
-    "phonetic": "[fɛ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "fixe",
-    "chinese": "固定的；不变的",
-    "phonetic": "[fiks]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "fois",
-    "chinese": "次，回",
-    "phonetic": "[fwa]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "four",
-    "chinese": "烤炉，烤箱",
-    "phonetic": "[fuʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
-  },
-  {
-    "french": "fort,e",
-    "chinese": "强壮的；能力强的",
-    "phonetic": "[fɔʁ, fɔʁt]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 4
-  },
-  {
-    "french": "fraise",
-    "chinese": "草莓",
-    "phonetic": "[fʁɛz]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 4
-  },
-  {
-    "french": "frites",
-    "chinese": "薯条",
-    "phonetic": "[fʁit]",
-    "part_of_speech": "阴性复数名词 n.f.pl.",
-    "unit": 4
-  },
-  {
-    "french": "fumer",
-    "chinese": "冒烟；吸（烟）",
-    "phonetic": "[fy.me]",
-    "part_of_speech": "不及物/及物动词 v.i. / v.t.",
-    "unit": 4
-  },
-  {
-    "french": "garage",
-    "chinese": "车库；汽车修理厂",
-    "phonetic": "[ɡa.ʁaʒ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 4
-  },
-  {
-    "french": "gare",
-    "chinese": "火车站",
-    "phonetic": "[ɡaʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "gauche",
-    "chinese": "左边的；左面",
-    "phonetic": "[ɡoʃ]",
-    "part_of_speech": "形容词 / 阴性名词 adj. / n.f.",
-    "unit": 5
-  },
-  {
-    "french": "glace",
-    "chinese": "冰；冰淇淋",
-    "phonetic": "[ɡlas]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "goûter",
-    "chinese": "尝，品尝；点心",
-    "phonetic": "[ɡu.te]",
-    "part_of_speech": "及物动词 / 阳性名词 v.t. / n.m.",
-    "unit": 5
-  },
-  {
-    "french": "grave",
-    "chinese": "严重的",
-    "phonetic": "[ɡʁav]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 5
-  },
-  {
-    "french": "grossir",
-    "chinese": "变胖",
-    "phonetic": "[ɡʁɔ.siʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 5
-  },
-  {
-    "french": "gymnastique",
-    "chinese": "体操",
-    "phonetic": "[ʒim.nas.tik]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "habitude",
-    "chinese": "习惯",
-    "phonetic": "[a.bi.tyd]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "haricots verts",
-    "chinese": "四季豆",
-    "phonetic": "[a.ʁi.ko vɛʁ]",
-    "part_of_speech": "阳性复数名词 n.m.pl.",
-    "unit": 5
-  },
-  {
-    "french": "heureusement",
-    "chinese": "幸好",
-    "phonetic": "[œ.ʁø.zə.mɑ̃]",
+    "french": "presque",
+    "chinese": "几乎，差不多",
+    "phonetic": "[pʁɛsk]",
     "part_of_speech": "副词 adv.",
-    "unit": 5
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "histoire-géo (histoire-géographie)",
-    "chinese": "史地课",
-    "phonetic": "[is.twaʁ ʒe.o]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "hôpital",
-    "chinese": "医院",
-    "phonetic": "[o.pi.tal]",
+    "french": "retour",
+    "chinese": "返回",
+    "phonetic": "[ʁə.tuʁ]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "hôtel",
-    "chinese": "宾馆",
-    "phonetic": "[o.tel]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "immeuble",
-    "chinese": "房屋，大楼",
-    "phonetic": "[i.mœb.lə]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "Internet",
-    "chinese": "因特网",
-    "phonetic": "[ɛ̃.tɛʁ.net]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "inutile",
-    "chinese": "无用的，无效的",
-    "phonetic": "[i.ny.til]",
+    "french": "quotidien, quotidienne",
+    "chinese": "日常的；每日的",
+    "phonetic": "[kɔ.ti.djɛ̃]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "inviter",
-    "chinese": "邀请",
-    "phonetic": "[ɛ̃.vi.te]",
+    "french": "miroir",
+    "chinese": "镜子",
+    "phonetic": "[mi.ʁwaʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "se sécher",
+    "chinese": "擦干自己",
+    "phonetic": "[sə se.ʃe]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "se coiffer",
+    "chinese": "梳头",
+    "phonetic": "[sə kwa.fe]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "se raser",
+    "chinese": "刮胡子",
+    "phonetic": "[sə ʁa.ze]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "s'endormir",
+    "chinese": "入睡",
+    "phonetic": "[sɑ̃.dɔʁ.miʁ]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "durée",
+    "chinese": "持续时间",
+    "phonetic": "[dy.ʁe]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 3,
+    "lesson": 2
+  },
+  {
+    "french": "réciter",
+    "chinese": "背诵",
+    "phonetic": "[ʁe.si.te]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 5
+    "unit": 3,
+    "lesson": 2
   },
   {
-    "french": "itinéraire",
-    "chinese": "路线，旅程",
-    "phonetic": "[i.ti.ne.ʁɛʁ]",
+    "french": "dépendre (de)",
+    "chinese": "取决于",
+    "phonetic": "[de.pɑ̃dʁ]",
+    "part_of_speech": "不及物动词 v.i.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "rôle",
+    "chinese": "角色",
+    "phonetic": "[ʁol]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "unit": 3,
+    "lesson": "Atelier"
   },
   {
-    "french": "jambon",
-    "chinese": "火腿",
-    "phonetic": "[ʒɑ̃.bɔ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
+    "french": "de plus en plus",
+    "chinese": "越来越",
+    "phonetic": "[də ply zɑ̃ ply]",
+    "part_of_speech": "副词性词组 loc. adv.",
+    "unit": 3,
+    "lesson": "Atelier"
   },
   {
-    "french": "Je vous en prie.",
-    "chinese": "不客气。",
-    "phonetic": "[ʒə vu zɑ̃ pʁi]",
-    "part_of_speech": "词组 loc.",
-    "unit": 5
-  },
-  {
-    "french": "journal",
-    "chinese": "日记",
-    "phonetic": "[ʒuʁ.nal]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "joyeux,se",
-    "chinese": "开心的，愉快的",
-    "phonetic": "[ʒwa.jø, ʒwa.jøz]",
+    "french": "important, importante",
+    "chinese": "重要的；大量的",
+    "phonetic": "[ɛ̃.pɔʁ.tɑ̃]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 3,
+    "lesson": "Atelier"
   },
   {
-    "french": "jusqu'à",
-    "chinese": "直到",
-    "phonetic": "[ʒys.ka]",
-    "part_of_speech": "介词性词组 loc. prép.",
-    "unit": 5
-  },
-  {
-    "french": "juste",
-    "chinese": "准确地；正好",
-    "phonetic": "[ʒyst]",
-    "part_of_speech": "副词 adv.",
-    "unit": 5
-  },
-  {
-    "french": "ketchup",
-    "chinese": "番茄酱",
-    "phonetic": "[kɛ.tʃəp]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "la Seine",
-    "chinese": "塞纳河",
-    "phonetic": "[la sɛn]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "laisser",
-    "chinese": "留下；离开",
-    "phonetic": "[lɛ.se]",
+    "french": "utiliser",
+    "chinese": "使用；利用",
+    "phonetic": "[y.ti.li.ze]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 5
+    "unit": 3,
+    "lesson": "Atelier"
   },
   {
-    "french": "leçon",
-    "chinese": "功课，课程；教训",
-    "phonetic": "[lə.sɔ̃]",
+    "french": "blog",
+    "chinese": "博客",
+    "phonetic": "[blɔɡ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "bricoler",
+    "chinese": "修修弄弄",
+    "phonetic": "[bʁi.kɔ.le]",
+    "part_of_speech": "不及物动词 v.i.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "instrument",
+    "chinese": "工具；器具",
+    "phonetic": "[ɛ̃s.tʁy.mɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "instrument de musique",
+    "chinese": "乐器",
+    "phonetic": "[ɛ̃s.tʁy.mɑ̃ də my.zik]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "discothèque",
+    "chinese": "舞厅",
+    "phonetic": "[dis.kɔ.tɛk]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "unit": 3,
+    "lesson": "Atelier"
   },
   {
-    "french": "les Champs-Élysées",
-    "chinese": "香榭丽舍大街",
-    "phonetic": "[le ʃɑ̃.zeli.ze]",
+    "french": "rugby",
+    "chinese": "橄榄球",
+    "phonetic": "[ʁyɡ.bi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "judo",
+    "chinese": "柔道",
+    "phonetic": "[ʒy.do]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "équitation",
+    "chinese": "骑马；马术",
+    "phonetic": "[e.ki.ta.sjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "pétanque",
+    "chinese": "法式滚球",
+    "phonetic": "[pe.tɑ̃k]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 3,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "look",
+    "chinese": "外貌；风格",
+    "phonetic": "[luk]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "casquette",
+    "chinese": "鸭舌帽",
+    "phonetic": "[kas.kɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "pull",
+    "chinese": "套衫",
+    "phonetic": "[pyl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "large",
+    "chinese": "宽的；大的",
+    "phonetic": "[laʁʒ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "coquet, coquette",
+    "chinese": "爱打扮的；讲究穿着的",
+    "phonetic": "[kɔ.kɛ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "se tromper",
+    "chinese": "弄错",
+    "phonetic": "[sə tʁɔ̃.pe]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "genre",
+    "chinese": "种类；类型",
+    "phonetic": "[ʒɑ̃ʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "talon",
+    "chinese": "（鞋、袜）后跟",
+    "phonetic": "[ta.lɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "féminin, féminine",
+    "chinese": "女性的；女性化的",
+    "phonetic": "[fe.mi.nɛ̃]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "costume",
+    "chinese": "西装；服装",
+    "phonetic": "[kɔs.tym]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "jupe",
+    "chinese": "裙子",
+    "phonetic": "[ʒyp]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "chapeau",
+    "chinese": "帽子",
+    "phonetic": "[ʃa.po]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "veste",
+    "chinese": "短外套",
+    "phonetic": "[vɛst]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "pantalon",
+    "chinese": "裤子",
+    "phonetic": "[pɑ̃.ta.lɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "chemise",
+    "chinese": "男士衬衫",
+    "phonetic": "[ʃə.miz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "ceinture",
+    "chinese": "腰带",
+    "phonetic": "[sɛ̃.tyʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "manteau",
+    "chinese": "大衣",
+    "phonetic": "[mɑ̃.to]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "écharpe",
+    "chinese": "披巾；围巾",
+    "phonetic": "[e.ʃaʁp]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "gant",
+    "chinese": "手套",
+    "phonetic": "[ɡɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "botte",
+    "chinese": "靴子",
+    "phonetic": "[bɔt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "maillot",
+    "chinese": "紧身衣；运动衫",
+    "phonetic": "[ma.jo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "maillot de bain",
+    "chinese": "游泳衣",
+    "phonetic": "[ma.jo də bɛ̃]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "pyjama",
+    "chinese": "睡衣",
+    "phonetic": "[pi.ʒa.ma]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "tenue",
+    "chinese": "穿戴；服装",
+    "phonetic": "[tə.ny]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "vestimentaire",
+    "chinese": "衣着的",
+    "phonetic": "[vɛs.ti.mɑ̃.tɛʁ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "chic",
+    "chinese": "漂亮的；时髦的",
+    "phonetic": "[ʃik]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "élégant, élégante",
+    "chinese": "优雅的；精致的",
+    "phonetic": "[e.le.ɡɑ̃]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "cravate",
+    "chinese": "领带",
+    "phonetic": "[kʁa.vat]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 1
+  },
+  {
+    "french": "se déguiser",
+    "chinese": "乔装打扮",
+    "phonetic": "[sə de.ɡi.ze]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "enfance",
+    "chinese": "童年",
+    "phonetic": "[ɑ̃.fɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "se souvenir",
+    "chinese": "回忆；记得",
+    "phonetic": "[sə su.və.niʁ]",
+    "part_of_speech": "代动词 v.pr.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "carnaval",
+    "chinese": "狂欢节",
+    "phonetic": "[kaʁ.na.val]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "pirate",
+    "chinese": "海盗",
+    "phonetic": "[pi.ʁat]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "gilet",
+    "chinese": "背心",
+    "phonetic": "[ʒi.lɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "princesse",
+    "chinese": "公主",
+    "phonetic": "[pʁɛ̃.sɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "conte",
+    "chinese": "故事",
+    "phonetic": "[kɔ̃t]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "conte de fées",
+    "chinese": "童话",
+    "phonetic": "[kɔ̃t də fe]",
+    "part_of_speech": "名词词组 loc. n.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "sorcier, sorcière",
+    "chinese": "巫师；巫婆",
+    "phonetic": "[sɔʁ.sje]",
+    "part_of_speech": "名词 n.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "magicien, magicienne",
+    "chinese": "魔术师",
+    "phonetic": "[ma.ʒi.sjɛ̃]",
+    "part_of_speech": "名词 n.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "violet, violette",
+    "chinese": "紫色的",
+    "phonetic": "[vjɔ.lɛ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "monstre",
+    "chinese": "怪物",
+    "phonetic": "[mɔ̃stʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "marron",
+    "chinese": "栗子；栗色的",
+    "phonetic": "[ma.ʁɔ̃]",
+    "part_of_speech": "名词 / 不变形容词 n.m. / adj.inv.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "horrible",
+    "chinese": "可怕的",
+    "phonetic": "[ɔ.ʁibl]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "orange",
+    "chinese": "橙色（的）",
+    "phonetic": "[ɔ.ʁɑ̃ʒ]",
+    "part_of_speech": "名词 / 不变形容词 n.m. / adj.inv.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "carreau",
+    "chinese": "方格；方砖图案",
+    "phonetic": "[ka.ʁo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "pois",
+    "chinese": "圆点花纹",
+    "phonetic": "[pwa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "rayure",
+    "chinese": "条纹",
+    "phonetic": "[ʁɛ.jyʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "coton",
+    "chinese": "棉；棉织品",
+    "phonetic": "[kɔ.tɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "soie",
+    "chinese": "丝；丝织品",
+    "phonetic": "[swa]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "laine",
+    "chinese": "羊毛",
+    "phonetic": "[lɛn]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "pointure",
+    "chinese": "（鞋、帽、手套的）尺寸",
+    "phonetic": "[pwɛ̃.tyʁ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "chausser",
+    "chinese": "穿（鞋）",
+    "phonetic": "[ʃo.se]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "serré, serrée",
+    "chinese": "绷紧的；紧贴的",
+    "phonetic": "[sɛ.ʁe]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": 2
+  },
+  {
+    "french": "région",
+    "chinese": "地区；大区",
+    "phonetic": "[ʁe.ʒjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "reconnaissable",
+    "chinese": "可辨认的",
+    "phonetic": "[ʁə.kɔ.nɛ.sa.bl]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "coiffe",
+    "chinese": "头巾；头饰",
+    "phonetic": "[kwaf]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "veston",
+    "chinese": "西服上装",
+    "phonetic": "[vɛs.tɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "alsacien, alsacienne",
+    "chinese": "阿尔萨斯的",
+    "phonetic": "[al.za.sjɛ̃]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "Bretagne",
+    "chinese": "布列塔尼地区",
+    "phonetic": "[bʁə.ta.ɲ]",
     "part_of_speech": "专有名词 n.pr.",
-    "unit": 5
+    "unit": 4,
+    "lesson": "Atelier"
   },
   {
-    "french": "libre",
-    "chinese": "自由的；空闲的",
-    "phonetic": "[li.bʁə]",
+    "french": "Pays basque",
+    "chinese": "巴斯克地区",
+    "phonetic": "[pɛ ba.sk]",
+    "part_of_speech": "专有名词 loc. n.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "Alsace",
+    "chinese": "阿尔萨斯地区",
+    "phonetic": "[al.zas]",
+    "part_of_speech": "专有名词 n.pr.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "béret",
+    "chinese": "贝雷帽",
+    "phonetic": "[be.ʁɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 4,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "visage",
+    "chinese": "脸",
+    "phonetic": "[vi.zaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "brun, brune",
+    "chinese": "褐色的，棕色的；棕色头发的（人）",
+    "phonetic": "[bʁœ̃]",
+    "part_of_speech": "形容词 / 名词 adj./n.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "timide",
+    "chinese": "害羞的",
+    "phonetic": "[ti.mid]",
     "part_of_speech": "形容词 adj.",
-    "unit": 5
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "ligne",
-    "chinese": "线；线路",
-    "phonetic": "[li.ɲə]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
+    "french": "blond, blonde",
+    "chinese": "金黄色头发的（人）",
+    "phonetic": "[blɔ̃]",
+    "part_of_speech": "形容词 / 名词 adj./n.",
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "limonade",
-    "chinese": "汽水",
-    "phonetic": "[li.mɔ.nad]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 5
-  },
-  {
-    "french": "lit",
-    "chinese": "床",
-    "phonetic": "[li]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "logement",
-    "chinese": "居住；住所",
-    "phonetic": "[lɔ.ʒə.mɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 5
-  },
-  {
-    "french": "lune",
-    "chinese": "月亮",
-    "phonetic": "[lyn]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
-  },
-  {
-    "french": "mail",
-    "chinese": "电子邮件",
-    "phonetic": "[mej]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "mairie",
-    "chinese": "市政府",
-    "phonetic": "[mɛ.ʁi]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
-  },
-  {
-    "french": "mal (pl. maux)",
-    "chinese": "损害，疼痛",
-    "phonetic": "[mal]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "marché aux puces",
-    "chinese": "跳蚤市场",
-    "phonetic": "[maʁ.ʃe o pyss]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "marrant,e",
-    "chinese": "滑稽的，有趣的",
-    "phonetic": "[ma.ʁɑ̃, ma.ʁɑ̃t]",
+    "french": "mince",
+    "chinese": "瘦长的；纤细的",
+    "phonetic": "[mɛ̃s]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "matelas",
-    "chinese": "床垫",
-    "phonetic": "[ma.tla]",
+    "french": "cheveu",
+    "chinese": "头发",
+    "phonetic": "[ʃə.vø]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "matière",
-    "chinese": "课程，科目",
-    "phonetic": "[ma.tjɛʁ]",
+    "french": "volley-ball",
+    "chinese": "排球",
+    "phonetic": "[vɔ.lɛ.bal]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "équipe",
+    "chinese": "队，组",
+    "phonetic": "[e.kip]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "même",
-    "chinese": "相同的；自己",
-    "phonetic": "[mɛm]",
+    "french": "tête",
+    "chinese": "头，头部",
+    "phonetic": "[tɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "bouche",
+    "chinese": "嘴",
+    "phonetic": "[buʃ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "lunettes",
+    "chinese": "眼镜",
+    "phonetic": "[ly.nɛt]",
+    "part_of_speech": "阴性复数名词 n.f.pl.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "barbe",
+    "chinese": "胡子，髯",
+    "phonetic": "[baʁb]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 5,
+    "lesson": 1
+  },
+  {
+    "french": "carré, carrée",
+    "chinese": "正方形的，方的",
+    "phonetic": "[ka.ʁe]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "message",
-    "chinese": "留言，口信；消息",
-    "phonetic": "[mɛ.sɑʒ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "french": "rond, ronde",
+    "chinese": "圆的，圆胖的",
+    "phonetic": "[ʁɔ̃]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "mètre carré",
-    "chinese": "平方米",
-    "phonetic": "[mɛ.tʁə ka.ʁe]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "french": "roux, rousse",
+    "chinese": "红棕色的；红棕色头发的（人）",
+    "phonetic": "[ʁu]",
+    "part_of_speech": "形容词 / 名词 adj./n.",
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "métro",
-    "chinese": "地铁",
-    "phonetic": "[me.tʁo]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "french": "bouclé, bouclée",
+    "chinese": "卷曲的",
+    "phonetic": "[bu.kle]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "meuble",
-    "chinese": "家具",
-    "phonetic": "[møbl]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "french": "raide",
+    "chinese": "硬直的",
+    "phonetic": "[ʁɛd]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "montagne",
-    "chinese": "山，山区",
-    "phonetic": "[mɔ̃.taɲ]",
+    "french": "forme",
+    "chinese": "形状",
+    "phonetic": "[fɔʁm]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 1
   },
   {
-    "french": "moto",
-    "chinese": "摩托车",
-    "phonetic": "[mo.to]",
+    "french": "rêveur, rêveuse",
+    "chinese": "爱幻想的（人）",
+    "phonetic": "[ʁɛ.vœʁ]",
+    "part_of_speech": "形容词 / 名词 adj./n.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "promenade",
+    "chinese": "散步",
+    "phonetic": "[pʁɔ.mə.nad]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 2
   },
   {
-    "french": "mourir",
-    "chinese": "死亡",
-    "phonetic": "[mu.ʁiʁ]",
+    "french": "liberté",
+    "chinese": "自由",
+    "phonetic": "[li.bɛʁ.te]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "romantique",
+    "chinese": "浪漫的",
+    "phonetic": "[ʁɔ.mɑ̃.tik]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "brusquement",
+    "chinese": "突然地",
+    "phonetic": "[bʁys.kə.mɑ̃]",
+    "part_of_speech": "副词 adv.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "rendez-vous",
+    "chinese": "约会",
+    "phonetic": "[ʁɑ̃.de.vu]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "endroit",
+    "chinese": "地方，场所",
+    "phonetic": "[ɑ̃.dʁwa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "métal",
+    "chinese": "金属",
+    "phonetic": "[me.tal]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "poids",
+    "chinese": "重量，体重",
+    "phonetic": "[pwa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "maigre",
+    "chinese": "瘦的",
+    "phonetic": "[mɛɡʁ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "mincir",
+    "chinese": "变瘦",
+    "phonetic": "[mɛ̃.siʁ]",
     "part_of_speech": "不及物动词 v.i.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 2
   },
   {
-    "french": "mouton",
-    "chinese": "羊，羊肉",
-    "phonetic": "[mu.tɔ̃]",
+    "french": "régime",
+    "chinese": "特定食谱",
+    "phonetic": "[ʁe.ʒim]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 2
   },
   {
-    "french": "moyen",
-    "chinese": "方式；工具",
-    "phonetic": "[mwa.jɑ̃]",
+    "french": "physique",
+    "chinese": "相貌；身体",
+    "phonetic": "[fi.zik]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 2
   },
   {
-    "french": "neuf,ve",
-    "chinese": "新的，新建的",
-    "phonetic": "[nœf, nœv]",
+    "french": "caractère",
+    "chinese": "性格",
+    "phonetic": "[ka.ʁak.tɛʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "physiquement",
+    "chinese": "相貌上；身体上",
+    "phonetic": "[fi.zi.kə.mɑ̃]",
+    "part_of_speech": "副词 adv.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "humour",
+    "chinese": "幽默",
+    "phonetic": "[y.muʁ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "optimiste",
+    "chinese": "乐观的",
+    "phonetic": "[ɔp.ti.mist]",
     "part_of_speech": "形容词 adj.",
-    "unit": 6
+    "unit": 5,
+    "lesson": 2
   },
   {
-    "french": "note",
-    "chinese": "分数；笔记",
-    "phonetic": "[nɔt]",
+    "french": "pessimiste",
+    "chinese": "悲观的",
+    "phonetic": "[pɛ.si.mist]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "avoir bon / mauvais caractère",
+    "chinese": "脾气好 / 坏",
+    "phonetic": "[a.vwaʁ bɔ̃ / mo.vɛ ka.ʁak.tɛʁ]",
+    "part_of_speech": "动词短语 loc.v.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "réservé, réservée",
+    "chinese": "谨慎的，矜持的",
+    "phonetic": "[ʁe.zɛʁ.ve]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "bavard, bavarde",
+    "chinese": "话多的",
+    "phonetic": "[ba.vaʁ]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": 2
+  },
+  {
+    "french": "astrologie",
+    "chinese": "星相学",
+    "phonetic": "[as.tʁɔ.lɔ.ʒi]",
     "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "nuit",
-    "chinese": "夜，夜晚",
-    "phonetic": "[nɥi]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
-  },
-  {
-    "french": "nul,le",
-    "chinese": "无价值的；无能的",
-    "phonetic": "[nyl, nyl]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 6
-  },
-  {
-    "french": "numéro",
-    "chinese": "号码；节目",
-    "phonetic": "[ny.me.ʁo]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "occupé,e",
-    "chinese": "忙的；被占用的",
-    "phonetic": "[ɔ.kype, ɔ.ky.pe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 6
-  },
-  {
-    "french": "oignon",
-    "chinese": "洋葱",
-    "phonetic": "[ɔ.ɲɔ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "ordre",
-    "chinese": "顺序；有序，整齐",
-    "phonetic": "[ɔʁdʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "oublier",
-    "chinese": "忘记，遗忘",
-    "phonetic": "[u.bli.e]",
+    "french": "révéler",
+    "chinese": "泄露；显示",
+    "phonetic": "[ʁe.ve.le]",
     "part_of_speech": "及物动词 v.t.",
-    "unit": 6
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "pain au chocolat",
-    "chinese": "巧克力面包",
-    "phonetic": "[pɛ̃ o ʃɔ.kɔ.la]",
+    "french": "dragon",
+    "chinese": "龙",
+    "phonetic": "[dʁa.ɡɔ̃]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "par cœur",
-    "chinese": "记住，记牢",
-    "phonetic": "[pa kür]",
-    "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 6
+    "french": "correspondre",
+    "chinese": "符合；与……一致",
+    "phonetic": "[kɔ.ʁɛs.pɔ̃dʁ]",
+    "part_of_speech": "不及物动词 v.i.",
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "par contre",
+    "french": "signe",
+    "chinese": "符号；手势",
+    "phonetic": "[siɲ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "signe du zodiaque",
+    "chinese": "星座；生肖",
+    "phonetic": "[siɲ dy zɔ.djak]",
+    "part_of_speech": "名词短语 loc.n.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "représenter",
+    "chinese": "代表；象征",
+    "phonetic": "[ʁə.pʁe.zɑ̃.te]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "rat",
+    "chinese": "鼠",
+    "phonetic": "[ʁa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "cycle",
+    "chinese": "周期；循环",
+    "phonetic": "[si.kl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "différer",
+    "chinese": "不同；有差异",
+    "phonetic": "[di.fe.ʁe]",
+    "part_of_speech": "不及物动词 v.i.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "symbole",
+    "chinese": "象征；符号",
+    "phonetic": "[sɛ̃.bɔl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "dangereux, dangereuse",
+    "chinese": "危险的",
+    "phonetic": "[dɑ̃.ʒə.ʁø]",
+    "part_of_speech": "形容词 adj.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "symboliser",
+    "chinese": "象征",
+    "phonetic": "[sɛ̃.bɔ.li.ze]",
+    "part_of_speech": "及物动词 v.t.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "au contraire",
     "chinese": "相反地",
-    "phonetic": "[pa kɔ̃.tʁo]",
-    "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 6
+    "phonetic": "[o kɔ̃.tʁɛʁ]",
+    "part_of_speech": "副词短语 loc.adv.",
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "par terre",
-    "chinese": "在地上",
-    "phonetic": "[pa tɛʁ]",
-    "part_of_speech": "副词性词组 loc. adv.",
-    "unit": 6
+    "french": "sagesse",
+    "chinese": "智慧",
+    "phonetic": "[sa.ʒɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "Parisien,ne",
-    "chinese": "巴黎人",
-    "phonetic": "[pa.ʁi.zjɛ̃, pa.ʁi.zjɛn]",
+    "french": "porteur, porteuse",
+    "chinese": "携带者；搬运者",
+    "phonetic": "[pɔʁ.tœʁ]",
     "part_of_speech": "名词 n.",
-    "unit": 6
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "parking",
-    "chinese": "汽车停车场",
-    "phonetic": "[paʁ.kiŋ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 6
-  },
-  {
-    "french": "part",
-    "chinese": "份；方面",
-    "phonetic": "[paʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 6
-  },
-  {
-    "french": "partie",
-    "chinese": "部分；部门",
-    "phonetic": "[paʁ.ti]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "passant,e",
-    "chinese": "过路人",
-    "phonetic": "[pa.sɑ̃, pa.sɑ̃t]",
-    "part_of_speech": "名词 n.",
-    "unit": 7
-  },
-  {
-    "french": "passionnant,e",
-    "chinese": "动人的，极有趣的",
-    "phonetic": "[pa.sjɔ.nɑ̃, pa.sjɔ.nɑ̃t]",
+    "french": "actif, active",
+    "chinese": "积极的；活跃的",
+    "phonetic": "[ak.tif]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "patient,e",
-    "chinese": "耐心的",
-    "phonetic": "[pa.sjɑ̃, pa.sjɑ̃t]",
+    "french": "doux, douce",
+    "chinese": "柔软的；温柔的",
+    "phonetic": "[du]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "peindre",
-    "chinese": "画；粉刷",
-    "phonetic": "[pɛ̃dʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "penser",
-    "chinese": "思考，考虑；想，认为",
-    "phonetic": "[pɑ̃.se]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 7
-  },
-  {
-    "french": "perdre",
-    "chinese": "失去，丢失",
-    "phonetic": "[pɛʁdʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "perdu,e",
-    "chinese": "迷路的",
-    "phonetic": "[pɛʁ.dy, pɛʁ.dy]",
+    "french": "vif, vive",
+    "chinese": "活泼的；活跃的",
+    "phonetic": "[vif]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "permettre",
-    "chinese": "允许；使有可能",
-    "phonetic": "[pɛʁ.mɛtʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
+    "french": "travailleur, travailleuse",
+    "chinese": "勤劳的（人）",
+    "phonetic": "[tʁa.va.jœʁ]",
+    "part_of_speech": "形容词 / 名词 adj./n.",
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "personne",
-    "chinese": "无人，没有人",
-    "phonetic": "[pɛʁ.sɔn]",
-    "part_of_speech": "不定代词 pron.indéf.",
-    "unit": 7
-  },
-  {
-    "french": "peur",
-    "chinese": "害怕，担心",
-    "phonetic": "[pœʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "pharmacie",
-    "chinese": "药店",
-    "phonetic": "[faʁ.ma.si]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "philosophie",
-    "chinese": "哲学",
-    "phonetic": "[fi.lo.so.fi]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "pièce",
-    "chinese": "片；房间",
-    "phonetic": "[pjɛs]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "pied",
-    "chinese": "脚；步伐",
-    "phonetic": "[pje]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "place",
-    "chinese": "广场",
-    "phonetic": "[plas]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "placer",
-    "chinese": "安排座位；放置",
-    "phonetic": "[pla.se]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "plaisir",
-    "chinese": "愉快，乐趣",
-    "phonetic": "[ple.ziʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "plan",
-    "chinese": "平面图；计划",
-    "phonetic": "[plɑ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "plus",
-    "chinese": "更，更加",
-    "phonetic": "[plys]",
-    "part_of_speech": "副词 adv.",
-    "unit": 7
-  },
-  {
-    "french": "poire",
-    "chinese": "梨",
-    "phonetic": "[pwaʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "pomme de terre",
-    "chinese": "土豆",
-    "phonetic": "[pɔm də tɛʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "pont",
-    "chinese": "桥",
-    "phonetic": "[pɔ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "porc",
-    "chinese": "猪；猪肉",
-    "phonetic": "[pɔʁk]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "poser",
-    "chinese": "放；安装；提出",
-    "phonetic": "[po.ze]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "pratique",
-    "chinese": "方便的",
-    "phonetic": "[pra.tik]",
+    "french": "honnête",
+    "chinese": "诚实的；正直的",
+    "phonetic": "[ɔ.nɛt]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "problème",
-    "chinese": "问题；习题；难题",
-    "phonetic": "[pʁɔ.blɛm]",
+    "french": "quant à",
+    "chinese": "至于；关于",
+    "phonetic": "[kɑ̃.t‿a]",
+    "part_of_speech": "介词短语 loc.prép.",
+    "unit": 5,
+    "lesson": "Atelier"
+  },
+  {
+    "french": "buffle",
+    "chinese": "水牛",
+    "phonetic": "[byfl]",
     "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
+    "unit": 5,
+    "lesson": "Atelier"
   },
   {
-    "french": "propre",
-    "chinese": "自己的；清洁的",
-    "phonetic": "[pʁɔpʁ]",
+    "french": "puissant, puissante",
+    "chinese": "有权力的；强大的",
+    "phonetic": "[pɥi.sɑ̃]",
     "part_of_speech": "形容词 adj.",
-    "unit": 7
-  },
-  {
-    "french": "quitter",
-    "chinese": "放弃，离开",
-    "phonetic": "[ki.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "raccrocher",
-    "chinese": "重新挂上；挂断电话",
-    "phonetic": "[ʁa.kʁo.ʃe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "raconter",
-    "chinese": "叙述，描绘",
-    "phonetic": "[ʁa.kɔ̃.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "raisin",
-    "chinese": "葡萄",
-    "phonetic": "[ʁɛ.zɛ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 7
-  },
-  {
-    "french": "randonnée",
-    "chinese": "出游，远足",
-    "phonetic": "[ʁɑ̃.dɔ.ne]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 7
-  },
-  {
-    "french": "rappeler",
-    "chinese": "召回；再打电话",
-    "phonetic": "[ʁa.ple]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 7
-  },
-  {
-    "french": "recevoir",
-    "chinese": "收到；接待",
-    "phonetic": "[ʁə.sə.vwaʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 8
-  },
-  {
-    "french": "rentrée",
-    "chinese": "回来；开学",
-    "phonetic": "[ʁɑ̃.tʁe]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "renverser",
-    "chinese": "翻转；推倒",
-    "phonetic": "[ʁɑ̃.vɛʁ.se]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 8
-  },
-  {
-    "french": "répéter",
-    "chinese": "重复，跟着念",
-    "phonetic": "[ʁe.pe.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 8
-  },
-  {
-    "french": "répondeur",
-    "chinese": "录音电话",
-    "phonetic": "[ʁe.pɔ̃.dœʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "répondre (à)",
-    "chinese": "回答，答复",
-    "phonetic": "[ʁe.pɔ̃dʁ]",
-    "part_of_speech": "不及物动词 v.i.",
-    "unit": 8
-  },
-  {
-    "french": "réponse",
-    "chinese": "回答，答复",
-    "phonetic": "[ʁe.pɔ̃s]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "respirer",
-    "chinese": "呼吸；喘息",
-    "phonetic": "[ʁe.spi.ʁe]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 8
-  },
-  {
-    "french": "reste",
-    "chinese": "其余，剩余",
-    "phonetic": "[ʁɛst]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "rester",
-    "chinese": "待；保持",
-    "phonetic": "[ʁɛ.ste]",
-    "part_of_speech": "不及物动词 v.i.",
-    "unit": 8
-  },
-  {
-    "french": "résultat",
-    "chinese": "结果，成绩",
-    "phonetic": "[ʁe.zyl.ta]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "réussir",
-    "chinese": "获得成功；通过（考试）",
-    "phonetic": "[ʁe.y.siʁ]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 8
-  },
-  {
-    "french": "rêve",
-    "chinese": "梦；梦想，愿望",
-    "phonetic": "[ʁɛv]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "réviser",
-    "chinese": "复习，温习",
-    "phonetic": "[ʁe.vi.ze]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 8
-  },
-  {
-    "french": "rez-de-chaussée",
-    "chinese": "（建筑物的）底层",
-    "phonetic": "[ʁe də ʃo.se]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "rive",
-    "chinese": "河岸，河滨",
-    "phonetic": "[ʁiv]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "rose",
-    "chinese": "粉红色",
-    "phonetic": "[ʁoz]",
-    "part_of_speech": "形容词 / 阴性名词 adj. / n.f.",
-    "unit": 8
-  },
-  {
-    "french": "route",
-    "chinese": "公路，行程",
-    "phonetic": "[ʁut]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salade",
-    "chinese": "色拉",
-    "phonetic": "[sa.lad]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salle à manger",
-    "chinese": "饭厅",
-    "phonetic": "[sal a mɑ̃.ʒe]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salle d'eau",
-    "chinese": "盥洗室",
-    "phonetic": "[sal do]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salle de bains",
-    "chinese": "浴室",
-    "phonetic": "[sal də bɛ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salle de séjour",
-    "chinese": "起居室，客厅",
-    "phonetic": "[sal də se.ʒuʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "salon",
-    "chinese": "客厅；沙龙",
-    "phonetic": "[sa.lɔ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "sandwich",
-    "chinese": "三明治",
-    "phonetic": "[sɑ̃.dwi.ʃ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 8
-  },
-  {
-    "french": "santé",
-    "chinese": "健康",
-    "phonetic": "[sɑ̃.te]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "science",
-    "chinese": "科学",
-    "phonetic": "[sjɑ̃s]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "sciences de la vie et de la Terre (SVT)",
-    "chinese": "地球与生命科学",
-    "phonetic": "[sjɑ̃s də la vi e də la tɛʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 8
-  },
-  {
-    "french": "scolaire",
-    "chinese": "学校的，教学的",
-    "phonetic": "[skɔ.leʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 8
-  },
-  {
-    "french": "se perdre",
-    "chinese": "消失；迷路",
-    "phonetic": "[sə pɛʁdʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 8
-  },
-  {
-    "french": "se rassurer",
-    "chinese": "安心，放心",
-    "phonetic": "[sə ʁa.sy.ʁe]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 8
-  },
-  {
-    "french": "se réaliser",
-    "chinese": "实现",
-    "phonetic": "[sə ʁe.a.li.ze]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 8
-  },
-  {
-    "french": "se reposer",
-    "chinese": "休息",
-    "phonetic": "[sə ʁə.po.ze]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 8
-  },
-  {
-    "french": "se retrouver",
-    "chinese": "重逢，相见",
-    "phonetic": "[sə ʁə.tʁu.ve]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 8
-  },
-  {
-    "french": "se sentir",
-    "chinese": "觉得，感到",
-    "phonetic": "[sə sɑ̃.tiʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 9
-  },
-  {
-    "french": "se servir (de)",
-    "chinese": "使用，被看到",
-    "phonetic": "[sə sɛʁ.viʁ (də)]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 9
-  },
-  {
-    "french": "se voir",
-    "chinese": "见面；被看到",
-    "phonetic": "[sə vwaʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 9
-  },
-  {
-    "french": "sévère",
-    "chinese": "严格的；严重的",
-    "phonetic": "[se.vɛʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "siècle",
-    "chinese": "世纪",
-    "phonetic": "[sjɛkl]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "simple",
-    "chinese": "单一的，简单的",
-    "phonetic": "[sɛ̃pl]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "simplement",
-    "chinese": "简单地，仅仅",
-    "phonetic": "[sɛ̃.plə.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 9
-  },
-  {
-    "french": "situé,e",
-    "chinese": "位于……的",
-    "phonetic": "[sy.tɥe, sy.tɥe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "smartphone",
-    "chinese": "智能手机",
-    "phonetic": "[smɑʁt.fɔn]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "SMS",
-    "chinese": "手机短信",
-    "phonetic": "[ɛs.ɛm.ɛs]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "soif",
-    "chinese": "渴；渴望",
-    "phonetic": "[swaf]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
-  },
-  {
-    "french": "soigneusement",
-    "chinese": "细心地；准确地",
-    "phonetic": "[swɛ.ɲø.zə.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 9
-  },
-  {
-    "french": "sombre",
-    "chinese": "阴暗的，昏暗的",
-    "phonetic": "[sɔ̃bʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "sommeil",
-    "chinese": "睡眠，睡意",
-    "phonetic": "[sɔ.mɛj]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "sortie",
-    "chinese": "外出；出口",
-    "phonetic": "[sɔʁ.ti]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
-  },
-  {
-    "french": "stade",
-    "chinese": "体育场",
-    "phonetic": "[stad]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "poser",
-    "chinese": "放；安装；提出",
-    "phonetic": "[po.ze]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "pratique",
-    "chinese": "方便的",
-    "phonetic": "[pra.tik]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "problème",
-    "chinese": "问题；习题；难题",
-    "phonetic": "[pʁɔ.blɛm]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "propre",
-    "chinese": "自己的；清洁的",
-    "phonetic": "[pʁɔpʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 9
-  },
-  {
-    "french": "quitter",
-    "chinese": "放弃，离开",
-    "phonetic": "[ki.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "raccrocher",
-    "chinese": "重新挂上；挂断电话",
-    "phonetic": "[ʁa.kʁo.ʃe]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "raconter",
-    "chinese": "叙述，描绘",
-    "phonetic": "[ʁa.kɔ̃.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "raisin",
-    "chinese": "葡萄",
-    "phonetic": "[ʁɛ.zɛ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "randonnée",
-    "chinese": "出游，远足",
-    "phonetic": "[ʁɑ̃.dɔ.ne]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
-  },
-  {
-    "french": "rappeler",
-    "chinese": "召回；再打电话",
-    "phonetic": "[ʁa.ple]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "recevoir",
-    "chinese": "收到；接待",
-    "phonetic": "[ʁə.sə.vwaʁ]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "rentrée",
-    "chinese": "回来；开学",
-    "phonetic": "[ʁɑ̃.tʁe]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
-  },
-  {
-    "french": "renverser",
-    "chinese": "翻转；推倒",
-    "phonetic": "[ʁɑ̃.vɛʁ.se]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "répéter",
-    "chinese": "重复，跟着念",
-    "phonetic": "[ʁe.pe.te]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 9
-  },
-  {
-    "french": "répondeur",
-    "chinese": "录音电话",
-    "phonetic": "[ʁe.pɔ̃.dœʁ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 9
-  },
-  {
-    "french": "répondre (à)",
-    "chinese": "回答，答复",
-    "phonetic": "[ʁe.pɔ̃dʁ]",
-    "part_of_speech": "不及物动词 v.i.",
-    "unit": 9
-  },
-  {
-    "french": "réponse",
-    "chinese": "回答，答复",
-    "phonetic": "[ʁe.pɔ̃s]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 9
-  },
-  {
-    "french": "respirer",
-    "chinese": "呼吸；喘息",
-    "phonetic": "[ʁe.spi.ʁe]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 9
-  },
-  {
-    "french": "reste",
-    "chinese": "其余，剩余",
-    "phonetic": "[ʁɛst]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "rester",
-    "chinese": "待；保持",
-    "phonetic": "[ʁɛ.ste]",
-    "part_of_speech": "不及物动词 v.i.",
-    "unit": 10
-  },
-  {
-    "french": "résultat",
-    "chinese": "结果，成绩",
-    "phonetic": "[ʁe.zyl.ta]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "réussir",
-    "chinese": "获得成功；通过（考试）",
-    "phonetic": "[ʁe.y.siʁ]",
-    "part_of_speech": "及物/不及物动词 v.t. / v.i.",
-    "unit": 10
-  },
-  {
-    "french": "rêve",
-    "chinese": "梦；梦想，愿望",
-    "phonetic": "[ʁɛv]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "réviser",
-    "chinese": "复习，温习",
-    "phonetic": "[ʁe.vi.ze]",
-    "part_of_speech": "及物动词 v.t.",
-    "unit": 10
-  },
-  {
-    "french": "rez-de-chaussée",
-    "chinese": "（建筑物的）底层",
-    "phonetic": "[ʁe də ʃo.se]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "rive",
-    "chinese": "河岸，河滨",
-    "phonetic": "[ʁiv]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "rose",
-    "chinese": "粉红色",
-    "phonetic": "[ʁoz]",
-    "part_of_speech": "形容词 / 阴性名词 adj. / n.f.",
-    "unit": 10
-  },
-  {
-    "french": "route",
-    "chinese": "公路，行程",
-    "phonetic": "[ʁut]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salade",
-    "chinese": "色拉",
-    "phonetic": "[sa.lad]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salle à manger",
-    "chinese": "饭厅",
-    "phonetic": "[sal a mɑ̃.ʒe]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salle d'eau",
-    "chinese": "盥洗室",
-    "phonetic": "[sal do]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salle de bains",
-    "chinese": "浴室",
-    "phonetic": "[sal də bɛ̃]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salle de séjour",
-    "chinese": "起居室，客厅",
-    "phonetic": "[sal də se.ʒuʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "salon",
-    "chinese": "客厅；沙龙",
-    "phonetic": "[sa.lɔ̃]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "sandwich",
-    "chinese": "三明治",
-    "phonetic": "[sɑ̃.dwi.ʃ]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "santé",
-    "chinese": "健康",
-    "phonetic": "[sɑ̃.te]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "science",
-    "chinese": "科学",
-    "phonetic": "[sjɑ̃s]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "sciences de la vie et de la Terre (SVT)",
-    "chinese": "地球与生命科学",
-    "phonetic": "[sjɑ̃s də la vi e də la tɛʁ]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "scolaire",
-    "chinese": "学校的，教学的",
-    "phonetic": "[skɔ.leʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 10
-  },
-  {
-    "french": "se perdre",
-    "chinese": "消失；迷路",
-    "phonetic": "[sə pɛʁdʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se rassurer",
-    "chinese": "安心，放心",
-    "phonetic": "[sə ʁa.sy.ʁe]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se réaliser",
-    "chinese": "实现",
-    "phonetic": "[sə ʁe.a.li.ze]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se reposer",
-    "chinese": "休息",
-    "phonetic": "[sə ʁə.po.ze]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se retrouver",
-    "chinese": "重逢，相见",
-    "phonetic": "[sə ʁə.tʁu.ve]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se sentir",
-    "chinese": "觉得，感到",
-    "phonetic": "[sə sɑ̃.tiʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se servir (de)",
-    "chinese": "使用，被看到",
-    "phonetic": "[sə sɛʁ.viʁ (də)]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "se voir",
-    "chinese": "见面；被看到",
-    "phonetic": "[sə vwaʁ]",
-    "part_of_speech": "代动词 v.pr.",
-    "unit": 10
-  },
-  {
-    "french": "sévère",
-    "chinese": "严格的；严重的",
-    "phonetic": "[se.vɛʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 10
-  },
-  {
-    "french": "siècle",
-    "chinese": "世纪",
-    "phonetic": "[sjɛkl]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "simple",
-    "chinese": "单一的，简单的",
-    "phonetic": "[sɛ̃pl]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 10
-  },
-  {
-    "french": "simplement",
-    "chinese": "简单地，仅仅",
-    "phonetic": "[sɛ̃.plə.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 10
-  },
-  {
-    "french": "situé,e",
-    "chinese": "位于……的",
-    "phonetic": "[sy.tɥe, sy.tɥe]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 10
-  },
-  {
-    "french": "smartphone",
-    "chinese": "智能手机",
-    "phonetic": "[smɑʁt.fɔn]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "SMS",
-    "chinese": "手机短信",
-    "phonetic": "[ɛs.ɛm.ɛs]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "soif",
-    "chinese": "渴；渴望",
-    "phonetic": "[swaf]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "soigneusement",
-    "chinese": "细心地；准确地",
-    "phonetic": "[swɛ.ɲø.zə.mɑ̃]",
-    "part_of_speech": "副词 adv.",
-    "unit": 10
-  },
-  {
-    "french": "sombre",
-    "chinese": "阴暗的，昏暗的",
-    "phonetic": "[sɔ̃bʁ]",
-    "part_of_speech": "形容词 adj.",
-    "unit": 10
-  },
-  {
-    "french": "sommeil",
-    "chinese": "睡眠，睡意",
-    "phonetic": "[sɔ.mɛj]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
-  },
-  {
-    "french": "sortie",
-    "chinese": "外出；出口",
-    "phonetic": "[sɔʁ.ti]",
-    "part_of_speech": "阴性名词 n.f.",
-    "unit": 10
-  },
-  {
-    "french": "stade",
-    "chinese": "体育场",
-    "phonetic": "[stad]",
-    "part_of_speech": "阳性名词 n.m.",
-    "unit": 10
+    "unit": 5,
+    "lesson": "Atelier"
   }
 ]
