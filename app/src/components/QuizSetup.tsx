@@ -13,7 +13,8 @@ interface QuizSetupProps {
 export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: QuizSetupProps) {
   const [selectedMode, setSelectedMode] = useState<QuizMode>('current-range');
   const [questionCount, setQuestionCount] = useState(10);
-  const [includeAudio, setIncludeAudio] = useState(true);
+  const [includeChoice, setIncludeChoice] = useState(true);
+  const [includeAudio, setIncludeAudio] = useState(false);
   const [includeSpelling, setIncludeSpelling] = useState(false);
   const [wordMemories, setWordMemories] = useState<WordMemory[]>([]);
 
@@ -40,14 +41,14 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
     {
       id: 'current-range' as QuizMode,
       name: '当前范围小测',
-      description: '测试当前选择范围的单词',
+      description: '测试当前选择范围单词',
       icon: '📚',
       available: true
     },
     {
       id: 'previous-errors' as QuizMode,
       name: '错词复测',
-      description: '重新测试上次答错的单词',
+      description: '重新测试上次打错单词',
       icon: '🔄',
       available: getPreviousErrorCount(words, wordMemories) > 0
     }
@@ -55,7 +56,11 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
 
   // 根据模式自动设置问题类型
   const getQuestionTypes = (mode: QuizMode): QuizType[] => {
-    const baseTypes: QuizType[] = ['chinese-to-french', 'french-to-chinese'];
+    const baseTypes: QuizType[] = [];
+    
+    if (includeChoice) {
+      baseTypes.push('chinese-to-french', 'french-to-chinese');
+    }
     
     if (includeAudio) {
       baseTypes.push('audio-to-chinese', 'audio-to-french');
@@ -63,6 +68,11 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
     
     if (includeSpelling) {
       baseTypes.push('spelling');
+    }
+    
+    // 如果没有选择任何题型，默认包含选择题型
+    if (baseTypes.length === 0) {
+      baseTypes.push('chinese-to-french', 'french-to-chinese');
     }
     
     return baseTypes;
@@ -98,16 +108,23 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
   // 题型选项
   const questionTypeOptions = [
     {
+      id: 'choice',
+      name: '选择题',
+      description: '看中文选法语/看法语选中文',
+      icon: '📝',
+      isSelected: includeChoice
+    },
+    {
       id: 'audio',
-      name: '听力题型',
-      description: '包含听音频选中文/法语题目',
+      name: '听力题',
+      description: '听音频选中文/法语',
       icon: '🎵',
       isSelected: includeAudio
     },
     {
       id: 'spelling',
-      name: '拼写题型',
-      description: '包含填空和拼写题目（较难）',
+      name: '拼写题',
+      description: '填空和拼写题目',
       icon: '✏️',
       isSelected: includeSpelling
     }
@@ -185,46 +202,43 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
                 ? 'text-neutral-dark-500 bg-neutral-dark-200' 
                 : 'text-neutral-500 bg-neutral-100'
             }`}>
-              {includeAudio && includeSpelling ? '全部' : 
+              {includeChoice && includeAudio && includeSpelling ? '全部' : 
+               includeChoice && includeAudio ? '选择+听力' : 
+               includeChoice && includeSpelling ? '选择+拼写' : 
+               includeAudio && includeSpelling ? '听力+拼写' : 
+               includeChoice ? '选择' : 
                includeAudio ? '听力' : 
                includeSpelling ? '拼写' : '基础'}
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="flex gap-2">
             {questionTypeOptions.map(option => {
               const isActive = option.isSelected;
               return (
                 <button
                   key={option.id}
                   onClick={() => {
-                    if (option.id === 'audio') {
+                    if (option.id === 'choice') {
+                      setIncludeChoice(!includeChoice);
+                    } else if (option.id === 'audio') {
                       setIncludeAudio(!includeAudio);
                     } else if (option.id === 'spelling') {
                       setIncludeSpelling(!includeSpelling);
                     }
                   }}
                   className={`
-                    relative py-3 px-2 text-sm font-medium rounded-lg transition-all duration-200 border
+                    flex-1 h-16 text-base font-medium rounded-md transition-all duration-250 ease-out relative
                     ${isActive 
-                      ? 'bg-primary-500 text-white border-primary-500 shadow-sm' 
-                      : darkMode 
-                        ? 'bg-neutral-dark-100 text-neutral-dark-600 border-neutral-dark-300 hover:border-neutral-dark-400 hover:bg-neutral-dark-200'
-                        : 'bg-white text-neutral-600 border-neutral-300 hover:border-neutral-400 hover:bg-neutral-50'
+                      ? (darkMode 
+                        ? 'bg-primary-500 text-white font-semibold shadow-dark-sm' 
+                        : 'bg-primary-500 text-white font-semibold shadow-sm') 
+                      : (darkMode 
+                        ? 'text-neutral-dark-600 hover:bg-neutral-dark-300' 
+                        : 'text-neutral-600 hover:bg-neutral-50')
                     }
                   `}
                 >
-                  <div className="flex flex-col items-center">
-                    <span className="font-medium">{option.name}</span>
-                    <span className={`text-xs mt-0.5 ${
-                      isActive ? 'text-primary-100' : 
-                      darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
-                    }`}>
-                      {option.description}
-                    </span>
-                  </div>
-                  {isActive && (
-                    <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full" />
-                  )}
+                  {option.name}
                 </button>
               );
             })}
@@ -318,11 +332,20 @@ function getWordMemory(wordId: string, wordMemories: WordMemory[]): WordMemory |
 
 // 辅助函数：获取上次错误单词数量
 function getPreviousErrorCount(words: WordWithStatus[], wordMemories: WordMemory[]): number {
-  // 获取上次测试中答错的单词数量
+  // 获取上次测试中答错的单词数量（仅限当前过滤范围内的单词）
   return words.filter(word => {
     const memory = getWordMemory(word.id, wordMemories);
-    // 判断条件：有记忆数据，且最后一次测试答错了（lastAttempted存在但lastCorrect不存在或更早）
-    return memory && memory.lastAttempted && 
-           (!memory.lastCorrect || memory.lastAttempted > memory.lastCorrect);
+    // 判断条件：有记忆数据，且最后一次测试答错了（lastCorrect不存在或lastAttempted比lastCorrect晚）
+    if (!memory || !memory.lastAttempted) {
+      return false;
+    }
+    
+    // 如果lastCorrect不存在，说明从未答对过，肯定是错词
+    if (!memory.lastCorrect) {
+      return true;
+    }
+    
+    // 如果lastAttempted比lastCorrect晚，说明最后一次测试答错了
+    return memory.lastAttempted > memory.lastCorrect;
   }).length;
 }

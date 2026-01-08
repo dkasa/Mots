@@ -60,8 +60,8 @@ class ApiService {
           // Token过期或无效，清除本地存储
           localStorage.removeItem('mots-auth-token');
           localStorage.removeItem('mots-user');
-          // 刷新页面让用户重新登录
-          window.location.reload();
+          console.log('认证已过期，请重新登录');
+          // 不再自动刷新页面，让应用正常降级到离线模式
         }
         return Promise.reject(error);
       }

@@ -161,14 +161,14 @@ export class QuizController {
       
       const query = `
         SELECT 
-          word_id,
-          total_attempts,
-          correct_attempts,
-          last_attempted,
-          last_correct,
-          consecutive_correct,
-          memory_level,
-          average_time
+          word_id as "wordId",
+          total_attempts as "totalAttempts",
+          correct_attempts as "correctAttempts",
+          last_attempted as "lastAttempted",
+          last_correct as "lastCorrect",
+          consecutive_correct as "consecutiveCorrect",
+          memory_level as "memoryLevel",
+          average_time as "averageTime"
         FROM user_progress 
         WHERE user_id = $1 AND word_id IN (${placeholders})
       `;

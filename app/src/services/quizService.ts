@@ -10,6 +10,13 @@ class QuizService {
 
   // 检查网络状态
   async checkNetworkStatus() {
+    // 检查是否已登录，如果没有登录则直接返回离线状态
+    const token = localStorage.getItem('mots-auth-token');
+    if (!token) {
+      this.isOnline = false;
+      return;
+    }
+
     try {
       this.isOnline = await apiService.isServerOnline();
     } catch (error) {
@@ -50,6 +57,13 @@ class QuizService {
 
   // 获取单词记忆数据
   async getWordMemories(wordIds: string[]): Promise<WordMemory[]> {
+    // 检查是否已登录，如果没有登录则直接使用本地存储
+    const token = localStorage.getItem('mots-auth-token');
+    if (!token) {
+      console.log('未登录状态，从本地存储获取单词记忆');
+      return this.getWordMemoriesFromLocalStorage(wordIds);
+    }
+
     try {
       if (!this.isOnline) {
         console.log('离线状态，从本地存储获取');
@@ -95,6 +109,9 @@ class QuizService {
       const offlineKeys = JSON.parse(localStorage.getItem('quiz-offline-keys') || '[]');
       offlineKeys.push(key);
       localStorage.setItem('quiz-offline-keys', JSON.stringify(offlineKeys));
+
+      // 更新单词记忆数据
+      this.updateWordMemories(results);
     } catch (error) {
       console.error('保存到本地存储失败:', error);
     }
@@ -152,6 +169,36 @@ class QuizService {
       return data ? JSON.parse(data) : null;
     } catch (error) {
       return null;
+    }
+  }
+
+  // 更新单词记忆数据
+  private updateWordMemories(results: QuizResult[]): void {
+    try {
+      const now = Date.now();
+      
+      results.forEach(result => {
+        const memoryKey = `word-memory-${result.wordId}`;
+        const existingMemory = this.getFromLocalStorage(memoryKey);
+        
+        const newMemory = {
+          lastAttempted: now,
+          lastCorrect: result.isCorrect ? now : (existingMemory?.lastCorrect || 0),
+          consecutiveCorrect: result.isCorrect 
+            ? (existingMemory?.consecutiveCorrect || 0) + 1 
+            : 0,
+          totalAttempts: (existingMemory?.totalAttempts || 0) + 1,
+          correctAttempts: result.isCorrect 
+            ? (existingMemory?.correctAttempts || 0) + 1 
+            : (existingMemory?.correctAttempts || 0)
+        };
+        
+        localStorage.setItem(memoryKey, JSON.stringify(newMemory));
+      });
+      
+      console.log('单词记忆数据已更新');
+    } catch (error) {
+      console.error('更新单词记忆数据失败:', error);
     }
   }
 }
