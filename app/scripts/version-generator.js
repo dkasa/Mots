@@ -12,8 +12,20 @@ const generateVersion = () => {
   const now = new Date();
   const timestamp = now.getTime(); // 毫秒时间戳确保唯一性
   
-  // 简单的时间格式: YYYYMMDD-HHMMSS
-  const timeVersion = `${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}-${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}`;
+  // 转换为北京时间 (UTC+8)
+  const beijingOffset = 8 * 60 * 60 * 1000; // 8小时的毫秒数
+  const beijingTime = new Date(now.getTime() + beijingOffset);
+  
+  // 使用北京时间
+  const beijingYear = beijingTime.getUTCFullYear();
+  const beijingMonth = (beijingTime.getUTCMonth() + 1).toString().padStart(2, '0');
+  const beijingDate = beijingTime.getUTCDate().toString().padStart(2, '0');
+  const beijingHours = beijingTime.getUTCHours().toString().padStart(2, '0');
+  const beijingMinutes = beijingTime.getUTCMinutes().toString().padStart(2, '0');
+  const beijingSeconds = beijingTime.getUTCSeconds().toString().padStart(2, '0');
+  
+  // 北京时间格式: YYYYMMDD-HHMMSS (UTC+8)
+  const timeVersion = `${beijingYear}${beijingMonth}${beijingDate}-${beijingHours}${beijingMinutes}${beijingSeconds}`;
   
   const versionInfo = {
     version: timeVersion,
@@ -21,7 +33,8 @@ const generateVersion = () => {
     buildTime: now.toISOString(),
     timestamp: timestamp,
     environment: process.env.BUILD_MODE || 'development',
-    description: "法语词汇学习应用 - 自动生成版本信息"
+    description: "法语词汇学习应用 - 自动生成版本信息",
+    timezone: "UTC+8 (北京时间)"
   };
   
   return versionInfo;

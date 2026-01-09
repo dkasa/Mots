@@ -27,6 +27,7 @@ export function QuizQuestionCard({
   
   const startTimeRef = useRef<number>(Date.now());
   const timerRef = useRef<NodeJS.Timeout>();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // 重置状态和启动计时器
   useEffect(() => {
@@ -50,6 +51,16 @@ export function QuizQuestionCard({
       }
     };
   }, [question.id]);
+
+  // 拼写题型自动聚焦输入框
+  useEffect(() => {
+    if (question.type === 'spelling' && inputRef.current) {
+      // 延迟聚焦，确保输入框已渲染
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [question.id, question.type]);
 
   // 播放音频 - 支持男声女声轮流播放
   const playAudio = () => {
@@ -218,35 +229,38 @@ export function QuizQuestionCard({
             <div className={`text-sm ${darkMode ? 'text-neutral-dark-300' : 'text-neutral-500'}`}>
               请输入正确的法语拼写
             </div>
-            <input 
-              type="text" 
-              value={selectedOption || ''}
-              onChange={(e) => setSelectedOption(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' && selectedOption) {
-                  handleOptionSelect(selectedOption);
-                }
-              }}
-              className={`mt-4 p-3 border rounded-lg w-full max-w-sm transform-gpu transition-transform duration-200 focus:scale-105 ${
-                darkMode 
-                  ? 'bg-black border-neutral-dark-700 text-white placeholder-neutral-dark-500' 
-                  : 'bg-white border-neutral-300 text-neutral-800 placeholder-neutral-500'
-              }`}
-              placeholder="输入法语单词..."
-              onFocus={(e) => {
-                // 移动端优化：输入法弹出时自动滚动
-                setTimeout(() => {
-                  e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
-              }}
-            />
-            <button
-              onClick={() => selectedOption && handleOptionSelect(selectedOption)}
-              disabled={!selectedOption}
-              className="mt-4 px-6 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
-            >
-              确认答案
-            </button>
+            <div className="w-full max-w-sm mx-auto">
+              <input 
+                ref={inputRef}
+                type="text" 
+                value={selectedOption || ''}
+                onChange={(e) => setSelectedOption(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && selectedOption) {
+                    handleOptionSelect(selectedOption);
+                  }
+                }}
+                className={`mt-4 p-3 border rounded-lg w-full transform-gpu transition-transform duration-200 focus:scale-105 ${
+                  darkMode 
+                    ? 'bg-black border-neutral-dark-700 text-white placeholder-neutral-dark-500' 
+                    : 'bg-white border-neutral-300 text-neutral-800 placeholder-neutral-500'
+                }`}
+                placeholder="输入法语单词..."
+                onFocus={(e) => {
+                  // 移动端优化：输入法弹出时自动滚动
+                  setTimeout(() => {
+                    e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }, 300);
+                }}
+              />
+              <button
+                onClick={() => selectedOption && handleOptionSelect(selectedOption)}
+                disabled={!selectedOption}
+                className="mt-4 w-full px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-lg font-medium"
+              >
+                确认答案
+              </button>
+            </div>
           </div>
         );
 
@@ -276,10 +290,10 @@ export function QuizQuestionCard({
             {onExit && (
               <button
                 onClick={onExit}
-                className={`text-xs px-3 py-1 rounded border transition-colors duration-200 ${
+                className={`text-xs px-2 py-0.5 rounded-sm border transition-colors duration-200 bg-secondary-500 text-white hover:bg-secondary-600 ${
                   darkMode 
-                    ? 'border-neutral-dark-500 text-neutral-dark-300 hover:border-neutral-dark-400 hover:text-white' 
-                    : 'border-neutral-400 text-neutral-600 hover:border-neutral-500 hover:text-neutral-800'
+                    ? 'border-secondary-400' 
+                    : 'border-secondary-300'
                 }`}
               >
                 退出测试
