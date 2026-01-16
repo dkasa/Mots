@@ -16,6 +16,7 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
   const [includeChoice, setIncludeChoice] = useState(true);
   const [includeAudio, setIncludeAudio] = useState(false);
   const [includeSpelling, setIncludeSpelling] = useState(false);
+  const [includeSentence, setIncludeSentence] = useState(false);
   const [wordMemories, setWordMemories] = useState<WordMemory[]>([]);
 
   // 加载单词记忆数据
@@ -70,6 +71,10 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
       baseTypes.push('spelling');
     }
     
+    if (includeSentence) {
+      baseTypes.push('sentence-completion', 'sentence-reordering');
+    }
+    
     // 如果没有选择任何题型，默认包含选择题型
     if (baseTypes.length === 0) {
       baseTypes.push('chinese-to-french', 'french-to-chinese');
@@ -96,7 +101,8 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
       questionCount: Math.min(questionCount, getAvailableWordCount(selectedMode)),
       questionTypes: getQuestionTypes(selectedMode),
       includeAudio,
-      includeSpelling
+      includeSpelling,
+      includeSentence
     };
     
     onStartQuiz(config);
@@ -127,6 +133,13 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
       description: '填空和拼写题目',
       icon: '✏️',
       isSelected: includeSpelling
+    },
+    {
+      id: 'sentence',
+      name: '智能句子',
+      description: 'AI生成句子填空',
+      icon: '🧠',
+      isSelected: includeSentence
     }
   ];
 
@@ -202,13 +215,21 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
                 ? 'text-neutral-dark-500 bg-neutral-dark-200' 
                 : 'text-neutral-500 bg-neutral-100'
             }`}>
-              {includeChoice && includeAudio && includeSpelling ? '全部' : 
+              {includeChoice && includeAudio && includeSpelling && includeSentence ? '全部' : 
+               includeChoice && includeAudio && includeSpelling ? '选择+听力+拼写' : 
+               includeChoice && includeAudio && includeSentence ? '选择+听力+句子' : 
+               includeChoice && includeSpelling && includeSentence ? '选择+拼写+句子' : 
+               includeAudio && includeSpelling && includeSentence ? '听力+拼写+句子' : 
                includeChoice && includeAudio ? '选择+听力' : 
                includeChoice && includeSpelling ? '选择+拼写' : 
+               includeChoice && includeSentence ? '选择+句子' : 
                includeAudio && includeSpelling ? '听力+拼写' : 
+               includeAudio && includeSentence ? '听力+句子' : 
+               includeSpelling && includeSentence ? '拼写+句子' : 
                includeChoice ? '选择' : 
                includeAudio ? '听力' : 
-               includeSpelling ? '拼写' : '基础'}
+               includeSpelling ? '拼写' : 
+               includeSentence ? '句子' : '基础'}
             </span>
           </div>
           <div className="flex gap-2">
@@ -224,6 +245,8 @@ export function QuizSetup({ words, onStartQuiz, onCancel, darkMode = false }: Qu
                       setIncludeAudio(!includeAudio);
                     } else if (option.id === 'spelling') {
                       setIncludeSpelling(!includeSpelling);
+                    } else if (option.id === 'sentence') {
+                      setIncludeSentence(!includeSentence);
                     }
                   }}
                   className={`

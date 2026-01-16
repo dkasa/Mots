@@ -1,5 +1,6 @@
 import React from 'react';
 import { QuizSession, QuizQuestion } from '../types/quiz';
+import { unescapeFrenchText, unescapeArray } from '../lib/utils';
 
 interface QuizResultScreenProps {
   quizSession: QuizSession;
@@ -167,14 +168,14 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
                     <span className={darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}>
                       正确答案: 
                     </span>
-                    <span className="font-medium">{question.correctAnswer}</span>
+                    <span className="font-medium">{unescapeFrenchText(question.correctAnswer)}</span>
                   </div>
                   {result && !isCorrect && (
                     <div>
                       <span className={darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}>
                         你的答案: 
                       </span>
-                      <span className="font-medium text-error-600">{result.selectedAnswer}</span>
+                      <span className="font-medium text-error-600">{unescapeFrenchText(result.selectedAnswer)}</span>
                     </div>
                   )}
                 </div>

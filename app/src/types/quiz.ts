@@ -8,6 +8,9 @@ export interface QuizQuestion {
   audioUrl?: string;
   explanation?: string;
   voiceType?: 'male' | 'female';
+  aiGenerated?: boolean;
+  wordBlocks?: string[];
+  shuffledBlocks?: string[];
 }
 
 export interface QuizResult {
@@ -48,6 +51,8 @@ export type QuizType =
   | 'audio-to-chinese'       // 听音频选中文意思
   | 'audio-to-french'        // 听音频选外语拼写
   | 'spelling'               // 拼写/填空
+  | 'sentence-completion'    // 句子填空补全
+  | 'sentence-reordering';    // 词卡重组句子
 
 export type QuizMode = 
   | 'current-range'          // 当前范围小测
@@ -62,6 +67,7 @@ export type QuizConfig = {
   timeLimit?: number; // 分钟
   includeAudio: boolean;
   includeSpelling: boolean;
+  includeSentence: boolean;
 };
 
 export interface QuizStats {

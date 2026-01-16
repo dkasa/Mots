@@ -289,6 +289,37 @@ class ApiService {
     return response.data;
   }
 
+  // AI相关API
+  async getAIConnections(): Promise<any> {
+    const response = await this.client.get('/ai/connections');
+    return response.data;
+  }
+
+  async createAIConnection(config: any): Promise<any> {
+    const response = await this.client.post('/ai/connections', config);
+    return response.data;
+  }
+
+  async updateAIConnection(id: string, updates: any): Promise<any> {
+    const response = await this.client.put(`/ai/connections/${id}`, updates);
+    return response.data;
+  }
+
+  async deleteAIConnection(id: string): Promise<any> {
+    const response = await this.client.delete(`/ai/connections/${id}`);
+    return response.data;
+  }
+
+  async testAIConnection(id: string): Promise<any> {
+    const response = await this.client.post(`/ai/connections/${id}/test`);
+    return response.data;
+  }
+
+  async generateSentenceQuestion(request: any): Promise<any> {
+    const response = await this.client.post('/ai/generate-sentence', request);
+    return response.data;
+  }
+
 }
 
 export const apiService = new ApiService();

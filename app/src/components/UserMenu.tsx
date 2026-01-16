@@ -12,6 +12,7 @@ import {
 import { User, LogOut, Settings, Cloud, Tag } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { AuthModal } from './AuthModal';
+import { AIConfigModal } from './AIConfigModal';
 
 interface UserMenuProps {
   currentVersion?: string | null;
@@ -20,9 +21,14 @@ interface UserMenuProps {
 export function UserMenu({ currentVersion }: UserMenuProps) {
   const { user, isAuthenticated, logout, isLoading } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAIConfigModalOpen, setIsAIConfigModalOpen] = useState(false);
 
   const handleLogin = () => {
     setIsAuthModalOpen(true);
+  };
+
+  const handleAIConfig = () => {
+    setIsAIConfigModalOpen(true);
   };
 
   const handleLogout = async () => {
@@ -106,6 +112,17 @@ export function UserMenu({ currentVersion }: UserMenuProps) {
             <span className="text-purple-800 dark:text-purple-200">设置</span>
           </DropdownMenuItem>
           
+          {/* AI配置区域 - 浅橙色背景 */}
+          <DropdownMenuItem 
+            onClick={handleAIConfig}
+            className="bg-orange-50/70 dark:bg-orange-950/25 hover:bg-orange-100/80 dark:hover:bg-orange-900/40"
+          >
+            <svg className="mr-2 h-4 w-4 text-orange-600 dark:text-orange-400" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm3 0h-2v-6h2v6zm3 0h-2v-6h2v6z"/>
+            </svg>
+            <span className="text-orange-800 dark:text-orange-200">AI配置</span>
+          </DropdownMenuItem>
+          
           {/* 退出登录和版本号区域 - 浅灰色背景 */}
           <div className="flex items-center justify-between px-2 py-1 bg-gray-50/70 dark:bg-gray-950/25 rounded-b-lg">
             <DropdownMenuItem 
@@ -125,6 +142,7 @@ export function UserMenu({ currentVersion }: UserMenuProps) {
       </DropdownMenu>
       
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <AIConfigModal isOpen={isAIConfigModalOpen} onClose={() => setIsAIConfigModalOpen(false)} />
     </>
   );
 }

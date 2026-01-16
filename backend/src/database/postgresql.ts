@@ -1,4 +1,5 @@
 import { Pool, PoolClient } from 'pg';
+import { encryptAPIKey, decryptAPIKey, isEncrypted } from '../utils/crypto';
 
 // PostgreSQL连接配置 - 根据环境自动选择
 const getDatabaseConfig = () => {
@@ -120,6 +121,23 @@ export async function initDatabase(): Promise<void> {
       end_time TIMESTAMP WITH TIME ZONE,
       is_completed BOOLEAN DEFAULT FALSE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- AI连接配置表
+    CREATE TABLE IF NOT EXISTS ai_connections (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      name VARCHAR(100) NOT NULL,
+      type VARCHAR(20) NOT NULL CHECK (type IN ('openai', 'siliconflow')),
+      base_url VARCHAR(255) NOT NULL,
+      api_key VARCHAR(255) NOT NULL,
+      model VARCHAR(100) NOT NULL,
+      max_tokens INTEGER DEFAULT 1000,
+      temperature REAL DEFAULT 0.7,
+      enabled BOOLEAN DEFAULT TRUE,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, name)
     );
 
     -- 创建索引以提高查询性能
@@ -370,6 +388,144 @@ export const db = {
     }
     
     return [];
+  }
+};
+
+// AI连接配置相关操作
+export const aiConnectionQueries = {
+  // 获取用户的所有AI连接配置
+  async findByUserId(userId: number): Promise<any[]> {
+    const result = await pool.query(
+      'SELECT * FROM ai_connections WHERE user_id = $1 ORDER BY created_at DESC',
+      [userId]
+    );
+    
+    // 解密API密钥
+    return result.rows.map(row => ({
+      ...row,
+      api_key: isEncrypted(row.api_key) ? decryptAPIKey(row.api_key) : row.api_key
+    }));
+  },
+
+  // 根据ID获取AI连接配置
+  async findById(id: number): Promise<any> {
+    const result = await pool.query('SELECT * FROM ai_connections WHERE id = $1', [id]);
+    if (!result.rows[0]) return null;
+    
+    // 解密API密钥
+    const row = result.rows[0];
+    return {
+      ...row,
+      api_key: isEncrypted(row.api_key) ? decryptAPIKey(row.api_key) : row.api_key
+    };
+  },
+
+  // 创建AI连接配置
+  async create(config: {
+    userId: number;
+    name: string;
+    type: string;
+    baseUrl: string;
+    apiKey: string;
+    model: string;
+    maxTokens?: number;
+    temperature?: number;
+    enabled?: boolean;
+  }): Promise<number> {
+    // 加密API密钥
+    const encryptedApiKey = encryptAPIKey(config.apiKey);
+    
+    const result = await pool.query(
+      `INSERT INTO ai_connections (user_id, name, type, base_url, api_key, model, max_tokens, temperature, enabled)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id`,
+      [
+        config.userId,
+        config.name,
+        config.type,
+        config.baseUrl,
+        encryptedApiKey,
+        config.model,
+        config.maxTokens || 1000,
+        config.temperature || 0.7,
+        config.enabled !== false
+      ]
+    );
+    return result.rows[0].id;
+  },
+
+  // 更新AI连接配置
+  async update(id: number, updates: {
+    name?: string;
+    baseUrl?: string;
+    apiKey?: string;
+    model?: string;
+    maxTokens?: number;
+    temperature?: number;
+    enabled?: boolean;
+  }): Promise<void> {
+    const setClause: string[] = [];
+    const params: any[] = [];
+    let paramIndex = 1;
+
+    if (updates.name !== undefined) {
+      setClause.push(`name = $${paramIndex++}`);
+      params.push(updates.name);
+    }
+    if (updates.baseUrl !== undefined) {
+      setClause.push(`base_url = $${paramIndex++}`);
+      params.push(updates.baseUrl);
+    }
+    if (updates.apiKey !== undefined) {
+      // 加密API密钥
+      const encryptedApiKey = encryptAPIKey(updates.apiKey);
+      setClause.push(`api_key = $${paramIndex++}`);
+      params.push(encryptedApiKey);
+    }
+    if (updates.model !== undefined) {
+      setClause.push(`model = $${paramIndex++}`);
+      params.push(updates.model);
+    }
+    if (updates.maxTokens !== undefined) {
+      setClause.push(`max_tokens = $${paramIndex++}`);
+      params.push(updates.maxTokens);
+    }
+    if (updates.temperature !== undefined) {
+      setClause.push(`temperature = $${paramIndex++}`);
+      params.push(updates.temperature);
+    }
+    if (updates.enabled !== undefined) {
+      setClause.push(`enabled = $${paramIndex++}`);
+      params.push(updates.enabled);
+    }
+
+    if (setClause.length === 0) return;
+
+    setClause.push('updated_at = CURRENT_TIMESTAMP');
+    params.push(id);
+
+    await pool.query(
+      `UPDATE ai_connections SET ${setClause.join(', ')} WHERE id = $${paramIndex}`,
+      params
+    );
+  },
+
+  // 删除AI连接配置
+  async delete(id: number): Promise<void> {
+    await pool.query('DELETE FROM ai_connections WHERE id = $1', [id]);
+  },
+
+  // 获取用户启用的AI连接配置
+  async findEnabledByUserId(userId: number): Promise<any[]> {
+    const result = await pool.query(
+      'SELECT * FROM ai_connections WHERE user_id = $1 AND enabled = true ORDER BY created_at DESC',
+      [userId]
+    );
+    
+    // 解密API密钥
+    return result.rows.map(row => ({
+      ...row,
+      api_key: isEncrypted(row.api_key) ? decryptAPIKey(row.api_key) : row.api_key
+    }));
   }
 };
 
