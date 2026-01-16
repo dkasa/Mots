@@ -48,10 +48,13 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
   }, [words, loadWordMemories]);
 
   // 生成测试问题
-  const generateQuizQuestions = useCallback(async (config: QuizConfig, words: WordWithStatus[]): Promise<QuizQuestion[]> => {
+  const generateQuizQuestions = useCallback(async (
+    config: QuizConfig,
+    words: WordWithStatus[]
+  ): Promise<QuizQuestion[]> => {
     // 根据模式筛选单词
     const filteredWords = filterWordsByMode(config.mode, words, wordMemories);
-    
+
     if (filteredWords.length === 0) {
       return [];
     }
@@ -59,15 +62,24 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
     const questions: QuizQuestion[] = [];
     const questionCount = Math.min(config.questionCount, filteredWords.length * 2);
 
+    // 异步生成：先生成首批3题，立即开始答题，然后继续生成剩余题目
+    const INITIAL_BATCH_SIZE = 3;
+
     for (let i = 0; i < questionCount; i++) {
       const questionType = getRandomQuestionType(config.questionTypes);
       const word = getRandomWord(filteredWords, questions.map(q => q.wordId));
-      
+
       if (!word) continue;
 
       const question = await createQuestion(word, questionType, words);
       if (question) {
         questions.push(question);
+      }
+
+      // 首批题目生成完毕，立即返回开始答题
+      if (questions.length === INITIAL_BATCH_SIZE) {
+        console.log(`✅ 首批 ${INITIAL_BATCH_SIZE} 题生成完成，开始答题...`);
+        return questions;
       }
     }
 
@@ -78,12 +90,12 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
   const handleStartQuiz = useCallback(async (config: QuizConfig) => {
     try {
       // 检查是否需要AI生成（包含句子类型的问题）
-      const hasAITypes = config.questionTypes.some(type => 
+      const hasAITypes = config.questionTypes.some(type =>
         type === 'sentence-completion' || type === 'sentence-reordering'
       );
-      
+
       let progressInterval: NodeJS.Timeout | null = null;
-      
+
       if (hasAITypes) {
         console.log('🚀 第一步：设置AI生成状态');
 
@@ -111,18 +123,18 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
       }
 
       const questions = await generateQuizQuestions(config, words);
-      
+
       // 清除进度定时器
       if (progressInterval) {
         clearInterval(progressInterval);
       }
-      
+
       if (hasAITypes) {
         setIsGeneratingAI(false);
         setAiGenerationProgress(100);
         setTimeout(() => setAiGenerationProgress(0), 500);
       }
-      
+
       if (questions.length === 0) {
         // TODO: 显示无可用单词的提示
         console.log('无可用单词生成问题');
@@ -147,6 +159,27 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
       setCurrentQuestionIndex(0);
       setShowSetup(false);
       setShowResults(false);
+
+      // 🔄 异步继续生成剩余题目
+      if (hasAITypes && questions.length < config.questionCount) {
+        console.log(`🔄 开始后台生成剩余题目... (当前: ${questions.length}, 目标: ${config.questionCount})`);
+
+        // 设置全局回调函数，用于更新题目列表
+        (window as any).quizSessionUpdateCallback = (newQuestions: QuizQuestion[]) => {
+          setQuizSession(prevSession => {
+            if (!prevSession) return null;
+            return {
+              ...prevSession,
+              questions: newQuestions
+            };
+          });
+        };
+
+        // 延迟1秒后开始生成剩余题目，让用户先看到第一题
+        setTimeout(async () => {
+          await generateRemainingQuestions(config, words, questions);
+        }, 1000);
+      }
     } catch (error) {
       console.error('生成测试问题失败:', error);
       setIsGeneratingAI(false);
@@ -219,6 +252,8 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
     setCurrentQuestionIndex(0);
     setShowSetup(true);
     setShowResults(false);
+    // 清理全局回调
+    delete (window as any).quizSessionUpdateCallback;
   }, []);
 
   // 加载状态
@@ -305,7 +340,7 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
         originalSentence: originalSentence,
         modifiedSentence: currentQuestion.question.replace('请重新排列单词组成正确的句子：', '').trim(),
         correctAnswer: currentQuestion.correctAnswer,
-        options: currentQuestion.options,
+        options: currentQuestion.options || [],  // 确保 options 总是数组
         explanation: currentQuestion.explanation,
         difficulty: 'medium' as const,
         aiGenerated: currentQuestion.aiGenerated || false,
@@ -373,31 +408,35 @@ function getRandomWord(words: WordWithStatus[], usedWordIds: string[]): WordWith
 }
 
 // 辅助函数：创建问题
-async function createQuestion(word: WordWithStatus, type: QuizType, allWords: WordWithStatus[]): Promise<QuizQuestion | null> {
+async function createQuestion(
+  word: WordWithStatus,
+  type: QuizType,
+  allWords: WordWithStatus[]
+): Promise<QuizQuestion | null> {
   const id = `${word.id}-${type}-${Date.now()}`;
-  
+
   switch (type) {
     case 'chinese-to-french':
       return createChineseToFrenchQuestion(word, allWords, id);
-    
+
     case 'french-to-chinese':
       return createFrenchToChineseQuestion(word, allWords, id);
-    
+
     case 'audio-to-chinese':
       return createAudioToChineseQuestion(word, allWords, id);
-    
+
     case 'audio-to-french':
       return createAudioToFrenchQuestion(word, allWords, id);
-    
+
     case 'spelling':
       return createSpellingQuestion(word, id);
-    
+
     case 'sentence-completion':
       return await createSentenceCompletionQuestion(word, id);
-    
+
     case 'sentence-reordering':
       return await createSentenceReorderingQuestion(word, id);
-    
+
     default:
       return null;
   }
@@ -568,11 +607,17 @@ async function createSentenceCompletionQuestion(word: WordWithStatus, id: string
     // 使用AI服务生成填空补全式问题
     const sentenceQuestion = await aiService.generateSentenceCompletionQuestion(word);
 
+    // 验证数据完整性：填空题必须有 options
+    if (!sentenceQuestion.options || sentenceQuestion.options.length === 0) {
+      console.warn('⚠️ AI返回的填空题缺少options，使用备用方案');
+      return createFallbackCompletionQuestion(word, id);
+    }
+
     return {
       id,
       type: 'sentence-completion',
       wordId: word.id,
-      question: `选择正确的单词填入空白处："${sentenceQuestion.modifiedSentence}"`,
+      question: sentenceQuestion.modifiedSentence || sentenceQuestion.originalSentence,
       correctAnswer: sentenceQuestion.correctAnswer,
       options: sentenceQuestion.options,
       explanation: sentenceQuestion.explanation
@@ -580,55 +625,47 @@ async function createSentenceCompletionQuestion(word: WordWithStatus, id: string
   } catch (error) {
     console.error('生成句子填空问题失败:', error);
     // 备用方案：简单的填空问题
-    const sentences = [
-      `Je ______ ${word.french}.`,
-      `Il/Elle ______ ${word.french}.`,
-      `Nous ______ ${word.french}.`,
-      `Vous ______ ${word.french}.`,
-      `Ils/Elles ______ ${word.french}.`
-    ];
-    
-    const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
-    
-    // 生成动词être的变位选项
-    const etreConjugations = ['suis', 'es', 'est', 'sommes', 'êtes', 'sont'];
-    const shuffledOptions = shuffleArray(etreConjugations).slice(0, 4);
-    
-    // 根据人称确定正确答案
-    let correctAnswer = 'suis';
-    if (randomSentence.startsWith('Il/Elle') || randomSentence.startsWith('Il') || randomSentence.startsWith('Elle')) {
-      correctAnswer = 'est';
-    } else if (randomSentence.startsWith('Nous')) {
-      correctAnswer = 'sommes';
-    } else if (randomSentence.startsWith('Vous')) {
-      correctAnswer = 'êtes';
-    } else if (randomSentence.startsWith('Ils/Elles') || randomSentence.startsWith('Ils') || randomSentence.startsWith('Elles')) {
-      correctAnswer = 'sont';
-    }
-    
-    // 确保正确答案在选项中
-    if (!shuffledOptions.includes(correctAnswer)) {
-      shuffledOptions[0] = correctAnswer;
-    }
-
-    return {
-      id,
-      type: 'sentence-completion',
-      wordId: word.id,
-      question: `选择正确的单词填入空白处："${randomSentence}"`,
-      correctAnswer: correctAnswer,
-      options: shuffledOptions,
-      explanation: `正确答案是 "${correctAnswer}"，这是动词"être"（是）的变位，句子意思是"${word.chinese}"`
-    };
+    return createFallbackCompletionQuestion(word, id);
   }
 }
 
+// 辅助函数：创建备用填空问题
+function createFallbackCompletionQuestion(word: WordWithStatus, id: string): QuizQuestion {
+  const sentences = [
+    `Je ______ ${word.french}.`,
+    `Il/Elle ______ ${word.french}.`,
+    `Nous ______ ${word.french}.`,
+    `Vous ______ ${word.french}.`,
+    `Ils/Elles ______ ${word.french}.`
+  ];
+
+  const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+
+  // 生成干扰选项（基于目标单词）
+  const options = [word.french, word.french + 's', word.french + 't', word.french + 's '];
+  const shuffledOptions = shuffleArray(options).slice(0, 4);
+
+  return {
+    id,
+    type: 'sentence-completion',
+    wordId: word.id,
+    question: randomSentence,
+    correctAnswer: word.french,
+    options: shuffledOptions,
+    explanation: `正确答案是 "${word.french}"，意思是${word.chinese}`
+  };
+}
+
 // 辅助函数：创建句子重组问题
-async function createSentenceReorderingQuestion(word: WordWithStatus, id: string): Promise<QuizQuestion | null> {
+async function createSentenceReorderingQuestion(
+  word: WordWithStatus,
+  id: string,
+  excludeIds: number[] = []
+): Promise<QuizQuestion | null> {
   try {
     // 使用AI服务生成词卡重组问题 - 与句子填空使用相同的服务
     console.log('🔮 使用AI生成词卡重组题目...');
-    
+
     // 构建词卡重组请求
     const aiRequest = {
       word: word.id,
@@ -636,23 +673,25 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
       frenchWord: word.french,
       grade: word.grade,
       difficulty: 'medium',
-      questionType: 'reordering'
+      questionType: 'sentence-reordering',
+      excludeQuestionIds: excludeIds
     };
-    
+
     console.log('📤 发送AI请求:', aiRequest);
     const aiResponse = await apiService.generateSentenceQuestion(aiRequest);
-    
+
     console.log('📥 收到AI响应:', aiResponse);
-    
+
     if (aiResponse.success && aiResponse.data && aiResponse.data.original_sentence && aiResponse.data.word_blocks && aiResponse.data.shuffled_blocks) {
       console.log('✅ AI生成词卡重组成功');
       console.log('📝 原句:', aiResponse.data.original_sentence);
       console.log('🧩 单词块:', aiResponse.data.word_blocks);
       console.log('🔀 打乱块:', aiResponse.data.shuffled_blocks);
-      
+
       // 使用AI生成的内容
+      const questionId = aiResponse.data.questionId;
       return {
-        id,
+        id: questionId ? `sentence-${questionId}` : id,
         type: 'sentence-reordering',
         wordId: word.id,
         question: `请重新排列单词组成正确的句子：${aiResponse.data.shuffled_blocks.join(' ')}`,
@@ -666,7 +705,8 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
         explanation: aiResponse.data.explanation || `正确答案是 "${aiResponse.data.original_sentence}"`,
         aiGenerated: true,
         wordBlocks: aiResponse.data.word_blocks,
-        shuffledBlocks: aiResponse.data.shuffled_blocks
+        shuffledBlocks: aiResponse.data.shuffled_blocks,
+        questionId: questionId // 保存题库ID
       };
     } else {
       console.warn('❌ AI返回内容不完整，使用本地生成');
@@ -674,7 +714,7 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
     }
   } catch (error) {
     console.warn('❌ AI生成失败，使用本地生成:', error);
-    
+
     // 回退到本地生成
     const sentenceTemplates = [
       `Je mange une ${word.french}`,  // 我吃一个苹果
@@ -683,11 +723,11 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
       `Vous voulez du ${word.french}`,  // 你们想要一些苹果
       `Ils préfèrent la ${word.french}`  // 他们喜欢苹果（去掉/Elles避免格式问题）
     ];
-    
+
     const randomTemplate = sentenceTemplates[Math.floor(Math.random() * sentenceTemplates.length)];
     const words = randomTemplate.split(' ');
     const shuffledWords = shuffleArray([...words]);
-    
+
     // 生成干扰选项
     const options = [
       randomTemplate,  // 正确选项
@@ -695,7 +735,7 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
       shuffleArray([...words]).join(' '),  // 随机打乱
       shuffleArray([...words]).join(' ')   // 随机打乱
     ];
-    
+
     // 确保选项唯一
     const uniqueOptions = [...new Set(options)];
     while (uniqueOptions.length < 4) {
@@ -704,7 +744,7 @@ async function createSentenceReorderingQuestion(word: WordWithStatus, id: string
         uniqueOptions.push(newOption);
       }
     }
-    
+
     return {
       id,
       type: 'sentence-reordering',
@@ -730,4 +770,66 @@ function getSentenceMeaning(sentence: string, wordMeaning: string): string {
   
   const prefix = sentence.split(' ').slice(0, -1).join(' ');
   return sentenceMeanings[prefix] ? `${sentenceMeanings[prefix]}${wordMeaning}` : `包含${wordMeaning}的句子`;
+}
+
+// 辅助函数：后台生成剩余题目
+async function generateRemainingQuestions(
+  config: QuizConfig,
+  words: WordWithStatus[],
+  initialQuestions: QuizQuestion[]
+): Promise<void> {
+  try {
+    const filteredWords = filterWordsByMode(config.mode, words, []);
+    const questionCount = config.questionCount;
+    const batchSize = 3; // 每批生成3题
+
+    let currentQuestions = [...initialQuestions];
+    let currentIndex = initialQuestions.length;
+
+    while (currentIndex < questionCount) {
+      const batch: QuizQuestion[] = [];
+      const batchSizeRemaining = Math.min(batchSize, questionCount - currentIndex);
+
+      for (let i = 0; i < batchSizeRemaining; i++) {
+        const questionType = getRandomQuestionType(config.questionTypes);
+        const word = getRandomWord(filteredWords, currentQuestions.map(q => q.wordId));
+
+        if (!word) continue;
+
+        const question = await createQuestion(word, questionType, words);
+        if (question) {
+          batch.push(question);
+        }
+      }
+
+      if (batch.length > 0) {
+        // 更新题目列表
+        currentQuestions = [...currentQuestions, ...batch];
+        currentIndex = currentQuestions.length;
+
+        console.log(`✅ 后台生成完成 ${batch.length} 题，当前总计 ${currentIndex}/${questionCount} 题`);
+
+        // 动态更新session的questions
+        if (window.quizSessionUpdateCallback) {
+          window.quizSessionUpdateCallback(currentQuestions);
+        }
+      }
+
+      // 如果还有题目需要生成，等待一小段时间再继续
+      if (currentIndex < questionCount) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    }
+
+    console.log('🎉 所有题目生成完成！');
+  } catch (error) {
+    console.error('❌ 后台生成题目失败:', error);
+  }
+}
+
+// 添加window属性类型声明
+declare global {
+  interface Window {
+    quizSessionUpdateCallback?: (questions: QuizQuestion[]) => void;
+  }
 }

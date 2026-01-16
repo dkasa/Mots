@@ -46,8 +46,8 @@ export interface SentenceQuestion {
   wordId: string;
   targetWord: string;
   originalSentence: string;
-  modifiedSentence: string;
-  options: string[];
+  modifiedSentence?: string;  // 填空题才有，可选
+  options?: string[];  // 填空题才有，可选（重组题没有选项）
   correctAnswer: string;
   explanation: string;
   difficulty: 'easy' | 'medium' | 'hard';
@@ -55,6 +55,8 @@ export interface SentenceQuestion {
   // AI生成的数据字段
   wordBlocks?: string[];
   shuffledBlocks?: string[];
+  // 题库ID（如果是从题库中抽取的）
+  questionId?: number;
 }
 
 export interface SentenceGenerationRequest {
@@ -63,15 +65,22 @@ export interface SentenceGenerationRequest {
   frenchWord: string;
   grade: number;
   difficulty: 'easy' | 'medium' | 'hard';
-  questionType: 'completion' | 'reordering';
+  questionType: 'sentence-completion' | 'sentence-reordering';
+  // 排除已使用的题目ID
+  excludeQuestionIds?: number[];
 }
 
 export interface SentenceGenerationResponse {
   originalSentence: string;
-  modifiedSentence: string;
+  modifiedSentence?: string;  // 填空题才有，可选
   options: string[];
   correctAnswer: string;
   explanation: string;
+  // 题库ID
+  questionId?: number;
+  // 词卡重组的单词块
+  word_blocks?: string[];
+  shuffled_blocks?: string[];
 }
 
 // 预设的AI提供商配置

@@ -81,23 +81,29 @@ export class AIService {
         frenchWord: word.french,
         grade: word.grade,
         difficulty: 'medium',
-        questionType: 'completion'
+        questionType: 'sentence-completion'
       });
 
       if (response.success) {
         const data = response.data;
+        console.log('📥 收到AI响应:', {
+          hasOptions: !!data.options,
+          optionsCount: data.options?.length || 0,
+          options: data.options
+        });
         return {
-          id: `sentence-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: data.questionId ? `sentence-${data.questionId}` : `sentence-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           type: 'sentence-completion',
           wordId: word.id,
           targetWord: word.french,
           originalSentence: data.original_sentence,
-          modifiedSentence: data.modified_sentence,
-          options: data.options,
+          modifiedSentence: data.modified_sentence || data.original_sentence,  // 如果没有 modified_sentence，使用 original_sentence
+          options: data.options,  // 直接使用后端返回的 options（可能为空数组）
           correctAnswer: data.correct_answer,
           explanation: data.explanation,
           difficulty: 'medium',
-          aiGenerated: true
+          aiGenerated: true,
+          questionId: data.questionId // 保存题库ID
         };
       }
       throw new Error(response.message || '生成句子填空问题失败');

@@ -149,7 +149,8 @@ export function SentenceQuestionCard({
 
   // 渲染句子内容
   const renderSentenceContent = () => {
-    const sentenceParts = question.modifiedSentence.split('______');
+    const sentenceToUse = question.modifiedSentence || question.originalSentence;
+    const sentenceParts = sentenceToUse.split('______');
 
     return (
       <div className="text-center">
@@ -160,7 +161,7 @@ export function SentenceQuestionCard({
           <span className="inline-block mx-2 px-2 py-1 bg-yellow-100 dark:bg-yellow-900 border border-yellow-300 dark:border-yellow-700 rounded">
             ______
           </span>
-          {sentenceParts[1]}
+          {sentenceParts[1] || ''}
         </div>
 
         {/* 句子的中文翻译 */}
@@ -268,8 +269,8 @@ export function SentenceQuestionCard({
         </div>
       )}
 
-      {/* 选项列表 */}
-      {question.options.length > 0 && (
+      {/* 选项列表 - 仅对填空题型显示选项 */}
+      {question.type === 'sentence-completion' && question.options && question.options.length > 0 && (
         <div className="space-y-3">
           {question.options.map((option, index) => {
             const isSelected = selectedOption === option;

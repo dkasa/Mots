@@ -320,6 +320,36 @@ class ApiService {
     return response.data;
   }
 
+  // 题目评估（点赞/反赞）
+  async rateAIQuestion(questionId: number, rating: 1 | -1): Promise<any> {
+    const response = await this.client.post(`/ai/questions/${questionId}/rate`, { rating });
+    return response.data;
+  }
+
+  // 获取题目评价统计
+  async getAIQuestionRatings(questionId: number): Promise<any> {
+    const response = await this.client.get(`/ai/questions/${questionId}/ratings`);
+    return response.data;
+  }
+
+  // 获取题库统计
+  async getAIQuestionStats(wordId?: string, questionType?: string): Promise<any> {
+    const params: any = {};
+    if (wordId) params.wordId = wordId;
+    if (questionType) params.questionType = questionType;
+    const response = await this.client.get('/ai/questions/stats', { params });
+    return response.data;
+  }
+
+  // 获取题目列表（包含评价数据）
+  async getAIQuestionsList(wordId?: string, questionType?: string): Promise<any> {
+    const params: any = {};
+    if (wordId) params.wordId = wordId;
+    if (questionType) params.questionType = questionType;
+    const response = await this.client.get('/ai/questions/list', { params });
+    return response.data;
+  }
+
 }
 
 export const apiService = new ApiService();

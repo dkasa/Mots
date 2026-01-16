@@ -140,6 +140,26 @@ export async function initDatabase(): Promise<void> {
       UNIQUE(user_id, name)
     );
 
+    -- AI生成题目缓存表
+    CREATE TABLE IF NOT EXISTS ai_generated_questions (
+      id SERIAL PRIMARY KEY,
+      word_id VARCHAR(50) NOT NULL,
+      question_type VARCHAR(50) NOT NULL CHECK (question_type IN ('sentence-completion', 'sentence-reordering')),
+      word VARCHAR(255) NOT NULL,
+      meaning VARCHAR(255) NOT NULL,
+      grade INTEGER NOT NULL,
+      difficulty VARCHAR(20) NOT NULL,
+      original_sentence TEXT NOT NULL,
+      modified_sentence TEXT,
+      word_blocks TEXT[],
+      shuffled_blocks TEXT[],
+      options TEXT[],
+      correct_answer TEXT NOT NULL,
+      explanation TEXT,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
     -- 创建索引以提高查询性能
     CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
     CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
@@ -150,6 +170,12 @@ export async function initDatabase(): Promise<void> {
     CREATE INDEX IF NOT EXISTS idx_user_settings_user_id ON user_settings(user_id);
     CREATE INDEX IF NOT EXISTS idx_quiz_sessions_user_id ON quiz_sessions(user_id);
     CREATE INDEX IF NOT EXISTS idx_quiz_sessions_start_time ON quiz_sessions(start_time);
+
+    -- AI题目表索引
+    CREATE INDEX IF NOT EXISTS idx_ai_questions_word_id ON ai_generated_questions(word_id);
+    CREATE INDEX IF NOT EXISTS idx_ai_questions_question_type ON ai_generated_questions(question_type);
+    CREATE INDEX IF NOT EXISTS idx_ai_questions_word_type ON ai_generated_questions(word_id, question_type);
+    CREATE INDEX IF NOT EXISTS idx_ai_questions_created_at ON ai_generated_questions(created_at DESC);
 
     -- 创建触发器自动更新 updated_at 字段
     CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -174,6 +200,12 @@ export async function initDatabase(): Promise<void> {
     DROP TRIGGER IF EXISTS update_user_progress_updated_at ON user_progress;
     CREATE TRIGGER update_user_progress_updated_at 
         BEFORE UPDATE ON user_progress 
+        FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+    -- AI题目表更新时间触发器
+    DROP TRIGGER IF EXISTS update_ai_questions_updated_at ON ai_generated_questions;
+    CREATE TRIGGER update_ai_questions_updated_at
+        BEFORE UPDATE ON ai_generated_questions
         FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
   `;
 
@@ -526,6 +558,193 @@ export const aiConnectionQueries = {
       ...row,
       api_key: isEncrypted(row.api_key) ? decryptAPIKey(row.api_key) : row.api_key
     }));
+  }
+};
+
+// AI生成题目缓存相关操作
+export const aiQuestionCacheQueries = {
+  // 获取指定单词和类型的题目数量
+  async countByWordAndType(wordId: string, questionType: string): Promise<number> {
+    const result = await pool.query(
+      'SELECT COUNT(*) as count FROM ai_generated_questions WHERE word_id = $1 AND question_type = $2',
+      [wordId, questionType]
+    );
+    return parseInt(result.rows[0].count);
+  },
+
+  // 随机获取指定单词和类型的题目（排除已使用的ID）
+  async getRandomQuestion(wordId: string, questionType: string, excludeIds: number[] = []): Promise<any> {
+    let query = `
+      SELECT * FROM ai_generated_questions 
+      WHERE word_id = $1 AND question_type = $2
+    `;
+    const params: any[] = [wordId, questionType];
+
+    if (excludeIds.length > 0) {
+      query += ` AND id NOT IN (${excludeIds.map((_, i) => `$${i + 3}`).join(', ')})`;
+      params.push(...excludeIds);
+    }
+
+    query += ' ORDER BY RANDOM() LIMIT 1';
+
+    const result = await pool.query(query, params);
+    return result.rows[0] || null;
+  },
+
+  // 保存AI生成的题目
+  async saveQuestion(data: {
+    wordId: string;
+    questionType: string;
+    word: string;
+    meaning: string;
+    grade: number;
+    difficulty: string;
+    originalSentence: string;
+    modifiedSentence?: string;
+    wordBlocks?: string[];
+    shuffledBlocks?: string[];
+    options?: string[];
+    correctAnswer: string;
+    explanation?: string;
+  }): Promise<number> {
+    const result = await pool.query(
+      `INSERT INTO ai_generated_questions (
+         word_id, question_type, word, meaning, grade, difficulty,
+         original_sentence, modified_sentence, word_blocks, shuffled_blocks,
+         options, correct_answer, explanation
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+       RETURNING id`,
+      [
+        data.wordId,
+        data.questionType,
+        data.word,
+        data.meaning,
+        data.grade,
+        data.difficulty,
+        data.originalSentence,
+        data.modifiedSentence || null,
+        data.wordBlocks || null,
+        data.shuffledBlocks || null,
+        data.options || null,
+        data.correctAnswer,
+        data.explanation || null
+      ]
+    );
+    return result.rows[0].id;
+  },
+
+  // 批量保存AI生成的题目
+  async saveQuestionsBatch(questions: Array<{
+    wordId: string;
+    questionType: string;
+    word: string;
+    meaning: string;
+    grade: number;
+    difficulty: string;
+    originalSentence: string;
+    modifiedSentence?: string;
+    wordBlocks?: string[];
+    shuffledBlocks?: string[];
+    options?: string[];
+    correctAnswer: string;
+    explanation?: string;
+  }>): Promise<number[]> {
+    const ids: number[] = [];
+    
+    for (const question of questions) {
+      const id = await this.saveQuestion(question);
+      ids.push(id);
+    }
+    
+    return ids;
+  }
+};
+
+// 题目评估相关操作
+export const questionRatingQueries = {
+  // 评估题目（点赞/反赞）
+  async rateQuestion(userId: number, questionId: number, rating: 1 | -1): Promise<void> {
+    // 检查是否已经评价过
+    const existing = await pool.query(
+      'SELECT id FROM question_ratings WHERE user_id = $1 AND question_id = $2',
+      [userId, questionId]
+    );
+
+    if (existing.rows.length > 0) {
+      // 更新已有评价
+      await pool.query(
+        'UPDATE question_ratings SET rating = $1, rated_at = CURRENT_TIMESTAMP WHERE user_id = $2 AND question_id = $3',
+        [rating, userId, questionId]
+      );
+    } else {
+      // 新增评价
+      await pool.query(
+        'INSERT INTO question_ratings (user_id, question_id, rating) VALUES ($1, $2, $3)',
+        [userId, questionId, rating]
+      );
+    }
+
+    // 检查是否需要删除题目（反赞过多）
+    await this.checkAndDeleteQuestion(questionId);
+  },
+
+  // 检查并删除低质量题目
+  async checkAndDeleteQuestion(questionId: number): Promise<void> {
+    // 查询反赞数和赞数
+    const result = await pool.query(
+      `SELECT 
+        COUNT(CASE WHEN rating = 1 THEN 1 END) as positive_count,
+        COUNT(CASE WHEN rating = -1 THEN 1 END) as negative_count
+       FROM question_ratings 
+       WHERE question_id = $1`,
+      [questionId]
+    );
+
+    const { positive_count, negative_count } = result.rows[0];
+
+    // 如果反赞 >= 3 且 赞 < 2，删除题目
+    if (negative_count >= 3 && positive_count < 2) {
+      console.log(`🗑️ 删除低质量题目: questionId=${questionId}, 赞=${positive_count}, 反赞=${negative_count}`);
+      await pool.query('DELETE FROM ai_generated_questions WHERE id = $1', [questionId]);
+    }
+  },
+
+  // 获取题目的评价统计
+  async getQuestionRatings(questionId: number): Promise<{ positive: number; negative: number; userRated: 1 | -1 | null }> {
+    const result = await pool.query(
+      `SELECT 
+        COUNT(CASE WHEN rating = 1 THEN 1 END) as positive,
+        COUNT(CASE WHEN rating = -1 THEN 1 END) as negative
+       FROM question_ratings 
+       WHERE question_id = $1`,
+      [questionId]
+    );
+
+    return {
+      positive: parseInt(result.rows[0].positive) || 0,
+      negative: parseInt(result.rows[0].negative) || 0,
+      userRated: null  // 需要单独查询当前用户的评价
+    };
+  },
+
+  // 获取用户对题目的评价
+  async getUserRating(userId: number, questionId: number): Promise<1 | -1 | null> {
+    const result = await pool.query(
+      'SELECT rating FROM question_ratings WHERE user_id = $1 AND question_id = $2',
+      [userId, questionId]
+    );
+    return result.rows[0]?.rating || null;
+  },
+
+  // 获取题目的综合评价（包含用户的评价）
+  async getQuestionRatingsWithUser(userId: number, questionId: number): Promise<{
+    positive: number;
+    negative: number;
+    userRating: 1 | -1 | null
+  }> {
+    const stats = await this.getQuestionRatings(questionId);
+    const userRating = await this.getUserRating(userId, questionId);
+    return { ...stats, userRating };
   }
 };
 

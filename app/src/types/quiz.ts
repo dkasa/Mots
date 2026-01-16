@@ -11,6 +11,8 @@ export interface QuizQuestion {
   aiGenerated?: boolean;
   wordBlocks?: string[];
   shuffledBlocks?: string[];
+  // 题库ID（如果是从题库中抽取的）
+  questionId?: number;
 }
 
 export interface QuizResult {

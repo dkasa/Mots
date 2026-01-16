@@ -39,7 +39,7 @@ export interface SentenceGenerationRequest {
   frenchWord: string;
   grade: number;
   difficulty: 'easy' | 'medium' | 'hard';
-  question_type: 'completion' | 'reordering';
+  question_type: 'sentence-completion' | 'sentence-reordering';
 }
 
 export interface SentenceGenerationResponse {
@@ -50,6 +50,7 @@ export interface SentenceGenerationResponse {
   word_blocks?: string[];
   shuffled_blocks?: string[];
   explanation: string;
+  questionId?: number; // 添加题库ID字段
 }
 
 export interface AIService {
