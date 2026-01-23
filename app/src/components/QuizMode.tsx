@@ -194,13 +194,15 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
 
     const currentQuestion = quizSession.questions[currentQuestionIndex];
     
-    // 标准化比较函数：移除标点、统一大小写、规范空格（与WordReorderingCard保持一致）
+    // 标准化比较函数：考虑法语特殊字符形态（与WordReorderingCard保持一致）
     const normalizeSentence = (sentence: string) => {
       return sentence
-        .replace(/[.,!?;:]/g, '')  // 移除标点符号
-        .replace(/\s+/g, ' ')     // 合并多个空格
-        .trim()                   // 移除首尾空格
-        .toLowerCase();           // 统一小写比较
+        .normalize('NFD')  // 将字符分解为基本字符和重音符号
+        .replace(/[\u0300-\u036f]/g, '')  // 移除重音符号（é -> e, è -> e, ç -> c）
+        .replace(/[.,!?;:]/g, '')          // 移除标点符号
+        .replace(/\s+/g, ' ')              // 合并多个空格
+        .trim()                           // 移除首尾空格
+        .toLowerCase();                   // 统一小写比较
     };
     
     const normalizedUserAnswer = normalizeSentence(selectedAnswer);
@@ -307,12 +309,26 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
 
   // 结果显示界面
   if (showResults && quizSession) {
+    // 查找第一个 AI 生成的句子题目，用于确定 wordId 和 questionType
+    const firstAISentenceQuestion = quizSession.questions.find(q => 
+      q.aiGenerated && (q.type === 'sentence-completion' || q.type === 'sentence-reordering')
+    );
+
+    // 从题目ID中提取 questionId（格式为 sentence-{questionId}）
+    let questionId: number | null = null;
+    if (firstAISentenceQuestion?.id?.startsWith('sentence-')) {
+      questionId = parseInt(firstAISentenceQuestion.id.replace('sentence-', ''));
+    }
+
     return (
       <QuizResultScreen
         quizSession={quizSession}
         onRestart={handleRestartQuiz}
         onExit={handleExitQuiz}
         darkMode={darkMode}
+        wordId={firstAISentenceQuestion?.wordId}
+        questionType={firstAISentenceQuestion?.type === 'sentence-completion' ? 'sentence-completion' : 
+                     firstAISentenceQuestion?.type === 'sentence-reordering' ? 'sentence-reordering' : undefined}
       />
     );
   }
@@ -332,20 +348,23 @@ export function QuizMode({ words, loading, error, onSync, darkMode = false }: Qu
         originalSentence = currentQuestion.correctAnswer;
       }
       
+      // 根据题型正确设置字段
       const sentenceQuestion = {
         id: currentQuestion.id,
         type: currentQuestion.type,
         wordId: currentQuestion.wordId,
         targetWord: currentQuestion.wordId,
         originalSentence: originalSentence,
-        modifiedSentence: currentQuestion.question.replace('请重新排列单词组成正确的句子：', '').trim(),
+        modifiedSentence: currentQuestion.type === 'sentence-completion' 
+          ? currentQuestion.question.replace('请重新排列单词组成正确的句子：', '').trim()
+          : undefined,
         correctAnswer: currentQuestion.correctAnswer,
-        options: currentQuestion.options || [],  // 确保 options 总是数组
+        options: currentQuestion.type === 'sentence-completion' ? (currentQuestion.options || []) : undefined,
         explanation: currentQuestion.explanation,
         difficulty: 'medium' as const,
         aiGenerated: currentQuestion.aiGenerated || false,
-        wordBlocks: currentQuestion.wordBlocks || [],
-        shuffledBlocks: currentQuestion.shuffledBlocks || []
+        wordBlocks: currentQuestion.type === 'sentence-reordering' ? (currentQuestion.wordBlocks || []) : undefined,
+        shuffledBlocks: currentQuestion.type === 'sentence-reordering' ? (currentQuestion.shuffledBlocks || []) : undefined
       };
       
       return (
@@ -504,7 +523,6 @@ function createAudioToFrenchQuestion(word: WordWithStatus, allWords: WordWithSta
 }
 
 function createSpellingQuestion(word: WordWithStatus, id: string): QuizQuestion {
-  // TODO: 实现拼写问题
   return {
     id,
     type: 'spelling',
@@ -512,7 +530,7 @@ function createSpellingQuestion(word: WordWithStatus, id: string): QuizQuestion 
     question: word.chinese,
     correctAnswer: word.french,
     options: [],
-    explanation: `${word.french} - ${word.phonetic}`
+    explanation: `${word.french} - ${word.part_of_speech}`
   };
 }
 
@@ -613,15 +631,17 @@ async function createSentenceCompletionQuestion(word: WordWithStatus, id: string
       return createFallbackCompletionQuestion(word, id);
     }
 
-    return {
-      id,
-      type: 'sentence-completion',
-      wordId: word.id,
-      question: sentenceQuestion.modifiedSentence || sentenceQuestion.originalSentence,
-      correctAnswer: sentenceQuestion.correctAnswer,
-      options: sentenceQuestion.options,
-      explanation: sentenceQuestion.explanation
-    };
+  return {
+    id: sentenceQuestion.id,
+    type: 'sentence-completion',
+    wordId: word.id,
+    question: sentenceQuestion.modifiedSentence || sentenceQuestion.originalSentence,
+    correctAnswer: sentenceQuestion.correctAnswer,
+    options: sentenceQuestion.options,
+    explanation: sentenceQuestion.explanation,
+    aiGenerated: true,
+    questionId: sentenceQuestion.questionId
+  };
   } catch (error) {
     console.error('生成句子填空问题失败:', error);
     // 备用方案：简单的填空问题

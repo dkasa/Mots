@@ -246,7 +246,7 @@ export function TopBar({
           )}
           
           {/* 用户菜单 - 放在最右边 */}
-          <UserMenu currentVersion={currentVersion} />
+          <UserMenu currentVersion={currentVersion} darkMode={darkMode} />
         </div>
       </div>
     </div>

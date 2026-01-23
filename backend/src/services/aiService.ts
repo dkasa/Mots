@@ -1,5 +1,6 @@
 import { AIConnectionConfig, SentenceGenerationRequest, SentenceGenerationResponse, AIService, AICompletionRequest, AICompletionResponse } from '../types/ai';
-import { aiQuestionCacheQueries } from '../database/postgresql';
+import { aiQuestionCacheQueries, pool } from '../database/postgresql';
+import { getGradeDescription } from '../shared/constants';
 
 // 动态导入node-fetch，避免类型检查错误
 import fetch from 'node-fetch';
@@ -24,8 +25,8 @@ export class AIServiceImpl implements AIService {
       const cachedCount = await aiQuestionCacheQueries.countByWordAndType(word, normalizedQuestionType);
       console.log(`📊 数据库中【${frenchWord} - ${normalizedQuestionType}】已缓存 ${cachedCount}/${MAX_CACHED_QUESTIONS} 题`);
 
-      // 如果题库有题目，直接随机抽取（不排除任何题目）
-      if (cachedCount > 0) {
+      // 只有当题库缓存了10道题时，才从题库中取题
+      if (cachedCount >= MAX_CACHED_QUESTIONS) {
         const cachedQuestion = await aiQuestionCacheQueries.getRandomQuestion(word, normalizedQuestionType, []);
 
         if (cachedQuestion) {
@@ -40,35 +41,88 @@ export class AIServiceImpl implements AIService {
             word_blocks_count: cachedQuestion.word_blocks?.length || 0
           });
 
-          // 判断实际题型：以数据库中存储的字段为准
+          // 判断实际题型：以数据内容为准，而不是数据库标记
+          const hasValidOptions = cachedQuestion.options && cachedQuestion.options.length > 0;
+          const hasValidWordBlocks = cachedQuestion.word_blocks && cachedQuestion.word_blocks.length > 0 &&
+                                  cachedQuestion.shuffled_blocks && cachedQuestion.shuffled_blocks.length > 0;
+
+          // 根据实际数据内容确定题型
           let actualQuestionType = cachedQuestion.question_type;
           
-          // 如果有 word_blocks 或 shuffled_blocks，实际是词卡重组题
-          if (cachedQuestion.word_blocks && cachedQuestion.word_blocks.length > 0) {
+          if (hasValidOptions && hasValidWordBlocks) {
+            // 同时有 options 和 word_blocks：根据请求的题型决定
+            actualQuestionType = normalizedQuestionType;
+            console.log('🔧 题目同时有options和word_blocks，使用请求的题型:', normalizedQuestionType);
+          } else if (hasValidOptions) {
+            // 只有 options：肯定是填空题
+            actualQuestionType = 'sentence-completion';
+            console.log('🔧 检测到填空题（有options）');
+          } else if (hasValidWordBlocks) {
+            // 只有 word_blocks：肯定是词卡重组题
             actualQuestionType = 'sentence-reordering';
-            console.log('🔧 检测到词卡重组题，修正question_type');
+            console.log('🔧 检测到词卡重组题（有word_blocks）');
+          } else {
+            // 都没有：根据数据库标记，但需要修复数据
+            console.log('⚠️ 题目缺少有效数据，使用数据库标记:', actualQuestionType);
+            
+            // 尝试修复：如果数据库标记与数据内容不匹配，生成合适的题目
+            if (actualQuestionType === 'sentence-completion') {
+              console.log('🔧 填空题缺少options，尝试生成选项...');
+              const generatedOptions = this.generateOptionsForCompletionQuestion(cachedQuestion.original_sentence, frenchWord);
+              console.log('🔧 生成的选项:', generatedOptions);
+              
+              // 修复数据库中的题目数据（异步执行，不影响当前返回）
+              this.fixQuestionData(cachedQuestion.id, 'sentence-completion', generatedOptions);
+              
+              return {
+                original_sentence: cachedQuestion.original_sentence,
+                modified_sentence: cachedQuestion.modified_sentence || cachedQuestion.original_sentence,
+                options: generatedOptions,
+                correct_answer: cachedQuestion.correct_answer || frenchWord,
+                explanation: cachedQuestion.explanation || '',
+                questionId: cachedQuestion.id
+              };
+            } else {
+              // 词卡重组题缺少数据，无法使用
+              console.warn('⚠️ 题目数据不完整，无法使用');
+              throw new Error('题库中题目数据不完整');
+            }
           }
           
-          // 对于填空题，如果没有 options，尝试从 original_sentence 中提取目标单词并生成选项
-          let options = cachedQuestion.options || [];
-          if (actualQuestionType === 'sentence-completion' && (!options || options.length === 0)) {
-            console.log('🔧 填空题缺少options，尝试生成选项...');
-            options = this.generateOptionsForCompletionQuestion(cachedQuestion.original_sentence, frenchWord);
-            console.log('🔧 生成的选项:', options);
+          // 检查是否需要修复数据库中的题型标记
+          if ((actualQuestionType === 'sentence-completion' && !hasValidOptions) || 
+              (actualQuestionType === 'sentence-reordering' && !hasValidWordBlocks)) {
+            console.log('🔧 发现题型标记错误，进行修复...');
+            this.fixQuestionData(cachedQuestion.id, actualQuestionType, undefined);
           }
-          
-          return {
-            original_sentence: cachedQuestion.original_sentence,
-            modified_sentence: actualQuestionType === 'sentence-completion' 
-              ? (cachedQuestion.modified_sentence || cachedQuestion.original_sentence)
-              : undefined,
-            options: actualQuestionType === 'sentence-completion' ? options : undefined,
-            correct_answer: cachedQuestion.correct_answer || frenchWord,
-            explanation: cachedQuestion.explanation || '',
-            word_blocks: cachedQuestion.word_blocks,
-            shuffled_blocks: cachedQuestion.shuffled_blocks,
-            questionId: cachedQuestion.id // 返回题库ID
-          };
+
+          // 关键修复：如果检测到的实际题型与请求的题型不匹配，直接抛出错误，让系统重新生成
+          if (actualQuestionType !== normalizedQuestionType) {
+            console.warn(`⚠️ 题型不匹配：数据库存储的是${actualQuestionType}，但请求的是${normalizedQuestionType}`);
+            console.warn('❌ 无法使用题库中的题目，将重新生成');
+            throw new Error(`题库中题目类型不匹配：存储的是${actualQuestionType}，但请求的是${normalizedQuestionType}`);
+          }
+
+          // 根据实际题型返回对应的字段
+          if (actualQuestionType === 'sentence-completion') {
+            return {
+              original_sentence: cachedQuestion.original_sentence,
+              modified_sentence: cachedQuestion.modified_sentence || cachedQuestion.original_sentence,
+              options: cachedQuestion.options || [],
+              correct_answer: cachedQuestion.correct_answer || frenchWord,
+              explanation: cachedQuestion.explanation || '',
+              questionId: cachedQuestion.id // 返回题库ID
+            };
+          } else {
+            // 词卡重组题
+            return {
+              original_sentence: cachedQuestion.original_sentence,
+              word_blocks: cachedQuestion.word_blocks || [],
+              shuffled_blocks: cachedQuestion.shuffled_blocks || [],
+              explanation: cachedQuestion.explanation || '',
+              questionId: cachedQuestion.id // 返回题库ID
+            };
+          }
         }
       }
 
@@ -77,33 +131,54 @@ export class AIServiceImpl implements AIService {
       const newQuestion = await this.generateNewQuestion(request, connection);
 
       // 3. 保存到题库
+      // 只有AI生成的、并且数据完整的题目才保存
       if (newQuestion && cachedCount < MAX_CACHED_QUESTIONS) {
-        try {
-          const questionId = await aiQuestionCacheQueries.saveQuestion({
-            wordId: word,
-            questionType: normalizedQuestionType,
-            word: frenchWord,
-            meaning: meaning,
-            grade: grade,
-            difficulty: difficulty,
-            originalSentence: newQuestion.original_sentence,
-            modifiedSentence: newQuestion.modified_sentence,
-            wordBlocks: newQuestion.word_blocks,
-            shuffledBlocks: newQuestion.shuffled_blocks,
-            options: newQuestion.options,
-            correctAnswer: newQuestion.correct_answer || '',
-            explanation: newQuestion.explanation
-          });
-          console.log(`💾 新题目已保存到题库 (${cachedCount + 1}/${MAX_CACHED_QUESTIONS})`);
+        // 验证题目数据完整性
+        let isValidQuestion = true;
 
-          // 返回新生成题目的ID
-          return {
-            ...newQuestion,
-            questionId: questionId
-          };
-        } catch (cacheError) {
-          console.warn('⚠️ 保存到题库失败:', cacheError);
-          // 题库保存失败不影响返回结果
+        if (normalizedQuestionType === 'sentence-completion') {
+          // 填空题必须有 options
+          if (!newQuestion.options || newQuestion.options.length === 0) {
+            console.warn('⚠️ AI生成的填空题缺少options，不保存到题库');
+            isValidQuestion = false;
+          }
+        } else if (normalizedQuestionType === 'sentence-reordering') {
+          // 词卡重组题必须有 word_blocks 和 shuffled_blocks
+          if (!newQuestion.word_blocks || newQuestion.word_blocks.length === 0 ||
+              !newQuestion.shuffled_blocks || newQuestion.shuffled_blocks.length === 0) {
+            console.warn('⚠️ AI生成的词卡重组题缺少word_blocks，不保存到题库');
+            isValidQuestion = false;
+          }
+        }
+
+        if (isValidQuestion) {
+          try {
+            const questionId = await aiQuestionCacheQueries.saveQuestion({
+              wordId: word,
+              questionType: normalizedQuestionType,
+              word: frenchWord,
+              meaning: meaning,
+              grade: grade,
+              difficulty: difficulty,
+              originalSentence: newQuestion.original_sentence,
+              modifiedSentence: newQuestion.modified_sentence,
+              wordBlocks: newQuestion.word_blocks,
+              shuffledBlocks: newQuestion.shuffled_blocks,
+              options: newQuestion.options,
+              correctAnswer: newQuestion.correct_answer || '',
+              explanation: newQuestion.explanation
+            });
+            console.log(`💾 新题目已保存到题库 (${cachedCount + 1}/${MAX_CACHED_QUESTIONS})`);
+
+            // 返回新生成题目的ID
+            return {
+              ...newQuestion,
+              questionId: questionId
+            };
+          } catch (cacheError) {
+            console.warn('⚠️ 保存到题库失败:', cacheError);
+            // 题库保存失败不影响返回结果
+          }
         }
       }
 
@@ -115,7 +190,7 @@ export class AIServiceImpl implements AIService {
   }
 
   async generateNewQuestion(request: SentenceGenerationRequest, connection?: AIConnectionConfig): Promise<SentenceGenerationResponse> {
-    // 优先使用AI生成，如果失败则回退到本地生成
+    // 只使用AI生成，如果失败则直接抛出错误
     try {
       // 优先使用传入的用户AI配置
       if (connection && connection.enabled) {
@@ -125,19 +200,40 @@ export class AIServiceImpl implements AIService {
         return aiResult;
       }
       
-      // 如果没有用户配置，使用默认配置
+      // 如果没有用户配置，使用系统默认配置
+      console.log('使用系统默认AI配置');
+      const aiResult = await this.generateWithSystemDefaultConfig(request);
+      console.log('AI生成成功，返回AI生成的内容');
+      return aiResult;
+    } catch (error) {
+      console.warn('❌ AI生成失败，直接抛出错误:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`AI生成失败: ${errorMessage}`);
+    }
+  }
+  
+  // 使用系统默认配置生成题目
+  private async generateWithSystemDefaultConfig(request: SentenceGenerationRequest): Promise<SentenceGenerationResponse> {
+    try {
+      // 获取系统默认配置
+      const systemConfig = await this.getSystemDefaultAIConfig();
+      if (systemConfig) {
+        console.log(`使用系统默认AI配置: ${systemConfig.name} (${systemConfig.type})`);
+        return await this.generateWithAI(systemConfig, request);
+      }
+      
+      // 如果系统默认配置不存在，使用环境变量配置
       const apiKey = process.env.OPENAI_API_KEY;
       if (!apiKey || apiKey === 'your-openai-api-key-here') {
         console.warn('⚠️ 未配置有效的AI API密钥，请检查环境变量或配置AI连接');
-        console.warn('当前使用本地生成，句子多样性有限');
-        return this.generateLocally(request);
+        throw new Error('未配置有效的AI API密钥');
       }
       
-      // 使用默认的AI配置
+      // 使用环境变量配置
       const defaultConnection: AIConnectionConfig = {
         id: 'default',
         user_id: 0,
-        name: '默认AI连接',
+        name: '环境变量默认配置',
         type: 'openai',
         base_url: 'https://api.openai.com/v1',
         api_key: apiKey,
@@ -149,15 +245,42 @@ export class AIServiceImpl implements AIService {
         updated_at: new Date().toISOString()
       };
       
-      console.log('使用默认AI配置');
-      const aiResult = await this.generateWithAI(defaultConnection, request);
-      console.log('AI生成成功，返回AI生成的内容');
-      return aiResult;
+      console.log('使用环境变量默认配置');
+      return await this.generateWithAI(defaultConnection, request);
     } catch (error) {
-      console.warn('❌ AI生成失败，使用本地生成:', error);
-      console.warn('当前使用本地生成，句子多样性有限');
-      // 回退到本地生成
-      return this.generateLocally(request);
+      console.error('使用系统默认配置失败:', error);
+      throw error;
+    }
+  }
+  
+  // 获取系统默认AI配置（从环境变量读取）
+  private async getSystemDefaultAIConfig(): Promise<AIConnectionConfig | null> {
+    try {
+      // 优先使用硅基流动的系统配置
+      const apiKey = process.env.SYSTEM_AI_API_KEY;
+      if (!apiKey || apiKey === 'your-siliconflow-api-key') {
+        console.warn('⚠️ 未配置系统默认AI API密钥，请检查SYSTEM_AI_API_KEY环境变量');
+        return null;
+      }
+
+      return {
+        id: 'system-default',
+        user_id: 0,
+        name: '系统默认配置',
+        type: (process.env.SYSTEM_AI_PROVIDER || 'siliconflow') as 'openai' | 'siliconflow',
+        base_url: process.env.SYSTEM_AI_BASE_URL || 'https://api.siliconflow.cn/v1',
+        api_key: apiKey,
+        model: process.env.SYSTEM_AI_MODEL || 'Qwen/Qwen3-8B',
+        max_tokens: parseInt(process.env.SYSTEM_AI_MAX_TOKENS || '1000'),
+        temperature: parseFloat(process.env.SYSTEM_AI_TEMPERATURE || '0.7'),
+        enabled: true,
+        is_system_default: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+    } catch (error) {
+      console.warn('获取系统默认AI配置失败:', error);
+      return null;
     }
   }
   
@@ -195,67 +318,79 @@ export class AIServiceImpl implements AIService {
     return result;
   }
   
+  private getGradeDescription(grade: number): string {
+    return getGradeDescription(grade);
+  }
+
   private buildAIPrompt(frenchWord: string, meaning: string, grade: number, difficulty: string, questionType: string): string {
+    // 将数字年级转换为更友好的描述
+    const gradeDescription = this.getGradeDescription(grade);
+    
     if (questionType === 'sentence-completion') {
-      return `为初中${grade}年级学生创建一个法语填空练习题。
+      return `你是一位经验丰富的法语教师，为${gradeDescription}学生创建一个法语填空练习题。
 
-单词：${frenchWord}（${meaning}）
-难度：${difficulty}
+目标单词：${frenchWord}（${meaning}）
+难度级别：${difficulty}
+学生水平：${gradeDescription}
 
-要求：
-1. 创建一个包含"${frenchWord}"的法语句子
-2. 将"${frenchWord}"替换为下划线"______"
-3. 提供4个选项，第一个是正确答案
-4. explanation字段必须只包含完整原句的中文翻译
+**教学要求：**
+1. 创建一个简单、实用的法语句子，适合${gradeDescription}学生的理解水平
+2. 句子长度控制在6-10个单词，语法简单清晰
+3. 将"${frenchWord}"替换为下划线"______"
+4. 提供4个选项，第一个是正确答案
+5. 句子内容要贴近学生的日常生活和学习场景
 
-**选项生成规则（重要）：**
-- 如果"${frenchWord}"是名词，选项应包含：正确形式、阴性形式、复数形式、阴性复数形式或其他相关名词
-- 如果"${frenchWord}"是动词，选项应包含：正确的动词变位形式和其他变位
-- 如果"${frenchWord}"是代词或介词，选项应包含：正确形式和相关代词/介词
-- **4个选项必须完全不相同，每个选项都必须有明显的区别**
+**选项设计原则：**
+- 如果"${frenchWord}"是名词：提供正确形式、常见相关形式（如阴性形式或复数形式）
+- 如果"${frenchWord}"是动词：提供正确的变位形式，避免过于复杂的时态
+- 如果"${frenchWord}"是其他词性：提供正确形式和常见混淆形式
+- **4个选项必须完全不相同，有明显区别，适合${gradeDescription}学生的认知水平**
 
-**严格限制：**
-- explanation字段只能包含完整原句的中文翻译，不能有任何其他内容
-- 不要添加任何语法解释、填空说明、练习题分析或其他文字
-- 如果添加额外内容，将被视为错误
-- **4个选项必须完全不相同，不能有任何重复答案**
+**内容限制：**
+- 句子要简单实用，避免过于复杂的语法结构
+- 选项要合理，不能有过于明显的错误选项
+- explanation字段只能包含完整原句的准确中文翻译
+- 不要添加任何额外的解释或分析
 
-请严格按照以下JSON格式返回，只包含JSON，不要有其他文字：
+请严格按照以下JSON格式返回，只包含JSON：
 {
-  "original_sentence": "完整的法语句子",
+  "original_sentence": "适合${gradeDescription}学生的简单法语句子",
   "modified_sentence": "将${frenchWord}替换为下划线后的句子",
   "options": ["正确的${frenchWord}形式", "干扰项1", "干扰项2", "干扰项3"],
   "correct_answer": "正确的${frenchWord}形式",
-  "explanation": "完整原句的中文翻译"
+  "explanation": "完整原句的准确中文翻译"
 }`;
     } else {
-      return `你是一位法语语法专家，为初中${grade}年级学生创建一个语法正确的词卡重组法语练习题。
+      // 将数字年级转换为更友好的描述
+      const gradeDescription = this.getGradeDescription(grade);
+      
+      return `你是一位经验丰富的法语教师，为${gradeDescription}学生创建一个词卡重组法语练习题。
 
 目标单词：${frenchWord}（${meaning}）
-难度：${difficulty}
+难度级别：${difficulty}
+学生水平：${gradeDescription}
 
-**重要语法要求：**
+**教学要求：**
 - 句子必须语法正确，符合法语语法规则
-- 如果${frenchWord}是动词，要使用正确的时态和变位
+- 如果${frenchWord}是动词，要使用简单的时态和变位
 - 如果${frenchWord}是名词，要考虑性别和单复数
-- 如果${frenchWord}是代词或介词，要放在正确的位置
-- 避免生成类似"Nous avons des au revoir"这样的语法错误句子
+- 句子内容要贴近学生的日常生活和学习场景
+- 避免生成过于复杂的句子结构
 
 **练习题要求：**
-1. 创建一个包含"${frenchWord}"的语法正确的法语句子（5-8个单词）
+1. 创建一个包含"${frenchWord}"的简单法语句子（5-7个单词）
 2. 将句子拆分成独立的单词块
 3. 提供打乱顺序的单词块列表
-4. explanation字段必须只包含完整原句的准确中文翻译
+4. 句子要简单明了，适合${gradeDescription}学生的理解水平
 
-**严格限制：**
-- explanation字段只能包含准确的中文翻译，不能有任何其他内容
-- 不要添加任何语法解释、填空说明、练习题分析或其他文字
-- 如果添加额外内容，将被视为错误
-- 句子必须语法正确，简单明了，适合初中${grade}年级学生
+**内容限制：**
+- explanation字段只能包含准确的中文翻译
+- 不要添加任何语法解释或分析
+- 句子要简单实用，避免复杂语法
 
-请严格按照以下JSON格式返回，只包含JSON，不要有其他文字：
+请严格按照以下JSON格式返回，只包含JSON：
 {
-  "original_sentence": "语法正确的句子语序",
+  "original_sentence": "适合${gradeDescription}学生的简单法语句子",
   "word_blocks": ["单词1", "单词2", "单词3", "单词4", "单词5"],
   "shuffled_blocks": ["单词3", "单词1", "单词5", "单词2", "单词4"],
   "explanation": "准确的中文翻译"
@@ -387,6 +522,25 @@ export class AIServiceImpl implements AIService {
           if (!parsed.original_sentence || !parsed.word_blocks || !parsed.shuffled_blocks) {
             console.warn('❌ AI返回内容缺少词卡重组关键字段，尝试手动提取');
             throw new Error('AI返回内容不完整');
+          }
+          
+          // 验证word_blocks是否包含了原句中的所有单词
+          const originalWords = parsed.original_sentence
+            .replace(/[.,!?;:'"()]/g, '')
+            .split(' ')
+            .filter((word: string) => word && word.trim() !== '');
+          
+          const wordBlocksSet = new Set(parsed.word_blocks);
+          const missingWords = originalWords.filter((word: string) => !wordBlocksSet.has(word));
+          
+          if (missingWords.length > 0) {
+            console.warn(`⚠️ word_blocks缺少原句中的单词: ${missingWords.join(', ')}，自动补充`);
+            // 自动补充缺失的单词到word_blocks和shuffled_blocks
+            parsed.word_blocks = [...parsed.word_blocks, ...missingWords];
+            parsed.shuffled_blocks = [...parsed.shuffled_blocks, ...missingWords];
+            
+            console.log('🔧 补充后的单词块:', parsed.word_blocks);
+            console.log('🔧 补充后的打乱块:', parsed.shuffled_blocks);
           }
           
           console.log('📝 原句:', parsed.original_sentence);
@@ -1087,6 +1241,33 @@ export class AIServiceImpl implements AIService {
       [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
     }
     return newArray;
+  }
+
+  // 修复题目数据（异步执行，不影响当前返回）
+  private async fixQuestionData(questionId: number, correctQuestionType: string, generatedOptions?: string[]): Promise<void> {
+    try {
+      const client = await pool.connect();
+      
+      // 更新数据库中的题型标记
+      await client.query(
+        'UPDATE ai_generated_questions SET question_type = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2',
+        [correctQuestionType, questionId]
+      );
+      
+      // 如果是填空题且生成了选项，更新options字段
+      if (correctQuestionType === 'sentence-completion' && generatedOptions) {
+        await client.query(
+          'UPDATE ai_generated_questions SET options = $1 WHERE id = $2',
+          [generatedOptions, questionId]
+        );
+      }
+      
+      client.release();
+      console.log(`✅ 已修复题目ID ${questionId} 的题型标记为: ${correctQuestionType}`);
+    } catch (error) {
+      console.warn('⚠️ 修复题目数据失败:', error);
+      // 修复失败不影响正常使用
+    }
   }
 }
 

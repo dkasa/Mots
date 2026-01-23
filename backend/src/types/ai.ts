@@ -11,6 +11,7 @@ export interface AIConnectionConfig {
   max_tokens?: number;
   temperature?: number;
   enabled: boolean;
+  is_system_default?: boolean; // 是否为系统默认配置
   created_at: string;
   updated_at: string;
 }

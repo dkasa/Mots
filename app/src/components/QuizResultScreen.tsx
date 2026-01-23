@@ -1,16 +1,86 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { QuizSession, QuizQuestion } from '../types/quiz';
-import { unescapeFrenchText, unescapeArray } from '../lib/utils';
+import { unescapeFrenchText } from '../lib/utils';
+import { apiService } from '../services/api';
 
 interface QuizResultScreenProps {
   quizSession: QuizSession;
   onRestart: () => void;
   onExit: () => void;
   darkMode?: boolean;
+  wordId?: string;
+  questionType?: 'sentence-completion' | 'sentence-reordering';
 }
 
-export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = false }: QuizResultScreenProps) {
+export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = false, wordId, questionType }: QuizResultScreenProps) {
   const { results, questions, startTime, endTime } = quizSession;
+  
+  // 题目评价状态
+  const [ratings, setRatings] = useState<Record<number, { positive: number; negative: number; userRating: 1 | -1 | null }>>({});
+  const [loadingRatings, setLoadingRatings] = useState(false);
+  const [ratingQuestionId, setRatingQuestionId] = useState<number | null>(null); // 当前正在评价的题目ID
+  
+  // 加载题目评价信息
+  const loadRatings = useCallback(async () => {
+    if (!wordId || !questionType) return;
+    
+    try {
+      setLoadingRatings(true);
+      const response = await apiService.getAIQuestionsList(wordId, questionType);
+      if (response.success && response.data) {
+        const ratingsMap: Record<number, { positive: number; negative: number; userRating: 1 | -1 | null }> = {};
+        response.data.forEach((q: any) => {
+          if (q.id && q.ratings) {
+            // 使用后端返回的纯数字 ID 作为 key
+            ratingsMap[q.id] = q.ratings;
+          }
+        });
+        setRatings(ratingsMap);
+      }
+    } catch (error) {
+      console.error('加载评价信息失败:', error);
+    } finally {
+      setLoadingRatings(false);
+      setRatingQuestionId(null);
+    }
+  }, [wordId, questionType]);
+
+  // 从题目 ID 中提取后端纯数字 ID
+  const getBackendQuestionId = (question: QuizQuestion): number | null => {
+    // 如果题目 ID 以 "sentence-" 开头，提取数字部分
+    if (question.id && typeof question.id === 'string' && question.id.startsWith('sentence-')) {
+      return parseInt(question.id.replace('sentence-', ''));
+    }
+    // 如果是纯数字 ID，直接返回
+    if (typeof question.id === 'number') {
+      return question.id;
+    }
+    // 如果有 questionId 属性，直接使用
+    if ('questionId' in question && typeof question.questionId === 'number') {
+      return question.questionId;
+    }
+    return null;
+  };
+
+  React.useEffect(() => {
+    loadRatings();
+  }, [loadRatings]);
+  
+  // 评价处理函数
+  const handleRate = async (questionId: number, rating: 1 | -1) => {
+    try {
+      setRatingQuestionId(questionId);
+      const response = await apiService.rateAIQuestion(questionId, rating);
+      if (response.success) {
+        // 重新加载评价信息，按钮状态会自动更新
+        await loadRatings();
+      }
+    } catch (error) {
+      console.error('评价题目失败:', error);
+      // 不显示弹窗，只是恢复按钮状态
+      setRatingQuestionId(null);
+    }
+  };
   
   // 计算统计信息
   const correctCount = results.filter(r => r.isCorrect).length;
@@ -179,6 +249,63 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
                     </div>
                   )}
                 </div>
+
+                {/* 点赞/反赞按钮 - 仅对 AI 生成的题目显示 */}
+                {question.aiGenerated && (() => {
+                  const backendQuestionId = getBackendQuestionId(question);
+                  if (!backendQuestionId) return null;
+
+                  const ratingData = ratings[backendQuestionId];
+                  const isRatedUp = ratingData?.userRating === 1;
+                  const isRatedDown = ratingData?.userRating === -1;
+                  const isRating = ratingQuestionId === backendQuestionId; // 当前正在评价此题
+
+                  return (
+                    <div className="flex items-center gap-2 mt-3 pt-3 border-t" style={{
+                      borderColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+                    }}>
+                      <span className={`text-xs ${darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}`}>
+                        评价:
+                      </span>
+                      <button
+                        onClick={() => handleRate(backendQuestionId, 1)}
+                        disabled={isRatedUp || isRating}
+                        className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-all duration-200 ${
+                          isRatedUp
+                            ? darkMode
+                              ? 'bg-primary-600 text-white opacity-60 cursor-not-allowed'
+                              : 'bg-primary-500 text-white opacity-60 cursor-not-allowed'
+                            : isRating
+                              ? 'opacity-50 cursor-not-allowed'
+                              : darkMode
+                                ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-primary-400'
+                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-primary-600'
+                        }`}
+                      >
+                        <span className="text-sm">👍</span>
+                        <span className="font-medium">{ratingData?.positive || 0}</span>
+                      </button>
+                      <button
+                        onClick={() => handleRate(backendQuestionId, -1)}
+                        disabled={isRatedDown || isRating}
+                        className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-all duration-200 ${
+                          isRatedDown
+                            ? darkMode
+                              ? 'bg-neutral-dark-600 text-neutral-dark-400 opacity-60 cursor-not-allowed'
+                              : 'bg-neutral-300 text-neutral-600 opacity-60 cursor-not-allowed'
+                            : isRating
+                              ? 'opacity-50 cursor-not-allowed'
+                              : darkMode
+                                ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-neutral-dark-200'
+                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800'
+                        }`}
+                      >
+                        <span className="text-sm">👎</span>
+                        <span className="font-medium">{ratingData?.negative || 0}</span>
+                      </button>
+                    </div>
+                  );
+                })()}
               </div>
             );
           })}

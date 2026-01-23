@@ -135,6 +135,7 @@ export async function initDatabase(): Promise<void> {
       max_tokens INTEGER DEFAULT 1000,
       temperature REAL DEFAULT 0.7,
       enabled BOOLEAN DEFAULT TRUE,
+      is_system_default BOOLEAN DEFAULT FALSE, -- 是否为系统默认配置
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       UNIQUE(user_id, name)
@@ -158,6 +159,16 @@ export async function initDatabase(): Promise<void> {
       explanation TEXT,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
       updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- 题目评价表
+    CREATE TABLE IF NOT EXISTS question_ratings (
+      id SERIAL PRIMARY KEY,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      question_id INTEGER NOT NULL REFERENCES ai_generated_questions(id) ON DELETE CASCADE,
+      rating INTEGER NOT NULL CHECK (rating IN (1, -1)),
+      rated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(user_id, question_id)
     );
 
     -- 创建索引以提高查询性能
@@ -209,9 +220,12 @@ export async function initDatabase(): Promise<void> {
         FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
   `;
 
-  try {
+    try {
     await pool.query(createTablesSQL);
     console.log('✅ PostgreSQL数据库表结构初始化完成');
+    
+    // 创建系统默认AI配置
+    await createSystemDefaultAIConfig();
   } catch (error) {
     console.error('❌ 数据库初始化失败:', error);
     throw error;
@@ -425,7 +439,7 @@ export const db = {
 
 // AI连接配置相关操作
 export const aiConnectionQueries = {
-  // 获取用户的所有AI连接配置
+  // 获取用户的所有AI连接配置（包括系统默认配置）
   async findByUserId(userId: number): Promise<any[]> {
     const result = await pool.query(
       'SELECT * FROM ai_connections WHERE user_id = $1 ORDER BY created_at DESC',
@@ -685,7 +699,7 @@ export const questionRatingQueries = {
     }
 
     // 检查是否需要删除题目（反赞过多）
-    await this.checkAndDeleteQuestion(questionId);
+    await questionRatingQueries.checkAndDeleteQuestion(questionId);
   },
 
   // 检查并删除低质量题目
@@ -702,9 +716,9 @@ export const questionRatingQueries = {
 
     const { positive_count, negative_count } = result.rows[0];
 
-    // 如果反赞 >= 3 且 赞 < 2，删除题目
-    if (negative_count >= 3 && positive_count < 2) {
-      console.log(`🗑️ 删除低质量题目: questionId=${questionId}, 赞=${positive_count}, 反赞=${negative_count}`);
+    // 如果（反赞数 - 点赞数）≥ 2，删除题目
+    if (negative_count - positive_count >= 2) {
+      console.log(`🗑️ 删除低质量题目: questionId=${questionId}, 赞=${positive_count}, 反赞=${negative_count}, 差值=${negative_count - positive_count}`);
       await pool.query('DELETE FROM ai_generated_questions WHERE id = $1', [questionId]);
     }
   },
@@ -747,6 +761,36 @@ export const questionRatingQueries = {
     return { ...stats, userRating };
   }
 };
+
+// 创建系统默认AI配置
+async function createSystemDefaultAIConfig(): Promise<void> {
+  try {
+    // 检查是否已经存在系统默认配置
+    const existingResult = await pool.query(
+      'SELECT COUNT(*) as count FROM ai_connections WHERE user_id = 0 AND is_system_default = true'
+    );
+    
+    if (parseInt(existingResult.rows[0].count) === 0) {
+      // 创建系统默认配置
+      const apiKey = process.env.OPENAI_API_KEY || '';
+      if (apiKey && apiKey !== 'your-openai-api-key-here') {
+        await pool.query(
+          `INSERT INTO ai_connections (
+             user_id, name, type, base_url, api_key, model, max_tokens, temperature, enabled, is_system_default
+           ) VALUES (
+             0, '系统默认配置', 'openai', 'https://api.openai.com/v1', $1, 'gpt-3.5-turbo', 1000, 0.7, true, true
+           )`,
+          [encryptAPIKey(apiKey)]
+        );
+        console.log('✅ 系统默认AI配置已创建');
+      } else {
+        console.warn('⚠️ 未配置OPENAI_API_KEY环境变量，跳过创建系统默认配置');
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️ 创建系统默认AI配置失败:', error);
+  }
+}
 
 // 数据库健康检查
 export async function healthCheck(): Promise<{ status: string, timestamp: string }> {

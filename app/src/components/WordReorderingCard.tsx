@@ -138,13 +138,15 @@ export function WordReorderingCard({
     
     const userAnswer = droppedWords.join(' ');
     
-    // 标准化比较函数：移除标点、统一大小写、规范空格
+    // 标准化比较函数：考虑法语特殊字符形态
     const normalizeSentence = (sentence: string) => {
       return sentence
-        .replace(/[.,!?;:]/g, '')  // 移除标点符号
-        .replace(/\s+/g, ' ')     // 合并多个空格
-        .trim()                   // 移除首尾空格
-        .toLowerCase();           // 统一小写比较
+        .normalize('NFD')  // 将字符分解为基本字符和重音符号
+        .replace(/[\u0300-\u036f]/g, '')  // 移除重音符号（é -> e, è -> e, ç -> c）
+        .replace(/[.,!?;:]/g, '')          // 移除标点符号
+        .replace(/\s+/g, ' ')              // 合并多个空格
+        .trim()                           // 移除首尾空格
+        .toLowerCase();                   // 统一小写比较
     };
     
     const normalizedUserAnswer = normalizeSentence(userAnswer);

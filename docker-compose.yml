@@ -60,6 +60,13 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=password
       - JWT_SECRET=mots-super-secret-jwt-key-2024-production-ready
+      # 系统默认AI配置（硅基流动）
+      - SYSTEM_AI_PROVIDER=siliconflow
+      - SYSTEM_AI_BASE_URL=https://api.siliconflow.cn/v1
+      - SYSTEM_AI_API_KEY=sk-your-siliconflow-api-key-here
+      - SYSTEM_AI_MODEL=Qwen/Qwen3-8B
+      - SYSTEM_AI_MAX_TOKENS=1000
+      - SYSTEM_AI_TEMPERATURE=0.7
       - TZ=Asia/Shanghai
     depends_on:
       postgres:

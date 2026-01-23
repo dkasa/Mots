@@ -15,7 +15,10 @@ import {
   CheckCircle, 
   XCircle, 
   Settings, 
-  RefreshCw 
+  RefreshCw,
+  Lock,
+  Crown,
+  Edit
 } from 'lucide-react';
 import { AIConnectionConfig, AIProviderType } from '../types/ai';
 import { aiService } from '../services/aiService';
@@ -62,13 +65,18 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
       model: '',
       maxTokens: 1000,
       temperature: 0.7,
-      enabled: true,
+      enabled: false, // 默认禁用
       createdAt: '',
       updatedAt: ''
     });
   };
 
   const handleEdit = (connection: AIConnectionConfig) => {
+    // 系统默认配置不允许编辑
+    if (connection.isSystemDefault) {
+      alert('系统默认配置不允许编辑，您可以创建自己的配置');
+      return;
+    }
     setEditingConnection(connection);
   };
 
@@ -97,16 +105,53 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
     }
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (connection: AIConnectionConfig) => {
+    // 系统默认配置不允许删除
+    if (connection.isSystemDefault) {
+      alert('系统默认配置不允许删除');
+      return;
+    }
+
     if (!confirm('确定要删除这个AI连接配置吗？')) return;
 
     try {
       setIsLoading(true);
-      await aiService.deleteConnection(id);
+      await aiService.deleteConnection(connection.id);
       await loadConnections();
       setTestResult({});
     } catch (error) {
       console.error('删除AI配置失败:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleToggleEnabled = async (connection: AIConnectionConfig) => {
+    // 系统默认配置不允许修改启用状态
+    if (connection.isSystemDefault) {
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const newEnabledState = !connection.enabled;
+
+      // 如果要启用这个配置，先禁用其他所有个人配置
+      if (newEnabledState) {
+        for (const conn of connections) {
+          if (!conn.isSystemDefault && conn.id !== connection.id && conn.enabled) {
+            await aiService.updateConnection(conn.id, { enabled: false });
+          }
+        }
+      }
+
+      // 更新当前配置的启用状态
+      await aiService.updateConnection(connection.id, { enabled: newEnabledState });
+
+      await loadConnections();
+    } catch (error) {
+      console.error('更新AI配置启用状态失败:', error);
+      alert('更新启用状态失败，请重试');
     } finally {
       setIsLoading(false);
     }
@@ -143,43 +188,40 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent 
-        className={`max-w-4xl max-h-[90vh] overflow-y-auto ${
+      <DialogContent
+        className={`sm:max-w-4xl w-full max-h-[90vh] overflow-y-auto ${
           darkMode ? 'bg-neutral-dark-900 text-white' : 'bg-white'
         }`}
       >
-        <DialogHeader>
+        <DialogHeader className="space-y-2">
           <DialogTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
             AI连接配置管理
           </DialogTitle>
-          <DialogDescription>
-            配置和管理AI服务连接，用于生成智能句子练习题
-          </DialogDescription>
         </DialogHeader>
 
         {editingConnection ? (
           // 编辑/创建配置界面
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="providerType">AI服务提供商</Label>
+                <Label htmlFor="providerType" className={darkMode ? 'text-gray-300' : ''}>AI服务提供商</Label>
                 <Select
                   value={editingConnection.type}
                   onValueChange={(value: AIProviderType) => handleProviderChange(value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className={darkMode ? 'bg-gray-800 border-gray-700' : ''}>
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="openai">OpenAI</SelectItem>
-                    <SelectItem value="siliconflow">硅基流动</SelectItem>
+                  <SelectContent className={darkMode ? 'bg-gray-800 border-gray-700' : ''}>
+                    <SelectItem value="openai" className={darkMode ? 'text-gray-100 focus:text-gray-100' : ''}>OpenAI</SelectItem>
+                    <SelectItem value="siliconflow" className={darkMode ? 'text-gray-100 focus:text-gray-100' : ''}>硅基流动</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="name">配置名称</Label>
+                <Label htmlFor="name" className={darkMode ? 'text-gray-300' : ''}>配置名称</Label>
                 <Input
                   id="name"
                   value={editingConnection.name}
@@ -188,12 +230,13 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                     name: e.target.value
                   })}
                   placeholder="输入配置名称"
+                  className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="baseUrl">API基础地址</Label>
+              <Label htmlFor="baseUrl" className={darkMode ? 'text-gray-300' : ''}>API基础地址</Label>
               <Input
                 id="baseUrl"
                 value={editingConnection.baseUrl}
@@ -202,11 +245,12 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                   baseUrl: e.target.value
                 })}
                 placeholder="输入API基础地址"
+                className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="apiKey">API密钥</Label>
+              <Label htmlFor="apiKey" className={darkMode ? 'text-gray-300' : ''}>API密钥</Label>
               <Input
                 id="apiKey"
                 type="password"
@@ -216,12 +260,13 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                   apiKey: e.target.value
                 })}
                 placeholder="输入API密钥"
+                className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="model">模型</Label>
+                <Label htmlFor="model" className={darkMode ? 'text-gray-300' : ''}>模型</Label>
                 <Input
                   id="model"
                   value={editingConnection.model}
@@ -230,11 +275,12 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                     model: e.target.value
                   })}
                   placeholder="输入模型名称，推荐使用：Hunyuan-MT-7B"
+                  className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="maxTokens">最大Token数</Label>
+                <Label htmlFor="maxTokens" className={darkMode ? 'text-gray-300' : ''}>最大Token数</Label>
                 <Input
                   id="maxTokens"
                   type="number"
@@ -243,12 +289,13 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                     ...editingConnection,
                     maxTokens: parseInt(e.target.value) || 1000
                   })}
+                  className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="temperature">温度参数 (0-1)</Label>
+              <Label htmlFor="temperature" className={darkMode ? 'text-gray-300' : ''}>温度参数 (0-1)</Label>
               <Input
                 id="temperature"
                 type="number"
@@ -260,55 +307,39 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                   ...editingConnection,
                   temperature: parseFloat(e.target.value) || 0.7
                 })}
+                className={darkMode ? 'bg-gray-800 border-gray-700' : ''}
               />
             </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 px-3 py-2 rounded-lg">
-                  <Switch
-                    checked={editingConnection.enabled}
-                    onCheckedChange={(checked) => setEditingConnection({
-                      ...editingConnection,
-                      enabled: checked
-                    })}
-                    className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400"
-                  />
-                  <Label className={`font-medium ${editingConnection.enabled ? 'text-green-700 dark:text-green-400' : 'text-gray-700 dark:text-gray-300'}`}>
-                    {editingConnection.enabled ? '已启用' : '已禁用'}
-                  </Label>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  onClick={() => setEditingConnection(null)}
-                  disabled={isLoading}
-                >
-                  取消
-                </Button>
-                <Button
-                  onClick={handleSave}
-                  disabled={isLoading || !editingConnection.name || !editingConnection.apiKey || !editingConnection.model}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  <Save className="h-4 w-4 mr-2" />
-                  {isLoading ? '保存中...' : '保存配置'}
-                </Button>
-              </div>
+            <div className="flex justify-end gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setEditingConnection(null)}
+                disabled={isLoading}
+                className="h-9"
+              >
+                取消
+              </Button>
+              <Button
+                onClick={handleSave}
+                disabled={isLoading || !editingConnection.name || !editingConnection.apiKey || !editingConnection.model}
+                className="bg-blue-600 hover:bg-blue-700 text-white h-9"
+              >
+                <Save className="h-4 w-4 mr-2" />
+                {isLoading ? '保存中...' : '保存配置'}
+              </Button>
             </div>
           </div>
         ) : (
           // 配置列表界面
           <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <Button onClick={handleCreateNew}>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <Button onClick={handleCreateNew} className="w-full sm:w-auto h-9 px-4">
                 <Plus className="h-4 w-4 mr-2" />
                 新建配置
               </Button>
-              
-              <Button variant="outline" onClick={loadConnections} disabled={isLoading}>
+
+              <Button variant="outline" onClick={loadConnections} disabled={isLoading} className="w-full sm:w-auto h-9 px-4">
                 <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
                 刷新
               </Button>
@@ -321,11 +352,11 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
               </div>
             ) : connections.length === 0 ? (
               <Card>
-                <CardContent className="p-8 text-center">
-                  <Settings className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-                  <p className="text-lg font-medium mb-2">暂无AI配置</p>
-                  <p className="text-gray-500 mb-4">创建一个AI连接配置来启用智能句子练习功能</p>
-                  <Button onClick={handleCreateNew}>
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <Settings className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-4 text-gray-400" />
+                  <p className="text-base sm:text-lg font-medium mb-2">暂无AI配置</p>
+                  <p className="text-sm sm:text-base text-gray-500 mb-4">创建一个AI连接配置来启用智能句子练习功能</p>
+                  <Button onClick={handleCreateNew} className="w-full sm:w-auto h-9 px-4">
                     <Plus className="h-4 w-4 mr-2" />
                     创建第一个配置
                   </Button>
@@ -335,76 +366,93 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
               <div className="grid gap-4">
                 {connections.map((connection) => (
                   <Card key={connection.id} className={`${
-                    connection.enabled 
-                      ? darkMode ? 'border-green-500' : 'border-green-200' 
-                      : darkMode ? 'border-gray-600' : 'border-gray-200'
-                  }`}>
-                    <CardHeader className="pb-3">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <CardTitle className="flex items-center gap-2 text-base">
-                            {connection.name}
-                            <Badge 
+                    connection.enabled
+                      ? darkMode ? 'border-green-500 bg-green-950/10' : 'border-green-200 bg-green-50'
+                      : darkMode ? 'border-gray-700 bg-gray-800/50' : 'border-gray-200'
+                  } relative`}>
+                    {/* 删除按钮 - 右上角绝对定位 */}
+                    {!connection.isSystemDefault && (
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleDelete(connection)}
+                        className={`absolute top-3 right-3 h-8 w-8 p-0 ${
+                          darkMode 
+                            ? 'hover:bg-red-900/30 hover:text-red-400' 
+                            : 'hover:bg-red-50 hover:text-red-600'
+                        }`}
+                        title="删除"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
+
+                    <CardHeader className="pb-3 pr-12">
+                      {/* 移动端：垂直布局，桌面端：水平布局 */}
+                      <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                        <div className="flex-1 min-w-0">
+                          <CardTitle className={`flex flex-wrap items-center gap-1.5 text-sm sm:text-base ${
+                            darkMode ? 'text-gray-100' : ''
+                          }`}>
+                            {connection.isSystemDefault && (
+                              <Crown className="h-4 w-4 text-yellow-500 flex-shrink-0" />
+                            )}
+                            <span className="truncate">{connection.name}</span>
+                            <Badge
                               variant={connection.enabled ? "default" : "secondary"}
-                              className={connection.enabled ? "bg-green-500" : ""}
+                              className={`${connection.enabled ? "bg-green-500" : ""} text-xs ${
+                                darkMode ? connection.enabled ? '' : 'bg-gray-700 text-gray-300' : ''
+                              }`}
                             >
                               {connection.enabled ? "已启用" : "已禁用"}
                             </Badge>
-                            <Badge variant="outline">
+                            <Badge variant="outline" className={`text-xs ${
+                              darkMode ? 'border-gray-600 text-gray-300' : ''
+                            }`}>
                               {connection.type === 'openai' ? 'OpenAI' : '硅基流动'}
                             </Badge>
+                            {connection.isSystemDefault && (
+                              <Badge variant="outline" className={`text-xs ${
+                                darkMode 
+                                  ? 'border-blue-700 text-blue-300 bg-blue-950/30' 
+                                  : 'bg-blue-100 text-blue-800 border-blue-300'
+                              }`}>
+                                系统默认
+                              </Badge>
+                            )}
                           </CardTitle>
-                          <p className="text-sm text-gray-500 mt-1">
-                            模型: {connection.model} | 地址: {connection.baseUrl}
+                          <p className={`text-xs sm:text-sm mt-1.5 truncate ${
+                            darkMode ? 'text-gray-400' : 'text-gray-500'
+                          }`}>
+                            模型: {connection.model}
+                            {connection.isSystemDefault && " | 系统默认配置，无法修改"}
                           </p>
-                        </div>
-                        
-                        <div className="flex items-center gap-2">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleTestConnection(connection)}
-                            disabled={isTesting}
-                          >
-                            <TestTube className="h-3 w-3 mr-1" />
-                            测试
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handleEdit(connection)}
-                          >
-                            编辑
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(connection.id)}
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
                         </div>
                       </div>
                     </CardHeader>
-                    
+
                     <CardContent className="pt-0">
-                      <div className="flex items-center justify-between text-sm">
-                        <div className="flex items-center gap-4">
+                      <div className={`flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs sm:text-sm ${
+                        darkMode ? 'text-gray-400' : ''
+                      }`}>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                           <span>温度: {connection.temperature}</span>
+                          <span className="hidden sm:inline">|</span>
                           <span>最大Token: {connection.maxTokens}</span>
-                          <span>创建时间: {new Date(connection.createdAt).toLocaleDateString()}</span>
+                          <span className="hidden sm:inline">|</span>
+                          <span className="hidden sm:inline">创建时间: {new Date(connection.createdAt).toLocaleDateString()}</span>
                         </div>
-                        
+
                         {testResult[connection.id] !== undefined && (
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 text-xs">
                             {testResult[connection.id] === true ? (
                               <>
-                                <CheckCircle className="h-4 w-4 text-green-500" />
+                                <CheckCircle className="h-3 w-3 text-green-500" />
                                 <span className="text-green-500">连接正常</span>
                               </>
                             ) : testResult[connection.id] === false ? (
                               <>
-                                <XCircle className="h-4 w-4 text-red-500" />
+                                <XCircle className="h-3 w-3 text-red-500" />
                                 <span className="text-red-500">连接失败</span>
                               </>
                             ) : (
@@ -414,6 +462,87 @@ export function AIConfigModal({ isOpen, onClose, darkMode = false }: AIConfigMod
                         )}
                       </div>
                     </CardContent>
+
+                    {/* 底部按钮区域 */}
+                    <div className={`border-t pt-3 px-4 pb-4 ${
+                      darkMode ? 'border-gray-700/50' : ''
+                    }`}>
+                      <div className="flex gap-2 justify-between">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleTestConnection(connection)}
+                          disabled={isTesting}
+                          className={`flex-1 h-9 flex items-center justify-center gap-1.5 ${
+                            darkMode 
+                              ? 'border-gray-600 hover:bg-gray-700/50 text-gray-300' 
+                              : ''
+                          }`}
+                        >
+                          <TestTube className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">测试</span>
+                        </Button>
+
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEdit(connection)}
+                          className={`flex-1 h-9 flex items-center justify-center gap-1.5 ${
+                            darkMode 
+                              ? 'border-gray-600 hover:bg-gray-700/50 text-gray-300' 
+                              : ''
+                          }`}
+                        >
+                          <Edit className="h-3.5 w-3.5" />
+                          <span className="hidden sm:inline">编辑</span>
+                        </Button>
+
+                        {/* 启用/禁用按钮 - 系统默认配置不可修改 */}
+                        {connection.isSystemDefault ? (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            disabled
+                            className={`flex-1 h-9 flex items-center justify-center gap-1.5 ${
+                              darkMode 
+                                ? 'border-gray-600 text-gray-500' 
+                                : ''
+                            }`}
+                          >
+                            <Lock className="h-3.5 w-3.5" />
+                            <span className="hidden sm:inline">锁定</span>
+                          </Button>
+                        ) : (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleToggleEnabled(connection)}
+                            disabled={isLoading}
+                            className={`flex-1 h-9 flex items-center justify-center gap-1.5 ${
+                              connection.enabled 
+                                ? darkMode 
+                                  ? 'border-green-600 text-green-400 hover:bg-green-900/30' 
+                                  : 'border-green-500 text-green-600 hover:bg-green-50'
+                                : darkMode 
+                                  ? 'border-gray-600 hover:bg-gray-700/50 text-gray-300'
+                                  : ''
+                            }`}
+                          >
+                            {connection.enabled ? (
+                              <>
+                                <CheckCircle className="h-3.5 w-3.5" />
+                                <span className="hidden sm:inline">已启用</span>
+                              </>
+                            ) : (
+                              <>
+                                <XCircle className="h-3.5 w-3.5" />
+                                <span className="hidden sm:inline">已禁用</span>
+                              </>
+                            )}
+                          </Button>
+                        )}
+                      </div>
+                    </div>
                   </Card>
                 ))}
               </div>

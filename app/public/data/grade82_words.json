@@ -1,6 +1,6 @@
 [
   {
-    "french": "serveur, serveuse",
+    "french": "serveur,se",
     "chinese": "服务员",
     "phonetic": "[sɛʁ.vœʁ, sɛʁ.vøz]",
     "part_of_speech": "名词 n.",
@@ -64,7 +64,7 @@
     "lesson": 1
   },
   {
-    "french": "client, cliente",
+    "french": "client,e",
     "chinese": "顾客",
     "phonetic": "[kli.jɑ̃, kli.jɑ̃t]",
     "part_of_speech": "名词 n.",
@@ -200,7 +200,7 @@
     "lesson": 2
   },
   {
-    "french": "varié, variée",
+    "french": "varié,e",
     "chinese": "多样化的",
     "phonetic": "[va.ʁje]",
     "part_of_speech": "形容词 adj.",
@@ -208,7 +208,7 @@
     "lesson": 2
   },
   {
-    "french": "équilibré, équilibrée",
+    "french": "équilibré,e",
     "chinese": "均衡的",
     "phonetic": "[e.ki.li.bʁe]",
     "part_of_speech": "形容词 adj.",
@@ -288,7 +288,7 @@
     "lesson": 2
   },
   {
-    "french": "savoureux, savoureuse",
+    "french": "savoureux,se",
     "chinese": "美味的",
     "phonetic": "[sa.vu.ʁø]",
     "part_of_speech": "形容词 adj.",
@@ -296,7 +296,7 @@
     "lesson": 2
   },
   {
-    "french": "juteux, juteuse",
+    "french": "juteux,se",
     "chinese": "多汁的",
     "phonetic": "[ʒy.tø]",
     "part_of_speech": "形容词 adj.",
@@ -304,7 +304,7 @@
     "lesson": 2
   },
   {
-    "french": "sucré, sucrée",
+    "french": "sucré,e",
     "chinese": "甜的",
     "phonetic": "[sy.kʁe]",
     "part_of_speech": "形容词 adj.",
@@ -312,7 +312,7 @@
     "lesson": 2
   },
   {
-    "french": "salé, salée",
+    "french": "salé,e",
     "chinese": "咸的",
     "phonetic": "[sa.le]",
     "part_of_speech": "形容词 adj.",
@@ -320,7 +320,7 @@
     "lesson": 2
   },
   {
-    "french": "piquant, piquante",
+    "french": "piquant,e",
     "chinese": "辣的",
     "phonetic": "[pi.kɑ̃]",
     "part_of_speech": "形容词 adj.",
@@ -328,7 +328,7 @@
     "lesson": 2
   },
   {
-    "french": "amer, amère",
+    "french": "amer,ère",
     "chinese": "苦的",
     "phonetic": "[a.mɛʁ]",
     "part_of_speech": "形容词 adj.",
@@ -392,7 +392,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "traditionnel, traditionnelle",
+    "french": "traditionnel,le",
     "chinese": "传统的",
     "phonetic": "[tʁa.di.sjɔ.nɛl]",
     "part_of_speech": "形容词 adj.",
@@ -480,7 +480,7 @@
     "lesson": 1
   },
   {
-    "french": "frais, fraîche",
+    "french": "frais,îche",
     "chinese": "新鲜的；凉的",
     "phonetic": "[fʁɛ]",
     "part_of_speech": "形容词 adj.",
@@ -640,7 +640,7 @@
     "lesson": 2
   },
   {
-    "french": "amical, amicale",
+    "french": "amical,e",
     "chinese": "友好的，亲切的",
     "phonetic": "[a.mi.kal]",
     "part_of_speech": "形容词 adj.",
@@ -648,7 +648,7 @@
     "lesson": 2
   },
   {
-    "french": "satisfait, satisfaite",
+    "french": "satisfait,e",
     "chinese": "满意的",
     "phonetic": "[sa.tis.fɛ]",
     "part_of_speech": "形容词 adj.",
@@ -664,7 +664,7 @@
     "lesson": 2
   },
   {
-    "french": "papetier, papetière",
+    "french": "papetier,ère",
     "chinese": "文具商",
     "phonetic": "[pa.pə.tje]",
     "part_of_speech": "名词 n.",
@@ -680,7 +680,7 @@
     "lesson": 2
   },
   {
-    "french": "pâtissier, pâtissière",
+    "french": "pâtissier,ère",
     "chinese": "糕点师",
     "phonetic": "[pɑ.ti.sje]",
     "part_of_speech": "名词 n.",
@@ -776,7 +776,7 @@
     "lesson": 2
   },
   {
-    "french": "caissier, caissière",
+    "french": "caissier,ère",
     "chinese": "收银员",
     "phonetic": "[kɛ.sje]",
     "part_of_speech": "名词 n.",
@@ -840,7 +840,7 @@
     "lesson": 2
   },
   {
-    "french": "joli, jolie",
+    "french": "joli,e",
     "chinese": "漂亮的",
     "phonetic": "[ʒo.li]",
     "part_of_speech": "形容词 adj.",
@@ -912,7 +912,7 @@
     "lesson": 1
   },
   {
-    "french": "sportif, sportive",
+    "french": "sportif,ve",
     "chinese": "运动员；爱好运动的",
     "phonetic": "[spɔʁ.tif]",
     "part_of_speech": "名词 / 形容词 n. / adj.",
@@ -1096,7 +1096,7 @@
     "lesson": 2
   },
   {
-    "french": "quotidien, quotidienne",
+    "french": "quotidien,ne",
     "chinese": "日常的；每日的",
     "phonetic": "[kɔ.ti.djɛ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1184,7 +1184,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "important, importante",
+    "french": "important,e",
     "chinese": "重要的；大量的",
     "phonetic": "[ɛ̃.pɔʁ.tɑ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1304,7 +1304,7 @@
     "lesson": 1
   },
   {
-    "french": "coquet, coquette",
+    "french": "coquet,te",
     "chinese": "爱打扮的；讲究穿着的",
     "phonetic": "[kɔ.kɛ]",
     "part_of_speech": "形容词 adj.",
@@ -1336,7 +1336,7 @@
     "lesson": 1
   },
   {
-    "french": "féminin, féminine",
+    "french": "féminin,e",
     "chinese": "女性的；女性化的",
     "phonetic": "[fe.mi.nɛ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1480,7 +1480,7 @@
     "lesson": 1
   },
   {
-    "french": "élégant, élégante",
+    "french": "élégant,e",
     "chinese": "优雅的；精致的",
     "phonetic": "[e.le.ɡɑ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1568,7 +1568,7 @@
     "lesson": 2
   },
   {
-    "french": "sorcier, sorcière",
+    "french": "sorcier,ère",
     "chinese": "巫师；巫婆",
     "phonetic": "[sɔʁ.sje]",
     "part_of_speech": "名词 n.",
@@ -1576,7 +1576,7 @@
     "lesson": 2
   },
   {
-    "french": "magicien, magicienne",
+    "french": "magicien,ne",
     "chinese": "魔术师",
     "phonetic": "[ma.ʒi.sjɛ̃]",
     "part_of_speech": "名词 n.",
@@ -1584,7 +1584,7 @@
     "lesson": 2
   },
   {
-    "french": "violet, violette",
+    "french": "violet,te",
     "chinese": "紫色的",
     "phonetic": "[vjɔ.lɛ]",
     "part_of_speech": "形容词 adj.",
@@ -1688,7 +1688,7 @@
     "lesson": 2
   },
   {
-    "french": "serré, serrée",
+    "french": "serré,e",
     "chinese": "绷紧的；紧贴的",
     "phonetic": "[sɛ.ʁe]",
     "part_of_speech": "形容词 adj.",
@@ -1728,7 +1728,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "alsacien, alsacienne",
+    "french": "alsacien,ne",
     "chinese": "阿尔萨斯的",
     "phonetic": "[al.za.sjɛ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1776,7 +1776,7 @@
     "lesson": 1
   },
   {
-    "french": "brun, brune",
+    "french": "brun,ne",
     "chinese": "褐色的，棕色的；棕色头发的（人）",
     "phonetic": "[bʁœ̃]",
     "part_of_speech": "形容词 / 名词 adj./n.",
@@ -1792,7 +1792,7 @@
     "lesson": 1
   },
   {
-    "french": "blond, blonde",
+    "french": "blond,de",
     "chinese": "金黄色头发的（人）",
     "phonetic": "[blɔ̃]",
     "part_of_speech": "形容词 / 名词 adj./n.",
@@ -1864,7 +1864,7 @@
     "lesson": 1
   },
   {
-    "french": "carré, carrée",
+    "french": "carré,e",
     "chinese": "正方形的，方的",
     "phonetic": "[ka.ʁe]",
     "part_of_speech": "形容词 adj.",
@@ -1872,7 +1872,7 @@
     "lesson": 1
   },
   {
-    "french": "rond, ronde",
+    "french": "rond,de",
     "chinese": "圆的，圆胖的",
     "phonetic": "[ʁɔ̃]",
     "part_of_speech": "形容词 adj.",
@@ -1880,7 +1880,7 @@
     "lesson": 1
   },
   {
-    "french": "roux, rousse",
+    "french": "roux,sse",
     "chinese": "红棕色的；红棕色头发的（人）",
     "phonetic": "[ʁu]",
     "part_of_speech": "形容词 / 名词 adj./n.",
@@ -1888,7 +1888,7 @@
     "lesson": 1
   },
   {
-    "french": "bouclé, bouclée",
+    "french": "bouclé,e",
     "chinese": "卷曲的",
     "phonetic": "[bu.kle]",
     "part_of_speech": "形容词 adj.",
@@ -1912,7 +1912,7 @@
     "lesson": 1
   },
   {
-    "french": "rêveur, rêveuse",
+    "french": "rêveur,se",
     "chinese": "爱幻想的（人）",
     "phonetic": "[ʁɛ.vœʁ]",
     "part_of_speech": "形容词 / 名词 adj./n.",
@@ -2064,7 +2064,7 @@
     "lesson": 2
   },
   {
-    "french": "réservé, réservée",
+    "french": "réservé,e",
     "chinese": "谨慎的，矜持的",
     "phonetic": "[ʁe.zɛʁ.ve]",
     "part_of_speech": "形容词 adj.",
@@ -2072,7 +2072,7 @@
     "lesson": 2
   },
   {
-    "french": "bavard, bavarde",
+    "french": "bavard,e",
     "chinese": "话多的",
     "phonetic": "[ba.vaʁ]",
     "part_of_speech": "形容词 adj.",
@@ -2168,7 +2168,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "dangereux, dangereuse",
+    "french": "dangereux,se",
     "chinese": "危险的",
     "phonetic": "[dɑ̃.ʒə.ʁø]",
     "part_of_speech": "形容词 adj.",
@@ -2200,7 +2200,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "porteur, porteuse",
+    "french": "porteur,se",
     "chinese": "携带者；搬运者",
     "phonetic": "[pɔʁ.tœʁ]",
     "part_of_speech": "名词 n.",
@@ -2208,7 +2208,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "actif, active",
+    "french": "actif,ve",
     "chinese": "积极的；活跃的",
     "phonetic": "[ak.tif]",
     "part_of_speech": "形容词 adj.",
@@ -2216,7 +2216,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "doux, douce",
+    "french": "doux,ce",
     "chinese": "柔软的；温柔的",
     "phonetic": "[du]",
     "part_of_speech": "形容词 adj.",
@@ -2224,7 +2224,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "vif, vive",
+    "french": "vif,ve",
     "chinese": "活泼的；活跃的",
     "phonetic": "[vif]",
     "part_of_speech": "形容词 adj.",
@@ -2232,7 +2232,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "travailleur, travailleuse",
+    "french": "travailleur,se",
     "chinese": "勤劳的（人）",
     "phonetic": "[tʁa.va.jœʁ]",
     "part_of_speech": "形容词 / 名词 adj./n.",
@@ -2264,7 +2264,7 @@
     "lesson": "Atelier"
   },
   {
-    "french": "puissant, puissante",
+    "french": "puissant,e",
     "chinese": "有权力的；强大的",
     "phonetic": "[pɥi.sɑ̃]",
     "part_of_speech": "形容词 adj.",

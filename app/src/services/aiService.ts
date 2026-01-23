@@ -91,6 +91,10 @@ export class AIService {
           optionsCount: data.options?.length || 0,
           options: data.options
         });
+        
+        // 判断是否为AI生成：有questionId表示来自题库（AI生成），没有questionId表示程序生成
+        const isAiGenerated = !!data.questionId;
+        
         return {
           id: data.questionId ? `sentence-${data.questionId}` : `sentence-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           type: 'sentence-completion',
@@ -102,7 +106,7 @@ export class AIService {
           correctAnswer: data.correct_answer,
           explanation: data.explanation,
           difficulty: 'medium',
-          aiGenerated: true,
+          aiGenerated: isAiGenerated,
           questionId: data.questionId // 保存题库ID
         };
       }
@@ -193,6 +197,7 @@ export class AIService {
       maxTokens: config.max_tokens,
       temperature: config.temperature,
       enabled: config.enabled,
+      isSystemDefault: config.is_system_default || false,
       createdAt: config.created_at,
       updatedAt: config.updated_at
     };

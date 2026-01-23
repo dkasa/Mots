@@ -110,8 +110,30 @@ export function SentenceQuestionCard({
     
     setSelectedOption(option);
     
-    // 检查答案是否正确
-    const correct = option === question.correctAnswer;
+    // 标准化比较函数：考虑法语特殊字符形态
+    const normalizeAnswer = (answer: string) => {
+      return answer
+        .normalize('NFD')  // 将字符分解为基本字符和重音符号
+        .replace(/[\u0300-\u036f]/g, '')  // 移除重音符号（é -> e, è -> e, ç -> c）
+        .replace(/[.,!?;:]/g, '')          // 移除标点符号
+        .replace(/\s+/g, ' ')              // 合并多个空格
+        .trim()                           // 移除首尾空格
+        .toLowerCase();                   // 统一小写比较
+    };
+    
+    // 检查答案是否正确（大小写不敏感）
+    const normalizedUserAnswer = normalizeAnswer(option);
+    const normalizedCorrectAnswer = normalizeAnswer(question.correctAnswer);
+    const correct = normalizedUserAnswer === normalizedCorrectAnswer;
+    
+    console.log('🔍 填空题答案检查调试信息:', {
+      userAnswer: option,
+      correctAnswer: question.correctAnswer,
+      normalizedUserAnswer,
+      normalizedCorrectAnswer,
+      isEqual: normalizedUserAnswer === normalizedCorrectAnswer
+    });
+    
     setIsCorrect(correct);
     setShowFeedback(true);
     

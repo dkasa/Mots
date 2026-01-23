@@ -16,9 +16,10 @@ import { AIConfigModal } from './AIConfigModal';
 
 interface UserMenuProps {
   currentVersion?: string | null;
+  darkMode?: boolean;
 }
 
-export function UserMenu({ currentVersion }: UserMenuProps) {
+export function UserMenu({ currentVersion, darkMode = false }: UserMenuProps) {
   const { user, isAuthenticated, logout, isLoading } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAIConfigModalOpen, setIsAIConfigModalOpen] = useState(false);
@@ -142,7 +143,7 @@ export function UserMenu({ currentVersion }: UserMenuProps) {
       </DropdownMenu>
       
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-      <AIConfigModal isOpen={isAIConfigModalOpen} onClose={() => setIsAIConfigModalOpen(false)} />
+      <AIConfigModal isOpen={isAIConfigModalOpen} onClose={() => setIsAIConfigModalOpen(false)} darkMode={darkMode} />
     </>
   );
 }

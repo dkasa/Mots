@@ -222,13 +222,19 @@ export function QuizQuestionCard({
       case 'spelling':
         return (
           <div className="text-center">
+            <div className="mb-3">
+              <span className={`inline-block px-2 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
+                darkMode 
+                  ? 'bg-secondary-900 text-secondary-200' 
+                  : 'bg-secondary-100 text-secondary-900'
+              }`}>
+                {question.explanation?.includes(' - ') ? question.explanation.split(' - ')[1] : '词性'}
+              </span>
+            </div>
             <div className={`text-2xl font-bold mb-4 ${
               darkMode ? 'text-white' : 'text-neutral-800'
             }`}>
               {unescapeFrenchText(question.question)}
-            </div>
-            <div className={`text-sm ${darkMode ? 'text-neutral-dark-300' : 'text-neutral-500'}`}>
-              请输入正确的法语拼写
             </div>
             <div className="w-full max-w-sm mx-auto">
               <input 

@@ -259,38 +259,49 @@ export const WordListItem = React.memo(function WordListItem({
       )}
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          {/* 法语 */}
-          <h3 className={`text-lg font-semibold ${
-            isNotMastered ? '' : 'opacity-50'
-          }`}>
-            {shouldHideFrench ? '点击显示' : (
-              hasComma ? (
-                <span>
-                  {expandedWords.map((variant, index) => {
-                    const combinationIndex = index * 2 + (audioGender === 'male' ? 0 : 1);
-                    const color = getColorForCombination(combinationIndex);
-                    const isCurrent = index === currentWordVariant;
-                    
-                    return (
-                      <span 
-                        key={index}
-                        className={`transition-all duration-300 ${
-                          isCurrent 
-                            ? (darkMode ? color.text.dark : color.text.light)
-                            : (darkMode ? 'text-neutral-dark-600' : 'text-neutral-600')
-                        }`}
-                      >
-                        {variant}
-                        {index < expandedWords.length - 1 && <span className="text-gray-400"> / </span>}
-                      </span>
-                    );
-                  })}
-                </span>
-              ) : (
-                word.french
-              )
-            )}
-          </h3>
+          {/* 法语和词性标签在一排 */}
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className={`text-lg font-semibold ${
+              isNotMastered ? '' : 'opacity-50'
+            }`}>
+              {shouldHideFrench ? '点击显示' : (
+                hasComma ? (
+                  <span>
+                    {expandedWords.map((variant, index) => {
+                      const combinationIndex = index * 2 + (audioGender === 'male' ? 0 : 1);
+                      const color = getColorForCombination(combinationIndex);
+                      const isCurrent = index === currentWordVariant;
+                      
+                      return (
+                        <span 
+                          key={index}
+                          className={`transition-all duration-300 ${
+                            isCurrent 
+                              ? (darkMode ? color.text.dark : color.text.light)
+                              : (darkMode ? 'text-neutral-dark-600' : 'text-neutral-600')
+                          }`}
+                        >
+                          {variant}
+                          {index < expandedWords.length - 1 && <span className="text-gray-400"> / </span>}
+                        </span>
+                      );
+                    })}
+                  </span>
+                ) : (
+                  word.french
+                )
+              )}
+            </h3>
+            
+            {/* 词性标签 */}
+            <span className={`inline-block px-1.5 py-0.5 text-xs font-medium rounded-full transition-colors duration-300 ${
+              darkMode 
+                ? 'bg-secondary-900 text-secondary-200' 
+                : 'bg-secondary-100 text-secondary-900'
+            }`}>
+              {word.part_of_speech}
+            </span>
+          </div>
 
           {/* 中文 */}
           <p className={`text-sm ${

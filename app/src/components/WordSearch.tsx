@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Word, WordWithStatus, Grade } from '../types/vocabulary';
+import { getGradeShortDescription } from '../shared/constants';
 
 interface WordSearchProps {
   allWords: WordWithStatus[];
@@ -28,15 +29,7 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
 
   // 获取年级信息的函数，使用useCallback避免不必要的重新创建
   const getGradeFromWord = useCallback((word: WordWithStatus): string => {
-    const gradeMap: Record<Grade, string> = {
-      71: '初一上',
-      72: '初一下', 
-      81: '初二上',
-      82: '初二下',
-      91: '初三上',
-      92: '初三下'
-    };
-    return gradeMap[word.grade] || '未知年级';
+    return getGradeShortDescription(word.grade);
   }, []);
 
   // 搜索函数，正确包含所有依赖
