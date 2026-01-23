@@ -2,8 +2,8 @@ import { AIConnectionConfig, SentenceGenerationRequest, SentenceGenerationRespon
 import { aiQuestionCacheQueries, pool } from '../database/postgresql';
 import { getGradeDescription } from '../shared/constants';
 
-// 动态导入node-fetch，避免类型检查错误
-import fetch from 'node-fetch';
+// 使用 Node.js 内置的 undici
+import { request as httpRequest } from 'undici';
 
 const MAX_CACHED_QUESTIONS = 10; // 每个单词每个题型最多缓存10题
 
@@ -435,7 +435,7 @@ export class AIServiceImpl implements AIService {
     console.log(`📤 发送AI请求到: ${config.base_url}/chat/completions`);
     console.log(`📋 请求体:`, JSON.stringify(requestBody, null, 2).substring(0, 500) + '...');
     
-    const response = await fetch(`${config.base_url}/chat/completions`, {
+    const response = await httpRequest(`${config.base_url}/chat/completions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -444,20 +444,21 @@ export class AIServiceImpl implements AIService {
       body: JSON.stringify(requestBody)
     });
     
-    if (!response.ok) {
+    if (response.statusCode < 200 || response.statusCode >= 300) {
       // 获取详细的错误信息
-      let errorDetail = `${response.status} ${response.statusText}`;
+      const statusText = (response as any).statusMessage || response.statusCode.toString();
+      let errorDetail = `${response.statusCode} ${statusText}`;
       try {
-        const errorData = await response.json();
-        errorDetail += ` - ${JSON.stringify(errorData)}`;
+        const errorText = await response.body.text();
+        errorDetail += ` - ${errorText}`;
       } catch (e) {
-        // 忽略JSON解析错误
+        // 忽略文本读取错误
       }
       console.error(`❌ AI API调用失败: ${errorDetail}`);
       throw new Error(`AI API调用失败: ${errorDetail}`);
     }
     
-    const data = await response.json();
+    const data = await response.body.json() as any;
     
     // 检查响应结构
     if (!data.choices || !data.choices[0] || !data.choices[0].message) {
@@ -971,14 +972,14 @@ export class AIServiceImpl implements AIService {
   async testConnection(config: AIConnectionConfig): Promise<boolean> {
     try {
       // 真实的AI连接测试
-      const response = await fetch(`${config.base_url}/models`, {
+      const response = await httpRequest(`${config.base_url}/models`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${config.api_key}`
         }
       });
       
-      return response.ok;
+      return response.statusCode >= 200 && response.statusCode < 300;
     } catch (error) {
       console.error('AI连接测试失败:', error);
       return false;
