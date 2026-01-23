@@ -22,43 +22,94 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
   
   // 加载题目评价信息
   const loadRatings = useCallback(async () => {
-    if (!wordId || !questionType) return;
-    
+    // 收集所有需要加载评价的题目 ID
+    const questionIds: number[] = [];
+    questions.forEach((question, index) => {
+      if (question.aiGenerated) {
+        const backendQuestionId = getBackendQuestionId(question);
+        if (backendQuestionId) {
+          questionIds.push(backendQuestionId);
+        }
+      }
+    });
+
+    if (questionIds.length === 0) return;
+
+    console.log('📊 准备加载评价数据，题目ID列表:', questionIds);
+
     try {
       setLoadingRatings(true);
-      const response = await apiService.getAIQuestionsList(wordId, questionType);
-      if (response.success && response.data) {
-        const ratingsMap: Record<number, { positive: number; negative: number; userRating: 1 | -1 | null }> = {};
-        response.data.forEach((q: any) => {
-          if (q.id && q.ratings) {
-            // 使用后端返回的纯数字 ID 作为 key
-            ratingsMap[q.id] = q.ratings;
+      const ratingsMap: Record<number, { positive: number; negative: number; userRating: 1 | -1 | null }> = {};
+
+      // 为每个题目单独获取评价数据
+      for (const questionId of questionIds) {
+        try {
+          const response = await apiService.getAIQuestionRatings(questionId);
+          if (response.success && response.data) {
+            ratingsMap[questionId] = {
+              positive: response.data.positive || 0,
+              negative: response.data.negative || 0,
+              userRating: response.data.userRating || null
+            };
+            console.log('📊 加载评价数据:', questionId, ratingsMap[questionId]);
           }
-        });
-        setRatings(ratingsMap);
+        } catch (error) {
+          console.warn(`获取题目 ${questionId} 的评价数据失败:`, error);
+          // 即使失败，也初始化一个默认值，使按钮可用
+          ratingsMap[questionId] = {
+            positive: 0,
+            negative: 0,
+            userRating: null
+          };
+        }
       }
+
+      console.log('📊 所有评价数据:', ratingsMap);
+      setRatings(ratingsMap);
     } catch (error) {
       console.error('加载评价信息失败:', error);
     } finally {
       setLoadingRatings(false);
       setRatingQuestionId(null);
     }
-  }, [wordId, questionType]);
+  }, [questions]);
 
   // 从题目 ID 中提取后端纯数字 ID
   const getBackendQuestionId = (question: QuizQuestion): number | null => {
-    // 如果题目 ID 以 "sentence-" 开头，提取数字部分
-    if (question.id && typeof question.id === 'string' && question.id.startsWith('sentence-')) {
-      return parseInt(question.id.replace('sentence-', ''));
-    }
-    // 如果是纯数字 ID，直接返回
-    if (typeof question.id === 'number') {
-      return question.id;
-    }
-    // 如果有 questionId 属性，直接使用
-    if ('questionId' in question && typeof question.questionId === 'number') {
+    // 优先使用 questionId 属性（如果有的话）
+    if (question.questionId && typeof question.questionId === 'number') {
+      console.log('🔑 使用 questionId:', question.questionId, '题目ID:', question.id);
       return question.questionId;
     }
+    
+    // 如果题目 ID 以 "sentence-" 开头，提取数字部分
+    if (question.id && typeof question.id === 'string' && question.id.startsWith('sentence-')) {
+      const idNumber = parseInt(question.id.replace('sentence-', ''));
+      if (!isNaN(idNumber)) {
+        console.log('🔑 从 sentence- 前缀提取ID:', idNumber, '题目ID:', question.id);
+        return idNumber;
+      }
+    }
+    
+    // 如果是纯数字 ID，直接返回
+    if (typeof question.id === 'number') {
+      console.log('🔑 使用数字ID:', question.id);
+      return question.id;
+    }
+    
+    // 尝试从字符串ID中提取数字
+    if (question.id && typeof question.id === 'string') {
+      const idMatch = question.id.match(/\d+/);
+      if (idMatch) {
+        const idNumber = parseInt(idMatch[0]);
+        if (!isNaN(idNumber)) {
+          console.log('🔑 从字符串ID提取数字:', idNumber, '题目ID:', question.id);
+          return idNumber;
+        }
+      }
+    }
+    
+    console.warn('⚠️ 无法提取后端题目ID:', question.id, question.questionId);
     return null;
   };
 
@@ -260,49 +311,62 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
                   const isRatedDown = ratingData?.userRating === -1;
                   const isRating = ratingQuestionId === backendQuestionId; // 当前正在评价此题
 
+                  console.log(`🔍 题目${index + 1}状态:`, {
+                    questionId: question.id,
+                    backendQuestionId,
+                    ratingData,
+                    isRatedUp,
+                    isRatedDown,
+                    isRating,
+                    disabled: isRatedUp || isRatedDown || isRating
+                  });
+
                   return (
-                    <div className="flex items-center gap-2 mt-3 pt-3 border-t" style={{
+                    <div className="mt-3 pt-3 border-t" style={{
                       borderColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
                     }}>
-                      <span className={`text-xs ${darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'}`}>
-                        评价:
-                      </span>
-                      <button
-                        onClick={() => handleRate(backendQuestionId, 1)}
-                        disabled={isRatedUp || isRating}
-                        className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-all duration-200 ${
-                          isRatedUp
-                            ? darkMode
-                              ? 'bg-primary-600 text-white opacity-60 cursor-not-allowed'
-                              : 'bg-primary-500 text-white opacity-60 cursor-not-allowed'
-                            : isRating
-                              ? 'opacity-50 cursor-not-allowed'
-                              : darkMode
-                                ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-primary-400'
-                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-primary-600'
-                        }`}
-                      >
-                        <span className="text-sm">👍</span>
-                        <span className="font-medium">{ratingData?.positive || 0}</span>
-                      </button>
-                      <button
-                        onClick={() => handleRate(backendQuestionId, -1)}
-                        disabled={isRatedDown || isRating}
-                        className={`px-2.5 py-1 rounded-lg text-xs flex items-center gap-1 transition-all duration-200 ${
-                          isRatedDown
-                            ? darkMode
-                              ? 'bg-neutral-dark-600 text-neutral-dark-400 opacity-60 cursor-not-allowed'
-                              : 'bg-neutral-300 text-neutral-600 opacity-60 cursor-not-allowed'
-                            : isRating
-                              ? 'opacity-50 cursor-not-allowed'
-                              : darkMode
-                                ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-neutral-dark-200'
-                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800'
-                        }`}
-                      >
-                        <span className="text-sm">👎</span>
-                        <span className="font-medium">{ratingData?.negative || 0}</span>
-                      </button>
+                      <div className="flex gap-2 w-full">
+                        <button
+                          onClick={() => handleRate(backendQuestionId, 1)}
+                          disabled={isRatedUp || isRating}
+                          className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 ${
+                            isRatedUp
+                              ? darkMode
+                                ? 'bg-primary-600 text-white cursor-not-allowed'
+                                : 'bg-primary-500 text-white cursor-not-allowed'
+                              : isRating
+                                ? 'opacity-50 cursor-not-allowed'
+                                : darkMode
+                                  ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-primary-400'
+                                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-primary-600'
+                          }`}
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-sm font-medium">{ratingData?.positive || 0}</span>
+                        </button>
+                        <button
+                          onClick={() => handleRate(backendQuestionId, -1)}
+                          disabled={isRatedDown || isRating}
+                          className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 ${
+                            isRatedDown
+                              ? darkMode
+                                ? 'bg-neutral-dark-600 text-neutral-dark-400 cursor-not-allowed'
+                                : 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
+                              : isRating
+                                ? 'opacity-50 cursor-not-allowed'
+                                : darkMode
+                                  ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-neutral-dark-200'
+                                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800'
+                          }`}
+                        >
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                          <span className="text-sm font-medium">{ratingData?.negative || 0}</span>
+                        </button>
+                      </div>
                     </div>
                   );
                 })()}

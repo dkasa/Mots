@@ -632,7 +632,7 @@ async function createSentenceCompletionQuestion(word: WordWithStatus, id: string
     }
 
   return {
-    id: sentenceQuestion.id,
+    id: id,
     type: 'sentence-completion',
     wordId: word.id,
     question: sentenceQuestion.modifiedSentence || sentenceQuestion.originalSentence,
@@ -711,7 +711,7 @@ async function createSentenceReorderingQuestion(
       // 使用AI生成的内容
       const questionId = aiResponse.data.questionId;
       return {
-        id: questionId ? `sentence-${questionId}` : id,
+        id: id,
         type: 'sentence-reordering',
         wordId: word.id,
         question: `请重新排列单词组成正确的句子：${aiResponse.data.shuffled_blocks.join(' ')}`,
