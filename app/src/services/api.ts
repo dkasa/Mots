@@ -386,6 +386,26 @@ class ApiService {
     }
   }
 
+  // 词汇表哈希检查API
+  async getVocabularyHashes(): Promise<any> {
+    try {
+      const response = await this.client.get('/vocabulary/hashes', {
+        timeout: 10000, // 10秒超时
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error('获取词汇表哈希失败:', error.message);
+      
+      if (error.code === 'ECONNABORTED') {
+        throw new Error('获取哈希超时');
+      } else if (!navigator.onLine) {
+        throw new Error('网络离线: 请检查网络连接');
+      } else {
+        throw error;
+      }
+    }
+  }
+
 }
 
 export const apiService = new ApiService();
