@@ -1,8 +1,8 @@
 {
-  "version": "20260123-141928",
-  "buildVersion": "20260123-141928",
-  "buildTime": "2026-01-23T06:19:28.684Z",
-  "timestamp": 1769149168684,
+  "version": "20260127-155749",
+  "buildVersion": "20260127-155749",
+  "buildTime": "2026-01-27T07:57:49.682Z",
+  "timestamp": 1769500669682,
   "environment": "development",
   "description": "法语词汇学习应用 - 自动生成版本信息",
   "timezone": "UTC+8 (北京时间)"

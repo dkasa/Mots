@@ -716,9 +716,9 @@ export const questionRatingQueries = {
 
     const { positive_count, negative_count } = result.rows[0];
 
-    // 如果（反赞数 - 点赞数）≥ 2，删除题目
-    if (negative_count - positive_count >= 2) {
-      console.log(`🗑️ 删除低质量题目: questionId=${questionId}, 赞=${positive_count}, 反赞=${negative_count}, 差值=${negative_count - positive_count}`);
+    // 只要有1个反赞就删除题目
+    if (negative_count >= 1) {
+      console.log(`🗑️ 删除低质量题目: questionId=${questionId}, 赞=${positive_count}, 反赞=${negative_count}`);
       await pool.query('DELETE FROM ai_generated_questions WHERE id = $1', [questionId]);
     }
   },

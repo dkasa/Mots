@@ -247,6 +247,61 @@ router.post('/generate-sentence', authenticateToken, async (req, res) => {
   }
 });
 
+// AI造句 - 生成包含指定单词的句子
+router.post('/generate-sentences', authenticateToken, async (req, res) => {
+  try {
+    const userId = (req as any).user.id;
+    const {
+      word,
+      meaning,
+      frenchWord,
+      grade,
+      partOfSpeech
+    } = req.body;
+
+    // 验证必填字段
+    if (!word || !meaning || !frenchWord || !grade) {
+      return res.status(400).json({
+        success: false,
+        message: '缺少必填字段：word, meaning, frenchWord, grade'
+      });
+    }
+
+    // 获取用户启用的AI连接配置，优先使用第一个启用的配置
+    const enabledConnections = await aiConnectionQueries.findEnabledByUserId(userId);
+    let userConnection: AIConnectionConfig | undefined = undefined;
+
+    if (enabledConnections.length > 0) {
+      userConnection = enabledConnections[0];
+      // 确保userConnection不为undefined后再使用其属性
+      if (userConnection) {
+        console.log(`使用用户AI配置生成句子: ${userConnection.name} (${userConnection.type})`);
+      }
+    } else {
+      console.log('用户没有启用AI配置，使用默认配置生成句子');
+    }
+
+    const result = await aiService.generateSentences({
+      word,
+      meaning,
+      frenchWord,
+      grade,
+      partOfSpeech
+    }, userConnection);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('生成AI造句失败:', error);
+    res.status(500).json({
+      success: false,
+      message: '生成AI造句失败'
+    });
+  }
+});
+
 // 题目评估（点赞/反赞）
 router.post('/questions/:questionId/rate', authenticateToken, async (req, res) => {
   try {
@@ -447,6 +502,49 @@ router.get('/questions/list', authenticateToken, async (req, res) => {
     res.status(500).json({
       success: false,
       message: '获取题目列表失败'
+    });
+  }
+});
+
+// AI查词接口
+router.post('/lookup-word', authenticateToken, async (req, res) => {
+  try {
+    const userId = (req as any).user.id;
+    const { word } = req.body;
+
+    // 验证必填字段
+    if (!word || typeof word !== 'string' || word.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: '缺少必填字段：word'
+      });
+    }
+
+    // 获取用户启用的AI连接配置，优先使用第一个启用的配置
+    const enabledConnections = await aiConnectionQueries.findEnabledByUserId(userId);
+    let userConnection: AIConnectionConfig | undefined = undefined;
+
+    if (enabledConnections.length > 0) {
+      userConnection = enabledConnections[0];
+      if (userConnection) {
+        console.log(`使用用户AI配置: ${userConnection.name} (${userConnection.type})`);
+      }
+    } else {
+      console.log('用户没有启用AI配置，使用默认配置');
+    }
+
+    const result = await aiService.lookupWord(word.trim(), userConnection);
+
+    res.json({
+      success: true,
+      data: result
+    });
+  } catch (error) {
+    console.error('AI查词失败:', error);
+    res.status(500).json({
+      success: false,
+      message: 'AI查词失败',
+      error: error instanceof Error ? error.message : String(error)
     });
   }
 });

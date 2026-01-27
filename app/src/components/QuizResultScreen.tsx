@@ -123,8 +123,15 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
       setRatingQuestionId(questionId);
       const response = await apiService.rateAIQuestion(questionId, rating);
       if (response.success) {
-        // 重新加载评价信息，按钮状态会自动更新
-        await loadRatings();
+        // 直接更新本地状态为已删除，不需要重新加载
+        setRatings(prev => ({
+          ...prev,
+          [questionId]: {
+            positive: 0,
+            negative: 1,
+            userRating: -1
+          }
+        }));
       }
     } catch (error) {
       console.error('评价题目失败:', error);
@@ -301,72 +308,51 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
                   )}
                 </div>
 
-                {/* 点赞/反赞按钮 - 仅对 AI 生成的题目显示 */}
+                {/* 删除按钮 - 仅对 AI 生成的题目显示 */}
                 {question.aiGenerated && (() => {
                   const backendQuestionId = getBackendQuestionId(question);
                   if (!backendQuestionId) return null;
 
                   const ratingData = ratings[backendQuestionId];
-                  const isRatedUp = ratingData?.userRating === 1;
-                  const isRatedDown = ratingData?.userRating === -1;
-                  const isRating = ratingQuestionId === backendQuestionId; // 当前正在评价此题
+                  const isDeleted = ratingData?.userRating === -1;
+                  const isDeleting = ratingQuestionId === backendQuestionId; // 当前正在删除此题
 
                   console.log(`🔍 题目${index + 1}状态:`, {
                     questionId: question.id,
                     backendQuestionId,
                     ratingData,
-                    isRatedUp,
-                    isRatedDown,
-                    isRating,
-                    disabled: isRatedUp || isRatedDown || isRating
+                    isDeleted,
+                    isDeleting,
+                    disabled: isDeleted || isDeleting
                   });
 
                   return (
                     <div className="mt-3 pt-3 border-t" style={{
                       borderColor: darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
                     }}>
-                      <div className="flex gap-2 w-full">
-                        <button
-                          onClick={() => handleRate(backendQuestionId, 1)}
-                          disabled={isRatedUp || isRating}
-                          className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 ${
-                            isRatedUp
-                              ? darkMode
-                                ? 'bg-primary-600 text-white cursor-not-allowed'
-                                : 'bg-primary-500 text-white cursor-not-allowed'
-                              : isRating
-                                ? 'opacity-50 cursor-not-allowed'
-                                : darkMode
-                                  ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-primary-400'
-                                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-primary-600'
-                          }`}
-                        >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-sm font-medium">{ratingData?.positive || 0}</span>
-                        </button>
-                        <button
-                          onClick={() => handleRate(backendQuestionId, -1)}
-                          disabled={isRatedDown || isRating}
-                          className={`flex-1 py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 ${
-                            isRatedDown
-                              ? darkMode
-                                ? 'bg-neutral-dark-600 text-neutral-dark-400 cursor-not-allowed'
-                                : 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
-                              : isRating
-                                ? 'opacity-50 cursor-not-allowed'
-                                : darkMode
-                                  ? 'bg-neutral-dark-800 text-neutral-dark-300 hover:bg-neutral-dark-700 hover:text-neutral-dark-200'
-                                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 hover:text-neutral-800'
-                          }`}
-                        >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-sm font-medium">{ratingData?.negative || 0}</span>
-                        </button>
-                      </div>
+                      <button
+                        onClick={() => handleRate(backendQuestionId, -1)}
+                        disabled={isDeleted || isDeleting}
+                        className={`w-full py-2 rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 ${
+                          isDeleted
+                            ? darkMode
+                              ? 'bg-neutral-dark-600 text-neutral-dark-400 cursor-not-allowed'
+                              : 'bg-neutral-300 text-neutral-600 cursor-not-allowed'
+                            : isDeleting
+                              ? 'opacity-50 cursor-not-allowed'
+                              : darkMode
+                                ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800'
+                                : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
+                        }`}
+                        title="删除此智能句子"
+                      >
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        <span className="text-sm font-medium">
+                          {isDeleted ? '已删除' : '删除此句子'}
+                        </span>
+                      </button>
                     </div>
                   );
                 })()}
@@ -377,20 +363,10 @@ export function QuizResultScreen({ quizSession, onRestart, onExit, darkMode = fa
       </div>
 
       {/* 操作按钮 */}
-      <div className="flex gap-3">
-        <button
-          onClick={onExit}
-          className={`flex-1 py-3 font-semibold rounded-md transition-colors duration-200 ${
-            darkMode
-              ? 'bg-neutral-dark-300 hover:bg-neutral-dark-400 text-neutral-dark-800'
-              : 'bg-neutral-100 hover:bg-neutral-200 text-neutral-700'
-          }`}
-        >
-          返回
-        </button>
+      <div className="text-center">
         <button
           onClick={onRestart}
-          className={`flex-1 py-3 font-semibold rounded-md transition-colors duration-200 ${
+          className={`w-full py-3 font-semibold rounded-md transition-colors duration-200 ${
             darkMode
               ? 'bg-primary-600 hover:bg-primary-700 text-white'
               : 'bg-primary-500 hover:bg-primary-600 text-white'

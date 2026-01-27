@@ -531,7 +531,7 @@ function App() {
       <ProgressIndicator progress={progress} darkMode={darkMode} />
       
       {/* 主内容区域 */}
-      <main className={`${currentViewMode === 'learn' ? 'pt-[calc(30px+40px+16px)]' : 'pt-0'} pb-20`}>
+      <main className="pb-20">
         {currentViewMode === 'learn' ? (
           <LearnMode
             words={words}

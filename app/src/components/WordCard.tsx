@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
+import { useAuth } from '../hooks/useAuth';
+import { aiSentenceService, AISentence } from '../services/aiSentenceService';
+import { AuthModal } from './AuthModal';
 
 type RecallMode = 'none' | 'hide-french' | 'hide-chinese';
 
@@ -15,6 +18,16 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   const [currentWordVariant, setCurrentWordVariant] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  // AI造句相关状态
+  const [isGeneratingSentences, setIsGeneratingSentences] = useState(false);
+  const [generatedSentences, setGeneratedSentences] = useState<AISentence | null>(null);
+  const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAutoFetching, setIsAutoFetching] = useState(false);
+  const [usedSentenceIndices, setUsedSentenceIndices] = useState<number[]>([]);
+  
+  const { isAuthenticated } = useAuth();
 
   // 当回忆模式改变时重置显示状态
   useEffect(() => {
@@ -27,12 +40,187 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
     setAudioGender('male');
     setCurrentWordVariant(0);
     setIsPlaying(false);
+    // 重置AI造句状态
+    setGeneratedSentences(null);
+    setIsGeneratingSentences(false);
+    setCurrentSentenceIndex(0);
+    setUsedSentenceIndices([]);
+    
+      // 自动从数据库获取已有的句子
+      const fetchExistingSentences = async () => {
+        setIsAutoFetching(true);
+        try {
+          console.log('🔄 开始自动获取句子，单词ID:', word.id);
+          const existing = await aiSentenceService.getExistingSentences(word.id);
+          console.log('📥 自动获取句子结果:', existing);
+          if (existing && existing.sentences.length > 0) {
+            console.log('✅ 自动获取到句子，数量:', existing.sentences.length);
+            setGeneratedSentences(existing);
+            
+            // 自动获取时也随机选择一条句子并标记为已使用
+            const randomIndex = Math.floor(Math.random() * existing.sentences.length);
+            setCurrentSentenceIndex(randomIndex);
+            setUsedSentenceIndices([randomIndex]);
+          } else {
+            console.log('ℹ️ 数据库中没有找到该单词的句子');
+          }
+        } catch (error) {
+          console.warn('❌ 获取已有句子失败:', error);
+        } finally {
+          setIsAutoFetching(false);
+        }
+      };
+    
+    fetchExistingSentences();
   }, [word.id]);
+
+  // 获取下一个可用的随机句子索引
+  const getNextRandomSentenceIndex = (sentencesLength: number) => {
+    const availableIndices = Array.from({length: sentencesLength}, (_, i) => i)
+      .filter(index => !usedSentenceIndices.includes(index));
+    
+    if (availableIndices.length === 0) {
+      // 所有句子都已使用过，返回null表示需要检查是否需要生成
+      return null;
+    }
+    
+    // 随机选择一个可用的索引
+    const randomIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+    return randomIndex;
+  };
+
+  // 处理卡片点击事件（随机显示一条句子，不重复）
+  const handleCardGenerateSentences = async () => {
+    if (!isAuthenticated) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    setIsGeneratingSentences(true);
+
+    try {
+      console.log('🎯 WordCard: 开始处理句子，单词:', word.french, '中文:', word.chinese);
+      
+      // 如果已有句子数据，尝试获取下一个随机句子
+      if (generatedSentences && generatedSentences.sentences.length > 0) {
+        const nextIndex = getNextRandomSentenceIndex(generatedSentences.sentences.length);
+        
+        if (nextIndex !== null) {
+          // 还有未使用的句子，显示随机一条
+          console.log('🔄 WordCard: 切换到新句子，索引:', nextIndex);
+          setCurrentSentenceIndex(nextIndex);
+          setUsedSentenceIndices(prev => [...prev, nextIndex]);
+        } else {
+          // 所有句子都已使用过，检查是否需要生成新句子
+          if (generatedSentences.sentences.length < 20) {
+            // 句子数量不足20个，用AI生成补充
+            console.log('🔄 WordCard: 句子数量不足20个，开始AI生成补充');
+            await generateAISentences();
+          } else {
+            // 句子数量达到20个，清空已使用记录，重新开始循环
+            console.log('🔄 WordCard: 句子数量达到20个，重新开始循环');
+            setUsedSentenceIndices([]);
+            const randomIndex = Math.floor(Math.random() * generatedSentences.sentences.length);
+            setCurrentSentenceIndex(randomIndex);
+            setUsedSentenceIndices([randomIndex]);
+          }
+        }
+      } else {
+        // 没有句子数据，从数据库获取所有句子
+        console.log('🔄 WordCard: 没有句子数据，开始获取数据库句子');
+        await fetchAllDatabaseSentences();
+      }
+    } catch (error) {
+      console.error('❌ WordCard: 处理句子失败:', error);
+    } finally {
+      setIsGeneratingSentences(false);
+    }
+  };
+
+  // 从数据库获取所有句子
+  const fetchAllDatabaseSentences = async () => {
+    const existing = await aiSentenceService.getExistingSentences(word.id);
+    console.log('📥 WordCard: 数据库查询结果:', existing);
+    
+    if (existing && existing.sentences.length > 0) {
+      console.log('✅ WordCard: 使用数据库中的句子，数量:', existing.sentences.length);
+      setGeneratedSentences(existing);
+      
+      // 随机选择一条句子并标记为已使用
+      const randomIndex = Math.floor(Math.random() * existing.sentences.length);
+      setCurrentSentenceIndex(randomIndex);
+      setUsedSentenceIndices([randomIndex]);
+    } else {
+      // 数据库没有句子，使用AI生成
+      console.log('🔄 WordCard: 数据库没有句子，开始AI生成');
+      await generateAISentences();
+    }
+  };
+
+  // 用AI生成补充句子
+  const generateAISentences = async () => {
+    const aiSentences = await aiSentenceService.generateSentences(word);
+    console.log('✅ WordCard: AI生成成功，句子数量:', aiSentences.sentences.length);
+    
+    if (generatedSentences) {
+      // 合并现有句子和AI生成的新句子
+      const mergedSentences = {
+        ...generatedSentences,
+        sentences: [...generatedSentences.sentences, ...aiSentences.sentences]
+      };
+      setGeneratedSentences(mergedSentences);
+      
+      // 显示第一条AI生成的句子
+      const firstAIIndex = generatedSentences.sentences.length;
+      setCurrentSentenceIndex(firstAIIndex);
+      setUsedSentenceIndices(prev => [...prev, firstAIIndex]);
+    } else {
+      // 没有现有句子，直接使用AI生成的句子
+      setGeneratedSentences(aiSentences);
+      
+      // 随机选择一条句子并标记为已使用
+      const randomIndex = Math.floor(Math.random() * aiSentences.sentences.length);
+      setCurrentSentenceIndex(randomIndex);
+      setUsedSentenceIndices([randomIndex]);
+    }
+  };
+
+  // 处理AI造句生成（仅用于手动触发）
+  const handleGenerateSentences = async () => {
+    if (!isAuthenticated) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+
+    setIsGeneratingSentences(true);
+
+    try {
+      console.log('🎯 WordCard: 开始生成句子，单词:', word.french, '中文:', word.chinese);
+      const sentences = await aiSentenceService.generateSentences(word);
+      console.log('✅ WordCard: 收到句子结果:', sentences);
+      console.log('📝 WordCard: 句子内容:', JSON.stringify(sentences, null, 2));
+      setGeneratedSentences(sentences);
+      
+      // 手动生成时也随机选择一条句子并标记为已使用
+      const randomIndex = Math.floor(Math.random() * sentences.sentences.length);
+      setCurrentSentenceIndex(randomIndex);
+      setUsedSentenceIndices([randomIndex]);
+    } catch (error) {
+      console.error('❌ WordCard: 生成AI造句失败:', error);
+      // 可以在这里添加错误处理，比如显示错误提示
+    } finally {
+      setIsGeneratingSentences(false);
+    }
+  };
+
+
 
   const handleCardClick = () => {
     if (recallMode !== 'none') {
       setIsRevealed(true);
     }
+    // 点击卡片时播放语音
+    playAudio();
   };
 
   // 根据法语单词生成文件名
@@ -207,37 +395,101 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   }, []);
 
   return (
-    <div 
-      className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 relative ${
-        darkMode 
-          ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
-          : 'bg-bg-card shadow-md hover:shadow-lg'
-      } transition-shadow duration-250 ${
-        recallMode !== 'none' && !isRevealed ? 'cursor-pointer' : ''
-      }`}
-      onClick={handleCardClick}
-    >
-      {/* 播放特效层 - 已移除，单词学习和详情页面不需要背景特效 */}
-      
-      {/* 右上角语音按钮 */}
-      <div className="absolute top-3 right-3 z-10">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            playAudio();
-          }}
-          className={`p-2 rounded-full transition-all duration-200 shadow-md ${
-            darkMode 
-              ? getColorForCombination(getCurrentCombinationIndex()).bg.dark 
-              : getColorForCombination(getCurrentCombinationIndex()).bg.light
-          } text-white hover:opacity-90`}
-          title={`播放语音（当前：${audioGender === 'male' ? '男声' : '女声'}，点击切换）`}
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M9.383 3.076A1 1 0 0110 4v12a1 1 0 01-1.707.707L4.586 13H2a1 1 0 01-1-1V8a1 1 0 011-1h2.586l3.707-3.707a1 1 0 011.09-.217zM14.657 2.929a1 1 0 011.414 0A9.972 9.972 0 0119 10a9.972 9.972 0 01-2.929 7.071 1 1 0 01-1.414-1.414A7.971 7.971 0 0017 10c0-2.21-.894-4.208-2.343-5.657a1 1 0 010-1.414zm-2.829 2.828a1 1 0 011.415 0A5.983 5.983 0 0115 10a5.984 5.984 0 01-1.757 4.243 1 1 0 01-1.415-1.415A3.984 3.984 0 0013 10a3.983 3.983 0 00-1.172-2.828 a1 1 0 010-1.415z" clipRule="evenodd" />
-          </svg>
-        </button>
+    <div className="space-y-4">
+      {/* AI造句卡片 - 单独显示在单词卡片上方 */}
+      <div 
+        className={`mx-4 p-4 rounded-lg transition-all duration-300 cursor-pointer ${
+          darkMode 
+            ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
+            : 'bg-bg-card shadow-md hover:shadow-lg'
+        }`}
+        onClick={handleCardGenerateSentences}
+      >
+        <div className="mb-3">
+          <h3 className={`text-sm font-medium transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+          }`}>
+            AI造句
+          </h3>
+        </div>
+
+        {isGeneratingSentences ? (
+          <div className={`text-center py-4 transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+          }`}>
+            <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p className="text-sm">正在生成句子...</p>
+          </div>
+        ) : isAutoFetching ? (
+          <div className={`text-center py-4 transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+          }`}>
+            <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p className="text-sm">正在自动获取句子...</p>
+          </div>
+        ) : generatedSentences ? (
+          <div className="space-y-4">
+            {/* 当前句子显示 - 显示当前选中的句子 */}
+            {generatedSentences.sentences.length > 0 && (
+              <div className="text-center space-y-3">
+                <div className={`text-xl font-french font-bold leading-relaxed transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+                }`}>
+                  {generatedSentences.sentences[currentSentenceIndex].french}
+                </div>
+                <div className={`text-base font-chinese leading-relaxed transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-500' : 'text-neutral-600'
+                }`}>
+                  {generatedSentences.sentences[currentSentenceIndex].chinese}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className={`text-center py-4 transition-colors duration-300 ${
+            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+          }`}>
+            <svg className="w-6 h-6 mx-auto mb-2 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+            </svg>
+            <p className="text-sm">点击生成AI造句示例</p>
+          </div>
+        )}
       </div>
+
+      {/* 单词卡片 */}
+      <div 
+        className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 relative ${
+          isPlaying 
+            ? (audioGender === 'male' 
+                ? (darkMode ? 'bg-info-900/20' : 'bg-info-100') 
+                : (darkMode ? 'bg-secondary-900/20' : 'bg-secondary-100'))
+            : (darkMode 
+                ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
+                : 'bg-bg-card shadow-md hover:shadow-lg')
+        } transition-shadow duration-250 ${
+          recallMode !== 'none' && !isRevealed ? 'cursor-pointer' : ''
+        }`}
+        onClick={handleCardClick}
+      >
+        {/* 播放特效层 */}
+        {isPlaying && (
+          <div className={`absolute inset-0 rounded-lg transition-all duration-1000 ${
+            audioGender === 'male' 
+              ? (darkMode ? 'bg-info-500/10' : 'bg-info-500/20') 
+              : (darkMode ? 'bg-secondary-500/10' : 'bg-secondary-500/20')
+          }`} style={{
+            animation: 'pulse 2s infinite'
+          }} />
+        )}
+        
+
 
       {/* 词性标签 */}
       <div className="mb-3">
@@ -344,6 +596,14 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
           </div>
         </div>
       )}
+    </div>
+
+      {/* 登录弹窗 */}
+      <AuthModal 
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        message="请先登录以使用AI造句功能"
+      />
     </div>
   );
 }

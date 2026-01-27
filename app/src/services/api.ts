@@ -350,6 +350,42 @@ class ApiService {
     return response.data;
   }
 
+  // AI查词
+  async lookupWord(word: string): Promise<any> {
+    const response = await this.client.post('/ai/lookup-word', { word });
+    return response.data;
+  }
+
+  // AI造句
+  async generateAISentences(request: any): Promise<any> {
+    const response = await this.client.post('/ai/generate-sentences', request, {
+      timeout: 30000, // 增加超时到30秒
+    });
+    return response.data;
+  }
+
+  // 获取单词的句子
+  async getWordSentences(wordId: string): Promise<any> {
+    try {
+      const response = await this.client.get(`/intelligent-sentences/word/${wordId}`);
+      return response.data;
+    } catch (error: any) {
+      console.error('获取单词句子失败:', error);
+      
+      if (error.code === 'ECONNABORTED') {
+        throw new Error('获取句子超时');
+      } else if (error.response?.status === 404) {
+        // 没有找到句子是正常情况，返回空数据
+        return {
+          success: true,
+          data: null
+        };
+      } else {
+        throw error;
+      }
+    }
+  }
+
 }
 
 export const apiService = new ApiService();

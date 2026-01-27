@@ -9,6 +9,7 @@ import authRoutes from './routes/auth';
 import progressRoutes from './routes/progress';
 import quizRoutes from './routes/quiz';
 import aiRoutes from './routes/ai';
+import intelligentSentencesRoutes from './routes/intelligentSentences';
 
 // 加载环境变量
 dotenv.config();
@@ -78,11 +79,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/intelligent-sentences', intelligentSentencesRoutes);
 // 兼容生产环境nginx配置（移除/api前缀）
 app.use('/auth', authRoutes);
 app.use('/progress', progressRoutes);
 app.use('/quiz', quizRoutes);
 app.use('/ai', aiRoutes);
+app.use('/intelligent-sentences', intelligentSentencesRoutes);
 
 // API健康检查路由
 app.get('/api/health', async (req, res) => {

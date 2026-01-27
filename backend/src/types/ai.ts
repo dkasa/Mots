@@ -57,4 +57,18 @@ export interface SentenceGenerationResponse {
 export interface AIService {
   generateSentenceQuestion(request: SentenceGenerationRequest): Promise<SentenceGenerationResponse>;
   testConnection(config: AIConnectionConfig): Promise<boolean>;
+  lookupWord(word: string, connection?: AIConnectionConfig): Promise<WordLookupResponse>;
+  generateSentences(request: any, connection?: AIConnectionConfig): Promise<any>;
+}
+
+export interface WordLookupRequest {
+  word: string;
+}
+
+export interface WordLookupResponse {
+  french: string;
+  chinese: string;
+  phonetic: string;
+  part_of_speech: string;
+  examples?: string[];
 }

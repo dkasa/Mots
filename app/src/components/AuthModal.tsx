@@ -10,9 +10,10 @@ import { useAuth } from '../hooks/useAuth';
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
+  message?: string;
 }
 
-export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, message }: AuthModalProps) {
   const { login, register, isLoading } = useAuth();
   const [error, setError] = useState<string>('');
 
@@ -89,6 +90,12 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         <DialogHeader>
           <DialogTitle className="text-[#1F4F3D] text-xl font-medium">账户登录 / 注册</DialogTitle>
         </DialogHeader>
+        
+        {message && (
+          <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+            <p className="text-blue-800 text-sm font-medium">{message}</p>
+          </div>
+        )}
         
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2">

@@ -1,4 +1,4 @@
-import { AIConnectionConfig, SentenceGenerationRequest, SentenceGenerationResponse, AIService, AICompletionRequest, AICompletionResponse } from '../types/ai';
+import { AIConnectionConfig, SentenceGenerationRequest, SentenceGenerationResponse, AIService, AICompletionRequest, AICompletionResponse, WordLookupResponse } from '../types/ai';
 import { aiQuestionCacheQueries, pool } from '../database/postgresql';
 import { getGradeDescription } from '../shared/constants';
 
@@ -41,62 +41,10 @@ export class AIServiceImpl implements AIService {
             word_blocks_count: cachedQuestion.word_blocks?.length || 0
           });
 
-          // 判断实际题型：以数据内容为准，而不是数据库标记
-          const hasValidOptions = cachedQuestion.options && cachedQuestion.options.length > 0;
-          const hasValidWordBlocks = cachedQuestion.word_blocks && cachedQuestion.word_blocks.length > 0 &&
-                                  cachedQuestion.shuffled_blocks && cachedQuestion.shuffled_blocks.length > 0;
-
-          // 根据实际数据内容确定题型
-          let actualQuestionType = cachedQuestion.question_type;
+          // 简化逻辑：直接使用数据库标记的题型，智能复用由新服务处理
+          const actualQuestionType = cachedQuestion.question_type;
           
-          if (hasValidOptions && hasValidWordBlocks) {
-            // 同时有 options 和 word_blocks：根据请求的题型决定
-            actualQuestionType = normalizedQuestionType;
-            console.log('🔧 题目同时有options和word_blocks，使用请求的题型:', normalizedQuestionType);
-          } else if (hasValidOptions) {
-            // 只有 options：肯定是填空题
-            actualQuestionType = 'sentence-completion';
-            console.log('🔧 检测到填空题（有options）');
-          } else if (hasValidWordBlocks) {
-            // 只有 word_blocks：肯定是词卡重组题
-            actualQuestionType = 'sentence-reordering';
-            console.log('🔧 检测到词卡重组题（有word_blocks）');
-          } else {
-            // 都没有：根据数据库标记，但需要修复数据
-            console.log('⚠️ 题目缺少有效数据，使用数据库标记:', actualQuestionType);
-            
-            // 尝试修复：如果数据库标记与数据内容不匹配，生成合适的题目
-            if (actualQuestionType === 'sentence-completion') {
-              console.log('🔧 填空题缺少options，尝试生成选项...');
-              const generatedOptions = this.generateOptionsForCompletionQuestion(cachedQuestion.original_sentence, frenchWord);
-              console.log('🔧 生成的选项:', generatedOptions);
-              
-              // 修复数据库中的题目数据（异步执行，不影响当前返回）
-              this.fixQuestionData(cachedQuestion.id, 'sentence-completion', generatedOptions);
-              
-              return {
-                original_sentence: cachedQuestion.original_sentence,
-                modified_sentence: cachedQuestion.modified_sentence || cachedQuestion.original_sentence,
-                options: generatedOptions,
-                correct_answer: cachedQuestion.correct_answer || frenchWord,
-                explanation: cachedQuestion.explanation || '',
-                questionId: cachedQuestion.id
-              };
-            } else {
-              // 词卡重组题缺少数据，无法使用
-              console.warn('⚠️ 题目数据不完整，无法使用');
-              throw new Error('题库中题目数据不完整');
-            }
-          }
-          
-          // 检查是否需要修复数据库中的题型标记
-          if ((actualQuestionType === 'sentence-completion' && !hasValidOptions) || 
-              (actualQuestionType === 'sentence-reordering' && !hasValidWordBlocks)) {
-            console.log('🔧 发现题型标记错误，进行修复...');
-            this.fixQuestionData(cachedQuestion.id, actualQuestionType, undefined);
-          }
-
-          // 关键修复：如果检测到的实际题型与请求的题型不匹配，直接抛出错误，让系统重新生成
+          // 检查题型是否匹配
           if (actualQuestionType !== normalizedQuestionType) {
             console.warn(`⚠️ 题型不匹配：数据库存储的是${actualQuestionType}，但请求的是${normalizedQuestionType}`);
             console.warn('❌ 无法使用题库中的题目，将重新生成');
@@ -335,7 +283,7 @@ export class AIServiceImpl implements AIService {
 
 **教学要求：**
 1. 创建一个简单、实用的法语句子，适合${gradeDescription}学生的理解水平
-2. 句子长度控制在6-10个单词，语法简单清晰
+2. 句子长度控制在5-8个单词，语法简单清晰
 3. 将"${frenchWord}"替换为下划线"______"
 4. 提供4个选项，第一个是正确答案
 5. 句子内容要贴近学生的日常生活和学习场景
@@ -349,7 +297,10 @@ export class AIServiceImpl implements AIService {
 **内容限制：**
 - 句子要简单实用，避免过于复杂的语法结构
 - 选项要合理，不能有过于明显的错误选项
-- explanation字段只能包含完整原句的准确中文翻译
+- explanation字段只能包含完整原句的准确且自然的中文翻译
+  - 翻译要符合中文表达习惯，自然流畅
+  - 避免直译和僵硬表达，如"一会儿见，我回来！"改为"一会儿见，我马上回来！"
+  - 避免重复表达，如"一会儿见，我们再见！"改为"一会儿见，我们待会儿见！"
 - 不要添加任何额外的解释或分析
 
 请严格按照以下JSON格式返回，只包含JSON：
@@ -378,13 +329,16 @@ export class AIServiceImpl implements AIService {
 - 避免生成过于复杂的句子结构
 
 **练习题要求：**
-1. 创建一个包含"${frenchWord}"的简单法语句子（5-7个单词）
+1. 创建一个包含"${frenchWord}"的简单法语句子（5-8个单词）
 2. 将句子拆分成独立的单词块
 3. 提供打乱顺序的单词块列表
 4. 句子要简单明了，适合${gradeDescription}学生的理解水平
 
 **内容限制：**
-- explanation字段只能包含准确的中文翻译
+- explanation字段只能包含准确且自然的中文翻译
+  - 翻译要符合中文表达习惯，自然流畅
+  - 避免直译和僵硬表达，如"一会儿见，我回来！"改为"一会儿见，我马上回来！"
+  - 避免重复表达，如"一会儿见，我们再见！"改为"一会儿见，我们待会儿见！"
 - 不要添加任何语法解释或分析
 - 句子要简单实用，避免复杂语法
 
@@ -622,17 +576,8 @@ export class AIServiceImpl implements AIService {
         throw new Error('AI返回内容格式错误');
       }
     } catch (error) {
-      console.warn('❌ AI返回内容解析失败:', error);
-      
-      // 如果解析失败，使用本地生成
-      return this.generateLocally({
-        word: '',
-        meaning,
-        frenchWord,
-        grade: 81,
-        difficulty: 'medium',
-        question_type: questionType as any
-      });
+      console.error('❌ AI返回内容解析失败:', error);
+      throw new Error('AI响应解析失败: ' + (error instanceof Error ? error.message : String(error)));
     }
   }
   
@@ -648,8 +593,8 @@ export class AIServiceImpl implements AIService {
     // 移除JSON字符串中的非法控制字符（ASCII 0-31，除了\t, \n, \r）
     cleaned = cleaned.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '');
     
-    // 修复法语引号转义问题 - 在JSON字符串中，引号需要转义为 \'
-    cleaned = cleaned.replace(/(\w)'(\w)/g, "$1\\'$2");
+    // 优化单引号处理：将转义的单引号转换为普通单引号
+    cleaned = cleaned.replace(/\\'/g, "'");
     
     // 修复JSON格式问题：添加缺失的逗号
     cleaned = cleaned
@@ -1270,6 +1215,441 @@ export class AIServiceImpl implements AIService {
       // 修复失败不影响正常使用
     }
   }
+
+  // AI查词方法
+  async lookupWord(word: string, connection?: AIConnectionConfig): Promise<WordLookupResponse> {
+    try {
+      console.log(`🔍 开始AI查词: ${word}`);
+
+      // 获取AI配置
+      let aiConfig: AIConnectionConfig | null = null;
+
+      // 优先使用传入的用户AI配置
+      if (connection && connection.enabled) {
+        aiConfig = connection;
+        console.log(`使用用户AI配置: ${aiConfig.name} (${aiConfig.type})`);
+      } else {
+        // 如果没有用户配置，使用系统默认配置
+        aiConfig = await this.getSystemDefaultAIConfig();
+        if (aiConfig) {
+          console.log(`使用系统默认AI配置: ${aiConfig.name} (${aiConfig.type})`);
+        } else {
+          throw new Error('未配置有效的AI API');
+        }
+      }
+
+      // 构建AI提示词
+      const prompt = this.buildWordLookupPrompt(word);
+      console.log('📝 AI查词提示词构建完成');
+
+      // 调用AI API
+      const aiResponse = await this.callAIAPI(aiConfig, {
+        prompt,
+        model: aiConfig.model,
+        max_tokens: aiConfig.max_tokens || 500,
+        temperature: aiConfig.temperature || 0.3
+      });
+
+      console.log('✅ AI查词API调用成功');
+
+      // 解析AI返回的内容
+      const result = this.parseWordLookupResponse(aiResponse, word);
+      console.log('📄 AI查词内容解析完成');
+
+      return result;
+    } catch (error) {
+      console.error('❌ AI查词失败:', error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      throw new Error(`AI查词失败: ${errorMessage}`);
+    }
+  }
+
+  // 构建查词的AI提示词
+  private buildWordLookupPrompt(word: string): string {
+    return `你是一位专业的法语教师，请为用户提供单词"${word}"的详细信息。
+
+**重要提示：**
+- 如果输入的是中文单词，请先将其翻译为法语，然后提供法语单词的详细信息
+- 如果输入的是英语或其他语言单词，请先将其翻译为法语，然后提供法语单词的详细信息
+- 如果输入的是法语单词，直接提供该单词的详细信息
+
+请严格按照以下JSON格式返回，只包含JSON：
+{
+  "french": "法语单词（如果是中文/英文输入，这里是翻译后的法语单词）",
+  "chinese": "单词的中文释义（如果有多个含义，用分号分隔）",
+  "phonetic": "单词的法语音标",
+  "part_of_speech": "词性格式要求：中文词性+空格+法语缩写（如：阴性名词 n.f.，阳性名词 n.m.，动词 v.，形容词 adj.，副词 adv.）",
+  "examples": ["例句1（法语句子的中文翻译）", "例句2（法语句子的中文翻译）"]
+}
+
+要求：
+1. 如果输入是中文/英文，先进行准确的法语翻译
+2. 中文释义要准确、完整
+3. 音标要准确
+4. 词性必须按照"中文词性+空格+法语缩写"的格式返回，例如：
+   - 阴性名词 n.f.
+   - 阳性名词 n.m.
+   - 动词 v.
+   - 形容词 adj.
+   - 副词 adv.
+5. 提供至少2个实用的例句，例句格式为：法语句子（中文翻译）`;
+  }
+
+  // 解析查词的AI响应
+  private parseWordLookupResponse(aiResponse: AICompletionResponse, word: string): WordLookupResponse {
+    console.log('📄 AI返回内容:', aiResponse.text.substring(0, 200) + '...');
+
+    // 清理AI返回内容，移除Markdown代码块标记
+    const content = this.cleanAIResponse(aiResponse.text);
+
+    try {
+      // 尝试解析JSON
+      const parsed = JSON.parse(content);
+      console.log('✅ 查词JSON解析成功');
+
+      return {
+        french: parsed.french || word,
+        chinese: parsed.chinese || '',
+        phonetic: parsed.phonetic || '',
+        part_of_speech: parsed.part_of_speech || '',
+        examples: parsed.examples || []
+      };
+    } catch (jsonError) {
+      console.log('⚠️ 直接JSON解析失败，尝试手动提取字段');
+
+      // 手动提取字段
+      let parsed: any = {};
+
+      const originalMatch = content.match(/"french"\s*:\s*"([^"]+)"/) ||
+                           content.match(/french[\s:]*"([^"]+)"/);
+      if (originalMatch) {
+        parsed.french = originalMatch[1];
+      }
+
+      const chineseMatch = content.match(/"chinese"\s*:\s*"([^"]+)"/) ||
+                           content.match(/chinese[\s:]*"([^"]+)"/);
+      if (chineseMatch) {
+        parsed.chinese = chineseMatch[1];
+      }
+
+      const phoneticMatch = content.match(/"phonetic"\s*:\s*"([^"]+)"/) ||
+                            content.match(/phonetic[\s:]*"([^"]+)"/);
+      if (phoneticMatch) {
+        parsed.phonetic = phoneticMatch[1];
+      }
+
+      const partOfSpeechMatch = content.match(/"part_of_speech"\s*:\s*"([^"]+)"/) ||
+                                content.match(/part_of_speech[\s:]*"([^"]+)"/);
+      if (partOfSpeechMatch) {
+        parsed.part_of_speech = partOfSpeechMatch[1];
+      }
+
+      const examplesMatch = content.match(/"examples"\s*:\s*\[([^\]]+)\]/) ||
+                          content.match(/examples[\s:]*\[([^\]]+)\]/);
+      if (examplesMatch) {
+        const examplesText = examplesMatch[1];
+        parsed.examples = examplesText.split(',').map((ex: string) => ex.trim().replace(/^"|"$/g, ''));
+      }
+
+      if (parsed.french && parsed.chinese) {
+        console.log('✅ 手动提取字段成功');
+        return {
+          french: parsed.french,
+          chinese: parsed.chinese,
+          phonetic: parsed.phonetic || '',
+          part_of_speech: parsed.part_of_speech || '',
+          examples: parsed.examples || []
+        };
+      }
+
+      console.warn('❌ JSON解析失败');
+      throw new Error('AI返回内容格式错误');
+    }
+  }
+
+  // AI造句 - 生成包含指定单词的句子
+  async generateSentences(request: any, connection?: AIConnectionConfig): Promise<any> {
+    const { word, meaning, frenchWord, grade, partOfSpeech } = request;
+
+    try {
+      console.log(`🔍 开始AI造句: ${frenchWord} (${meaning})`);
+
+      // 获取AI配置
+      let aiConfig: AIConnectionConfig | null = null;
+
+      // 优先使用传入的用户AI配置
+      if (connection && connection.enabled) {
+        aiConfig = connection;
+        console.log(`使用用户AI配置生成句子: ${aiConfig.name} (${aiConfig.type})`);
+      } else {
+        // 如果没有用户配置，使用系统默认配置
+        aiConfig = await this.getSystemDefaultAIConfig();
+        if (aiConfig) {
+          console.log(`使用系统默认AI配置生成句子: ${aiConfig.name} (${aiConfig.type})`);
+        } else {
+          throw new Error('未配置有效的AI API');
+        }
+      }
+
+      // 构建AI提示词 - 要求生成完整的题目数据
+      const prompt = this.buildSentenceGenerationPrompt(frenchWord, meaning, grade, partOfSpeech);
+      console.log('📝 AI造句提示词构建完成');
+
+      // 调用AI API
+      const aiResponse = await this.callAIAPI(aiConfig, {
+        prompt,
+        model: aiConfig.model,
+        max_tokens: aiConfig.max_tokens || 1200,
+        temperature: aiConfig.temperature || 0.3
+      });
+
+      console.log('✅ AI造句API调用成功');
+
+      // 解析AI返回的内容
+      const result = this.parseSentenceGenerationResponse(aiResponse, frenchWord, meaning);
+      console.log('📄 AI造句内容解析完成');
+
+      // 将生成的句子保存到数据库，包括词卡重组和填空两种格式
+      await this.saveSentencesToDatabase(result.sentences, word, frenchWord, meaning, grade, partOfSpeech);
+      console.log('💾 句子已保存到数据库');
+
+      return result;
+    } catch (error) {
+      console.error('❌ AI造句失败:', error);
+      throw new Error('AI生成句子失败: ' + (error instanceof Error ? error.message : String(error)));
+    }
+  }
+
+  // 构建造句的AI提示词
+  private buildSentenceGenerationPrompt(frenchWord: string, meaning: string, grade: number, partOfSpeech?: string): string {
+    const gradeDescription = getGradeDescription(grade);
+    const partOfSpeechText = partOfSpeech ? `，词性为${partOfSpeech}` : '';
+
+    // 检查单词是否包含性别标记（如 "lourd, e" 或 "grand, e"）
+    const hasGenderMarker = frenchWord.includes(', ');
+    const genderInstruction = hasGenderMarker
+      ? `\n**特别注意**：单词"${frenchWord}"包含性别标记，表示它有阳性形式（去掉 ", e" 部分）和阴性形式（阳性形式 + "e"）。\n在生成句子时，请根据句子的语法和语境选择正确的形式：\n- 如果修饰阳性名词，使用阳性形式\n- 如果修饰阴性名词，使用阴性形式\n- 不要在句子中直接包含 ", e" 这样的标记`
+      : '';
+
+    return `你是一位专业的法语教师，请为法语单词"${frenchWord}"（中文意思：${meaning}${partOfSpeechText}）生成两个实用的法语句子，并为每个句子创建词卡重组和填空两种练习形式。
+${genderInstruction}
+
+要求：
+1. 句子要自然、实用，语法正确
+2. 句子难度要适合${gradeDescription}的学生
+3. 每个句子都要提供准确且自然的中文翻译，避免直译和僵硬表达
+   - 翻译要符合中文表达习惯，自然流畅
+   - 避免"一会儿见，我回来！"这样的直译，改为"一会儿见，我马上回来！"或"待会儿见，我很快就回来！"
+   - 避免"一会儿见，我们再见！"这样的重复表达，改为"一会儿见，我们待会儿见！"或"待会儿见，我们等会儿见！"
+4. 为每个句子创建：
+   - 词卡重组练习：将句子拆分成单词块，并打乱顺序
+   - 填空练习：将目标单词替换为空白，并提供干扰选项
+
+请严格按照以下JSON格式返回，只包含JSON：
+{
+  "sentences": [
+    {
+      "french": "第一个法语句子",
+      "chinese": "第一个句子的中文翻译",
+      "word_blocks": ["单词块1", "单词块2", "单词块3"],
+      "shuffled_blocks": ["打乱后的单词块1", "打乱后的单词块2", "打乱后的单词块3"],
+      "modified_sentence": "包含空白的句子，如：Je mange une _____.",
+      "options": ["正确选项", "干扰项1", "干扰项2", "干扰项3"],
+      "correct_answer": "句子中实际使用的单词形式（不是${frenchWord}）",
+      "explanation": "句子用法说明"
+    },
+    {
+      "french": "第二个法语句子", 
+      "chinese": "第二个句子的中文翻译",
+      "word_blocks": ["单词块1", "单词块2", "单词块3"],
+      "shuffled_blocks": ["打乱后的单词块1", "打乱后的单词块2", "打乱后的单词块3"],
+      "modified_sentence": "包含空白的句子",
+      "options": ["正确选项", "干扰项1", "干扰项2", "干扰项3"],
+      "correct_answer": "句子中实际使用的单词形式（不是${frenchWord}）",
+      "explanation": "句子用法说明"
+    }
+  ]
+}`;
+  }
+
+  // 解析造句的AI响应
+  private parseSentenceGenerationResponse(aiResponse: AICompletionResponse, frenchWord: string, meaning: string): any {
+    console.log('📄 AI返回内容:', aiResponse.text.substring(0, 200) + '...');
+
+    // 清理AI返回内容，移除Markdown代码块标记
+    const content = this.cleanAIResponse(aiResponse.text);
+
+    try {
+      // 尝试解析JSON
+      const parsed = JSON.parse(content);
+      console.log('✅ 造句JSON解析成功');
+
+      // 验证返回的数据结构
+      if (!parsed.sentences || !Array.isArray(parsed.sentences) || parsed.sentences.length === 0) {
+        throw new Error('AI返回的句子数据格式不正确');
+      }
+
+      // 确保每个句子都包含必要的字段
+      const validSentences = parsed.sentences.filter((sentence: any) =>
+        sentence.french && sentence.chinese
+      );
+
+      if (validSentences.length === 0) {
+        throw new Error('AI返回的句子缺少必要字段');
+      }
+
+      // 验证每个句子是否包含完整的练习数据
+      const enhancedSentences = validSentences.slice(0, 2).map((sentence: any) => {
+        // 验证句子是否包含所有必要的数据
+        if (!sentence.word_blocks || !sentence.shuffled_blocks || !sentence.modified_sentence || !sentence.options) {
+          console.error('❌ AI返回的句子数据不完整:', JSON.stringify(sentence, null, 2));
+          throw new Error('AI返回的句子数据不完整，缺少必要的练习字段');
+        }
+
+        // 创建完整的句子对象
+        const enhancedSentence = {
+          french: sentence.french,
+          chinese: sentence.chinese,
+          word_blocks: sentence.word_blocks,
+          shuffled_blocks: sentence.shuffled_blocks,
+          modified_sentence: sentence.modified_sentence,
+          options: sentence.options,
+          correct_answer: sentence.correct_answer || frenchWord
+        };
+
+        return enhancedSentence;
+      });
+
+      return {
+        sentences: enhancedSentences
+      };
+    } catch (jsonError) {
+      console.log('⚠️ 直接JSON解析失败，尝试手动提取字段');
+
+      // 手动提取字段
+      const sentencesMatch = content.match(/"sentences"\s*:\s*\[([^\]]+)\]/) ||
+                           content.match(/sentences[\s:]*\[([^\]]+)\]/);
+
+      if (sentencesMatch) {
+        const sentencesText = sentencesMatch[1];
+        // 尝试解析句子数组
+        const sentenceMatches = sentencesText.match(/\{[^}]+\}/g);
+
+        if (sentenceMatches && sentenceMatches.length > 0) {
+          const sentences = sentenceMatches.slice(0, 2).map((sentenceStr: string) => {
+            const frenchMatch = sentenceStr.match(/"french"\s*:\s*"([^"]+)"/) ||
+                               sentenceStr.match(/french[\s:]*"([^"]+)"/);
+            const chineseMatch = sentenceStr.match(/"chinese"\s*:\s*"([^"]+)"/) ||
+                               sentenceStr.match(/chinese[\s:]*"([^"]+)"/);
+
+            const frenchSentence = frenchMatch ? frenchMatch[1] : '';
+            const chineseTranslation = chineseMatch ? chineseMatch[1] : '';
+
+            // 验证手动提取的数据是否完整
+            if (!frenchSentence || !chineseTranslation) {
+              console.error('❌ 手动提取的句子数据不完整:', { frenchSentence, chineseTranslation });
+              throw new Error('手动提取句子数据失败，无法生成完整的练习数据');
+            }
+
+            // 由于无法使用本地方法生成练习数据，需要确保AI返回了所有必要的数据
+            console.error('❌ 无法手动生成练习数据，需要AI返回完整的JSON格式');
+            throw new Error('AI返回格式不符合要求，无法生成练习题目');
+          }).filter((sentence: any) => sentence.french && sentence.chinese);
+
+          if (sentences.length > 0) {
+            console.log('✅ 手动提取句子字段成功');
+            return { sentences };
+          }
+        }
+      }
+
+      console.warn('❌ JSON解析失败，使用本地生成');
+      throw new Error('AI返回内容格式错误');
+    }
+  }
+
+  // 保存句子到数据库（简化版：专注于基础数据保存，智能复用由新服务处理）
+  private async saveSentencesToDatabase(sentences: any[], wordId: string, frenchWord: string, meaning: string, grade: number, partOfSpeech?: string): Promise<void> {
+    try {
+      console.log(`📝 准备保存 ${sentences.length} 个句子到数据库`);
+
+      const questionsToSave = sentences.map((sentence, index) => {
+        console.log(`📄 处理句子 ${index + 1}: ${sentence.french}`);
+
+        // 验证句子数据是否完整
+        if (!sentence.word_blocks || !sentence.shuffled_blocks || !sentence.modified_sentence || !sentence.options) {
+          console.error(`❌ 句子 ${index + 1} 数据不完整，跳过保存:`);
+          console.error('  - word_blocks:', sentence.word_blocks);
+          console.error('  - shuffled_blocks:', sentence.shuffled_blocks);
+          console.error('  - modified_sentence:', sentence.modified_sentence);
+          console.error('  - options:', sentence.options);
+          return []; // 跳过不完整的数据
+        }
+
+        // 使用AI返回的完整数据
+        const wordBlocks = sentence.word_blocks;
+        const shuffledBlocks = sentence.shuffled_blocks;
+        const correctAnswer = sentence.correct_answer || frenchWord;
+        const modifiedSentence = sentence.modified_sentence;
+        const options = sentence.options;
+
+        console.log(`  - correctAnswer: ${correctAnswer}`);
+        console.log(`  - wordBlocks: ${JSON.stringify(wordBlocks)}`);
+        console.log(`  - options: ${JSON.stringify(options)}`);
+
+        return [
+          // 词卡重组题目
+          {
+            wordId,
+            questionType: 'sentence-reordering',
+            word: frenchWord,
+            meaning,
+            grade,
+            difficulty: 'medium',
+            originalSentence: sentence.french,
+            modifiedSentence: sentence.french,
+            wordBlocks,
+            shuffledBlocks,
+            options: [],
+            correctAnswer: sentence.french,
+            explanation: sentence.chinese
+          },
+          // 填空题目
+          {
+            wordId,
+            questionType: 'sentence-completion',
+            word: frenchWord,
+            meaning,
+            grade,
+            difficulty: 'medium',
+            originalSentence: sentence.french,
+            modifiedSentence,
+            wordBlocks: [],
+            shuffledBlocks: [],
+            options,
+            correctAnswer: correctAnswer,
+            explanation: sentence.chinese
+          }
+        ];
+      }).flat();
+
+      console.log(`📊 准备保存 ${questionsToSave.length} 个题目到数据库`);
+
+      // 批量保存到数据库
+      const savedIds = await aiQuestionCacheQueries.saveQuestionsBatch(questionsToSave);
+      console.log(`✅ 成功保存 ${savedIds.length} 个题目到数据库，IDs: ${savedIds.join(', ')}`);
+    } catch (error) {
+      console.error('❌ 保存句子到数据库失败:', error);
+      console.error('❌ 错误详情:', error instanceof Error ? error.stack : String(error));
+      // 不抛出错误，避免影响主流程
+    }
+  }
+
+
+
+
+
+
 }
 
 // 导出单例实例

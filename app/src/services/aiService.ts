@@ -71,7 +71,7 @@ export class AIService {
     }
   }
 
-  // 生成句子填空问题（方案1）
+  // 生成句子填空问题
   async generateSentenceCompletionQuestion(word: WordWithStatus): Promise<SentenceQuestion> {
     try {
       // 使用AI生成包含目标词的句子
@@ -91,6 +91,11 @@ export class AIService {
           optionsCount: data.options?.length || 0,
           options: data.options
         });
+        
+        // 验证数据完整性
+        if (!data.options || data.options.length === 0) {
+          throw new Error('AI返回的填空题缺少选项');
+        }
         
         // 判断是否为AI生成：有questionId表示来自题库（AI生成），没有questionId表示程序生成
         const isAiGenerated = !!data.questionId;
@@ -112,78 +117,12 @@ export class AIService {
       }
       throw new Error(response.message || '生成句子填空问题失败');
     } catch (error) {
-      console.error('生成句子填空问题失败:', error);
-      // AI失败时，使用简单的本地生成
-      return this.generateLocalSentenceCompletion(word);
+      console.error('❌ 生成句子填空问题失败:', error);
+      throw error; // 直接抛出错误，不再使用本地降级方案
     }
   }
 
-  // 本地生成句子填空问题（备用方案）
-  private generateLocalSentenceCompletion(word: WordWithStatus): SentenceQuestion {
-    // 简单的句子模板
-    const sentences = [
-      `Je ______ ${word.french}.`,  // 我吃苹果
-      `Il/Elle ______ ${word.french}.`,  // 他/她吃苹果
-      `Nous ______ ${word.french}.`,  // 我们吃苹果
-      `Vous ______ ${word.french}.`,  // 你们吃苹果
-      `Ils/Elles ______ ${word.french}.`  // 他们/她们吃苹果
-    ];
 
-    const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
-    
-    // 根据人称生成动词变位选项
-    const verbForms = this.generateVerbOptions(word.french);
-    
-    return {
-      id: `sentence-local-${Date.now()}`,
-      type: 'sentence-completion',
-      wordId: word.id,
-      targetWord: word.french,
-      originalSentence: randomSentence.replace('______', word.french),
-      modifiedSentence: randomSentence,
-      options: verbForms,
-      correctAnswer: this.getCorrectVerbForm(randomSentence, word.french),
-      explanation: `正确形式是 ${this.getCorrectVerbForm(randomSentence, word.french)}，意思是${word.chinese}`,
-      difficulty: 'easy',
-      aiGenerated: false
-    };
-  }
-
-  // 生成动词变位选项
-  private generateVerbOptions(baseWord: string): string[] {
-    // 简单的动词变位规则（法语第一组动词）
-    const options = [
-      baseWord,           // 原形
-      baseWord + 's',     // 第二人称单数
-      baseWord + 't',     // 第三人称单数
-      baseWord + 'ons',   // 第一人称复数
-      baseWord + 'ez',    // 第二人称复数
-      baseWord + 'ent'    // 第三人称复数
-    ];
-    
-    // 打乱顺序并返回前4个
-    return this.shuffleArray(options).slice(0, 4);
-  }
-
-  // 根据句子人称获取正确的动词形式
-  private getCorrectVerbForm(sentence: string, baseWord: string): string {
-    if (sentence.startsWith('Je')) return baseWord;
-    if (sentence.startsWith('Il/Elle') || sentence.startsWith('Il') || sentence.startsWith('Elle')) return baseWord + 't';
-    if (sentence.startsWith('Nous')) return baseWord + 'ons';
-    if (sentence.startsWith('Vous')) return baseWord + 'ez';
-    if (sentence.startsWith('Ils/Elles') || sentence.startsWith('Ils') || sentence.startsWith('Elles')) return baseWord + 'ent';
-    return baseWord;
-  }
-
-  // 打乱数组
-  private shuffleArray<T>(array: T[]): T[] {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  }
 
   // 标准化AI连接配置格式
   private normalizeConnectionConfig(config: any): AIConnectionConfig {

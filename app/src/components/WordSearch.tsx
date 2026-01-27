@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Word, WordWithStatus, Grade } from '../types/vocabulary';
 import { getGradeShortDescription } from '../shared/constants';
+import { apiService } from '../services/api';
 
 interface WordSearchProps {
   allWords: WordWithStatus[];
@@ -25,6 +26,11 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // AI查词相关状态
+  const [aiLookupResult, setAiLookupResult] = useState<SearchResult | null>(null);
+  const [isAiLooking, setIsAiLooking] = useState(false);
+  const [showAiResult, setShowAiResult] = useState(false);
+
 
 
   // 获取年级信息的函数，使用useCallback避免不必要的重新创建
@@ -32,10 +38,45 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
     return getGradeShortDescription(word.grade);
   }, []);
 
+  // AI查词函数
+  const performAILookup = useCallback(async (term: string) => {
+    setIsAiLooking(true);
+    try {
+      const response = await apiService.lookupWord(term);
+      if (response.success && response.data) {
+        const aiData = response.data;
+        // 创建一个AI查词结果
+        const aiResult: SearchResult = {
+          word: {
+            id: `ai-${Date.now()}`,
+            french: aiData.french,
+            chinese: aiData.chinese,
+            phonetic: aiData.phonetic,
+            part_of_speech: aiData.part_of_speech,
+            isLearned: false,
+            isMastered: false,
+            grade: 81, // 默认年级
+            examples: aiData.examples
+          },
+          grade: 'AI查询'
+        };
+        setAiLookupResult(aiResult);
+        console.log('✅ AI查词成功:', aiData);
+      }
+    } catch (error) {
+      console.error('❌ AI查词失败:', error);
+      setAiLookupResult(null);
+    } finally {
+      setIsAiLooking(false);
+    }
+  }, []);
+
   // 搜索函数，正确包含所有依赖
-  const performSearch = useCallback((term: string) => {
+  const performSearch = useCallback(async (term: string) => {
     setIsSearching(true);
-    
+    setAiLookupResult(null);
+    setShowAiResult(false);
+
     const lowerTerm = term.toLowerCase().trim();
     const results: SearchResult[] = [];
 
@@ -50,7 +91,7 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
     // 优化：单次遍历同时搜索法语和中文
     allWords.forEach(word => {
       let matched = false;
-      
+
       // 搜索法语单词（不区分大小写）
       if (word.french.toLowerCase().includes(lowerTerm)) {
         matched = true;
@@ -76,24 +117,29 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
     results.sort((a, b) => {
       const aFrench = a.word.french.toLowerCase();
       const bFrench = b.word.french.toLowerCase();
-      
+
       // 完全匹配优先
       if (aFrench === lowerTerm && bFrench !== lowerTerm) return -1;
       if (bFrench === lowerTerm && aFrench !== lowerTerm) return 1;
-      
+
       // 开头匹配优先
       const aStartsWith = aFrench.startsWith(lowerTerm);
       const bStartsWith = bFrench.startsWith(lowerTerm);
       if (aStartsWith && !bStartsWith) return -1;
       if (!aStartsWith && bStartsWith) return 1;
-      
+
       // 长度优先（短词通常更相关）
       return aFrench.length - bFrench.length;
     });
 
     setSearchResults(results.slice(0, 20)); // 限制结果数量
     setIsSearching(false);
-  }, [allWords, getGradeFromWord]);
+
+    // 如果查找不到结果，尝试AI查词
+    if (results.length === 0 && term.trim().length > 0) {
+      await performAILookup(term);
+    }
+  }, [allWords, getGradeFromWord, performAILookup]);
 
   // 优化的防抖搜索
   useEffect(() => {
@@ -650,21 +696,104 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
           <div className="flex justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
           </div>
-        ) : searchTerm && searchResults.length === 0 ? (
-          <div className="text-center py-8">
-            <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center transition-colors duration-300 ${
-              darkMode ? 'bg-neutral-dark-300' : 'bg-neutral-100'
-            }`}>
-              <svg className={`w-8 h-8 transition-colors duration-300 ${
-                darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
-              }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+        ) : searchTerm && searchResults.length === 0 && !isAiLooking ? (
+          // 显示AI查词结果或未找到提示
+          aiLookupResult ? (
+            <div className="mb-4">
+              <div className={`mb-3 text-sm transition-colors duration-300 ${
+                darkMode ? 'text-info-400' : 'text-info-600'
+              }`}>
+                <span className="inline-flex items-center">
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  AI查词结果
+                </span>
+              </div>
+              <button
+                onClick={() => handleWordSelect(aiLookupResult)}
+                className={`w-full p-4 rounded-lg border transition-all duration-200 text-left ${
+                  darkMode
+                    ? 'bg-bg-dark-card border-info-700 hover:border-info-600 hover:bg-info-900/20'
+                    : 'bg-white border-info-300 hover:border-info-400 hover:bg-info-50'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`text-lg font-semibold font-french transition-colors duration-300 ${
+                        darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+                      }`}>
+                        {aiLookupResult.word.french}
+                      </span>
+                      <span className={`text-xs px-2 py-1 rounded-full transition-colors duration-300 ${
+                        darkMode
+                          ? 'bg-purple-900 text-purple-200'
+                          : 'bg-purple-100 text-purple-700'
+                      }`}>
+                        {aiLookupResult.grade}
+                      </span>
+                    </div>
+                    {aiLookupResult.word.phonetic && (
+                      <div className={`text-sm font-phonetic italic mb-1 transition-colors duration-300 ${
+                        darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'
+                      }`}>
+                        {aiLookupResult.word.phonetic}
+                      </div>
+                    )}
+                    {aiLookupResult.word.part_of_speech && (
+                      <div className={`text-xs mb-2 transition-colors duration-300 ${
+                        darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+                      }`}>
+                        {aiLookupResult.word.part_of_speech}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className={`text-base font-chinese transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+                }`}>
+                  {aiLookupResult.word.chinese}
+                </div>
+                {aiLookupResult.word.examples && aiLookupResult.word.examples.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-dark-300">
+                    <p className={`text-xs mb-2 transition-colors duration-300 ${
+                      darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+                    }`}>例句：</p>
+                    {aiLookupResult.word.examples.map((example: string, idx: number) => (
+                      <div key={idx} className={`text-sm mb-1 transition-colors duration-300 ${
+                        darkMode ? 'text-neutral-dark-700' : 'text-neutral-700'
+                      }`}>
+                        {example}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </button>
             </div>
-            <h3 className={`text-lg font-medium mb-2 transition-colors duration-300 ${
-              darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-            }`}>未找到相关单词</h3>
-            <p className={darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'}>请检查拼写或尝试其他关键词</p>
+          ) : (
+            <div className="text-center py-8">
+              <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                darkMode ? 'bg-neutral-dark-300' : 'bg-neutral-100'
+              }`}>
+                <svg className={`w-8 h-8 transition-colors duration-300 ${
+                  darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'
+                }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className={`text-lg font-medium mb-2 transition-colors duration-300 ${
+                darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+              }`}>未找到相关单词</h3>
+              <p className={darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'}>请检查拼写或尝试其他关键词</p>
+            </div>
+          )
+        ) : isAiLooking ? (
+          <div className="flex justify-center py-8">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-info-600 mx-auto mb-4"></div>
+              <p className={darkMode ? 'text-neutral-dark-600' : 'text-neutral-600'}>AI正在查词...</p>
+            </div>
           </div>
         ) : searchResults.length > 0 ? (
           <div>

@@ -6,6 +6,7 @@ export interface Word {
   category?: string;
   unit?: number; // 单元编号
   lesson?: string | number; // 课次编号，可以是数字或字符串（如"Atelier"）
+  examples?: string[]; // 例句，可选
 }
 
 export interface WordWithStatus extends Word {
