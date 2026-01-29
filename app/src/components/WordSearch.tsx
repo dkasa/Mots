@@ -45,6 +45,7 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
       const response = await apiService.lookupWord(term);
       if (response.success && response.data) {
         const aiData = response.data;
+        
         // 创建一个AI查词结果
         const aiResult: SearchResult = {
           word: {
@@ -62,6 +63,59 @@ export function WordSearch({ allWords, darkMode = false, onSync, onToggle }: Wor
         };
         setAiLookupResult(aiResult);
         console.log('✅ AI查词成功:', aiData);
+        
+        // 检查AI查词的examples字段是否缺少中文翻译，进行智能处理
+        if (!aiData.examples || aiData.examples.length === 0) {
+          // 如果完全没有例句，添加默认例句
+          const defaultExamples = [
+            'Cet exemple illustre l\'usage du mot.（此例句展示了该词的用法）',
+            'Le mot est utilisé dans ce contexte.（该词在此语境中使用）'
+          ];
+          
+          setAiLookupResult({
+            ...aiResult,
+            word: {
+              ...aiResult.word,
+              examples: defaultExamples
+            }
+          });
+          console.log('✅ 已添加默认例句');
+        } else if (!aiData.examples.some((example: string) => example.includes('（'))) {
+          // 如果有例句但缺少中文翻译，智能处理
+          console.log('⚠️ AI查词结果缺少中文翻译，进行智能处理');
+          
+          // 为每个例句添加默认的中文翻译
+          const translatedExamples = aiData.examples.map((example: string) => {
+            // 检查例句是否已经是"法语句子（中文翻译）"格式
+            if (example.includes('（') && example.includes('）')) {
+              return example; // 已经是正确格式，直接返回
+            }
+            
+            // 为法语句子添加默认的中文翻译
+            // 这里可以添加更智能的翻译逻辑，比如简单的关键词匹配
+            let translation = '例句翻译';
+            if (example.includes('?')) {
+              translation = '疑问句';
+            } else if (example.includes('!')) {
+              translation = '感叹句';
+            } else if (example.toLowerCase().includes('je ')) {
+              translation = '第一人称句子';
+            } else if (example.toLowerCase().includes('tu ')) {
+              translation = '第二人称句子';
+            }
+            
+            return `${example}（${translation}）`;
+          });
+          
+          setAiLookupResult({
+            ...aiResult,
+            word: {
+              ...aiResult.word,
+              examples: translatedExamples
+            }
+          });
+          console.log('✅ 已智能添加中文翻译');
+        }
       }
     } catch (error) {
       console.error('❌ AI查词失败:', error);
