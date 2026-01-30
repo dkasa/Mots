@@ -172,11 +172,12 @@ export function WordReorderingCard({
 
     // 播放反馈音效
     playFeedbackSound(correct);
+  };
 
-    // 延迟后进入下一题
-    setTimeout(() => {
-      onAnswer(userAnswer, timeSpent);
-    }, 1500);
+  // 处理进入下一题
+  const handleNextQuestion = () => {
+    const userAnswer = droppedWords.join(' ');
+    onAnswer(userAnswer, timeSpent);
   };
 
   // 播放反馈音效
@@ -367,6 +368,50 @@ export function WordReorderingCard({
         </div>
       </div>
 
+      {/* 反馈信息 - 可点击进入下一题 */}
+      {showFeedback && question.explanation && (
+        <div 
+          onClick={handleNextQuestion}
+          className={`p-4 rounded-lg mb-6 animate-fade-in cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 ${
+            isCorrect
+              ? darkMode ? 'bg-success-900/20 border-success-500 hover:bg-success-900/30' : 'bg-success-50 border-success-200 hover:bg-success-100'
+              : darkMode ? 'bg-error-900/20 border-error-500 hover:bg-error-900/30' : 'bg-error-50 border-error-200 hover:bg-error-100'
+          } border`}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            {isCorrect ? (
+              <>
+                <svg className="w-6 h-6 text-success-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className={`font-bold text-xl ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
+                  回答正确！
+                </span>
+              </>
+            ) : (
+              <>
+                <svg className="w-6 h-6 text-error-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+                <span className={`font-bold text-xl ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
+                  回答错误
+                </span>
+              </>
+            )}
+          </div>
+          <div className={`text-lg font-medium mb-3 ${
+            darkMode ? 'text-white' : 'text-neutral-800'
+          }`}>
+            {unescapeFrenchText(question.originalSentence)}
+          </div>
+          <div className={`text-center text-sm font-medium pt-3 border-t ${
+            darkMode ? 'border-neutral-dark-500 text-neutral-dark-200' : 'border-neutral-300 text-neutral-600'
+          }`}>
+            {isCorrect ? '🎉 点击此区域进入下一题' : '💪 点击此区域进入下一题'}
+          </div>
+        </div>
+      )}
+
       {/* 可用单词块区域 */}
       <div className="mb-6">
         <h4 className={`text-sm font-medium mb-3 ${
@@ -423,48 +468,7 @@ export function WordReorderingCard({
         </button>
       </div>
 
-      {/* 反馈信息 */}
-      {showFeedback && question.explanation && (
-        <div className={`p-4 rounded-lg mb-6 animate-fade-in ${
-          isCorrect
-            ? darkMode ? 'bg-success-900/20 border-success-500' : 'bg-success-50 border-success-200'
-            : darkMode ? 'bg-error-900/20 border-error-500' : 'bg-error-50 border-error-200'
-        } border`}>
-          <div className="flex items-center gap-2 mb-2">
-            {isCorrect ? (
-              <>
-                <svg className="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
-                  回答正确！
-                </span>
-              </>
-            ) : (
-              <>
-                <svg className="w-5 h-5 text-error-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-                <span className={`font-medium ${isCorrect ? 'text-success-600' : 'text-error-600'}`}>
-                  回答错误
-                </span>
-              </>
-            )}
-          </div>
-          <div className={`text-sm ${darkMode ? 'text-neutral-dark-400' : 'text-neutral-600'}`}>
-            {unescapeFrenchText(question.explanation)}
-          </div>
-        </div>
-      )}
-
-      {/* 等待进入下一题的提示 */}
-      {showFeedback && (
-        <div className={`text-center text-sm ${
-          darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
-        }`}>
-          {isCorrect ? '🎉 太棒了！' : '💪 继续加油！'} 即将进入下一题...
-        </div>
-      )}
+      {/* 已移除：等待进入下一题的提示 */}
       
       {/* AI生成标记 */}
       {question.aiGenerated && (

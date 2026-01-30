@@ -145,11 +145,13 @@ export function SentenceQuestionCard({
 
     // 播放反馈音效
     playFeedbackSound(correct);
+  };
 
-    // 延迟后进入下一题
-    setTimeout(() => {
-      onAnswer(option, timeSpent);
-    }, 1500);
+  // 处理进入下一题
+  const handleNextQuestion = () => {
+    if (selectedOption) {
+      onAnswer(selectedOption, timeSpent);
+    }
   };
 
   // 播放反馈音效
@@ -257,13 +259,16 @@ export function SentenceQuestionCard({
         {renderSentenceContent()}
       </div>
 
-      {/* 反馈信息 */}
+      {/* 反馈信息 - 可点击进入下一题 */}
       {showFeedback && question.explanation && (
-        <div className={`p-4 rounded-lg mb-6 animate-fade-in ${
-          isCorrect
-            ? darkMode ? 'bg-success-900/20 border-success-500' : 'bg-success-50 border-success-200'
-            : darkMode ? 'bg-error-900/20 border-error-500' : 'bg-error-50 border-error-200'
-        } border`}>
+        <div 
+          onClick={handleNextQuestion}
+          className={`p-4 rounded-lg mb-6 animate-fade-in cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 ${
+            isCorrect
+              ? darkMode ? 'bg-success-900/20 border-success-500 hover:bg-success-900/30' : 'bg-success-50 border-success-200 hover:bg-success-100'
+              : darkMode ? 'bg-error-900/20 border-error-500 hover:bg-error-900/30' : 'bg-error-50 border-error-200 hover:bg-error-100'
+          } border`}
+        >
           <div className="flex items-center gap-2 mb-2">
             {isCorrect ? (
               <>
@@ -285,8 +290,15 @@ export function SentenceQuestionCard({
               </>
             )}
           </div>
-          <div className={`text-sm ${darkMode ? 'text-neutral-dark-400' : 'text-neutral-600'}`}>
-            {question.explanation}
+          <div className={`text-lg font-medium mb-3 ${
+            darkMode ? 'text-white' : 'text-neutral-800'
+          }`}>
+            {question.correctAnswer}
+          </div>
+          <div className={`text-center text-sm font-medium pt-3 border-t ${
+            darkMode ? 'border-neutral-dark-500 text-neutral-dark-200' : 'border-neutral-300 text-neutral-600'
+          }`}>
+            {isCorrect ? '🎉 点击此区域进入下一题' : '💪 点击此区域进入下一题'}
           </div>
         </div>
       )}
@@ -362,7 +374,7 @@ export function SentenceQuestionCard({
         <div className={`text-center text-sm ${
           darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
         }`}>
-          {isCorrect ? '🎉 太棒了！' : '💪 继续加油！'} 即将进入下一题...
+          {/* 已移除：即将进入下一题描述 */}
         </div>
       )}
       
