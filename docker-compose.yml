@@ -73,6 +73,7 @@ services:
         condition: service_healthy
     volumes:
       - ./data:/app/data  # 保留词汇数据文件
+      - ./app/public/audio:/app/public/audio  # 挂载音频文件
     networks:
       - mots-network
     healthcheck:

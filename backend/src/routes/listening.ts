@@ -35,10 +35,9 @@ router.get('/materials', async (req, res) => {
     let listeningDir: string;
     
     if (process.env.NODE_ENV === 'production') {
-      // 生产环境：音频文件可能位于不同的位置
+      // 生产环境：音频文件挂载到 /app/public/audio
       listeningDir = path.join(
         process.cwd(),
-        'app',
         'public',
         'audio',
         `grade${grade}`,
@@ -82,7 +81,6 @@ router.get('/materials', async (req, res) => {
       if (process.env.NODE_ENV === 'production') {
         subtitlePath = path.join(
           process.cwd(),
-          'app',
           'public',
           'audio',
           `grade${grade}`,
@@ -147,15 +145,26 @@ router.get('/subtitles/:materialId', async (req, res) => {
     const index = parseInt(parts[2]) - 1;
     
     // 获取音频文件列表
-    const listeningDir = path.join(
-      process.cwd(),
-      '..',
-      'app',
-      'public',
-      'audio',
-      `grade${grade}`,
-      'listening'
-    );
+    let listeningDir: string;
+    if (process.env.NODE_ENV === 'production') {
+      listeningDir = path.join(
+        process.cwd(),
+        'public',
+        'audio',
+        `grade${grade}`,
+        'listening'
+      );
+    } else {
+      listeningDir = path.join(
+        process.cwd(),
+        '..',
+        'app',
+        'public',
+        'audio',
+        `grade${grade}`,
+        'listening'
+      );
+    }
 
     const files = await fs.readdir(listeningDir);
     const audioFiles = files.filter(file => 
@@ -171,16 +180,28 @@ router.get('/subtitles/:materialId', async (req, res) => {
     const subtitleFile = `${baseName}.srt`;
     
     // 构建字幕文件路径
-    const subtitlePath = path.join(
-      process.cwd(),
-      '..',
-      'app',
-      'public',
-      'audio',
-      `grade${grade}`,
-      'subtitles',
-      subtitleFile
-    );
+    let subtitlePath: string;
+    if (process.env.NODE_ENV === 'production') {
+      subtitlePath = path.join(
+        process.cwd(),
+        'public',
+        'audio',
+        `grade${grade}`,
+        'subtitles',
+        subtitleFile
+      );
+    } else {
+      subtitlePath = path.join(
+        process.cwd(),
+        '..',
+        'app',
+        'public',
+        'audio',
+        `grade${grade}`,
+        'subtitles',
+        subtitleFile
+      );
+    }
 
     // 检查字幕文件是否存在
     try {
