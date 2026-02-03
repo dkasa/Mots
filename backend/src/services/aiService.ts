@@ -276,14 +276,15 @@ export class AIServiceImpl implements AIService {
     
     // 人名列表和性别信息
     const namesWithGender = `
-**可用人名列表（必须从中选择使用）：**
+**可选人名列表（需要时使用）：**
 - **男性名字**：Éric, Thomas, Marc, Luc, Jean, Paul, François, Emmanuel
 - **女性名字**：Emma, Laure, Pauline, Estelle, Isabelle, Florence
 
 **使用规则：**
-1. 句子中如果需要使用人名，必须从以上列表中选择
+1. 当句子内容适合使用人名时，可以从以上列表中选择
 2. 注意性别匹配：男性名字用于男性角色，女性名字用于女性角色
 3. 使用法国名字的常见表达方式
+4. 不需要强制使用人名，根据句子内容自然选择
 `;
     
     if (questionType === 'sentence-completion') {
