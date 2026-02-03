@@ -31,16 +31,31 @@ router.get('/materials', async (req, res) => {
       return res.status(400).json({ error: 'Grade parameter is required' });
     }
 
-    // 构建听力材料目录路径 - 指向前端public目录
-    const listeningDir = path.join(
-      process.cwd(),
-      '..',
-      'app',
-      'public',
-      'audio',
-      `grade${grade}`,
-      'listening'
-    );
+    // 构建听力材料目录路径 - 处理不同环境下的路径
+    let listeningDir: string;
+    
+    if (process.env.NODE_ENV === 'production') {
+      // 生产环境：音频文件可能位于不同的位置
+      listeningDir = path.join(
+        process.cwd(),
+        'app',
+        'public',
+        'audio',
+        `grade${grade}`,
+        'listening'
+      );
+    } else {
+      // 开发环境
+      listeningDir = path.join(
+        process.cwd(),
+        '..',
+        'app',
+        'public',
+        'audio',
+        `grade${grade}`,
+        'listening'
+      );
+    }
 
     // 检查目录是否存在
     try {
@@ -62,16 +77,30 @@ router.get('/materials', async (req, res) => {
       const subtitleFile = `${baseName}.srt`;
       
       // 检查是否存在对应的字幕文件
-      const subtitlePath = path.join(
-        process.cwd(),
-        '..',
-        'app',
-        'public',
-        'audio',
-        `grade${grade}`,
-        'subtitles',
-        subtitleFile
-      );
+      let subtitlePath: string;
+      
+      if (process.env.NODE_ENV === 'production') {
+        subtitlePath = path.join(
+          process.cwd(),
+          'app',
+          'public',
+          'audio',
+          `grade${grade}`,
+          'subtitles',
+          subtitleFile
+        );
+      } else {
+        subtitlePath = path.join(
+          process.cwd(),
+          '..',
+          'app',
+          'public',
+          'audio',
+          `grade${grade}`,
+          'subtitles',
+          subtitleFile
+        );
+      }
 
       // 检查字幕文件是否存在
       let subtitleFileExists: string | undefined;
