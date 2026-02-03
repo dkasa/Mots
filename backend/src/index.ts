@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import path from 'path';
 import { initDatabase, healthCheck, getDatabaseType } from './database';
 
 // 导入路由
@@ -11,6 +12,7 @@ import quizRoutes from './routes/quiz';
 import aiRoutes from './routes/ai';
 import intelligentSentencesRoutes from './routes/intelligentSentences';
 import vocabularyRoutes from './routes/vocabulary';
+import listeningRoutes from './routes/listening';
 
 // 加载环境变量
 dotenv.config();
@@ -49,6 +51,9 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// 静态文件服务 - 提供音频文件访问
+app.use('/audio', express.static(path.join(process.cwd(), '..', '..', 'audio')));
+
 // 健康检查端点
 app.get('/health', async (req, res) => {
   try {
@@ -82,6 +87,7 @@ app.use('/api/quiz', quizRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/intelligent-sentences', intelligentSentencesRoutes);
 app.use('/api/vocabulary', vocabularyRoutes);
+app.use('/api/listening', listeningRoutes);
 // 兼容生产环境nginx配置（移除/api前缀）
 app.use('/auth', authRoutes);
 app.use('/progress', progressRoutes);
@@ -89,6 +95,7 @@ app.use('/quiz', quizRoutes);
 app.use('/ai', aiRoutes);
 app.use('/intelligent-sentences', intelligentSentencesRoutes);
 app.use('/vocabulary', vocabularyRoutes);
+app.use('/listening', listeningRoutes);
 
 // API健康检查路由
 app.get('/api/health', async (req, res) => {

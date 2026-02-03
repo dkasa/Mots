@@ -32,7 +32,7 @@ export interface ProgressSyncData {
   learnedWords: Record<string, boolean>;
   masteredWords: Record<string, boolean>;
   currentGrade: number;
-  currentViewMode: 'learn' | 'list' | 'search' | 'quiz';
+  currentViewMode: 'learn' | 'list' | 'search' | 'quiz' | 'listening';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   clientTimestamp?: string; // 客户端时间戳
 }

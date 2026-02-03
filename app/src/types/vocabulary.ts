@@ -18,7 +18,7 @@ export interface WordWithStatus extends Word {
 
 export type Grade = 71 | 72 | 81 | 82 | 91 | 92;
 export type FilterType = 'all' | 'mastered' | 'not-mastered';
-export type ViewMode = 'learn' | 'list' | 'search' | 'quiz';
+export type ViewMode = 'learn' | 'list' | 'search' | 'quiz' | 'listening';
 
 // 新增范围选择类型
 export type SelectionMode = 'grade-all' | 'grade-course' | 'grade-unit' | 'grade-lesson' | 'grade-count';

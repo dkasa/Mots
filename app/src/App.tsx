@@ -17,6 +17,7 @@ import { LearnMode } from './components/LearnMode';
 import { ListMode } from './components/ListMode';
 import { WordSearch } from './components/WordSearch';
 import { QuizMode } from './components/QuizMode';
+import { ListeningMode } from './components/ListeningMode';
 import { BottomNavigation } from './components/BottomNavigation';
 
 import { WordWithStatus } from './types/vocabulary';
@@ -560,6 +561,12 @@ function App() {
             error={error}
             onSync={handleManualSync}
             darkMode={darkMode}
+          />
+        ) : currentViewMode === 'listening' ? (
+          <ListeningMode
+            grade={currentGrade}
+            darkMode={darkMode}
+            courseSelection={courseSelection}
           />
         ) : (
           <ListMode

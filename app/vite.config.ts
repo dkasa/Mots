@@ -19,6 +19,21 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     open: false,
+    fs: {
+      allow: ['..'], // 允许访问项目根目录
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      },
+      '/listening': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/listening/, '/listening')
+      }
+    }
   },
   publicDir: 'public',
   resolve: {

@@ -502,8 +502,8 @@ function filterWordsByMode(mode: QuizModeType, words: WordWithStatus[], wordMemo
       return words.filter(word => !word.isMastered);
     
     case 'previous-errors':
-      // 返回上次错误的单词（且未掌握的）
-      return getPreviousErrorWords(words, wordMemories).filter(word => !word.isMastered);
+      // 返回上次错误的单词（不依赖掌握状态）
+      return getPreviousErrorWords(words, wordMemories);
     
     default:
       // 默认返回所有单词

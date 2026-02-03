@@ -274,6 +274,18 @@ export class AIServiceImpl implements AIService {
     // 将数字年级转换为更友好的描述
     const gradeDescription = this.getGradeDescription(grade);
     
+    // 人名列表和性别信息
+    const namesWithGender = `
+**可用人名列表（必须从中选择使用）：**
+- **男性名字**：Éric, Thomas, Marc, Luc, Jean, Paul, François, Emmanuel
+- **女性名字**：Emma, Laure, Pauline, Estelle, Isabelle, Florence
+
+**使用规则：**
+1. 句子中如果需要使用人名，必须从以上列表中选择
+2. 注意性别匹配：男性名字用于男性角色，女性名字用于女性角色
+3. 使用法国名字的常见表达方式
+`;
+    
     if (questionType === 'sentence-completion') {
       return `你是一位经验丰富的法语教师，为${gradeDescription}学生创建一个法语填空练习题。
 
@@ -287,7 +299,7 @@ export class AIServiceImpl implements AIService {
 3. 将"${frenchWord}"替换为下划线"______"
 4. 提供4个选项，第一个是正确答案
 5. 句子内容要贴近学生的日常生活和学习场景
-
+${namesWithGender}
 **选项设计原则：**
 - 如果"${frenchWord}"是名词：提供正确形式、常见相关形式（如阴性形式或复数形式）
 - 如果"${frenchWord}"是动词：提供正确的变位形式，避免过于复杂的时态
@@ -320,7 +332,7 @@ export class AIServiceImpl implements AIService {
 目标单词：${frenchWord}（${meaning}）
 难度级别：${difficulty}
 学生水平：${gradeDescription}
-
+${namesWithGender}
 **教学要求：**
 - 句子必须语法正确，符合法语语法规则
 - 如果${frenchWord}是动词，要使用简单的时态和变位

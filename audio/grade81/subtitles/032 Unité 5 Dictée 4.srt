@@ -1,0 +1,59 @@
+1
+00:00:01,000 --> 00:00:05,000
+Bonjour, comment allez-vous aujourd'hui ?
+
+2
+00:00:05,500 --> 00:00:10,000
+Je vais très bien, merci. Et vous ?
+
+3
+00:00:10,500 --> 00:00:15,000
+Moi aussi, je vais bien. Il fait beau aujourd'hui.
+
+4
+00:00:15,500 --> 00:00:20,000
+Oui, c'est une belle journée pour une promenade.
+
+5
+00:00:20,500 --> 00:00:25,000
+Voulez-vous aller au parc avec moi ?
+
+6
+00:00:25,500 --> 00:00:30,000
+Avec plaisir ! Allons-y tout de suite.
+
+7
+00:00:30,500 --> 00:00:35,000
+Le parc est très près d'ici, à cinq minutes à pied.
+
+8
+00:00:35,500 --> 00:00:40,000
+Parfait, nous pouvons profiter du beau temps.
+
+9
+00:00:40,500 --> 00:00:45,000
+Regardez, il y a beaucoup d'enfants qui jouent.
+
+10
+00:00:45,500 --> 00:00:50,000
+Oui, c'est très animé aujourd'hui.
+
+11
+00:00:50,500 --> 00:00:55,000
+Voulez-vous vous asseoir sur ce banc ?
+
+12
+00:00:55,500 --> 00:01:00,000
+Volontiers, je suis un peu fatigué.
+
+13
+00:01:00,500 --> 00:01:05,000
+Nous pouvons nous reposer un moment ici.
+
+14
+00:01:05,500 --> 00:01:10,000
+C'est très agréable, n'est-ce pas ?
+
+15
+00:01:10,500 --> 00:01:15,000
+Oui, j'adore venir au parc le week-end.

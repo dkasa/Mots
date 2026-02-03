@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, List, Search, FileQuestion } from 'lucide-react';
+import { BookOpen, List, Search, FileQuestion, Headphones } from 'lucide-react';
 import { ViewMode } from '../types/vocabulary';
 
 interface BottomNavigationProps {
@@ -24,6 +24,11 @@ export function BottomNavigation({ currentViewMode, onViewModeChange, darkMode =
       id: 'quiz' as ViewMode,
       icon: FileQuestion,
       label: '测试',
+    },
+    {
+      id: 'listening' as ViewMode,
+      icon: Headphones,
+      label: '听力',
     },
     {
       id: 'search' as ViewMode,
