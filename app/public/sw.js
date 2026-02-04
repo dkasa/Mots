@@ -4,12 +4,21 @@ let STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
 let DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
 
 // 初始化时从版本文件获取版本信息
-async function initializeVersion() {
+async function initializeVersion(clientVersion = null) {
   try {
     const response = await fetch('/version.json?t=' + Date.now());
     if (response.ok) {
       const versionData = await response.json();
-      BUILD_VERSION = versionData.version || versionData.buildVersion || 'v1.0.1';
+      const newVersion = versionData.version || versionData.buildVersion || 'v1.0.1';
+
+      // 如果客户端提供了版本号，并且与文件中的版本号不一致，说明有新版本
+      if (clientVersion && clientVersion !== newVersion) {
+        console.log(`[SW] 检测到版本不一致: 客户端=${clientVersion}, 服务器=${newVersion}`);
+        // 通知所有客户端有新版本
+        notifyClientsAboutUpdate(newVersion);
+      }
+
+      BUILD_VERSION = newVersion;
       STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
       DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
       console.log(`[SW] 初始化版本: ${BUILD_VERSION}`);
@@ -19,30 +28,34 @@ async function initializeVersion() {
   }
 }
 
-// 版本检查间隔（5分钟）
-const VERSION_CHECK_INTERVAL = 5 * 60 * 1000;
+// 版本检查间隔（30秒，更频繁的检查）
+const VERSION_CHECK_INTERVAL = 30 * 1000;
 
-// 需要缓存的资源列表（根据构建产物调整路径）
+// 需要缓存的资源列表（Vite 构建后使用文件哈希）
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon/icon-192.png',
-  '/icon/icon-512.png',
-  '/icon/icon-144.png',
-  '/icon/icon-96.png',
-  '/icon/icon-72.png',
+  '/version.json', // 版本文件也需要缓存
+  // 图标文件（使用正确的路径）
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-144.png',
+  '/icons/icon-96.png',
+  '/icons/icon-72.png',
+  '/icons/icon-180.png',
+  '/favicon.svg',
+  '/favicon.ico',
+  // 数据文件
   '/data/grade71_words.json',
   '/data/grade72_words.json',
   '/data/grade81_words.json',
   '/data/grade82_words.json',
   '/data/grade91_words.json',
-  '/data/grade92_words.json',
-  // 确保主要的 JS 和 CSS 文件被缓存
-  '/static/js/main.js',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
-  '/static/css/app.css'
+  '/data/grade92_words.json'
+  // 注意：JS 和 CSS 文件现在使用文件哈希，路径会自动变化
+  // 例如：/assets/index-[hash].js, /assets/index-[hash].css
+  // 这些文件会通过动态缓存模式自动缓存
 ];
 
 const DYNAMIC_CACHE_PATTERNS = [
@@ -349,48 +362,56 @@ self.addEventListener('notificationclick', event => {
 // 版本检查和更新逻辑
 async function checkForUpdates() {
   try {
-    // 获取版本信息文件（或检查主HTML文件）
-    const versionResponse = await fetch('/version.json?t=' + Date.now());
+    // 获取版本信息文件（添加时间戳防止缓存）
+    const versionResponse = await fetch('/version.json?t=' + Date.now(), {
+      cache: 'no-cache' // 禁用缓存
+    });
+
     if (!versionResponse.ok) {
-      // 如果没有版本文件，检查index.html的ETag或Last-Modified
-      const htmlResponse = await fetch('/index.html?t=' + Date.now(), { method: 'HEAD' });
-      if (htmlResponse.ok) {
-        const currentETag = htmlResponse.headers.get('etag');
-        const lastModified = htmlResponse.headers.get('last-modified');
-        
-        // 检查缓存中是否有版本信息
-        const cache = await caches.open(STATIC_CACHE);
-        const cachedHtml = await cache.match('/index.html');
-        
-        if (cachedHtml) {
-          const cachedVersion = cachedHtml.headers.get('sw-version') || BUILD_VERSION;
-          
-          // 如果有ETag或Last-Modified变化，说明有更新
-          if (currentETag && currentETag !== cachedHtml.headers.get('etag') ||
-              lastModified && lastModified !== cachedHtml.headers.get('last-modified')) {
-            console.log('[SW] Detected version update, triggering refresh');
-            notifyClientsAboutUpdate();
-          }
-        }
-      }
+      console.log('[SW] 无法获取版本文件，跳过检查');
       return;
     }
-    
+
     const versionData = await versionResponse.json();
     const latestVersion = versionData.version || versionData.buildVersion;
-    
+
     if (latestVersion && latestVersion !== BUILD_VERSION) {
-      console.log(`[SW] New version detected: ${latestVersion} (current: ${BUILD_VERSION})`);
+      console.log(`[SW] 检测到新版本: ${latestVersion} (当前版本: ${BUILD_VERSION})`);
+
       // 更新本地版本信息
       BUILD_VERSION = latestVersion;
       STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
       DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
-      
+
       // 通知所有客户端有新版本可用
       notifyClientsAboutUpdate(latestVersion);
+
+      // 立即清理旧缓存
+      cleanupOldCaches();
+    } else {
+      console.log('[SW] 版本检查完成，当前是最新版本:', BUILD_VERSION);
     }
   } catch (error) {
-    console.log('[SW] Version check failed:', error);
+    console.log('[SW] 版本检查失败:', error);
+  }
+}
+
+// 清理旧缓存
+async function cleanupOldCaches() {
+  try {
+    const cacheNames = await caches.keys();
+    const allPromises = cacheNames.map(cacheName => {
+      // 只保留当前版本的缓存
+      if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+        console.log(`[SW] 清理旧缓存: ${cacheName}`);
+        return caches.delete(cacheName);
+      }
+      return Promise.resolve();
+    });
+    await Promise.all(allPromises);
+    console.log('[SW] 旧缓存清理完成');
+  } catch (error) {
+    console.error('[SW] 清理缓存失败:', error);
   }
 }
 
@@ -426,40 +447,48 @@ function refreshAllClients() {
 // 监听来自客户端的消息
 self.addEventListener('message', event => {
   const data = event.data || {};
-  
+
   switch (data.type) {
+    case 'INIT_VERSION':
+      // 客户端初始化时发送的版本号
+      console.log('[SW] 收到客户端版本初始化:', data.version);
+      initializeVersion(data.version);
+      break;
+
     case 'SKIP_WAITING':
       self.skipWaiting();
       break;
-      
+
     case 'GET_VERSION':
       if (event.ports && event.ports[0]) {
-        event.ports[0].postMessage({ 
+        event.ports[0].postMessage({
           version: BUILD_VERSION,
           updateAvailable: false // 这里可以添加更新检测逻辑
         });
       }
       break;
-      
+
     case 'CLEAR_CACHE':
       event.waitUntil(
         caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
       );
       break;
-      
+
     case 'CHECK_FOR_UPDATES':
+      console.log('[SW] 收到检查更新请求');
       checkForUpdates();
       break;
-      
+
     case 'FORCE_UPDATE':
     case 'FORCE_REFRESH':
       // 强制更新：清除缓存并重新加载
+      console.log('[SW] 收到强制更新请求');
       event.waitUntil(
         caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k))))
           .then(() => self.skipWaiting())
       );
       break;
-      
+
     case 'NEW_VERSION_AVAILABLE':
       // 处理来自客户端的版本更新通知
       console.log('[SW] Received version update notification from client:', data.version);

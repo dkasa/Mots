@@ -45,7 +45,9 @@ const main = () => {
   try {
     const projectRoot = path.resolve(__dirname, '..');
     const publicDir = path.join(projectRoot, 'public');
+    const distDir = path.join(projectRoot, 'dist');
     const versionFile = path.join(publicDir, 'version.json');
+    const distVersionFile = path.join(distDir, 'version.json');
     
     // 生成版本信息
     const versionInfo = generateVersion();
@@ -55,12 +57,19 @@ const main = () => {
       fs.mkdirSync(publicDir, { recursive: true });
     }
     
-    // 写入版本文件
+    // 写入版本文件到public目录
     fs.writeFileSync(versionFile, JSON.stringify(versionInfo, null, 2));
-    
     console.log('✅ 版本文件已生成:', versionFile);
     console.log('📦 版本号:', versionInfo.version);
     console.log('⏰ 构建时间:', versionInfo.buildTime);
+    
+    // 如果dist目录存在，也写入版本文件
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(distVersionFile, JSON.stringify(versionInfo, null, 2));
+      console.log('✅ 版本文件已复制到dist:', distVersionFile);
+    } else {
+      console.log('ℹ️  dist目录不存在，跳过复制版本文件（构建后会自动复制）');
+    }
     
   } catch (error) {
     console.error('❌ 版本生成失败:', error.message);
