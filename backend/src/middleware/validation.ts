@@ -16,7 +16,7 @@ export const progressSyncSchema = z.object({
   learnedWords: z.record(z.string(), z.boolean()),
   masteredWords: z.record(z.string(), z.boolean()),
   currentGrade: z.number().int().min(71).max(92),
-  currentViewMode: z.enum(['learn', 'list', 'search', 'quiz']),
+  currentViewMode: z.enum(['learn', 'list', 'search', 'quiz', 'listening']),
   currentFilter: z.enum(['all', 'mastered', 'not-mastered'])
 });
 

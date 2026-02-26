@@ -45,6 +45,25 @@ export function useAuth() {
     initAuth();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 监听认证过期事件
+  useEffect(() => {
+    const handleAuthExpired = (event: CustomEvent) => {
+      console.log('🔴 收到认证过期事件:', event.detail?.message);
+      // 更新 React 状态，让应用知道用户已登出
+      setAuthState({
+        user: null,
+        token: null,
+        isAuthenticated: false,
+        isLoading: false,
+      });
+    };
+
+    window.addEventListener('auth:expired', handleAuthExpired as EventListener);
+    return () => {
+      window.removeEventListener('auth:expired', handleAuthExpired as EventListener);
+    };
+  }, []);
+
   const clearAuthData = useCallback(() => {
     localStorage.removeItem(STORAGE_TOKEN_KEY);
     localStorage.removeItem(STORAGE_USER_KEY);

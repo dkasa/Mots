@@ -1,27 +1,34 @@
 // 动态版本管理 - 从版本文件获取版本号
-let BUILD_VERSION = 'v1.0.1';
-let STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
-let DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
+let BUILD_VERSION = 'unknown';
+let STATIC_CACHE = 'static-cache-v1';
+let DYNAMIC_CACHE = 'dynamic-cache-v1';
+let versionInitialized = false;
+let hasNotifiedUpdate = false; // 标记是否已通知过更新
 
 // 初始化时从版本文件获取版本信息
 async function initializeVersion(clientVersion = null) {
+  if (versionInitialized && BUILD_VERSION !== 'unknown') {
+    console.log('[SW] 版本已初始化，跳过:', BUILD_VERSION);
+    return;
+  }
+
   try {
     const response = await fetch('/version.json?t=' + Date.now());
     if (response.ok) {
       const versionData = await response.json();
       const newVersion = versionData.version || versionData.buildVersion || 'v1.0.1';
 
-      // 如果客户端提供了版本号，并且与文件中的版本号不一致，说明有新版本
-      if (clientVersion && clientVersion !== newVersion) {
-        console.log(`[SW] 检测到版本不一致: 客户端=${clientVersion}, 服务器=${newVersion}`);
-        // 通知所有客户端有新版本
-        notifyClientsAboutUpdate(newVersion);
-      }
-
       BUILD_VERSION = newVersion;
       STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
       DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
+      versionInitialized = true;
       console.log(`[SW] 初始化版本: ${BUILD_VERSION}`);
+
+      // 只有当客户端版本与服务器版本不一致时才通知
+      if (clientVersion && clientVersion !== newVersion) {
+        console.log(`[SW] 检测到版本不一致: 客户端=${clientVersion}, 服务器=${newVersion}`);
+        notifyClientsAboutUpdate(newVersion);
+      }
     }
   } catch (error) {
     console.warn('[SW] 无法获取版本信息，使用默认版本:', error.message);
@@ -375,7 +382,13 @@ async function checkForUpdates() {
     const versionData = await versionResponse.json();
     const latestVersion = versionData.version || versionData.buildVersion;
 
-    if (latestVersion && latestVersion !== BUILD_VERSION) {
+    if (!latestVersion) {
+      console.log('[SW] 无法获取版本号，跳过检查');
+      return;
+    }
+
+    // 如果版本已初始化且检测到新版本
+    if (versionInitialized && latestVersion !== BUILD_VERSION && !hasNotifiedUpdate) {
       console.log(`[SW] 检测到新版本: ${latestVersion} (当前版本: ${BUILD_VERSION})`);
 
       // 更新本地版本信息
@@ -383,11 +396,21 @@ async function checkForUpdates() {
       STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
       DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
 
+      // 标记已通知过
+      hasNotifiedUpdate = true;
+
       // 通知所有客户端有新版本可用
       notifyClientsAboutUpdate(latestVersion);
 
       // 立即清理旧缓存
       cleanupOldCaches();
+    } else if (!versionInitialized) {
+      // 首次检查，只更新版本，不通知
+      BUILD_VERSION = latestVersion;
+      STATIC_CACHE = `static-cache-${BUILD_VERSION}`;
+      DYNAMIC_CACHE = `dynamic-cache-${BUILD_VERSION}`;
+      versionInitialized = true;
+      console.log('[SW] 首次版本检查完成，当前版本:', BUILD_VERSION);
     } else {
       console.log('[SW] 版本检查完成，当前是最新版本:', BUILD_VERSION);
     }

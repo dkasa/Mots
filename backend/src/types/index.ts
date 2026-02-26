@@ -61,7 +61,7 @@ export interface ProgressSyncRequest {
   learnedWords: Record<string, boolean>;
   masteredWords: Record<string, boolean>;
   currentGrade: number;
-  currentViewMode: 'learn' | 'list' | 'search';
+  currentViewMode: 'learn' | 'list' | 'search' | 'quiz' | 'listening';
   currentFilter: 'all' | 'mastered' | 'not-mastered';
   clientTimestamp?: string; // 客户端时间戳
   wordProgressTimestamps?: Record<string, string>; // 单词级别的时间戳

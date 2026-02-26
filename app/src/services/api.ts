@@ -61,7 +61,11 @@ class ApiService {
           localStorage.removeItem('mots-auth-token');
           localStorage.removeItem('mots-user');
           console.log('认证已过期，请重新登录');
-          // 不再自动刷新页面，让应用正常降级到离线模式
+
+          // 触发自定义事件，通知应用更新认证状态
+          window.dispatchEvent(new CustomEvent('auth:expired', {
+            detail: { message: '认证已过期，请重新登录' }
+          }));
         }
         return Promise.reject(error);
       }
