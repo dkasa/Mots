@@ -106,4 +106,41 @@ router.get('/:questionId/reusability', async (req, res) => {
   }
 });
 
+/**
+ * 删除句子
+ * DELETE /api/intelligent-sentences/:questionId
+ */
+router.delete('/:questionId', async (req, res) => {
+  try {
+    const questionId = parseInt(req.params.questionId);
+
+    if (isNaN(questionId)) {
+      return res.status(400).json({
+        success: false,
+        message: '题目ID格式错误'
+      });
+    }
+
+    const deleted = await intelligentSentenceService.deleteSentence(questionId);
+
+    if (!deleted) {
+      return res.status(404).json({
+        success: false,
+        message: '句子不存在或删除失败'
+      });
+    }
+
+    res.json({
+      success: true,
+      message: '句子删除成功'
+    });
+  } catch (error) {
+    console.error('❌ 删除句子失败:', error);
+    res.status(500).json({
+      success: false,
+      message: '服务器内部错误'
+    });
+  }
+});
+
 export default router;

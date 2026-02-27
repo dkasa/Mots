@@ -257,6 +257,20 @@ class IntelligentSentenceService {
   }
 
   /**
+   * 删除句子
+   */
+  async deleteSentence(questionId: number): Promise<boolean> {
+    try {
+      const query = 'DELETE FROM ai_generated_questions WHERE id = $1';
+      const result = await pool.query(query, [questionId]);
+      return (result.rowCount ?? 0) > 0;
+    } catch (error) {
+      console.error('❌ 删除句子失败:', error);
+      return false;
+    }
+  }
+
+  /**
    * 保存题目到数据库
    */
   private async saveQuestionToDatabase(question: IntelligentQuestion): Promise<number> {

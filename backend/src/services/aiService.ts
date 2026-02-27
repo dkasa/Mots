@@ -274,6 +274,28 @@ export class AIServiceImpl implements AIService {
     // 将数字年级转换为更友好的描述
     const gradeDescription = this.getGradeDescription(grade);
     
+    // 解析单词：处理性别标记（如 "lourd, e" 或 "serveur,se"）
+    let cleanWord = frenchWord;
+    let masculineForm = frenchWord;
+    let feminineForm = frenchWord;
+    const hasGenderMarker = frenchWord.includes(',');
+
+    if (hasGenderMarker) {
+      const commaIndex = frenchWord.indexOf(',');
+      masculineForm = frenchWord.substring(0, commaIndex).trim();
+      const suffix = frenchWord.substring(commaIndex + 1).trim();
+      feminineForm = masculineForm + suffix;
+      cleanWord = masculineForm;
+    }
+    
+    // 性别标记说明
+    const genderInstruction = hasGenderMarker
+      ? `\n**特别注意**：这是一个有阴阳性的单词。
+- 阳性形式：${masculineForm}
+- 阴性形式：${feminineForm}
+在生成句子时，请根据语法选择正确的形式。`
+      : '';
+    
     // 人名列表和性别信息
     const namesWithGender = `
 **可选人名列表（需要时使用）：**
@@ -290,21 +312,22 @@ export class AIServiceImpl implements AIService {
     if (questionType === 'sentence-completion') {
       return `你是一位经验丰富的法语教师，为${gradeDescription}学生创建一个法语填空练习题。
 
-目标单词：${frenchWord}（${meaning}）
+目标单词：${cleanWord}（${meaning}）
 难度级别：${difficulty}
 学生水平：${gradeDescription}
-
+${genderInstruction}
 **教学要求：**
 1. 创建一个简单、实用的法语句子，适合${gradeDescription}学生的理解水平
 2. 句子长度控制在5-8个单词，语法简单清晰
-3. 将"${frenchWord}"替换为下划线"______"
-4. 提供4个选项，第一个是正确答案
-5. 句子内容要贴近学生的日常生活和学习场景
+3. **句子必须包含目标单词或其正确的语法变体形式**
+4. 将目标单词替换为下划线"______"
+5. 提供4个选项，第一个是正确答案
+6. 句子内容要贴近学生的日常生活和学习场景
 ${namesWithGender}
 **选项设计原则：**
-- 如果"${frenchWord}"是名词：提供正确形式、常见相关形式（如阴性形式或复数形式）
-- 如果"${frenchWord}"是动词：提供正确的变位形式，避免过于复杂的时态
-- 如果"${frenchWord}"是其他词性：提供正确形式和常见混淆形式
+- 如果是名词：提供正确形式、常见相关形式（如阴性形式或复数形式）
+- 如果是动词：提供正确的变位形式，避免过于复杂的时态
+- 如果是其他词性：提供正确形式和常见混淆形式
 - **4个选项必须完全不相同，有明显区别，适合${gradeDescription}学生的认知水平**
 
 **内容限制：**
@@ -319,30 +342,29 @@ ${namesWithGender}
 请严格按照以下JSON格式返回，只包含JSON：
 {
   "original_sentence": "适合${gradeDescription}学生的简单法语句子",
-  "modified_sentence": "将${frenchWord}替换为下划线后的句子",
-  "options": ["正确的${frenchWord}形式", "干扰项1", "干扰项2", "干扰项3"],
-  "correct_answer": "正确的${frenchWord}形式",
+  "modified_sentence": "将目标单词替换为下划线后的句子",
+  "options": ["正确选项", "干扰项1", "干扰项2", "干扰项3"],
+  "correct_answer": "句子中实际使用的单词形式",
   "explanation": "完整原句的准确中文翻译"
 }`;
     } else {
-      // 将数字年级转换为更友好的描述
-      const gradeDescription = this.getGradeDescription(grade);
-      
       return `你是一位经验丰富的法语教师，为${gradeDescription}学生创建一个词卡重组法语练习题。
 
-目标单词：${frenchWord}（${meaning}）
+目标单词：${cleanWord}（${meaning}）
 难度级别：${difficulty}
 学生水平：${gradeDescription}
+${genderInstruction}
 ${namesWithGender}
 **教学要求：**
 - 句子必须语法正确，符合法语语法规则
-- 如果${frenchWord}是动词，要使用简单的时态和变位
-- 如果${frenchWord}是名词，要考虑性别和单复数
+- **句子必须包含目标单词或其正确的语法变体形式**
+- 如果目标单词是动词，要使用简单的时态和变位
+- 如果目标单词是名词，要考虑性别和单复数
 - 句子内容要贴近学生的日常生活和学习场景
 - 避免生成过于复杂的句子结构
 
 **练习题要求：**
-1. 创建一个包含"${frenchWord}"的简单法语句子（5-8个单词）
+1. 创建一个包含目标单词的简单法语句子（5-8个单词）
 2. 将句子拆分成独立的单词块
 3. 提供打乱顺序的单词块列表
 4. 句子要简单明了，适合${gradeDescription}学生的理解水平
@@ -1441,23 +1463,45 @@ ${namesWithGender}
     const gradeDescription = getGradeDescription(grade);
     const partOfSpeechText = partOfSpeech ? `，词性为${partOfSpeech}` : '';
 
-    // 检查单词是否包含性别标记（如 "lourd, e" 或 "grand, e"）
-    const hasGenderMarker = frenchWord.includes(', ');
-    const genderInstruction = hasGenderMarker
-      ? `\n**特别注意**：单词"${frenchWord}"包含性别标记，表示它有阳性形式（去掉 ", e" 部分）和阴性形式（阳性形式 + "e"）。\n在生成句子时，请根据句子的语法和语境选择正确的形式：\n- 如果修饰阳性名词，使用阳性形式\n- 如果修饰阴性名词，使用阴性形式\n- 不要在句子中直接包含 ", e" 这样的标记`
-      : '';
+    // 解析单词：处理性别标记（如 "lourd, e" 或 "serveur,se"）
+    // 提取纯净的阳性形式用于 prompt
+    let cleanWord = frenchWord;
+    let masculineForm = frenchWord;
+    let feminineForm = frenchWord;
+    const hasGenderMarker = frenchWord.includes(',');
 
-    return `你是一位专业的法语教师，请为法语单词"${frenchWord}"（中文意思：${meaning}${partOfSpeechText}）生成两个实用的法语句子，并为每个句子创建词卡重组和填空两种练习形式。
+    if (hasGenderMarker) {
+      // 格式通常是 "word,suffix" 或 "word, suffix"
+      const commaIndex = frenchWord.indexOf(',');
+      masculineForm = frenchWord.substring(0, commaIndex).trim();
+      const suffix = frenchWord.substring(commaIndex + 1).trim();
+      feminineForm = masculineForm + suffix;
+      cleanWord = masculineForm; // 使用阳性形式作为主要显示
+      console.log(`🔍 解析性别标记: 原词="${frenchWord}", 阳性="${masculineForm}", 阴性="${feminineForm}"`);
+    }
+
+    const genderInstruction = hasGenderMarker
+      ? `\n**特别注意**：这是一个有阴阳性的形容词/名词。
+- 阳性形式：${masculineForm}
+- 阴性形式：${feminineForm}
+在生成句子时，请根据句子的语法和语境选择正确的形式：
+- 如果修饰阳性名词，使用阳性形式"${masculineForm}"
+- 如果修饰阴性名词，使用阴性形式"${feminineForm}"
+- 句子中必须包含你选择的那个形式，不要使用其他变体`
+      : `\n**重要**：句子中必须包含单词"${cleanWord}"或其正确的语法变体形式。`;
+
+    return `你是一位专业的法语教师，请为法语单词"${cleanWord}"（中文意思：${meaning}${partOfSpeechText}）生成两个实用的法语句子，并为每个句子创建词卡重组和填空两种练习形式。
 ${genderInstruction}
 
 要求：
 1. 句子要自然、实用，语法正确
 2. 句子难度要适合${gradeDescription}的学生
-3. 每个句子都要提供准确且自然的中文翻译，避免直译和僵硬表达
+3. **每个句子必须包含目标单词或其正确的语法变体形式**
+4. 每个句子都要提供准确且自然的中文翻译，避免直译和僵硬表达
    - 翻译要符合中文表达习惯，自然流畅
    - 避免"一会儿见，我回来！"这样的直译，改为"一会儿见，我马上回来！"或"待会儿见，我很快就回来！"
    - 避免"一会儿见，我们再见！"这样的重复表达，改为"一会儿见，我们待会儿见！"或"待会儿见，我们等会儿见！"
-4. 为每个句子创建：
+5. 为每个句子创建：
    - 词卡重组练习：将句子拆分成单词块，并打乱顺序
    - 填空练习：将目标单词替换为空白，并提供干扰选项
 
@@ -1465,23 +1509,23 @@ ${genderInstruction}
 {
   "sentences": [
     {
-      "french": "第一个法语句子",
+      "french": "第一个法语句子（必须包含目标单词）",
       "chinese": "第一个句子的中文翻译",
       "word_blocks": ["单词块1", "单词块2", "单词块3"],
       "shuffled_blocks": ["打乱后的单词块1", "打乱后的单词块2", "打乱后的单词块3"],
       "modified_sentence": "包含空白的句子，如：Je mange une _____.",
       "options": ["正确选项", "干扰项1", "干扰项2", "干扰项3"],
-      "correct_answer": "句子中实际使用的单词形式（不是${frenchWord}）",
+      "correct_answer": "句子中实际使用的单词形式",
       "explanation": "句子用法说明"
     },
     {
-      "french": "第二个法语句子", 
+      "french": "第二个法语句子（必须包含目标单词）", 
       "chinese": "第二个句子的中文翻译",
       "word_blocks": ["单词块1", "单词块2", "单词块3"],
       "shuffled_blocks": ["打乱后的单词块1", "打乱后的单词块2", "打乱后的单词块3"],
       "modified_sentence": "包含空白的句子",
       "options": ["正确选项", "干扰项1", "干扰项2", "干扰项3"],
-      "correct_answer": "句子中实际使用的单词形式（不是${frenchWord}）",
+      "correct_answer": "句子中实际使用的单词形式",
       "explanation": "句子用法说明"
     }
   ]
@@ -1589,8 +1633,37 @@ ${genderInstruction}
     try {
       console.log(`📝 准备保存 ${sentences.length} 个句子到数据库`);
 
+      // 解析单词：提取纯净形式用于保存和验证
+      let cleanWord = frenchWord;
+      let wordVariants = [frenchWord];
+      const hasGenderMarker = frenchWord.includes(',');
+
+      if (hasGenderMarker) {
+        const commaIndex = frenchWord.indexOf(',');
+        const masculineForm = frenchWord.substring(0, commaIndex).trim();
+        const suffix = frenchWord.substring(commaIndex + 1).trim();
+        const feminineForm = masculineForm + suffix;
+        cleanWord = masculineForm;
+        wordVariants = [masculineForm, feminineForm];
+        console.log(`🔍 保存时解析: 原词="${frenchWord}", 纯净形式="${cleanWord}", 变体=${JSON.stringify(wordVariants)}`);
+      }
+
       const questionsToSave = sentences.map((sentence, index) => {
         console.log(`📄 处理句子 ${index + 1}: ${sentence.french}`);
+
+        // 验证句子是否包含目标单词或其变体
+        const sentenceLower = sentence.french.toLowerCase();
+        const containsTargetWord = wordVariants.some(variant => {
+          // 检查句子是否包含该变体（作为独立单词或带标点）
+          const regex = new RegExp(`\\b${variant.toLowerCase()}\\b`, 'i');
+          return regex.test(sentenceLower);
+        });
+
+        if (!containsTargetWord) {
+          console.error(`❌ 句子 ${index + 1} 不包含目标单词或其变体: "${sentence.french}"`);
+          console.error(`   目标单词变体: ${JSON.stringify(wordVariants)}`);
+          return []; // 跳过不匹配的句子
+        }
 
         // 验证句子数据是否完整
         if (!sentence.word_blocks || !sentence.shuffled_blocks || !sentence.modified_sentence || !sentence.options) {
@@ -1605,7 +1678,7 @@ ${genderInstruction}
         // 使用AI返回的完整数据
         const wordBlocks = sentence.word_blocks;
         const shuffledBlocks = sentence.shuffled_blocks;
-        const correctAnswer = sentence.correct_answer || frenchWord;
+        const correctAnswer = sentence.correct_answer || cleanWord;
         const modifiedSentence = sentence.modified_sentence;
         const options = sentence.options;
 
@@ -1618,7 +1691,7 @@ ${genderInstruction}
           {
             wordId,
             questionType: 'sentence-reordering',
-            word: frenchWord,
+            word: cleanWord, // 使用纯净形式保存
             meaning,
             grade,
             difficulty: 'medium',
@@ -1634,7 +1707,7 @@ ${genderInstruction}
           {
             wordId,
             questionType: 'sentence-completion',
-            word: frenchWord,
+            word: cleanWord, // 使用纯净形式保存
             meaning,
             grade,
             difficulty: 'medium',
@@ -1650,6 +1723,11 @@ ${genderInstruction}
       }).flat();
 
       console.log(`📊 准备保存 ${questionsToSave.length} 个题目到数据库`);
+
+      if (questionsToSave.length === 0) {
+        console.warn('⚠️ 没有有效的题目可保存');
+        return;
+      }
 
       // 批量保存到数据库
       const savedIds = await aiQuestionCacheQueries.saveQuestionsBatch(questionsToSave);

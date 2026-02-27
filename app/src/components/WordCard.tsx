@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { WordWithStatus } from '../types/vocabulary';
 import { useAuth } from '../hooks/useAuth';
 import { aiSentenceService, AISentence } from '../services/aiSentenceService';
@@ -18,7 +18,7 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   const [currentWordVariant, setCurrentWordVariant] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  
+
   // AI造句相关状态
   const [isGeneratingSentences, setIsGeneratingSentences] = useState(false);
   const [generatedSentences, setGeneratedSentences] = useState<AISentence | null>(null);
@@ -26,7 +26,15 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isAutoFetching, setIsAutoFetching] = useState(false);
   const [usedSentenceIndices, setUsedSentenceIndices] = useState<number[]>([]);
-  
+
+  // 左滑删除相关状态
+  const [swipeOffset, setSwipeOffset] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const sentenceCardRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef(0);
+  const isDragging = useRef(false);
+  const currentSwipeOffset = useRef(0);
+
   const { isAuthenticated } = useAuth();
 
   // 当回忆模式改变时重置显示状态
@@ -200,7 +208,7 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
       console.log('✅ WordCard: 收到句子结果:', sentences);
       console.log('📝 WordCard: 句子内容:', JSON.stringify(sentences, null, 2));
       setGeneratedSentences(sentences);
-      
+
       // 手动生成时也随机选择一条句子并标记为已使用
       const randomIndex = Math.floor(Math.random() * sentences.sentences.length);
       setCurrentSentenceIndex(randomIndex);
@@ -213,6 +221,126 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
     }
   };
 
+  // 触摸事件处理 - 左滑删除
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    isDragging.current = true;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+
+    const currentX = e.touches[0].clientX;
+    const diff = currentX - touchStartX.current;
+
+    // 只允许左滑（负值），最大滑动距离80px
+    const newOffset = Math.max(-80, Math.min(0, diff));
+    currentSwipeOffset.current = newOffset;
+    setSwipeOffset(newOffset);
+  };
+
+  const handleTouchEnd = () => {
+    isDragging.current = false;
+
+    // 使用ref获取最新的偏移量
+    const offset = currentSwipeOffset.current;
+    if (offset < -40) {
+      setSwipeOffset(-80);
+    } else {
+      setSwipeOffset(0);
+    }
+  };
+
+  // 鼠标事件处理 - 左滑删除（PC端支持）
+  const handleGlobalMouseMove = useCallback((e: MouseEvent) => {
+    if (!isDragging.current) return;
+
+    const currentX = e.clientX;
+    const diff = currentX - touchStartX.current;
+
+    // 只允许左滑（负值），最大滑动距离80px
+    const newOffset = Math.max(-80, Math.min(0, diff));
+    currentSwipeOffset.current = newOffset;
+    setSwipeOffset(newOffset);
+  }, []);
+
+  const handleGlobalMouseUp = useCallback(() => {
+    isDragging.current = false;
+
+    // 移除全局事件监听
+    window.removeEventListener('mousemove', handleGlobalMouseMove);
+    window.removeEventListener('mouseup', handleGlobalMouseUp);
+
+    // 使用ref获取最新的偏移量
+    const offset = currentSwipeOffset.current;
+    if (offset < -40) {
+      setSwipeOffset(-80);
+    } else {
+      setSwipeOffset(0);
+    }
+  }, [handleGlobalMouseMove]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault(); // 防止选中文本
+    touchStartX.current = e.clientX;
+    isDragging.current = true;
+
+    // 添加全局事件监听
+    window.addEventListener('mousemove', handleGlobalMouseMove);
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+  };
+
+  // 组件卸载时清理全局事件监听
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [handleGlobalMouseMove, handleGlobalMouseUp]);
+
+  // 删除当前句子
+  const handleDeleteSentence = async () => {
+    if (!generatedSentences || !generatedSentences.sentences[currentSentenceIndex]?.id) {
+      console.warn('无法删除：句子没有ID');
+      return;
+    }
+
+    const sentenceId = generatedSentences.sentences[currentSentenceIndex].id;
+    setIsDeleting(true);
+
+    try {
+      console.log('🗑️ 删除句子，ID:', sentenceId);
+      const success = await aiSentenceService.deleteSentence(sentenceId);
+
+      if (success) {
+        console.log('✅ 句子删除成功');
+
+        // 从本地状态中移除该句子
+        const newSentences = generatedSentences.sentences.filter((_, index) => index !== currentSentenceIndex);
+
+        if (newSentences.length > 0) {
+          // 还有其他句子，更新状态
+          setGeneratedSentences({
+            ...generatedSentences,
+            sentences: newSentences
+          });
+          // 重置当前句子索引
+          const newIndex = Math.min(currentSentenceIndex, newSentences.length - 1);
+          setCurrentSentenceIndex(newIndex);
+        } else {
+          // 没有句子了，清空状态
+          setGeneratedSentences(null);
+        }
+
+        // 重置滑动状态
+        setSwipeOffset(0);
+      }
+    } catch (error) {
+      console.error('❌ 删除句子失败:', error);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
 
   const handleCardClick = () => {
@@ -397,77 +525,123 @@ export function WordCard({ word, darkMode = false, recallMode = 'none' }: WordCa
   return (
     <div className="space-y-4">
       {/* AI造句卡片 - 单独显示在单词卡片上方 */}
-      <div 
-        className={`mx-4 p-4 rounded-lg transition-all duration-300 cursor-pointer ${
-          darkMode 
-            ? 'bg-bg-dark-card shadow-dark-md hover:shadow-dark-lg' 
-            : 'bg-bg-card shadow-md hover:shadow-lg'
-        }`}
-        onClick={handleCardGenerateSentences}
-      >
-        <div className="mb-3">
-          <h3 className={`text-sm font-medium transition-colors duration-300 ${
-            darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-          }`}>
-            AI造句
-          </h3>
+      <div className="mx-4 overflow-hidden rounded-lg relative">
+        {/* 删除按钮背景层 */}
+        <div className="absolute right-0 top-0 bottom-0 w-20 flex items-center justify-center bg-danger-500">
+          <button
+            onClick={handleDeleteSentence}
+            disabled={isDeleting || !generatedSentences?.sentences[currentSentenceIndex]?.id}
+            className={`flex flex-col items-center justify-center text-white ${
+              isDeleting || !generatedSentences?.sentences[currentSentenceIndex]?.id ? 'opacity-50' : ''
+            }`}
+          >
+            {isDeleting ? (
+              <svg className="animate-spin w-6 h-6" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : (
+              <>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span className="text-xs mt-1">删除</span>
+              </>
+            )}
+          </button>
         </div>
 
-        {isGeneratingSentences ? (
-          <div className={`text-center py-4 transition-colors duration-300 ${
-            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
-          }`}>
-            <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p className="text-sm">正在生成句子...</p>
-          </div>
-        ) : isAutoFetching ? (
-          <div className={`text-center py-4 transition-colors duration-300 ${
-            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
-          }`}>
-            <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p className="text-sm">正在自动获取句子...</p>
-          </div>
-        ) : generatedSentences ? (
-          <div className="space-y-4">
-            {/* 当前句子显示 - 显示当前选中的句子 */}
-            {generatedSentences.sentences.length > 0 && (
-              <div className="text-center space-y-3">
-                <div className={`text-xl font-french font-bold leading-relaxed transition-colors duration-300 ${
-                  darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
-                }`}>
-                  {generatedSentences.sentences[currentSentenceIndex].french}
-                </div>
-                <div className={`text-base font-chinese leading-relaxed transition-colors duration-300 ${
-                  darkMode ? 'text-neutral-dark-500' : 'text-neutral-600'
-                }`}>
-                  {generatedSentences.sentences[currentSentenceIndex].chinese}
-                </div>
-              </div>
+        {/* 可滑动的内容层 */}
+        <div
+          ref={sentenceCardRef}
+          className={`p-4 transition-transform duration-200 cursor-pointer select-none ${
+            darkMode
+              ? 'bg-bg-dark-card shadow-dark-md'
+              : 'bg-bg-card shadow-md'
+          }`}
+          style={{ transform: `translateX(${swipeOffset}px)` }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onMouseDown={handleMouseDown}
+          onClick={() => {
+            // 如果滑动状态打开，点击恢复
+            if (swipeOffset < -40) {
+              setSwipeOffset(0);
+            } else {
+              handleCardGenerateSentences();
+            }
+          }}
+        >
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className={`text-sm font-medium transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+            }`}>
+              AI造句
+            </h3>
+            {generatedSentences && generatedSentences.sentences.length > 0 && generatedSentences.sentences[currentSentenceIndex]?.id && (
+              <span className={`text-xs ${darkMode ? 'text-neutral-dark-400' : 'text-neutral-400'}`}>
+                ← 左滑删除
+              </span>
             )}
           </div>
-        ) : (
-          <div className={`text-center py-4 transition-colors duration-300 ${
-            darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
-          }`}>
-            <svg className="w-6 h-6 mx-auto mb-2 opacity-50" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-            </svg>
-            <p className="text-sm">点击生成AI造句示例</p>
-          </div>
-        )}
+
+          {isGeneratingSentences ? (
+            <div className={`text-center py-4 transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+            }`}>
+              <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p className="text-sm">正在生成句子...</p>
+            </div>
+          ) : isAutoFetching ? (
+            <div className={`text-center py-4 transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+            }`}>
+              <svg className="animate-spin w-6 h-6 mx-auto mb-2" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p className="text-sm">正在自动获取句子...</p>
+            </div>
+          ) : generatedSentences ? (
+            <div className="space-y-4">
+              {/* 当前句子显示 - 显示当前选中的句子 */}
+              {generatedSentences.sentences.length > 0 && (
+                <div className="text-center space-y-3">
+                  <div className={`text-xl font-french font-bold leading-relaxed transition-colors duration-300 ${
+                    darkMode ? 'text-neutral-dark-800' : 'text-neutral-800'
+                  }`}>
+                    {generatedSentences.sentences[currentSentenceIndex].french}
+                  </div>
+                  <div className={`text-base font-chinese leading-relaxed transition-colors duration-300 ${
+                    darkMode ? 'text-neutral-dark-500' : 'text-neutral-600'
+                  }`}>
+                    {generatedSentences.sentences[currentSentenceIndex].chinese}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className={`text-center py-4 transition-colors duration-300 ${
+              darkMode ? 'text-neutral-dark-500' : 'text-neutral-500'
+            }`}>
+              <svg className="w-6 h-6 mx-auto mb-2 opacity-50" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+              </svg>
+              <p className="text-sm">点击生成AI造句示例</p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 单词卡片 */}
-      <div 
+      <div
         className={`mx-4 my-4 p-4 rounded-lg transition-all duration-300 relative ${
-          isPlaying 
-            ? (audioGender === 'male' 
+          isPlaying
+            ? (audioGender === 'male'
                 ? (darkMode ? 'bg-info-900/20' : 'bg-info-100') 
                 : (darkMode ? 'bg-secondary-900/20' : 'bg-secondary-100'))
             : (darkMode 

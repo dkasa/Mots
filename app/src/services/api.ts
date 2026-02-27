@@ -375,7 +375,7 @@ class ApiService {
       return response.data;
     } catch (error: any) {
       console.error('获取单词句子失败:', error);
-      
+
       if (error.code === 'ECONNABORTED') {
         throw new Error('获取句子超时');
       } else if (error.response?.status === 404) {
@@ -387,6 +387,17 @@ class ApiService {
       } else {
         throw error;
       }
+    }
+  }
+
+  // 删除句子
+  async deleteSentence(questionId: number): Promise<any> {
+    try {
+      const response = await this.client.delete(`/intelligent-sentences/${questionId}`);
+      return response.data;
+    } catch (error: any) {
+      console.error('删除句子失败:', error);
+      throw error;
     }
   }
 

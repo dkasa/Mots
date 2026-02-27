@@ -6,6 +6,7 @@ export interface AISentence {
   wordId: string;
   targetWord: string;
   sentences: {
+    id?: number;
     french: string;
     chinese: string;
   }[];
@@ -28,19 +29,20 @@ class AISentenceService {
     try {
       const response = await apiService.getWordSentences(wordId);
       console.log('🔍 获取句子API响应:', response);
-      
+
       if (response && response.success && response.data && Array.isArray(response.data)) {
         const questions = response.data;
         console.log('📥 获取到的题目数量:', questions.length);
-        
-        // 返回数据库中的所有句子
+
+        // 返回数据库中的所有句子（包含ID）
         const sentences = questions.map((question, index) => ({
+          id: question.id,
           french: question.original_sentence || '',
           chinese: question.explanation || ''
         }));
-        
+
         console.log('🔄 转换后的句子:', sentences);
-        
+
         if (sentences.length > 0) {
           return {
             id: `existing-${wordId}`,
@@ -94,6 +96,19 @@ class AISentenceService {
     } catch (error) {
       console.error('❌ 生成AI造句失败:', error);
       throw new Error('AI生成句子失败: ' + (error instanceof Error ? error.message : String(error)));
+    }
+  }
+
+  // 删除句子
+  async deleteSentence(questionId: number): Promise<boolean> {
+    try {
+      console.log('🗑️ 删除句子，ID:', questionId);
+      const response = await apiService.deleteSentence(questionId);
+      console.log('📥 删除句子响应:', response);
+      return response.success;
+    } catch (error) {
+      console.error('❌ 删除句子失败:', error);
+      throw error;
     }
   }
 
