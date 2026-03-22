@@ -167,8 +167,11 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
     // 处理下学期材料到上学期单元的映射
     // 初一上学期的U1就是初一上U1第一单元（正常映射）
     // 初一下学期的U5对应初一下学期的U1单元（U6→U1, U7→U2, U8→U3, U9→U4, U10→U5）
+    // Unité 11 及以后归入 Unité 10
     let actualUnitNumber = unitNumber;
-    if (unitNumber > 5) {
+    if (unitNumber > 10) {
+      actualUnitNumber = 10; // Unité 11 及以后归入 Unité 10
+    } else if (unitNumber > 5) {
       actualUnitNumber = unitNumber - 5; // 下学期材料映射到上学期对应单元
     }
     
