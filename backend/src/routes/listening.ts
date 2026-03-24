@@ -25,18 +25,21 @@ interface Subtitle {
 // 获取听力材料列表
 router.get('/materials', async (req, res) => {
   try {
-    const { grade } = req.query;
+    const { grade, category } = req.query;
     
     if (!grade) {
       return res.status(400).json({ error: 'Grade parameter is required' });
     }
 
+    // 默认category为'all'，可选值：'all', 'textbook', 'extracurricular'
+    const materialCategory = (category as string) || 'all';
+
     // 构建听力材料目录路径 - 处理不同环境下的路径
-    let listeningDir: string;
+    let baseListeningDir: string;
     
     if (process.env.NODE_ENV === 'production') {
       // 生产环境：音频文件挂载到 /app/public/audio
-      listeningDir = path.join(
+      baseListeningDir = path.join(
         process.cwd(),
         'public',
         'audio',
@@ -45,7 +48,7 @@ router.get('/materials', async (req, res) => {
       );
     } else {
       // 开发环境
-      listeningDir = path.join(
+      baseListeningDir = path.join(
         process.cwd(),
         '..',
         'app',
@@ -56,26 +59,48 @@ router.get('/materials', async (req, res) => {
       );
     }
 
-    // 检查目录是否存在
-    try {
-      await fs.access(listeningDir);
-    } catch {
-      // 如果目录不存在，返回空数组
-      return res.json([]);
-    }
+    let audioFiles: string[] = [];
 
-    // 读取目录中的音频文件
-    const files = await fs.readdir(listeningDir);
-    const audioFiles = files.filter(file => 
-      file.endsWith('.mp3') || file.endsWith('.m4a') || file.endsWith('.wav')
-    );
+    if (materialCategory === 'all') {
+      // 读取所有子目录中的音频文件
+      const subDirs = ['textbook', 'extracurricular'];
+      for (const subDir of subDirs) {
+        const listeningDir = path.join(baseListeningDir, subDir);
+        try {
+          const files = await fs.readdir(listeningDir);
+          const subDirAudioFiles = files.filter(file => 
+            file.endsWith('.mp3') || file.endsWith('.m4a') || file.endsWith('.wav')
+          ).map(file => path.join(subDir, file));
+          audioFiles = audioFiles.concat(subDirAudioFiles);
+        } catch {
+          // 子目录不存在，跳过
+          continue;
+        }
+      }
+    } else if (materialCategory === 'textbook' || materialCategory === 'extracurricular') {
+      // 读取指定分类目录中的音频文件
+      const listeningDir = path.join(baseListeningDir, materialCategory);
+      try {
+        const files = await fs.readdir(listeningDir);
+        audioFiles = files.filter(file => 
+          file.endsWith('.mp3') || file.endsWith('.m4a') || file.endsWith('.wav')
+        ).map(file => path.join(materialCategory, file));
+      } catch {
+        // 目录不存在，返回空数组
+        audioFiles = [];
+      }
+    } else {
+      // 无效的category参数
+      return res.status(400).json({ error: 'Invalid category parameter. Must be "all", "textbook", or "extracurricular"' });
+    }
 
     // 构建听力材料列表
     const materials = await Promise.all(audioFiles.map(async (file, index) => {
-      const baseName = path.parse(file).name;
+      const fileName = path.basename(file);
+      const baseName = path.parse(fileName).name;
       const subtitleFile = `${baseName}.srt`;
       
-      // 检查是否存在对应的字幕文件
+      // 检查是否存在对应的字幕文件（字幕文件在subtitles目录下，不区分分类）
       let subtitlePath: string;
       
       if (process.env.NODE_ENV === 'production') {
@@ -109,12 +134,16 @@ router.get('/materials', async (req, res) => {
         subtitleFileExists = undefined;
       }
 
+      // 确定材料类型
+      const materialType = file.includes('textbook') ? 'textbook' : 'extracurricular';
+
       return {
         id: `material_${grade}_${index + 1}`,
         grade: grade as string,
         title: baseName.replace(/[_-]/g, ' '),
         audioFile: file,
-        subtitleFile: subtitleFileExists
+        subtitleFile: subtitleFileExists,
+        type: materialType
       };
     }));
 
@@ -145,9 +174,9 @@ router.get('/subtitles/:materialId', async (req, res) => {
     const index = parseInt(parts[2]) - 1;
     
     // 获取音频文件列表
-    let listeningDir: string;
+    let baseListeningDir: string;
     if (process.env.NODE_ENV === 'production') {
-      listeningDir = path.join(
+      baseListeningDir = path.join(
         process.cwd(),
         'public',
         'audio',
@@ -155,7 +184,7 @@ router.get('/subtitles/:materialId', async (req, res) => {
         'listening'
       );
     } else {
-      listeningDir = path.join(
+      baseListeningDir = path.join(
         process.cwd(),
         '..',
         'app',
@@ -166,17 +195,30 @@ router.get('/subtitles/:materialId', async (req, res) => {
       );
     }
 
-    const files = await fs.readdir(listeningDir);
-    const audioFiles = files.filter(file => 
-      file.endsWith('.mp3') || file.endsWith('.m4a') || file.endsWith('.wav')
-    );
+    // 读取所有子目录中的音频文件
+    let audioFiles: string[] = [];
+    const subDirs = ['textbook', 'extracurricular'];
+    for (const subDir of subDirs) {
+      const listeningDir = path.join(baseListeningDir, subDir);
+      try {
+        const files = await fs.readdir(listeningDir);
+        const subDirAudioFiles = files.filter(file => 
+          file.endsWith('.mp3') || file.endsWith('.m4a') || file.endsWith('.wav')
+        ).map(file => path.join(subDir, file));
+        audioFiles = audioFiles.concat(subDirAudioFiles);
+      } catch {
+        // 子目录不存在，跳过
+        continue;
+      }
+    }
 
     if (index < 0 || index >= audioFiles.length) {
       return res.status(404).json({ error: 'Material not found' });
     }
 
-    const audioFile = audioFiles[index];
-    const baseName = path.parse(audioFile).name;
+    const audioFilePath = audioFiles[index];
+    const audioFileName = path.basename(audioFilePath);
+    const baseName = path.parse(audioFileName).name;
     const subtitleFile = `${baseName}.srt`;
     
     // 构建字幕文件路径

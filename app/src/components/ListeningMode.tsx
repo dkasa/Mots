@@ -15,6 +15,7 @@ interface ListeningMaterial {
   audioFile: string;
   subtitleFile?: string;
   duration?: number;
+  type?: 'textbook' | 'extracurricular';
 }
 
 interface ListeningModeProps {
@@ -24,9 +25,10 @@ interface ListeningModeProps {
     selectedUnits: number[];
     selectedLessons: string[];
   };
+  listeningCategory?: 'all' | 'textbook' | 'extracurricular';
 }
 
-export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, courseSelection }) => {
+export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, courseSelection, listeningCategory = 'all' }) => {
   const [materials, setMaterials] = useState<ListeningMaterial[]>([]);
   const [currentMaterial, setCurrentMaterial] = useState<ListeningMaterial | null>(null);
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
@@ -34,17 +36,18 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [category, setCategory] = useState<'all' | 'textbook' | 'extracurricular'>('all');
   
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // 加载听力材料列表
   useEffect(() => {
-    console.log('🎯 ListeningMode组件加载，年级参数:', grade);
+    console.log('🎯 ListeningMode组件加载，年级参数:', grade, '分类:', category);
     
     const loadMaterials = async () => {
       setLoading(true);
       try {
-        const url = `/api/listening/materials?grade=${grade}`;
+        const url = `/api/listening/materials?grade=${grade}&category=${category}`;
         console.log('🔍 请求听力材料URL:', url);
         console.log('🌐 完整URL:', `http://localhost:3001${url}`);
         
@@ -69,7 +72,7 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
     };
 
     loadMaterials();
-  }, [grade]);
+  }, [grade, category]);
 
   // 加载字幕
   const loadSubtitles = useCallback(async (material: ListeningMaterial) => {
@@ -154,6 +157,11 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
 
   // 根据课程选择过滤材料
   const filteredMaterials = materials.filter(material => {
+    // 对于课外听力材料，不应用课程单元过滤
+    if (material.type === 'extracurricular') {
+      return true;
+    }
+    
     if (!courseSelection?.selectedUnits || courseSelection.selectedUnits.length === 0) {
       return true; // 如果没有选择单元，显示所有材料
     }
@@ -249,6 +257,48 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
         />
       </div>
 
+      {/* 听力分类切换选项卡 */}
+      <div className="mb-4">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setCategory('all')}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-250 ${
+              category === 'all'
+                ? 'bg-primary-500 text-white shadow-md'
+                : darkMode
+                ? 'bg-neutral-dark-200 text-neutral-dark-600 hover:bg-neutral-dark-300'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            全部听力
+          </button>
+          <button
+            onClick={() => setCategory('textbook')}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-250 ${
+              category === 'textbook'
+                ? 'bg-primary-500 text-white shadow-md'
+                : darkMode
+                ? 'bg-neutral-dark-200 text-neutral-dark-600 hover:bg-neutral-dark-300'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            课文听力
+          </button>
+          <button
+            onClick={() => setCategory('extracurricular')}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all duration-250 ${
+              category === 'extracurricular'
+                ? 'bg-primary-500 text-white shadow-md'
+                : darkMode
+                ? 'bg-neutral-dark-200 text-neutral-dark-600 hover:bg-neutral-dark-300'
+                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+            }`}
+          >
+            课外听力
+          </button>
+        </div>
+      </div>
+
       {/* 听力材料列表 - 放在播放器下面 */}
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4">选择听力材料</h3>
@@ -277,7 +327,19 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
                     : 'bg-white border-gray-300 hover:bg-gray-50'
                 }`}
               >
-                <div className="font-medium">{material.title}</div>
+                <div className="flex items-center justify-between">
+                  <div className="font-medium">{material.title}</div>
+                  {/* 显示材料类型标签 */}
+                  {material.type && (
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      material.type === 'textbook' 
+                        ? 'bg-blue-100 text-blue-800' 
+                        : 'bg-green-100 text-green-800'
+                    }`}>
+                      {material.type === 'textbook' ? '课文' : '课外'}
+                    </span>
+                  )}
+                </div>
                 <div className="text-sm text-gray-500">
                   {material.duration ? formatTime(material.duration) : '未知时长'}
                 </div>
