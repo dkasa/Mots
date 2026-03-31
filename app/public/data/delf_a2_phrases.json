@@ -950,5 +950,481 @@
     "phonetic": "[ʀɑ̃devu u]",
     "part_of_speech": "短语 loc.",
     "category": "约会安排"
+  },
+  {
+    "french": "Tu veux venir avec moi au théâtre?",
+    "chinese": "你想和我一起去剧院吗？",
+    "phonetic": "[ty vø vǝniʀ avɛk mwa o teatʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "On va au parc, tu viens avec nous?",
+    "chinese": "我们去公园，你一起来吗？",
+    "phonetic": "[ɔ̃ va o paʀk ty vjɛ̃ avɛk nu]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "Tu es libre ce dimanche?",
+    "chinese": "你这周日有空吗？",
+    "phonetic": "[ty ɛ libʀ sə dimɑ̃ʃ]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "Tu veux venir à la maison samedi soir?",
+    "chinese": "你周六晚上想来我家吗？",
+    "phonetic": "[ty vø vǝniʀ a la mɛzɔ̃ samdi swaʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "Tu peux dormir chez moi si tu veux.",
+    "chinese": "如果你愿意，可以住在我家。",
+    "phonetic": "[ty pø dɔʀmiʀ ʃe mwa si ty vø]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "Tu es d'accord pour aller au ciné?",
+    "chinese": "你同意去看电影吗？",
+    "phonetic": "[ty ɛ dakɔʀ puʀ ale o sine]",
+    "part_of_speech": "短语 loc.",
+    "category": "邀请"
+  },
+  {
+    "french": "Allez, viens!",
+    "chinese": "来吧，一起来！",
+    "phonetic": "[ale vjɛ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "坚持邀请"
+  },
+  {
+    "french": "S'il te plaît!",
+    "chinese": "拜托了！",
+    "phonetic": "[sil tə plɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "坚持邀请"
+  },
+  {
+    "french": "Dis oui!",
+    "chinese": "答应吧！",
+    "phonetic": "[di wi]",
+    "part_of_speech": "短语 loc.",
+    "category": "坚持邀请"
+  },
+  {
+    "french": "On y va ensemble, d'accord?",
+    "chinese": "我们一起去，好吗？",
+    "phonetic": "[ɔ̃n i va ɑ̃sɑ̃bl dakɔʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "On pourrait lui faire une surprise, non?",
+    "chinese": "我们可以给他个惊喜，不是吗？",
+    "phonetic": "[ɔ̃ puʀɛ lɥi fɛʀ yn syʀpʀiz nɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Ça te dit d'aller à la piscine?",
+    "chinese": "你想去游泳池吗？",
+    "phonetic": "[sa tə di dalɛ a la disin]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Tu as envie d'aller à l'opéra?",
+    "chinese": "你想去看歌剧吗？",
+    "phonetic": "[ty az ɑ̃vi dalɛ a lɔpeʀa]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Une partie de tennis, ça te dit?",
+    "chinese": "打场网球，有兴趣吗？",
+    "phonetic": "[yn paʀti də tenis sa tə di]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "On se retrouve à 14 heures devant la galerie?",
+    "chinese": "我们 14 点在画廊前见面？",
+    "phonetic": "[ɔ̃ sə ʀətʀuv a katɔʀz œʀ dəvɑ̃ la galʀi]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "On passe te prendre à 14 h 30, ça va?",
+    "chinese": "我们 14 点 30 分来接你，可以吗？",
+    "phonetic": "[ɔ̃ pas tə pʀɑ̃dʀ a katɔʀz œʀ tʀɑ̃t sa va]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "Si tu es d'accord, rendez-vous à 17 heures.",
+    "chinese": "如果你同意，17 点见。",
+    "phonetic": "[si ty ɛ dakɔʀ ʀɑ̃devu a sɛt ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "On se voit demain à midi, OK?",
+    "chinese": "明天中午见，好吗？",
+    "phonetic": "[ɔ̃ sə vwa dəmɛ̃ a midi oke]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "Rendez-vous au cinéma?",
+    "chinese": "电影院见？",
+    "phonetic": "[ʀɑ̃devu o sinema]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "Désolé(e), je ne peux pas.",
+    "chinese": "抱歉，我不能。",
+    "phonetic": "[dezɔle ʒə nə pø pa]",
+    "part_of_speech": "短语 loc.",
+    "category": "拒绝邀请"
+  },
+  {
+    "french": "Je ne suis pas libre.",
+    "chinese": "我没空。",
+    "phonetic": "[ʒə nə sɥi pa libʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "拒绝邀请"
+  },
+  {
+    "french": "Malheureusement, je ne suis pas disponible demain.",
+    "chinese": "很遗憾，我明天没空。",
+    "phonetic": "[malǝʀøzmɑ̃ ʒə nə sɥi pa dispɔnibl dəmɛ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "拒绝邀请"
+  },
+  {
+    "french": "Je n'ai pas pu venir, je suis désolé(e).",
+    "chinese": "我没能来，我很抱歉。",
+    "phonetic": "[ʒə nɛ pa py vǝniʀ ʒə sɥi dezɔle]",
+    "part_of_speech": "短语 loc.",
+    "category": "道歉"
+  },
+  {
+    "french": "Excuse-moi.",
+    "chinese": "原谅我。",
+    "phonetic": "[ekskyz mwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "道歉"
+  },
+  {
+    "french": "Pardon!",
+    "chinese": "对不起！",
+    "phonetic": "[paʀdɔ̃]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "道歉"
+  },
+  {
+    "french": "OK! D'accord.",
+    "chinese": "好的！同意。",
+    "phonetic": "[oke dakɔʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "接受邀请"
+  },
+  {
+    "french": "Ça marche!",
+    "chinese": "就这么定了！",
+    "phonetic": "[sa maʀʃ]",
+    "part_of_speech": "短语 loc.",
+    "category": "接受邀请"
+  },
+  {
+    "french": "Avec plaisir!",
+    "chinese": "很乐意！",
+    "phonetic": "[avɛk plɛziʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "接受邀请"
+  },
+  {
+    "french": "Oui, super!",
+    "chinese": "好的，太棒了！",
+    "phonetic": "[wi sypɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "接受邀请"
+  },
+  {
+    "french": "Merci pour l'invitation.",
+    "chinese": "谢谢邀请。",
+    "phonetic": "[mɛʀsi puʀ lɛ̃vitlasjɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "感谢"
+  },
+  {
+    "french": "Je te remercie.",
+    "chinese": "谢谢你。",
+    "phonetic": "[ʒə tə ʀəmɛʀsi]",
+    "part_of_speech": "短语 loc.",
+    "category": "感谢"
+  },
+  {
+    "french": "Qu'est-ce que tu en penses?",
+    "chinese": "你怎么想？",
+    "phonetic": "[kɛs kə ty ɑ̃ pɑ̃s]",
+    "part_of_speech": "短语 loc.",
+    "category": "征求意见"
+  },
+  {
+    "french": "Qu'est-ce que tu en dis?",
+    "chinese": "你觉得怎么样？",
+    "phonetic": "[kɛs kə ty ɑ̃ di]",
+    "part_of_speech": "短语 loc.",
+    "category": "征求意见"
+  },
+  {
+    "french": "Est-ce que tu aimes?",
+    "chinese": "你喜欢吗？",
+    "phonetic": "[ɛs kə ty ɛm]",
+    "part_of_speech": "短语 loc.",
+    "category": "征求意见"
+  },
+  {
+    "french": "Tu préfères quel film?",
+    "chinese": "你更喜欢哪部电影？",
+    "phonetic": "[ty pʀefɛʀ kɛl film]",
+    "part_of_speech": "短语 loc.",
+    "category": "征求意见"
+  },
+  {
+    "french": "Une glace, ça te va?",
+    "chinese": "来个冰淇淋，你觉得怎么样？",
+    "phonetic": "[yn glas sa tə va]",
+    "part_of_speech": "短语 loc.",
+    "category": "征求意见"
+  },
+  {
+    "french": "Bravo!",
+    "chinese": "太棒了！",
+    "phonetic": "[bʀavo]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "祝贺"
+  },
+  {
+    "french": "Chapeau bas!",
+    "chinese": "佩服！",
+    "phonetic": "[ʃapo ba]",
+    "part_of_speech": "短语 loc.",
+    "category": "祝贺"
+  },
+  {
+    "french": "Félicitations.",
+    "chinese": "恭喜。",
+    "phonetic": "[felisitasjɔ̃]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "祝贺"
+  },
+  {
+    "french": "Je suis content pour toi.",
+    "chinese": "我为你感到高兴。",
+    "phonetic": "[ʒə sɥi kɔ̃tɑ̃ puʀ twa]",
+    "part_of_speech": "短语 loc.",
+    "category": "祝贺"
+  },
+  {
+    "french": "Pense à prendre ta serviette.",
+    "chinese": "记得带上你的毛巾。",
+    "phonetic": "[pɑ̃s a pʀɑ̃dʀ ta sɛʀvjɛt]",
+    "part_of_speech": "短语 loc.",
+    "category": "提醒"
+  },
+  {
+    "french": "N'oublie pas de prendre ton maillot.",
+    "chinese": "别忘了带上你的泳衣。",
+    "phonetic": "[n ubli pa də pʀɑ̃dʀ tɔ̃ majo]",
+    "part_of_speech": "短语 loc.",
+    "category": "提醒"
+  },
+  {
+    "french": "Prends un carnet de 10 tickets, c'est moins cher.",
+    "chinese": "买一本 10 张票的本，比较便宜。",
+    "phonetic": "[pʀɑ̃ œ̃ kaʀne di tikɛ sɛ mwɛ̃ ʃɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Je te conseille d'aller à ce musée.",
+    "chinese": "我建议你去这个博物馆。",
+    "phonetic": "[ʒə tə kɔ̃sɛj dalɛ a sə myze]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Tu dois absolument voir ce film, il est génial!",
+    "chinese": "你一定要看这部电影，太棒了！",
+    "phonetic": "[ty dwabssolymɑ̃ vwaʀ sə film il ɛ ʒenjal]",
+    "part_of_speech": "短语 loc.",
+    "category": "建议"
+  },
+  {
+    "french": "Il faut apporter des boissons.",
+    "chinese": "需要带些饮料。",
+    "phonetic": "[il fo apɔʀte de bwasɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "指令"
+  },
+  {
+    "french": "On doit s'habiller en noir et blanc.",
+    "chinese": "我们要穿黑色和白色的衣服。",
+    "phonetic": "[ɔ̃ dwab sʰabije ɑ̃ nwaʀ e blɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "指令"
+  },
+  {
+    "french": "On doit être là-bas à 16 heures.",
+    "chinese": "我们 16 点得到那里。",
+    "phonetic": "[ɔ̃ dwatɛʀ laba a sɛz ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "指令"
+  },
+  {
+    "french": "Qu'est-ce que tu fais?",
+    "chinese": "你在做什么？",
+    "phonetic": "[kɛs kə ty fɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问活动"
+  },
+  {
+    "french": "Je lis un livre.",
+    "chinese": "我在看书。",
+    "phonetic": "[ʒə li œ̃ livʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问活动"
+  },
+  {
+    "french": "Je regarde la télévision.",
+    "chinese": "我在看电视。",
+    "phonetic": "[ʒə ʀaʀd la televizjɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问活动"
+  },
+  {
+    "french": "Le film dure combien de temps?",
+    "chinese": "电影放映多久？",
+    "phonetic": "[lə film dyʀ kɔ̃bjɛ̃ də tɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问时间"
+  },
+  {
+    "french": "C'est long?",
+    "chinese": "时间长吗？",
+    "phonetic": "[sɛ lɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问时间"
+  },
+  {
+    "french": "C'est de quand à quand?",
+    "chinese": "从什么时候到什么时候？",
+    "phonetic": "[sɛ də kɑ̃ a kɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问时间"
+  },
+  {
+    "french": "Viens chez moi vers 18 heures.",
+    "chinese": "18 点左右来我家。",
+    "phonetic": "[vjɛ̃ ʃe mwa vɛʀ dizɥit ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知时间"
+  },
+  {
+    "french": "C'est de 17 heures à 19 heures.",
+    "chinese": "从 17 点到 19 点。",
+    "phonetic": "[sɛ də dizɛt ɛʀ a diznɶf ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知时间"
+  },
+  {
+    "french": "Ça commence à 20 heures.",
+    "chinese": "20 点开始。",
+    "phonetic": "[sa kɔmɑ̃s a vɛ̃ ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知时间"
+  },
+  {
+    "french": "Ça finit à 21 heures.",
+    "chinese": "21 点结束。",
+    "phonetic": "[sa fini a vɛ̃t e œ ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知时间"
+  },
+  {
+    "french": "Le match est le vendredi 9 janvier!",
+    "chinese": "比赛在 1 月 9 日星期五！",
+    "phonetic": "[lə maʧ ɛ lə vɑ̃dʀǝdi nœf ʒɑ̃vje]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知日期时间"
+  },
+  {
+    "french": "C'est entre 16 heures et 17 heures.",
+    "chinese": "在 16 点到 17 点之间。",
+    "phonetic": "[sɛt ɑ̃tʀ sɛz ɛʀ e sɛt ɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "告知日期时间"
+  },
+  {
+    "french": "J'étudie le français depuis 6 mois.",
+    "chinese": "我学法语 6 个月了。",
+    "phonetic": "[ʒetɥdi lə fʀɑ̃sɛ dəpɥi sis mwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达持续时间"
+  },
+  {
+    "french": "Ça fait 10 ans que j'habite à Toulouse.",
+    "chinese": "我住在图卢兹已经 10 年了。",
+    "phonetic": "[sa fɛ diz ɑ̃ kə ʒabit a tuluz]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达持续时间"
+  },
+  {
+    "french": "J'ai commencé à faire de la guitare il y a 4 ans.",
+    "chinese": "我 4 年前开始学吉他。",
+    "phonetic": "[ʒe kɔmɑ̃se a fɛʀ də la gitaʀ il ja katʀ ɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达持续时间"
+  },
+  {
+    "french": "Je fais du sport tous les jours.",
+    "chinese": "我每天都做运动。",
+    "phonetic": "[ʒə fɛ dy spɔʀ tu le ʒuʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达频率"
+  },
+  {
+    "french": "Le samedi, je fais mes devoirs.",
+    "chinese": "周六我做作业。",
+    "phonetic": "[lə samdi ʒə fɛ me dəvwaʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达频率"
+  },
+  {
+    "french": "Parfois, je vais courir dans le parc.",
+    "chinese": "有时我去公园跑步。",
+    "phonetic": "[paʀfwa ʒə vɛ kuʀiʀ dɑ̃ lə paʀk]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达频率"
+  },
+  {
+    "french": "Je vais souvent à l'opéra.",
+    "chinese": "我经常去歌剧院。",
+    "phonetic": "[ʒə vɛ suvɑ̃ a lɔpeʀa]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达频率"
+  },
+  {
+    "french": "Je ne vais jamais à la bibliothèque.",
+    "chinese": "我从不去图书馆。",
+    "phonetic": "[ʒə nə vɛ ʒamɛ a la biblijɔtɛk]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达频率"
   }
 ]

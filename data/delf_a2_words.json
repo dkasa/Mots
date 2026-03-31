@@ -609,6 +609,34 @@
     "category": "服装配饰"
   },
   {
+    "french": "essayer un vêtement",
+    "chinese": "试穿衣服",
+    "phonetic": "[esɛje œ̃ vɛtmɑ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "mettre un vêtement",
+    "chinese": "穿上衣服",
+    "phonetic": "[mɛtʀ œ̃ vɛtmɑ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "porter un vêtement",
+    "chinese": "穿着衣服",
+    "phonetic": "[pɔʀte œ̃ vɛtmɑ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "enlever un vêtement",
+    "chinese": "脱下衣服",
+    "phonetic": "[ɑ̃ləve œ̃ vɛtmɑ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "服装配饰"
+  },
+  {
     "french": "un appareil photo",
     "chinese": "照相机",
     "phonetic": "[œ̃n apaʀɛj foto]",
@@ -705,5 +733,362 @@
     "phonetic": "[yn kle USB]",
     "part_of_speech": "阴性名词 n.f.",
     "category": "日常物品"
+  },
+  {
+    "french": "envoyer un mail",
+    "chinese": "发送邮件",
+    "phonetic": "[ɑ̃vwaje œ̃ mɛl]",
+    "part_of_speech": "动词短语 v.",
+    "category": "日常物品"
+  },
+  {
+    "french": "recevoir un mail",
+    "chinese": "接收邮件",
+    "phonetic": "[ʀǝsvwaʀ œ̃ mɛl]",
+    "part_of_speech": "动词短语 v.",
+    "category": "日常物品"
+  },
+  {
+    "french": "télécharger un fichier",
+    "chinese": "下载文件",
+    "phonetic": "[teleʃaʀʒe œ̃ fiʃje]",
+    "part_of_speech": "动词短语 v.",
+    "category": "日常物品"
+  },
+  {
+    "french": "cliquer sur une icône",
+    "chinese": "点击图标",
+    "phonetic": "[klikɛ syʀ yn ikon]",
+    "part_of_speech": "动词短语 v.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un animateur, une animatrice",
+    "chinese": "主持人/活动组织者",
+    "phonetic": "[œ̃n animatœʀ, yn animatʀis]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un moniteur (de ski)",
+    "chinese": "（滑雪）教练",
+    "phonetic": "[œ̃ mɔnitœʀ də ski]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "职业"
+  },
+  {
+    "french": "une monitrice",
+    "chinese": "女教练",
+    "phonetic": "[yn mɔnitʀis]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "职业"
+  },
+  {
+    "french": "un surveillant",
+    "chinese": "监考员/管理员",
+    "phonetic": "[œ̃ syʀvejɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "职业"
+  },
+  {
+    "french": "une surveillante",
+    "chinese": "女监考员",
+    "phonetic": "[yn syʀvejɑ̃t]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "职业"
+  },
+  {
+    "french": "un sportif, une sportive",
+    "chinese": "运动员",
+    "phonetic": "[œ̃ spɔʀtif, yn spɔʀtiv]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un artiste",
+    "chinese": "艺术家",
+    "phonetic": "[œ̃n aʀtist]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un chanteur, une chanteuse",
+    "chinese": "歌手",
+    "phonetic": "[œ̃ ʃɑ̃tœʀ, yn ʃɑ̃tøz]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un acteur, une actrice",
+    "chinese": "演员",
+    "phonetic": "[œ̃n aktœʀ, yn aktʀis]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un réalisateur, une réalisatrice",
+    "chinese": "导演",
+    "phonetic": "[œ̃ ʀealizatœʀ, yn ʀealizatʀis]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un garçon de café",
+    "chinese": "咖啡馆服务员",
+    "phonetic": "[œ̃ gaʀsɔ̃ də kafe]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "职业"
+  },
+  {
+    "french": "une serveuse",
+    "chinese": "女服务员",
+    "phonetic": "[yn sɛʀvøz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "职业"
+  },
+  {
+    "french": "un employé (de banque)",
+    "chinese": "（银行）职员",
+    "phonetic": "[œ̃n ɑ̃plwaje də bɑ̃k]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "职业"
+  },
+  {
+    "french": "une employée",
+    "chinese": "女职员",
+    "phonetic": "[yn ɑ̃plwaje]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "职业"
+  },
+  {
+    "french": "un pompier",
+    "chinese": "消防员",
+    "phonetic": "[œ̃ pɔ̃pje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "职业"
+  },
+  {
+    "french": "un policier, une policière",
+    "chinese": "警察",
+    "phonetic": "[œ̃ pɔlisje, yn pɔlisjɛʀ]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un avocat, une avocate",
+    "chinese": "律师",
+    "phonetic": "[œ̃n avɔka, yn avɔkat]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un facteur, une factrice",
+    "chinese": "邮递员",
+    "phonetic": "[œ̃ faktœʀ, yn faktʀis]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "un voleur, une voleuse",
+    "chinese": "小偷",
+    "phonetic": "[œ̃ vɔlœʀ, yn vɔløz]",
+    "part_of_speech": "名词 n.",
+    "category": "职业"
+  },
+  {
+    "french": "une maison",
+    "chinese": "房子",
+    "phonetic": "[yn mɛzɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "un appartement",
+    "chinese": "公寓",
+    "phonetic": "[œ̃n apaʀtǝmɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "un salon",
+    "chinese": "客厅",
+    "phonetic": "[œ̃ salɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "une salle à manger",
+    "chinese": "餐厅",
+    "phonetic": "[yn sal a mɑ̃ʒe]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "une chambre",
+    "chinese": "卧室",
+    "phonetic": "[yn ʃɑ̃bʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "une cuisine",
+    "chinese": "厨房",
+    "phonetic": "[yn kɥizin]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "une salle de bains",
+    "chinese": "浴室",
+    "phonetic": "[yn sal də bɛ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "des w.-c./des toilettes",
+    "chinese": "卫生间",
+    "phonetic": "[de vese/de twalɛt]",
+    "part_of_speech": "复数名词 n.m.pl./n.f.pl.",
+    "category": "住房"
+  },
+  {
+    "french": "un couloir",
+    "chinese": "走廊",
+    "phonetic": "[œ̃ kulwaʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "une porte",
+    "chinese": "门",
+    "phonetic": "[yn pɔʀt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "une fenêtre",
+    "chinese": "窗户",
+    "phonetic": "[yn fǝnɛtʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "un balcon",
+    "chinese": "阳台",
+    "phonetic": "[œ̃ balkɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "une terrasse",
+    "chinese": "露台",
+    "phonetic": "[yn tɛʀas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "un jardin",
+    "chinese": "花园",
+    "phonetic": "[œ̃ ʒaʀdɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "une cheminée",
+    "chinese": "壁炉",
+    "phonetic": "[yn ʃəmine]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "住房"
+  },
+  {
+    "french": "un garage",
+    "chinese": "车库",
+    "phonetic": "[œ̃ gaʀaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "住房"
+  },
+  {
+    "french": "une table",
+    "chinese": "桌子",
+    "phonetic": "[yn tabl]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "un lit",
+    "chinese": "床",
+    "phonetic": "[œ̃ li]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家具"
+  },
+  {
+    "french": "un bureau",
+    "chinese": "书桌/办公室",
+    "phonetic": "[œ̃ byʀo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家具"
+  },
+  {
+    "french": "une armoire",
+    "chinese": "衣柜",
+    "phonetic": "[yn aʀmwaʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "une chaise",
+    "chinese": "椅子",
+    "phonetic": "[yn ʃɛz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "un fauteuil",
+    "chinese": "扶手椅",
+    "phonetic": "[œ̃ fotœj]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家具"
+  },
+  {
+    "french": "une étagère",
+    "chinese": "架子",
+    "phonetic": "[yn etaʒɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "une plante",
+    "chinese": "植物",
+    "phonetic": "[yn plɑ̃t]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "une lampe",
+    "chinese": "灯",
+    "phonetic": "[yn lɑ̃p]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家具"
+  },
+  {
+    "french": "louer",
+    "chinese": "租用",
+    "phonetic": "[lwe]",
+    "part_of_speech": "动词 v.",
+    "category": "家具"
+  },
+  {
+    "french": "être propriétaire",
+    "chinese": "拥有产权",
+    "phonetic": "[ɛtʀ pʀɔpʀjetɛʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "家具"
+  },
+  {
+    "french": "habiter",
+    "chinese": "居住",
+    "phonetic": "[abite]",
+    "part_of_speech": "动词 v.",
+    "category": "家具"
   }
 ]
