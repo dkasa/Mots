@@ -6,11 +6,13 @@ import path from 'path';
 // 单词表文件列表
 const VOCABULARY_FILES = [
   'grade71_words.json',
-  'grade72_words.json', 
+  'grade72_words.json',
   'grade81_words.json',
   'grade82_words.json',
   'grade91_words.json',
-  'grade92_words.json'
+  'grade92_words.json',
+  'delf_a2_words.json',
+  'delf_a2_phrases.json'
 ];
 
 // 计算文件的MD5哈希

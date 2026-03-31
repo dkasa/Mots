@@ -13,11 +13,11 @@ export function useAllVocabularyData(
   const loadAllWords = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const grades: Grade[] = [71, 72, 81, 82, 91, 92];
       const allWordsWithStatus: WordWithStatus[] = [];
-      
+
       for (const grade of grades) {
         try {
           const response = await fetch(`/data/grade${grade}_words.json`);
@@ -25,7 +25,7 @@ export function useAllVocabularyData(
             console.warn(`Failed to load grade ${grade} words: ${response.status} ${response.statusText}`);
             continue;
           }
-          
+
           // Check if response is valid JSON
           const contentType = response.headers.get('content-type');
           if (!contentType || !contentType.includes('application/json')) {
@@ -33,9 +33,9 @@ export function useAllVocabularyData(
             console.warn(`Invalid content type for grade ${grade}: ${contentType}. Response starts with: ${text.substring(0, 100)}`);
             continue;
           }
-          
+
           const rawWords: Word[] = await response.json();
-          
+
           // 转换为带状态的单词
           const wordsWithStatus: WordWithStatus[] = rawWords.map((word, index) => {
             const wordId = `${grade}-${index}`;
@@ -47,13 +47,55 @@ export function useAllVocabularyData(
               isMastered: masteredWords[wordId] || false,
             };
           });
-          
+
           allWordsWithStatus.push(...wordsWithStatus);
         } catch (err) {
           console.warn(`Error loading grade ${grade}:`, err);
         }
       }
-      
+
+      // 加载 DELF A2 单词
+      try {
+        const wordsResponse = await fetch(`/data/delf_a2_words.json`);
+        if (wordsResponse.ok) {
+          const rawWords: Word[] = await wordsResponse.json();
+          const wordsWithStatus: WordWithStatus[] = rawWords.map((word, index) => {
+            const wordId = `${93}-${index}`;
+            return {
+              ...word,
+              id: wordId,
+              grade: 93 as any,
+              isLearned: learnedWords[wordId] || false,
+              isMastered: masteredWords[wordId] || false,
+            };
+          });
+          allWordsWithStatus.push(...wordsWithStatus);
+        }
+      } catch (err) {
+        console.warn(`Error loading DELF A2 words:`, err);
+      }
+
+      // 加载 DELF A2 短语
+      try {
+        const phrasesResponse = await fetch(`/data/delf_a2_phrases.json`);
+        if (phrasesResponse.ok) {
+          const rawWords: Word[] = await phrasesResponse.json();
+          const wordsWithStatus: WordWithStatus[] = rawWords.map((word, index) => {
+            const wordId = `${94}-${index}`;
+            return {
+              ...word,
+              id: wordId,
+              grade: 94 as any,
+              isLearned: learnedWords[wordId] || false,
+              isMastered: masteredWords[wordId] || false,
+            };
+          });
+          allWordsWithStatus.push(...wordsWithStatus);
+        }
+      } catch (err) {
+        console.warn(`Error loading DELF A2 phrases:`, err);
+      }
+
       setAllWords(allWordsWithStatus);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');

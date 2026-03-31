@@ -3,7 +3,7 @@ export interface Word {
   chinese: string;
   phonetic: string;
   part_of_speech: string;
-  category?: string;
+  category?: string; // 用于 DELF A2 词汇分类
   unit?: number; // 单元编号
   lesson?: string | number; // 课次编号，可以是数字或字符串（如"Atelier"）
   examples?: string[]; // 例句，可选
@@ -16,7 +16,8 @@ export interface WordWithStatus extends Word {
   isMastered: boolean;
 }
 
-export type Grade = 71 | 72 | 81 | 82 | 91 | 92;
+// DELF A2 使用特殊年级 ID：93=单词，94=短语
+export type Grade = 71 | 72 | 81 | 82 | 91 | 92 | 93 | 94;
 export type FilterType = 'all' | 'mastered' | 'not-mastered';
 export type ViewMode = 'learn' | 'list' | 'search' | 'quiz' | 'listening';
 

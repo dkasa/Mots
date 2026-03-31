@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const words = require\\(''./data/delf_a2_words.json''\\); const phrases = require\\(''./data/delf_a2_phrases.json''\\); console.log\\(''delf_a2_words.json:'', words.length, ''条目''\\); console.log\\(''delf_a2_phrases.json:'', phrases.length, ''条目''\\); console.log\\(''单词分类:'', [...new Set\\(words.map\\(w => w.category\\)\\)].join\\('', ''\\)\\); console.log\\(''短语分类:'', [...new Set\\(phrases.map\\(p => p.category\\)\\)].join\\('', ''\\)\\);\")",
+      "Bash(node -e \":*)",
+      "Bash(npx tsc:*)",
+      "Bash(pnpm run:*)",
+      "Bash(sed -i \"s/''delf-a2-words''/93/g; s/''delf-a2-phrases''/94/g\" app/src/hooks/useAllVocabularyData.ts)",
+      "Bash(sed -i 's/`delf-words-\\\\${index}`/`${93}-\\\\${index}`/g; s/`delf-phrases-\\\\${index}`/`${94}-\\\\${index}`/g' app/src/hooks/useAllVocabularyData.ts)"
+    ]
+  }
+}

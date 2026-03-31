@@ -1,0 +1,954 @@
+[
+  {
+    "french": "Salut!",
+    "chinese": "你好/再见",
+    "phonetic": "[saly]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "Bonjour!",
+    "chinese": "你好",
+    "phonetic": "[bɔ̃ʒuʀ]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "Coucou!",
+    "chinese": "嗨",
+    "phonetic": "[kuku]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "Ça va?",
+    "chinese": "你好吗？",
+    "phonetic": "[sa va]",
+    "part_of_speech": "短语 loc.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "À samedi!",
+    "chinese": "周六见",
+    "phonetic": "[a samdi]",
+    "part_of_speech": "短语 loc.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "À dimanche!",
+    "chinese": "周日见",
+    "phonetic": "[a dimɑ̃ʃ]",
+    "part_of_speech": "短语 loc.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "À plus tard!",
+    "chinese": "回头见",
+    "phonetic": "[a ply taʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "À bientôt!",
+    "chinese": "再见",
+    "phonetic": "[a bjɛ̃to]",
+    "part_of_speech": "短语 loc.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "Bisous/Bises",
+    "chinese": "吻/致意",
+    "phonetic": "[bizu/biz]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "问候与告别"
+  },
+  {
+    "french": "C'est moi.",
+    "chinese": "是我。",
+    "phonetic": "[sɛ mwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "C'est Camille.",
+    "chinese": "这是卡米尔。",
+    "phonetic": "[sɛ kamij]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Je suis Camille.",
+    "chinese": "我是卡米尔。",
+    "phonetic": "[ʒə sɥi kamij]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Je m'appelle Camille.",
+    "chinese": "我叫卡米尔。",
+    "phonetic": "[ʒə mapɛl kamij]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Mon adresse, c'est le 6, rue de la Pomme.",
+    "chinese": "我的地址是苹果街 6 号。",
+    "phonetic": "[mɔ̃n adʀɛs sɛ lə sis ʀy də la pɔm]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "J'habite 6, rue de la Pomme.",
+    "chinese": "我住在苹果街 6 号。",
+    "phonetic": "[ʒabit sis ʀy də la pɔm]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Je vis chez mes parents.",
+    "chinese": "我和父母住在一起。",
+    "phonetic": "[ʒə vi ʃe me paʀɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Je te présente Yacim.",
+    "chinese": "我给你介绍一下雅辛。",
+    "phonetic": "[ʒə tə pʀezɑ̃t jasim]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "C'est mon ami.",
+    "chinese": "他是我的朋友。",
+    "phonetic": "[sɛ mɔ̃n ami]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Il est français.",
+    "chinese": "他是法国人。",
+    "phonetic": "[il ɛ fʀɑ̃sɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "介绍与个人信息"
+  },
+  {
+    "french": "Comment tu t'appelles?",
+    "chinese": "你叫什么名字？",
+    "phonetic": "[kɔmɑ̃ ty tapɛl]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "Tu habites où?",
+    "chinese": "你住在哪里？",
+    "phonetic": "[ty abit u]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "Tu as quel âge?",
+    "chinese": "你多大了？",
+    "phonetic": "[ty a kɛl aʒ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "Tu viens d'où?",
+    "chinese": "你从哪里来？",
+    "phonetic": "[ty pjɛ̃ du]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "Qu'est-ce que tu fais dans la vie?",
+    "chinese": "你是做什么工作的？",
+    "phonetic": "[kɛs kə ty fɛ dɑ̃ la vi]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "Qu'est-ce que tu aimes faire?",
+    "chinese": "你喜欢做什么？",
+    "phonetic": "[kɛs kə ty ɛm fɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问信息"
+  },
+  {
+    "french": "C'est un acteur célèbre.",
+    "chinese": "他是一位著名的演员。",
+    "phonetic": "[sɛ tœ̃n aktœʀ selɛbʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il est génial.",
+    "chinese": "他很了不起。",
+    "phonetic": "[il ɛ ʒenjal]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il porte des vêtements à la mode.",
+    "chinese": "他穿着时尚。",
+    "phonetic": "[il pɔʀ de vɛtmɑ̃ a la mɔd]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il a les cheveux longs et blonds.",
+    "chinese": "他有长长的金发。",
+    "phonetic": "[il a le ʃəvø lɔ̃k e blɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il a les yeux verts.",
+    "chinese": "他有绿色的眼睛。",
+    "phonetic": "[il a lejø vɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il est très beau!",
+    "chinese": "他很帅!",
+    "phonetic": "[il ɛ tʀo bo]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il est un peu timide.",
+    "chinese": "他有点害羞。",
+    "phonetic": "[il ɛ tœ̃ pjø timid]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il est très marrant/drôle/amusant!",
+    "chinese": "他很有趣!",
+    "phonetic": "[il ɛ tʀo maʀɑ̃/dʀol/amyzɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Il me fait rire.",
+    "chinese": "他让我发笑。",
+    "phonetic": "[il mə fɛ ʀiʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述人物"
+  },
+  {
+    "french": "Je suis malade.",
+    "chinese": "我生病了。",
+    "phonetic": "[ʒə sɥi malad]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "J'ai de la fièvre.",
+    "chinese": "我发烧了。",
+    "phonetic": "[ʒe də la fjɛvʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "J'ai mal à la gorge.",
+    "chinese": "我喉咙痛。",
+    "phonetic": "[ʒe mal a la gɔʀʒ]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "J'ai mal au ventre.",
+    "chinese": "我肚子痛。",
+    "phonetic": "[ʒe mal o vɑ̃tʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "Je suis très fatigué(e).",
+    "chinese": "我很累。",
+    "phonetic": "[ʒə sɥi tʀe fatige]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "Je suis en pleine forme.",
+    "chinese": "我状态很好。",
+    "phonetic": "[ʒə sɥi ɑ̃ plɛn fɔʀm]",
+    "part_of_speech": "短语 loc.",
+    "category": "健康状况"
+  },
+  {
+    "french": "Excusez-moi, vous pouvez m'aider s'il vous plaît?",
+    "chinese": "打扰一下，您能帮我吗？",
+    "phonetic": "[ekskyze mwa vu puve mede sil vu plɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Je suis perdu(e).",
+    "chinese": "我迷路了。",
+    "phonetic": "[ʒə sɥi pɛʀdy]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Où est la place du marché?",
+    "chinese": "市场广场在哪里？",
+    "phonetic": "[u ɛ la plas dy maʀʃe]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Où se trouve le musée de la mer?",
+    "chinese": "海洋博物馆在哪里？",
+    "phonetic": "[u sə tʀuv lə myze də la mɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Je voudrais aller à la Tour Eiffel.",
+    "chinese": "我想去埃菲尔铁塔。",
+    "phonetic": "[ʒə vudʀɛz ale a la tuʀ ɛfɛl]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Comment je peux faire pour aller à la Place de la Comédie?",
+    "chinese": "请问去喜剧广场怎么走？",
+    "phonetic": "[kɔmɑ̃ ʒə pø fɛʀ puʀ ale a la plas də la kɔmedi]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Je cherche la station de métro Capitole.",
+    "chinese": "我在找 Capitol 地铁站。",
+    "phonetic": "[ʒə ʃɛʀʃ la stasjɔ̃ də metʀo kapitɔl]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Vous prenez la première à gauche, puis vous allez tout droit.",
+    "chinese": "您走第一个左转，然后直走。",
+    "phonetic": "[vu pʀǝne la pʀǝmjɛʀ a goʃ pɥi vu zale tu dʀwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Traversez le pont, et tournez à droite.",
+    "chinese": "过桥，然后右转。",
+    "phonetic": "[tʀavɛʀse lə pɔ̃ e tuʀne a dʀwat]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Il faut prendre le bus 86 et descendre à l'arrêt Balzac.",
+    "chinese": "需要坐 86 路公交车，在 Balzac 站下车。",
+    "phonetic": "[il fo pʀɑ̃dʀ lə bys 86 e desɑ̃dʀ a laʀɛ balzak]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "C'est tout près.",
+    "chinese": "就在附近。",
+    "phonetic": "[sɛ tu pʀɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Ce n'est pas loin.",
+    "chinese": "不远。",
+    "phonetic": "[sə nɛ pa lwɛ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "L'église se trouve dans la rue du Temple.",
+    "chinese": "教堂在圣殿街上。",
+    "phonetic": "[legliz sə tʀuv dɑ̃ la ʀy dy tɑ̃pl]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Le musée est au milieu du parc.",
+    "chinese": "博物馆在公园中间。",
+    "phonetic": "[lə myze ɛ o miljø dy paʀk]",
+    "part_of_speech": "短语 loc.",
+    "category": "问路与指路"
+  },
+  {
+    "french": "Il y a des montagnes et des fleuves.",
+    "chinese": "有山有河。",
+    "phonetic": "[il ja de mɔ̃taɲ e de fløv]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "C'est plat.",
+    "chinese": "这里是平的。",
+    "phonetic": "[sɛ pla]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "C'est très vert.",
+    "chinese": "这里很绿。",
+    "phonetic": "[sɛ tʀɛ vɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "Le climat est super.",
+    "chinese": "气候很好。",
+    "phonetic": "[lə klima ɛt sypɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "Il fait trop chaud!",
+    "chinese": "太热了！",
+    "phonetic": "[il fɛ tʀo ʃo]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "Dans cette région, il pleut souvent.",
+    "chinese": "在这个地区经常下雨。",
+    "phonetic": "[dɑ̃ sɛt ʀeʒjɔ̃ il plø suvɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "La Hongrie est située entre l'Autriche et la Roumanie.",
+    "chinese": "匈牙利位于奥地利和罗马尼亚之间。",
+    "phonetic": "[la ɔ̃gʀi ɛ sitɥe ɑ̃tʀ lotʀiʃ e la ʀumani]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "Il se trouve au sud de la France.",
+    "chinese": "它位于法国南部。",
+    "phonetic": "[il sə tʀuv o syd də la fʀɑ̃s]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述地点"
+  },
+  {
+    "french": "Mon sac est lourd.",
+    "chinese": "我的包很重。",
+    "phonetic": "[mɔ̃ sak ɛ luʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Mon téléphone est léger.",
+    "chinese": "我的手机很轻。",
+    "phonetic": "[mɔ̃ telefɔn ɛt leʒe]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "La table est ronde.",
+    "chinese": "桌子是圆的。",
+    "phonetic": "[la tabl ɛ ʀɔ̃d]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "La boîte est carrée.",
+    "chinese": "盒子是方的。",
+    "phonetic": "[la bwat ɛ kaʀe]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "La lampe est en verre.",
+    "chinese": "灯是玻璃做的。",
+    "phonetic": "[la lɑ̃p ɛt ɑ̃ vɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Le bureau est en bois.",
+    "chinese": "书桌是木头做的。",
+    "phonetic": "[lə byʀo ɛt ɑ̃ bwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Mon stylo est en plastique.",
+    "chinese": "我的笔是塑料做的。",
+    "phonetic": "[mɔ̃ stilo ɛt ɑ̃ plastik]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "La chaise est en fer.",
+    "chinese": "椅子是铁做的。",
+    "phonetic": "[la ʃɛz ɛt ɑ̃ fɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Ma jupe est rouge avec des fleurs.",
+    "chinese": "我的裙子是红色的带花。",
+    "phonetic": "[ma ʒyp ɛt ʀuʒ avɛk de flœʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Ce sac est très pratique pour l'école.",
+    "chinese": "这个包上学很实用。",
+    "phonetic": "[sə sak ɛ tʀe pʀatik puʀ lekɔl]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述物品"
+  },
+  {
+    "french": "Est-ce que vous avez des chemises à carreaux?",
+    "chinese": "你们有格子衬衫吗？",
+    "phonetic": "[ɛs kə vu zave de ʃəmiz a kaʀo]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Je cherche un tee-shirt XL pour un ami.",
+    "chinese": "我想给朋友找件 XL 码的 T 恤。",
+    "phonetic": "[ʒə ʃɛʀʃ œ̃ tiʃœʀt ɛksɛl puʀ œ̃n ami]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Je voudrais deux shorts.",
+    "chinese": "我想要两条短裤。",
+    "phonetic": "[ʒə vudʀɛ dø ʃɔʀt]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Combien ça coûte?",
+    "chinese": "这个多少钱？",
+    "phonetic": "[kjɛ̃ sa kut]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Ce polo existe aussi en blanc?",
+    "chinese": "这款 Polo 衫也有白色的吗？",
+    "phonetic": "[sə pɔlo ɛgzist osi ɑ̃ blɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Vous avez un modèle moins cher?",
+    "chinese": "有便宜点的款式吗？",
+    "phonetic": "[vu zave œ̃ mɔdɛl mwɛ̃ ʃɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Je peux échanger cet article?",
+    "chinese": "我可以换这件商品吗？",
+    "phonetic": "[ʒə pø eʃɑ̃ʒe sɛt aʀtikl]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Super, je prends cet article!",
+    "chinese": "太好了，我要这件！",
+    "phonetic": "[sypɛʀ ʒə pʀɑ̃ sɛt aʀtikl]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "OK, je l'achète.",
+    "chinese": "好的，我买了。",
+    "phonetic": "[oke ʒə laʃɛt]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "Très bien, je le prends.",
+    "chinese": "很好，我要了。",
+    "phonetic": "[tʀɛ bjɛ̃ ʒə lə pʀɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "购物"
+  },
+  {
+    "french": "De quoi est composé ce plat?",
+    "chinese": "这道菜是由什么组成的？",
+    "phonetic": "[də kwa ɛ kɔ̃poze sə pla]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Qu'est-ce qu'il y a dedans?",
+    "chinese": "里面有什么？",
+    "phonetic": "[kɛs kil ja dədɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Quel est le plat du jour?",
+    "chinese": "今天的特色菜是什么？",
+    "phonetic": "[kɛl ɛ lə pla dy ʒuʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "C'est quoi le plat du jour?",
+    "chinese": "今天特色菜是啥？",
+    "phonetic": "[sɛ kwa lə pla dy ʒuʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Est-ce que vous avez des plats végétariens?",
+    "chinese": "你们有素食菜肴吗？",
+    "phonetic": "[ɛs kə vu zave de pla veʒetaʀjɛ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Quel est le plat typique de la région?",
+    "chinese": "这个地区的特色菜是什么？",
+    "phonetic": "[kɛl ɛ lə pla tipik də la ʀeʒjɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Il y a du poisson?",
+    "chinese": "有鱼吗？",
+    "phonetic": "[il ja dy pwasɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "餐厅就餐"
+  },
+  {
+    "french": "Combien coûte un ticket?",
+    "chinese": "一张票多少钱？",
+    "phonetic": "[kjɛ̃ kut œ̃ tikɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问服务"
+  },
+  {
+    "french": "Il y a une réduction pour les étudiants?",
+    "chinese": "学生有折扣吗？",
+    "phonetic": "[il ja yn ʀedyksjɔ̃ puʀ le zetydjɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问服务"
+  },
+  {
+    "french": "Le musée est ouvert tous les jours?",
+    "chinese": "博物馆每天都开放吗？",
+    "phonetic": "[lə myze ɛt uvɛʀ tu le ʒuʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问服务"
+  },
+  {
+    "french": "Vous avez des tarifs de groupe?",
+    "chinese": "有团体票价吗？",
+    "phonetic": "[vu zave de taʀif də gʀup]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问服务"
+  },
+  {
+    "french": "À quelle heure est-ce que le film commence?",
+    "chinese": "电影几点开始？",
+    "phonetic": "[a kɛl œʀ ɛs kə lə film kɔmɑ̃s]",
+    "part_of_speech": "短语 loc.",
+    "category": "询问服务"
+  },
+  {
+    "french": "On peut faire plein d'activités.",
+    "chinese": "我们可以做很多活动。",
+    "phonetic": "[ɔ̃ pø fɛʀ plɛ̃ daktivite]",
+    "part_of_speech": "短语 loc.",
+    "category": "解释活动"
+  },
+  {
+    "french": "Il y a beaucoup de choses à faire.",
+    "chinese": "有很多事情要做。",
+    "phonetic": "[il ja boku də ʃoz a fɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "解释活动"
+  },
+  {
+    "french": "Le lundi tu peux faire du cheval et le mardi, il y a plein d'activités artistiques.",
+    "chinese": "周一你可以骑马，周二有很多艺术活动。",
+    "phonetic": "[lə lœ̃di ty pø fɛʀ dy ʃəval e lə maʀdi il ja plɛ̃ daktivite aʀtistik]",
+    "part_of_speech": "短语 loc.",
+    "category": "解释活动"
+  },
+  {
+    "french": "On s'est bien amusé.",
+    "chinese": "我们玩得很开心。",
+    "phonetic": "[ɔ̃ sɛ bjɛ̃ amuze]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "On s'est un peu ennuyé.",
+    "chinese": "我们有点无聊。",
+    "phonetic": "[ɔ̃ sɛ tœ̃ pjø ɑ̃nɥije]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "Il y avait beaucoup de gens sympathiques.",
+    "chinese": "有很多和蔼的人。",
+    "phonetic": "[il javɛ boku də ʒɑ̃ sɛ̃patik]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "Il a plu toute la journée.",
+    "chinese": "下了一整天的雨。",
+    "phonetic": "[il a ply tut la ʒuʀne]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "Il a fait beau.",
+    "chinese": "天气很好。",
+    "phonetic": "[il a fɛ bo]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "Il faisait froid.",
+    "chinese": "天气很冷。",
+    "phonetic": "[il fəzɛ fʀwa]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "Il y avait trop de vent.",
+    "chinese": "风太大了。",
+    "phonetic": "[il javɛ tʀo də vɑ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "讲述过去经历"
+  },
+  {
+    "french": "C'était magnifique!",
+    "chinese": "太美了！",
+    "phonetic": "[setɛ maɲifik]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "L'ambiance était super!",
+    "chinese": "气氛太棒了！",
+    "phonetic": "[lɑ̃bjɑ̃s etɛ sypɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "Ça m'a beaucoup plu!",
+    "chinese": "我很喜欢！",
+    "phonetic": "[sa ma boku ply]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "J'ai adoré, surtout quand le public a dansé.",
+    "chinese": "我很喜欢，尤其是观众跳舞的时候。",
+    "phonetic": "[ʒe adɔʀe syʀtu kɑ̃ lə pyblik a dɑ̃se]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "J'ai détesté.",
+    "chinese": "我讨厌。",
+    "phonetic": "[ʒe detɛste]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "C'était la meilleure journée de ma vie.",
+    "chinese": "这是我生命中最美好的一天。",
+    "phonetic": "[setɛ la mɛjɛʀ ʒuʀne də ma vi]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "C'était la pire journée de ma vie.",
+    "chinese": "这是我生命中最糟糕的一天。",
+    "phonetic": "[setɛ la piʀ ʒuʀne də ma vi]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "C'est un bon souvenir.",
+    "chinese": "这是个美好的回忆。",
+    "phonetic": "[sɛ tœ̃ bɔ̃ suvǝniʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "C'est un mauvais souvenir.",
+    "chinese": "这是个糟糕的回忆。",
+    "phonetic": "[sɛ tœ̃ move suvǝniʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "Ça m'a choqué.",
+    "chinese": "这让我震惊。",
+    "phonetic": "[sa ma ʃɔke]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "J'étais un peu surpris(e).",
+    "chinese": "我有点惊讶。",
+    "phonetic": "[ʒetɛ tœ̃ pjø syʀpʀi]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "Je suis fan de cet acteur.",
+    "chinese": "我是这个演员的粉丝。",
+    "phonetic": "[ʒə sɥi fan də sɛt aktœʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达感受"
+  },
+  {
+    "french": "J'ai fait un drôle de rêve.",
+    "chinese": "我做了个奇怪的梦。",
+    "phonetic": "[ʒɛ fɛ tœ̃ dʀol də ʀɛv]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述梦境"
+  },
+  {
+    "french": "J'ai fait un mauvais rêve.",
+    "chinese": "我做了个噩梦。",
+    "phonetic": "[ʒɛ fɛ tœ̃ move ʀɛv]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述梦境"
+  },
+  {
+    "french": "J'étais dans une forêt.",
+    "chinese": "我在一片森林里。",
+    "phonetic": "[ʒetɛ dɑ̃ yn fɔʀɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "描述梦境"
+  },
+  {
+    "french": "On va bien s'amuser.",
+    "chinese": "我们会玩得很开心的。",
+    "phonetic": "[ɔ̃ va bjɛ̃ samuze]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "Ça va être super!",
+    "chinese": "这会超棒的！",
+    "phonetic": "[sa va ɛtʀ sypɛʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "J'ai hâte!",
+    "chinese": "我迫不及待了！",
+    "phonetic": "[ʒɛ at]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "J'espère qu'elle va oublier.",
+    "chinese": "我希望她会忘记。",
+    "phonetic": "[ʒɛspɛʀ kɛl va ublije]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "J'espère réussir mon examen.",
+    "chinese": "我希望通过考试。",
+    "phonetic": "[ʒɛspɛʀ ʀeysiʀ mɔ̃n ɛgzamɛ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "J'aimerais aller au cinéma.",
+    "chinese": "我想去看电影。",
+    "phonetic": "[ʒɛmʀɛz ale o sinema]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达期望"
+  },
+  {
+    "french": "Oh zut!",
+    "chinese": "哦，糟了！",
+    "phonetic": "[o zyt]",
+    "part_of_speech": "感叹词 interj.",
+    "category": "表达情绪"
+  },
+  {
+    "french": "C'est dommage.",
+    "chinese": "真可惜。",
+    "phonetic": "[sɛ dɔmaʒ]",
+    "part_of_speech": "短语 loc.",
+    "category": "表达情绪"
+  },
+  {
+    "french": "Est-ce que tu pourrais garder mon chat?",
+    "chinese": "你能帮我照看一下我的猫吗？",
+    "phonetic": "[ɛs kə ty puʀɛ gaʀde mɔ̃ ʃa]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "Est-ce que tu peux venir chercher ton cahier chez moi, ce soir?",
+    "chinese": "你今晚能来我家拿你的笔记本吗？",
+    "phonetic": "[ɛs kə ty pø vǝniʀ ʃɛʀʃe tɔ̃ kajje ʃe mwa sə swaʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "Tu pourrais apporter des boissons?",
+    "chinese": "你能带些饮料吗？",
+    "phonetic": "[ty puʀɛz apɔʀte de bwasɔ̃]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "Tu peux m'envoyer un SMS, s'il te plaît?",
+    "chinese": "你能给我发条短信吗？",
+    "phonetic": "[ty pø mɑ̃vwaje œ̃ ɛs ɛm ɛs sil tə plɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "Tu peux appeler Marc pour lui dire, s'il te plaît?",
+    "chinese": "你能打电话告诉马克吗？",
+    "phonetic": "[ty pø zaple maʀk puʀ lɥi diʀ sil tə plɛ]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "Tu m'appelles à 13 heures pour me confirmer?",
+    "chinese": "你 13 点给我打电话确认一下好吗？",
+    "phonetic": "[ty mapɛl a tʀɛz œʀ puʀ mə kɔ̃fiʀme]",
+    "part_of_speech": "短语 loc.",
+    "category": "请求与邀请"
+  },
+  {
+    "french": "On se retrouve quand? Et où?",
+    "chinese": "我们什么时候见面？在哪里？",
+    "phonetic": "[ɔ̃ sə ʀətʀuv kɑ̃ e u]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "On se voit à quelle heure?",
+    "chinese": "我们几点见面？",
+    "phonetic": "[ɔ̃ sə vwa a kɛl œʀ]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  },
+  {
+    "french": "Rendez-vous où?",
+    "chinese": "在哪里见面？",
+    "phonetic": "[ʀɑ̃devu u]",
+    "part_of_speech": "短语 loc.",
+    "category": "约会安排"
+  }
+]

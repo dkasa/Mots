@@ -1,0 +1,709 @@
+[
+  {
+    "french": "la famille",
+    "chinese": "家庭",
+    "phonetic": "[la famij]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un frère",
+    "chinese": "兄弟",
+    "phonetic": "[œ̃ fʀɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une sœur",
+    "chinese": "姐妹",
+    "phonetic": "[yn sœʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "les parents",
+    "chinese": "父母",
+    "phonetic": "[le paʀɑ̃]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "le père",
+    "chinese": "父亲",
+    "phonetic": "[lə pɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "la mère",
+    "chinese": "母亲",
+    "phonetic": "[la mɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un grand-père",
+    "chinese": "祖父/外祖父",
+    "phonetic": "[œ̃ gʀɑ̃ pɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une grand-mère",
+    "chinese": "祖母/外祖母",
+    "phonetic": "[yn gʀɑ̃ mɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un oncle",
+    "chinese": "叔叔/舅舅",
+    "phonetic": "[œ̃ ɔ̃kl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une tante",
+    "chinese": "阿姨/姑姑",
+    "phonetic": "[yn tɑ̃t]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un cousin",
+    "chinese": "堂/表兄弟",
+    "phonetic": "[œ̃ kuzɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une cousine",
+    "chinese": "堂/表姐妹",
+    "phonetic": "[yn kuzin]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un neveu",
+    "chinese": "侄子/外甥",
+    "phonetic": "[œ̃ nǝvø]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une nièce",
+    "chinese": "侄女/外甥女",
+    "phonetic": "[yn njɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un ami, une amie",
+    "chinese": "朋友",
+    "phonetic": "[œ̃n ami, yn ami]",
+    "part_of_speech": "名词 n.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un copain, une copine",
+    "chinese": "朋友/伙伴",
+    "phonetic": "[œ̃ kɔpɛ̃, yn kɔpin]",
+    "part_of_speech": "名词 n.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un(e) camarade de classe",
+    "chinese": "同班同学",
+    "phonetic": "[œ̃n/yn kamaʀad də klas]",
+    "part_of_speech": "名词 n.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "un correspondant",
+    "chinese": "通信朋友（男）",
+    "phonetic": "[œ̃ kɔʀɛspɔ̃dɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "une correspondante",
+    "chinese": "通信朋友（女）",
+    "phonetic": "[yn kɔʀɛspɔ̃dɑ̃t]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "家庭与人物"
+  },
+  {
+    "french": "sympathique",
+    "chinese": "和蔼可亲的",
+    "phonetic": "[sɛ̃patik]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "antipathique",
+    "chinese": "令人反感的",
+    "phonetic": "[ɑ̃tipatik]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "gentil (gentille)",
+    "chinese": "善良的",
+    "phonetic": "[ʒɑ̃tij, ʒɑ̃tij]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "méchant(e)",
+    "chinese": "坏的，恶毒的",
+    "phonetic": "[meʃɑ̃, meʃɑ̃t]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "dynamique",
+    "chinese": "有活力的",
+    "phonetic": "[dinamik]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "calme",
+    "chinese": "安静的",
+    "phonetic": "[kalm]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "sérieux (sérieuse)",
+    "chinese": "严肃的/认真的",
+    "phonetic": "[seʀjø, seʀjøz]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "drôle, rigolo (rigolote)",
+    "chinese": "有趣的，滑稽的",
+    "phonetic": "[dʀol, ʀigolo, ʀigolɔt]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "comique",
+    "chinese": "滑稽的",
+    "phonetic": "[kɔmik]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "triste",
+    "chinese": "悲伤的",
+    "phonetic": "[tʀist]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "généreux (généreuse)",
+    "chinese": "慷慨的",
+    "phonetic": "[ʒeneʀø, ʒeneʀøz]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "bavard(e)",
+    "chinese": "健谈的",
+    "phonetic": "[bavaʀ, bavaʀd]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "timide",
+    "chinese": "害羞的",
+    "phonetic": "[timid]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "intelligent(e)",
+    "chinese": "聪明的",
+    "phonetic": "[ɛ̃teliʒɑ̃, ɛ̃teliʒɑ̃t]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "stupide",
+    "chinese": "愚蠢的",
+    "phonetic": "[stypid]",
+    "part_of_speech": "形容词 adj.",
+    "category": "性格描述"
+  },
+  {
+    "french": "brun(e)",
+    "chinese": "棕发的/褐色头发的",
+    "phonetic": "[bʀœ̃, bʀyn]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "blond(e)",
+    "chinese": "金发的",
+    "phonetic": "[blɔ̃, blɔ̃d]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "roux (rousse)",
+    "chinese": "红发的",
+    "phonetic": "[ʀu, ʀus]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "châtain",
+    "chinese": "栗色头发的",
+    "phonetic": "[ʃatɛ̃]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "petit(e)",
+    "chinese": "小的/矮的",
+    "phonetic": "[pəti, pətit]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "grand(e)",
+    "chinese": "高的/大的",
+    "phonetic": "[gʀɑ̃, gʀɑ̃d]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "maigre",
+    "chinese": "瘦的",
+    "phonetic": "[mɛgʀ]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "mince",
+    "chinese": "苗条的",
+    "phonetic": "[mɛ̃s]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "gros (grosse)",
+    "chinese": "胖的/粗的",
+    "phonetic": "[gʀo, gʀos]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "musclé(e)",
+    "chinese": "肌肉发达的",
+    "phonetic": "[myskle, myskle]",
+    "part_of_speech": "形容词 adj.",
+    "category": "外貌描述"
+  },
+  {
+    "french": "la tête",
+    "chinese": "头",
+    "phonetic": "[la tɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "身体部位"
+  },
+  {
+    "french": "un œil",
+    "chinese": "眼睛（单数）",
+    "phonetic": "[œ̃n œj]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "身体部位"
+  },
+  {
+    "french": "des yeux",
+    "chinese": "眼睛（复数）",
+    "phonetic": "[dejø]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "身体部位"
+  },
+  {
+    "french": "un nez",
+    "chinese": "鼻子",
+    "phonetic": "[œ̃ ne]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "身体部位"
+  },
+  {
+    "french": "une bouche",
+    "chinese": "嘴巴",
+    "phonetic": "[yn buʃ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "身体部位"
+  },
+  {
+    "french": "les cheveux",
+    "chinese": "头发",
+    "phonetic": "[lə ʃəvø]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "身体部位"
+  },
+  {
+    "french": "une oreille",
+    "chinese": "耳朵",
+    "phonetic": "[yn ɔʀɛj]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "身体部位"
+  },
+  {
+    "french": "un bras",
+    "chinese": "手臂",
+    "phonetic": "[œ̃ bʀa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "身体部位"
+  },
+  {
+    "french": "une main",
+    "chinese": "手",
+    "phonetic": "[yn mɛ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "身体部位"
+  },
+  {
+    "french": "une jambe",
+    "chinese": "腿",
+    "phonetic": "[yn ʒɑ̃b]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "身体部位"
+  },
+  {
+    "french": "un pied",
+    "chinese": "脚",
+    "phonetic": "[œ̃ pje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "身体部位"
+  },
+  {
+    "french": "une jupe",
+    "chinese": "裙子",
+    "phonetic": "[yn ʒyp]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装"
+  },
+  {
+    "french": "une robe",
+    "chinese": "连衣裙",
+    "phonetic": "[yn ʀɔb]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装"
+  },
+  {
+    "french": "un pantalon",
+    "chinese": "裤子",
+    "phonetic": "[œ̃ pɑ̃talɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "un jean",
+    "chinese": "牛仔裤",
+    "phonetic": "[œ̃ dʒin]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "un short",
+    "chinese": "短裤",
+    "phonetic": "[œ̃ ʃɔʀt]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "un tee-shirt",
+    "chinese": "T 恤衫",
+    "phonetic": "[œ̃ tiʃœʀt]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "un polo",
+    "chinese": "Polo 衫",
+    "phonetic": "[œ̃ pɔlo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "une chemise",
+    "chinese": "衬衫（男式）",
+    "phonetic": "[yn ʃəmiz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装"
+  },
+  {
+    "french": "un chemisier",
+    "chinese": "女式衬衫",
+    "phonetic": "[œ̃ ʃəmizje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "un blouson",
+    "chinese": "夹克衫",
+    "phonetic": "[œ̃ bluzɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装"
+  },
+  {
+    "french": "une veste",
+    "chinese": "上衣/外套",
+    "phonetic": "[yn vɛst]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装"
+  },
+  {
+    "french": "des chaussures",
+    "chinese": "鞋子",
+    "phonetic": "[de ʃosyʀ]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "服装"
+  },
+  {
+    "french": "des baskets",
+    "chinese": "运动鞋",
+    "phonetic": "[de baskɛt]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "服装"
+  },
+  {
+    "french": "des tennis",
+    "chinese": "网球鞋",
+    "phonetic": "[de tenis]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "服装"
+  },
+  {
+    "french": "des gants",
+    "chinese": "手套",
+    "phonetic": "[de ʒɑ̃]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un bonnet",
+    "chinese": "无檐小便帽",
+    "phonetic": "[œ̃ bɔnɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "une écharpe",
+    "chinese": "围巾",
+    "phonetic": "[yn eʃaʀp]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "des lunettes",
+    "chinese": "眼镜",
+    "phonetic": "[de lynɛt]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un chapeau",
+    "chinese": "礼帽",
+    "phonetic": "[œ̃ ʃapo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un parapluie",
+    "chinese": "雨伞",
+    "phonetic": "[œ̃ paʀaplɥi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "une casquette",
+    "chinese": "鸭舌帽",
+    "phonetic": "[yn kaskɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "une montre",
+    "chinese": "手表",
+    "phonetic": "[yn mɔ̃tʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un bijou",
+    "chinese": "首饰",
+    "phonetic": "[œ̃ biʒu]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "une ceinture",
+    "chinese": "腰带",
+    "phonetic": "[yn sɛ̃tyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un maillot de bain",
+    "chinese": "泳衣",
+    "phonetic": "[œ̃ majo də bɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "une serviette de bain",
+    "chinese": "浴巾",
+    "phonetic": "[yn sɛʀvjɛt də bɛ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un bonnet de bain",
+    "chinese": "泳帽",
+    "phonetic": "[œ̃ bɔnɛ də bɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un sac de sport",
+    "chinese": "运动包",
+    "phonetic": "[œ̃ sak də spɔʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un sac à dos",
+    "chinese": "双肩背包",
+    "phonetic": "[œ̃ sak a do]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un sac à main",
+    "chinese": "手提包",
+    "phonetic": "[œ̃ sak a mɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "la taille",
+    "chinese": "尺寸（衣服）",
+    "phonetic": "[la taj]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "la pointure",
+    "chinese": "鞋码",
+    "phonetic": "[la pwɛ̃tyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "服装配饰"
+  },
+  {
+    "french": "un appareil photo",
+    "chinese": "照相机",
+    "phonetic": "[œ̃n apaʀɛj foto]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un téléphone, un Smartphone",
+    "chinese": "电话/智能手机",
+    "phonetic": "[œ̃ telefɔn, œ̃ smaʀtfɔn]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une radio",
+    "chinese": "收音机",
+    "phonetic": "[yn ʀadjo]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un plan",
+    "chinese": "地图/计划",
+    "phonetic": "[œ̃ plɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un colis",
+    "chinese": "包裹",
+    "phonetic": "[œ̃ kɔli]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une enveloppe",
+    "chinese": "信封",
+    "phonetic": "[yn ɑ̃vǝlɔp]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un timbre",
+    "chinese": "邮票",
+    "phonetic": "[œ̃ tɛ̃bʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une carte postale",
+    "chinese": "明信片",
+    "phonetic": "[yn kaʀt pɔstal]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une carte bancaire",
+    "chinese": "银行卡",
+    "phonetic": "[yn kaʀt bɑ̃kɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un ordinateur",
+    "chinese": "电脑",
+    "phonetic": "[œ̃n ɔʀdinatœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un clavier",
+    "chinese": "键盘",
+    "phonetic": "[œ̃ klavje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une souris",
+    "chinese": "鼠标",
+    "phonetic": "[yn suʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  },
+  {
+    "french": "un écran",
+    "chinese": "屏幕",
+    "phonetic": "[œ̃n ekʀɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "日常物品"
+  },
+  {
+    "french": "une clé USB",
+    "chinese": "U 盘",
+    "phonetic": "[yn kle USB]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "日常物品"
+  }
+]

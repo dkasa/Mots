@@ -291,10 +291,25 @@ export function useLocalStorage() {
   // 重置当前单元范围的单词状态
   const resetCurrentUnitWords = useCallback(async (currentGrade: Grade, unitRange: UnitRange) => {
     try {
+      // 处理 DELF A2 的情况
+      let fileName: string;
+      let gradeId: string;
+
+      if (currentGrade === 93) {
+        fileName = 'delf_a2_words.json';
+        gradeId = '93';
+      } else if (currentGrade === 94) {
+        fileName = 'delf_a2_phrases.json';
+        gradeId = '94';
+      } else {
+        fileName = `grade${currentGrade}_words.json`;
+        gradeId = currentGrade.toString();
+      }
+
       // 动态加载当前年级的单词数据
-      const response = await fetch(`/data/grade${currentGrade}_words.json`);
+      const response = await fetch(`/data/${fileName}`);
       if (!response.ok) {
-        throw new Error(`Failed to load grade ${currentGrade} words`);
+        throw new Error(`Failed to load ${fileName}`);
       }
       
       const allWords = await response.json();

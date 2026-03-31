@@ -46,9 +46,19 @@ export function useVocabularyData(
     setError(null);
     
     try {
-      const response = await fetch(`/data/grade${targetGrade}_words.json`);
+      // 处理 DELF A2 的特殊情况
+      let fileName: string;
+      if (targetGrade === 93) {
+        fileName = 'delf_a2_words.json';
+      } else if (targetGrade === 94) {
+        fileName = 'delf_a2_phrases.json';
+      } else {
+        fileName = `grade${targetGrade}_words.json`;
+      }
+
+      const response = await fetch(`/data/${fileName}`);
       if (!response.ok) {
-        throw new Error(`Failed to load grade ${targetGrade} words`);
+        throw new Error(`Failed to load ${fileName}`);
       }
       
       const rawWords: Word[] = await response.json();
