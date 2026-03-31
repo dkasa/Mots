@@ -33,7 +33,7 @@ export function useDelfA2Data(
         return {
           ...word,
           id: wordId,
-          grade: (type === 'words' ? 93 : 94) as any,
+          grade: (type === 'words' ? 93 : 94),
           isLearned: initialLearnedWords[wordId] || false,
           isMastered: initialMasteredWords[wordId] || false,
         };

@@ -64,7 +64,7 @@ export function useAllVocabularyData(
             return {
               ...word,
               id: wordId,
-              grade: 93 as any,
+              grade: 93,
               isLearned: learnedWords[wordId] || false,
               isMastered: masteredWords[wordId] || false,
             };
@@ -85,7 +85,7 @@ export function useAllVocabularyData(
             return {
               ...word,
               id: wordId,
-              grade: 94 as any,
+              grade: 94,
               isLearned: learnedWords[wordId] || false,
               isMastered: masteredWords[wordId] || false,
             };

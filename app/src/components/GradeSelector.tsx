@@ -14,14 +14,14 @@ export function GradeSelector({ currentGrade, onGradeChange, darkMode = false }:
   const contentRef = useRef<HTMLDivElement>(null);
 
   const grades = [
-    { value: 71 as any, label: '初一上', short: '七上' },
-    { value: 72 as any, label: '初一下', short: '七下' },
-    { value: 81 as any, label: '初二上', short: '八上' },
-    { value: 82 as any, label: '初二下', short: '八下' },
-    { value: 91 as any, label: '初三上', short: '九上' },
-    { value: 92 as any, label: '初三下', short: '九下' },
-    { value: 93 as any, label: 'DELF A2 单词', short: 'A2 单词' },
-    { value: 94 as any, label: 'DELF A2 短语', short: 'A2 短语' },
+    { value: 71 as Grade, label: '初一上', short: '七上' },
+    { value: 72 as Grade, label: '初一下', short: '七下' },
+    { value: 81 as Grade, label: '初二上', short: '八上' },
+    { value: 82 as Grade, label: '初二下', short: '八下' },
+    { value: 91 as Grade, label: '初三上', short: '九上' },
+    { value: 92 as Grade, label: '初三下', short: '九下' },
+    { value: 93 as Grade, label: 'DELF A2 单词', short: 'A2 单词' },
+    { value: 94 as Grade, label: 'DELF A2 短语', short: 'A2 短语' },
   ];
 
   const currentGradeInfo = grades.find(g => g.value === currentGrade);
