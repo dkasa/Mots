@@ -1090,5 +1090,2469 @@
     "phonetic": "[abite]",
     "part_of_speech": "动词 v.",
     "category": "家具"
+  },
+  {
+    "french": "une voiture",
+    "chinese": "汽车",
+    "phonetic": "[yn vwatyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un vélo",
+    "chinese": "自行车",
+    "phonetic": "[œ̃ velo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un bus",
+    "chinese": "公交车",
+    "phonetic": "[œ̃ bys]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "le métro",
+    "chinese": "地铁",
+    "phonetic": "[lə metʀo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "le tram (le tramway)",
+    "chinese": "有轨电车",
+    "phonetic": "[lə tʀam (lə tʀamwɛ)]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un taxi",
+    "chinese": "出租车",
+    "phonetic": "[œ̃ taksi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un chauffeur",
+    "chinese": "司机",
+    "phonetic": "[œ̃ ʃofœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un skateboard",
+    "chinese": "滑板",
+    "phonetic": "[œ̃ skɛtbɔd]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "des rollers",
+    "chinese": "轮滑鞋",
+    "phonetic": "[de ʀɔlœʀ]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "交通"
+  },
+  {
+    "french": "une piste cyclable",
+    "chinese": "自行车道",
+    "phonetic": "[yn pist siklabl]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "une station de vélos en libre-service",
+    "chinese": "公共自行车站",
+    "phonetic": "[yn stasjɔ̃ də velo ɑ̃ libʀ sɛʀvis]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un arrêt",
+    "chinese": "车站",
+    "phonetic": "[œ̃n aʀɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un passager",
+    "chinese": "乘客",
+    "phonetic": "[œ̃ pasaje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une station",
+    "chinese": "站点",
+    "phonetic": "[yn stasjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "une ligne",
+    "chinese": "线路",
+    "phonetic": "[yn liɲ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un itinéraire",
+    "chinese": "路线",
+    "phonetic": "[œ̃n itineʀɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un ticket",
+    "chinese": "票",
+    "phonetic": "[œ̃ tikɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un distributeur de tickets",
+    "chinese": "自动售票机",
+    "phonetic": "[œ̃ distʀibytœʀ də tikɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un abonnement",
+    "chinese": "月票/年票",
+    "phonetic": "[œ̃n abɔnmɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une gare",
+    "chinese": "火车站",
+    "phonetic": "[yn gaʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "une voie",
+    "chinese": "轨道",
+    "phonetic": "[yn vwa]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un quai",
+    "chinese": "站台",
+    "phonetic": "[œ̃ kɛ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une place",
+    "chinese": "座位",
+    "phonetic": "[yn plas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un contrôleur",
+    "chinese": "检票员",
+    "phonetic": "[œ̃ kɔ̃tʀolœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un billet/un titre de transport",
+    "chinese": "车票",
+    "phonetic": "[œ̃ bijɛ/œ̃ titʀ də tʀɑ̃spɔʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une porte du train",
+    "chinese": "火车车门",
+    "phonetic": "[yn pɔʀt dy tʀɛ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "l'arrivée",
+    "chinese": "到达",
+    "phonetic": "[laʀive]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "le départ",
+    "chinese": "出发",
+    "phonetic": "[lə depaʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un retard",
+    "chinese": "晚点",
+    "phonetic": "[œ̃ ʀətaʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une correspondance",
+    "chinese": "换乘",
+    "phonetic": "[yn kɔʀɛspɔ̃dɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "le terminus",
+    "chinese": "终点站",
+    "phonetic": "[lə tɛʀminys]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une sortie",
+    "chinese": "出口",
+    "phonetic": "[yn sɔʀti]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un escalier",
+    "chinese": "楼梯",
+    "phonetic": "[œ̃n ɛskalje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une réservation",
+    "chinese": "预订",
+    "phonetic": "[yn ʀezɛʀvasjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "l'avion",
+    "chinese": "飞机",
+    "phonetic": "[lavjɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un aéroport",
+    "chinese": "机场",
+    "phonetic": "[œ̃n aeʀɔpɔʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un vol",
+    "chinese": "航班",
+    "phonetic": "[œ̃ vɔl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "une destination",
+    "chinese": "目的地",
+    "phonetic": "[yn dɛstinlasjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "une porte d'embarquement",
+    "chinese": "登机口",
+    "phonetic": "[yn pɔʀt dɑ̃baʀkǝmɑ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "交通"
+  },
+  {
+    "french": "un terminal",
+    "chinese": "航站楼",
+    "phonetic": "[œ̃ tɛʀminal]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un bagage",
+    "chinese": "行李",
+    "phonetic": "[œ̃ bagaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "交通"
+  },
+  {
+    "french": "un steward, une hôtesse de l'air",
+    "chinese": "空乘人员",
+    "phonetic": "[œ̃ stɥaʀd, yn otɛs də lɛʀ]",
+    "part_of_speech": "名词 n.",
+    "category": "交通"
+  },
+  {
+    "french": "se déplacer",
+    "chinese": "出行",
+    "phonetic": "[sə deplase]",
+    "part_of_speech": "动词 v.",
+    "category": "交通"
+  },
+  {
+    "french": "voyager",
+    "chinese": "旅行",
+    "phonetic": "[vwajaʒe]",
+    "part_of_speech": "动词 v.",
+    "category": "交通"
+  },
+  {
+    "french": "partir",
+    "chinese": "出发",
+    "phonetic": "[paʀtiʀ]",
+    "part_of_speech": "动词 v.",
+    "category": "交通"
+  },
+  {
+    "french": "arriver",
+    "chinese": "到达",
+    "phonetic": "[aʀive]",
+    "part_of_speech": "动词 v.",
+    "category": "交通"
+  },
+  {
+    "french": "réserver",
+    "chinese": "预订",
+    "phonetic": "[ʀezɛʀve]",
+    "part_of_speech": "动词 v.",
+    "category": "交通"
+  },
+  {
+    "french": "composter un billet",
+    "chinese": "检票",
+    "phonetic": "[kɔ̃pɔste œ̃ bijɛ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "交通"
+  },
+  {
+    "french": "un restaurant",
+    "chinese": "餐厅",
+    "phonetic": "[œ̃ ʀɛstoʀɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un café",
+    "chinese": "咖啡馆",
+    "phonetic": "[œ̃ kafe]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une cafétéria",
+    "chinese": "自助餐厅",
+    "phonetic": "[yn kafeteʀja]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un hôtel",
+    "chinese": "酒店",
+    "phonetic": "[œ̃n otɛl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "la poste",
+    "chinese": "邮局",
+    "phonetic": "[la pɔst]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une banque",
+    "chinese": "银行",
+    "phonetic": "[yn bɑ̃k]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un parking",
+    "chinese": "停车场",
+    "phonetic": "[œ̃ paʀkiŋ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un jardin public",
+    "chinese": "公园",
+    "phonetic": "[œ̃ ʒaʀdɛ̃ pyblik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une rue",
+    "chinese": "街道",
+    "phonetic": "[yn ʀy]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une impasse",
+    "chinese": "死胡同",
+    "phonetic": "[yn ɛ̃pas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un boulevard",
+    "chinese": "大道",
+    "phonetic": "[œ̃ bulvaʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une avenue",
+    "chinese": "大街",
+    "phonetic": "[yn avǝny]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "une place",
+    "chinese": "广场",
+    "phonetic": "[yn plas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un bâtiment",
+    "chinese": "建筑物",
+    "phonetic": "[œ̃ batimɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "un immeuble",
+    "chinese": "大楼",
+    "phonetic": "[œ̃n imœbl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "le rez-de-chaussée",
+    "chinese": "底层",
+    "phonetic": "[lə ʀɛdʃose]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "le premier étage",
+    "chinese": "一楼",
+    "phonetic": "[lə pʀəmje etɑʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "le dernier étage",
+    "chinese": "顶层",
+    "phonetic": "[lə dɛʀnje etɑʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "公共场所"
+  },
+  {
+    "french": "la lecture",
+    "chinese": "阅读",
+    "phonetic": "[la lɛktyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "l'écriture",
+    "chinese": "写作",
+    "phonetic": "[lekʀityʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "lire un livre",
+    "chinese": "看书",
+    "phonetic": "[liʀ œ̃ livʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une BD (une bande dessinée)",
+    "chinese": "漫画",
+    "phonetic": "[yn be de (yn bɑ̃d desine)]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un magazine",
+    "chinese": "杂志",
+    "phonetic": "[œ̃ magazin]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "écrire un blog/un journal intime",
+    "chinese": "写博客/日记",
+    "phonetic": "[ekʀiʀ œ̃ blɔg/œ̃ ʒuʀnal ɛ̃tim]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "emprunter un livre",
+    "chinese": "借书",
+    "phonetic": "[ɑ̃pʀœ̃te œ̃ livʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "rendre un livre",
+    "chinese": "还书",
+    "phonetic": "[ʀɑ̃dʀ œ̃ livʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un livre",
+    "chinese": "书",
+    "phonetic": "[œ̃ livʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un roman",
+    "chinese": "小说",
+    "phonetic": "[œ̃ ʀɔmɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le cinéma",
+    "chinese": "电影/电影院",
+    "phonetic": "[lə sinema]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "la télévision",
+    "chinese": "电视",
+    "phonetic": "[la televizjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un film",
+    "chinese": "电影",
+    "phonetic": "[œ̃ film]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une série",
+    "chinese": "电视剧",
+    "phonetic": "[yn seʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un journal télévisé",
+    "chinese": "新闻联播",
+    "phonetic": "[œ̃ ʒuʀnal televize]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un programme",
+    "chinese": "节目",
+    "phonetic": "[œ̃ pʀɔgʀam]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une émission de téléréalité",
+    "chinese": "真人秀节目",
+    "phonetic": "[yn emisjɔ̃ də teleʀealite]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un jeu télévisé",
+    "chinese": "电视游戏节目",
+    "phonetic": "[œ̃ ʒø televize]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un candidat",
+    "chinese": "参赛者",
+    "phonetic": "[œ̃ kɑ̃dida]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un sketch",
+    "chinese": "小品/短剧",
+    "phonetic": "[œ̃ skɛtʃ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "regarder la télévision",
+    "chinese": "看电视",
+    "phonetic": "[ʀaʀde la televizjɔ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "aller au cinéma",
+    "chinese": "去看电影",
+    "phonetic": "[ale o sinema]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une science-fiction",
+    "chinese": "科幻",
+    "phonetic": "[yn sjɑ̃s fiksjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une comédie",
+    "chinese": "喜剧",
+    "phonetic": "[yn kɔmedi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une tragédie",
+    "chinese": "悲剧",
+    "phonetic": "[yn tʀaʒedi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un thriller",
+    "chinese": "惊悚片",
+    "phonetic": "[œ̃ tʀilœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un policier",
+    "chinese": "警匪片/侦探小说",
+    "phonetic": "[œ̃ pɔlisje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un drame",
+    "chinese": "剧情片",
+    "phonetic": "[œ̃ dʀam]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un film romantique",
+    "chinese": "爱情片",
+    "phonetic": "[œ̃ film ʀɔmɑ̃tik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un film historique",
+    "chinese": "历史片",
+    "phonetic": "[œ̃ film istɔʀik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un dessin animé",
+    "chinese": "动画片",
+    "phonetic": "[œ̃ desɛ̃n anime]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un film d'animation",
+    "chinese": "动画电影",
+    "phonetic": "[œ̃ film danimasjɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "la musique",
+    "chinese": "音乐",
+    "phonetic": "[la myzik]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "écouter de la musique",
+    "chinese": "听音乐",
+    "phonetic": "[ekute də la myzik]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "danser",
+    "chinese": "跳舞",
+    "phonetic": "[dɑ̃se]",
+    "part_of_speech": "动词 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "la danse",
+    "chinese": "舞蹈",
+    "phonetic": "[la dɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "chanter",
+    "chinese": "唱歌",
+    "phonetic": "[ʃɑ̃te]",
+    "part_of_speech": "动词 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le chant",
+    "chinese": "歌唱",
+    "phonetic": "[lə ʃɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "jouer d'un instrument de musique",
+    "chinese": "演奏乐器",
+    "phonetic": "[ʒwe dœ̃n ɛ̃stʀymɑ̃ də myzik]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un violon",
+    "chinese": "小提琴",
+    "phonetic": "[œ̃ vjɔlɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une flûte",
+    "chinese": "长笛",
+    "phonetic": "[yn flyt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une guitare",
+    "chinese": "吉他",
+    "phonetic": "[yn gitaʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un piano",
+    "chinese": "钢琴",
+    "phonetic": "[œ̃ pjano]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une batterie",
+    "chinese": "架子鼓",
+    "phonetic": "[yn batʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une école de musique",
+    "chinese": "音乐学校",
+    "phonetic": "[yn ekɔl də myzik]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "faire du sport",
+    "chinese": "做运动",
+    "phonetic": "[fɛʀ dy spɔʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une activité sportive",
+    "chinese": "体育活动",
+    "phonetic": "[yn aktivite spɔʀtiv]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "la gymnastique",
+    "chinese": "体操",
+    "phonetic": "[la ʒimnastik]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "la natation",
+    "chinese": "游泳",
+    "phonetic": "[la natasjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le badminton",
+    "chinese": "羽毛球",
+    "phonetic": "[lə badmin tɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le basket-ball",
+    "chinese": "篮球",
+    "phonetic": "[lə baskɛt bol]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le football",
+    "chinese": "足球",
+    "phonetic": "[lə futbol]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le karaté",
+    "chinese": "空手道",
+    "phonetic": "[lə kaʀate]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le tennis",
+    "chinese": "网球",
+    "phonetic": "[lə tenis]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le vélo tous terrains",
+    "chinese": "山地车",
+    "phonetic": "[lə velo tu tɛʀɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le volley-ball",
+    "chinese": "排球",
+    "phonetic": "[lə vɔlɛj bol]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "le water-polo",
+    "chinese": "水球",
+    "phonetic": "[lə watɛʀ polo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "l'escalade",
+    "chinese": "攀岩",
+    "phonetic": "[lɛskalad]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "l'escrime",
+    "chinese": "击剑",
+    "phonetic": "[lɛskʀim]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un match de foot",
+    "chinese": "足球比赛",
+    "phonetic": "[œ̃ maʧ də fut]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une équipe",
+    "chinese": "队伍",
+    "phonetic": "[yn ekip]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une compétition",
+    "chinese": "比赛",
+    "phonetic": "[yn kɔ̃petisjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un championnat",
+    "chinese": "锦标赛",
+    "phonetic": "[œ̃ ʃɑ̃pjɔna]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "les Jeux Olympiques",
+    "chinese": "奥运会",
+    "phonetic": "[le ʒø ɔlɛ̃pik]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un terrain de foot",
+    "chinese": "足球场",
+    "phonetic": "[œ̃ tɛʀɛ̃ də fut]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une piscine",
+    "chinese": "游泳池",
+    "phonetic": "[yn disin]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une salle de sport",
+    "chinese": "健身房",
+    "phonetic": "[yn sal də spɔʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un stade",
+    "chinese": "体育场",
+    "phonetic": "[œ̃ stad]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un gymnase",
+    "chinese": "体育馆",
+    "phonetic": "[œ̃ ʒimnaz]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "surfer sur Internet",
+    "chinese": "上网",
+    "phonetic": "[syʀfe syʀ ɛ̃tɛʀnɛt]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "jouer en ligne",
+    "chinese": "在线游戏",
+    "phonetic": "[ʒwe ɑ̃ liɲ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "les jeux vidéo",
+    "chinese": "电子游戏",
+    "phonetic": "[le ʒø video]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "娱乐"
+  },
+  {
+    "french": "les jeux de société",
+    "chinese": "桌游",
+    "phonetic": "[le ʒø də sɔsjete]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "娱乐"
+  },
+  {
+    "french": "s'intéresser à",
+    "chinese": "对...感兴趣",
+    "phonetic": "[sɛ̃teʀese a]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "admirer quelque chose/quelqu'un",
+    "chinese": "欣赏某事/某人",
+    "phonetic": "[admiʀe kɛlkə ʃoz/kɛlkœ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "participer à",
+    "chinese": "参加",
+    "phonetic": "[paʀtisipe a]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "sortir",
+    "chinese": "外出",
+    "phonetic": "[sɔʀtiʀ]",
+    "part_of_speech": "动词 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "aller au théâtre",
+    "chinese": "去剧院",
+    "phonetic": "[ale o teatʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "aller à un concert",
+    "chinese": "去音乐会",
+    "phonetic": "[ale a œ̃ kɔ̃sɛʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un parc d'attractions",
+    "chinese": "游乐园",
+    "phonetic": "[œ̃ paʀk datʀaksjɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une salle de spectacle",
+    "chinese": "演出厅",
+    "phonetic": "[yn sal də spɛktakl]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un théâtre",
+    "chinese": "剧院",
+    "phonetic": "[œ̃ teatʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une pièce",
+    "chinese": "戏剧",
+    "phonetic": "[yn pjɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un auditorium",
+    "chinese": "礼堂",
+    "phonetic": "[œ̃n oditɔʀjɔm]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un concert",
+    "chinese": "音乐会",
+    "phonetic": "[œ̃ kɔ̃sɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un opéra",
+    "chinese": "歌剧院",
+    "phonetic": "[œ̃n ɔpeʀa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un lieu culturel",
+    "chinese": "文化场所",
+    "phonetic": "[œ̃ ljø kyltyʀɛl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un musée",
+    "chinese": "博物馆",
+    "phonetic": "[œ̃ myze]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une visite guidée",
+    "chinese": "导览",
+    "phonetic": "[yn visit gide]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un audioguide",
+    "chinese": "语音导览器",
+    "phonetic": "[œ̃n odjogid]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "l'accueil",
+    "chinese": "接待处",
+    "phonetic": "[lakœj]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une galerie",
+    "chinese": "画廊",
+    "phonetic": "[yn galʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un monument historique",
+    "chinese": "历史古迹",
+    "phonetic": "[œ̃ mɔnymɑ̃ istɔʀik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une statue",
+    "chinese": "雕像",
+    "phonetic": "[yn staty]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "une sculpture",
+    "chinese": "雕塑",
+    "phonetic": "[yn skylptyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un tableau",
+    "chinese": "画作",
+    "phonetic": "[œ̃ tablo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "娱乐"
+  },
+  {
+    "french": "un magasin",
+    "chinese": "商店",
+    "phonetic": "[œ̃ magazɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "une boutique",
+    "chinese": "精品店",
+    "phonetic": "[yn butik]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "un centre commercial",
+    "chinese": "购物中心",
+    "phonetic": "[œ̃ sɑ̃tʀ kɔmɛʀsjal]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "une pâtisserie",
+    "chinese": "蛋糕店",
+    "phonetic": "[yn pɑ̃tisʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une boulangerie",
+    "chinese": "面包店",
+    "phonetic": "[yn bulɑ̃ʒʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une pharmacie",
+    "chinese": "药店",
+    "phonetic": "[yn faʀmasi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une boucherie",
+    "chinese": "肉店",
+    "phonetic": "[yn buʃʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une charcuterie",
+    "chinese": "熟食店",
+    "phonetic": "[yn ʃaʀkytʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une poissonnerie",
+    "chinese": "鱼店",
+    "phonetic": "[yn pwasɔnʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une épicerie",
+    "chinese": "杂货店",
+    "phonetic": "[yn episʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une laverie",
+    "chinese": "自助洗衣店",
+    "phonetic": "[yn lavʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une librairie",
+    "chinese": "书店",
+    "phonetic": "[yn libʀʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "un client",
+    "chinese": "顾客",
+    "phonetic": "[œ̃ klijɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "un vendeur",
+    "chinese": "售货员",
+    "phonetic": "[œ̃ vɑ̃dœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "une cabine d'essayage",
+    "chinese": "试衣间",
+    "phonetic": "[yn kabin desɛjaʒ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "un rayon",
+    "chinese": "货架",
+    "phonetic": "[œ̃ ʀɛjɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "une caisse",
+    "chinese": "收银台",
+    "phonetic": "[yn kɛs]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une étiquette",
+    "chinese": "标签",
+    "phonetic": "[yn etikɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "un prix",
+    "chinese": "价格",
+    "phonetic": "[œ̃ pʀi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "une réduction",
+    "chinese": "折扣",
+    "phonetic": "[yn ʀedyksjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "une offre exceptionnelle",
+    "chinese": "特价优惠",
+    "phonetic": "[yn ɔfʀ ɛksɛpsjɔnɛl]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "购物"
+  },
+  {
+    "french": "un bon d'achat",
+    "chinese": "购物券",
+    "phonetic": "[œ̃ bɔ̃ daʃa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "购物"
+  },
+  {
+    "french": "acheter",
+    "chinese": "购买",
+    "phonetic": "[aʃte]",
+    "part_of_speech": "动词 v.",
+    "category": "购物"
+  },
+  {
+    "french": "vendre",
+    "chinese": "销售",
+    "phonetic": "[vɑ̃dʀ]",
+    "part_of_speech": "动词 v.",
+    "category": "购物"
+  },
+  {
+    "french": "échanger",
+    "chinese": "退换",
+    "phonetic": "[eʃɑ̃ʒe]",
+    "part_of_speech": "动词 v.",
+    "category": "购物"
+  },
+  {
+    "french": "rembourser",
+    "chinese": "退款",
+    "phonetic": "[ʀɑ̃buʀse]",
+    "part_of_speech": "动词 v.",
+    "category": "购物"
+  },
+  {
+    "french": "payer par carte",
+    "chinese": "刷卡支付",
+    "phonetic": "[peje paʀ kaʀt]",
+    "part_of_speech": "动词短语 v.",
+    "category": "购物"
+  },
+  {
+    "french": "payer en espèces",
+    "chinese": "现金支付",
+    "phonetic": "[peje ɑ̃n ɛspɛs]",
+    "part_of_speech": "动词短语 v.",
+    "category": "购物"
+  },
+  {
+    "french": "rendre la monnaie",
+    "chinese": "找零",
+    "phonetic": "[ʀɑ̃dʀ la mɔnɛ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "购物"
+  },
+  {
+    "french": "un collège",
+    "chinese": "初中",
+    "phonetic": "[œ̃ kɔlɛʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un lycée",
+    "chinese": "高中",
+    "phonetic": "[œ̃ lise]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "une salle de classe",
+    "chinese": "教室",
+    "phonetic": "[yn sal də klas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "un cours",
+    "chinese": "课程",
+    "phonetic": "[œ̃ kuʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "une heure de cours",
+    "chinese": "课时",
+    "phonetic": "[yn œʀ də kuʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "une cour de récréation",
+    "chinese": "操场",
+    "phonetic": "[yn kuʀ də ʀekʀeasjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "une cantine",
+    "chinese": "食堂",
+    "phonetic": "[yn kɑ̃tin]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "un restaurant scolaire",
+    "chinese": "学校餐厅",
+    "phonetic": "[œ̃ ʀɛstoʀɔ̃ skɔlɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un internat",
+    "chinese": "寄宿学校",
+    "phonetic": "[œ̃n ɛ̃teʀna]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "une bibliothèque",
+    "chinese": "图书馆",
+    "phonetic": "[yn biblijɔtɛk]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "un CDI",
+    "chinese": "资料中心",
+    "phonetic": "[œ̃ se de i]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un professeur",
+    "chinese": "老师",
+    "phonetic": "[œ̃ pʀɔfɛsœʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un élève",
+    "chinese": "学生",
+    "phonetic": "[œ̃n elɛv]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un délégué de classe",
+    "chinese": "班长",
+    "phonetic": "[œ̃ deleɡe də klas]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "les mathématiques",
+    "chinese": "数学",
+    "phonetic": "[le matematik]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "学校"
+  },
+  {
+    "french": "l'histoire",
+    "chinese": "历史",
+    "phonetic": "[listwaʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la géographie",
+    "chinese": "地理",
+    "phonetic": "[la ʒeɔgʀafi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la littérature",
+    "chinese": "文学",
+    "phonetic": "[la liteʀatyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la langue vivante",
+    "chinese": "外语",
+    "phonetic": "[la lɑ̃g vivɑ̃t]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la SVT",
+    "chinese": "地球生物学",
+    "phonetic": "[la es ve te]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la biologie",
+    "chinese": "生物",
+    "phonetic": "[la bjɔlɔʒi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la physique-chimie",
+    "chinese": "物理化学",
+    "phonetic": "[la fizik ʃimi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "les devoirs",
+    "chinese": "作业",
+    "phonetic": "[le dəvwaʀ]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "学校"
+  },
+  {
+    "french": "un exercice",
+    "chinese": "练习",
+    "phonetic": "[œ̃n ɛgzɛʀsis]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un exposé",
+    "chinese": "报告",
+    "phonetic": "[œ̃n ɛkspoze]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un examen",
+    "chinese": "考试",
+    "phonetic": "[œ̃n ɛgzamɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un test",
+    "chinese": "测验",
+    "phonetic": "[œ̃ tɛst]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "la rentrée des classes",
+    "chinese": "开学",
+    "phonetic": "[la ʀɑ̃tʀe de klas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "la fin de l'année scolaire",
+    "chinese": "学年结束",
+    "phonetic": "[la fɛ̃ də lane skɔlɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "un tableau",
+    "chinese": "黑板",
+    "phonetic": "[œ̃ tablo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "une craie",
+    "chinese": "粉笔",
+    "phonetic": "[yn kʀɛ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "un cahier",
+    "chinese": "笔记本",
+    "phonetic": "[œ̃ kaje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un feutre",
+    "chinese": "马克笔",
+    "phonetic": "[œ̃ føtʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un stylo",
+    "chinese": "钢笔",
+    "phonetic": "[œ̃ stilo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "un crayon à papier",
+    "chinese": "铅笔",
+    "phonetic": "[œ̃ kʀɛjɔ̃ a papje]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "学校"
+  },
+  {
+    "french": "une trousse",
+    "chinese": "文具盒",
+    "phonetic": "[yn tʀus]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "une gomme",
+    "chinese": "橡皮",
+    "phonetic": "[yn gɔm]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "学校"
+  },
+  {
+    "french": "des ciseaux",
+    "chinese": "剪刀",
+    "phonetic": "[de sizo]",
+    "part_of_speech": "复数名词 n.m.pl.",
+    "category": "学校"
+  },
+  {
+    "french": "étudier",
+    "chinese": "学习",
+    "phonetic": "[etydje]",
+    "part_of_speech": "动词 v.",
+    "category": "学校"
+  },
+  {
+    "french": "réviser",
+    "chinese": "复习",
+    "phonetic": "[ʀevize]",
+    "part_of_speech": "动词 v.",
+    "category": "学校"
+  },
+  {
+    "french": "apprendre par cœur",
+    "chinese": "背诵",
+    "phonetic": "[apʀɑ̃dʀ paʀ kœʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "学校"
+  },
+  {
+    "french": "interroger",
+    "chinese": "提问",
+    "phonetic": "[ɛ̃teʀɔʒe]",
+    "part_of_speech": "动词 v.",
+    "category": "学校"
+  },
+  {
+    "french": "le petit-déjeuner",
+    "chinese": "早餐",
+    "phonetic": "[lə pətideʒœne]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "le déjeuner",
+    "chinese": "午餐",
+    "phonetic": "[lə deʒœne]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "le dîner",
+    "chinese": "晚餐",
+    "phonetic": "[lə dine]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un pique-nique",
+    "chinese": "野餐",
+    "phonetic": "[œ̃ piknik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "une entrée",
+    "chinese": "前菜",
+    "phonetic": "[yn ɑ̃tʀe]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un plat (principal)",
+    "chinese": "主菜",
+    "phonetic": "[œ̃ pla (pʀɛ̃sipal)]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un dessert",
+    "chinese": "甜点",
+    "phonetic": "[œ̃ desɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "la viande",
+    "chinese": "肉",
+    "phonetic": "[la vjɑ̃d]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "la charcuterie",
+    "chinese": "猪肉制品",
+    "phonetic": "[la ʃaʀkytʀi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "le poisson",
+    "chinese": "鱼",
+    "phonetic": "[lə pwasɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un légume",
+    "chinese": "蔬菜",
+    "phonetic": "[œ̃ legym]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un fruit",
+    "chinese": "水果",
+    "phonetic": "[œ̃ fʀɥi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un œuf",
+    "chinese": "鸡蛋",
+    "phonetic": "[œ̃n øf]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "le pain",
+    "chinese": "面包",
+    "phonetic": "[lə pɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "des céréales",
+    "chinese": "谷物",
+    "phonetic": "[de seʀeal]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "食物"
+  },
+  {
+    "french": "des pâtes",
+    "chinese": "意大利面",
+    "phonetic": "[de pat]",
+    "part_of_speech": "复数名词 n.f.pl.",
+    "category": "食物"
+  },
+  {
+    "french": "le riz",
+    "chinese": "米饭",
+    "phonetic": "[lə ʀi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "une soupe",
+    "chinese": "汤",
+    "phonetic": "[yn sup]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "une salade",
+    "chinese": "沙拉",
+    "phonetic": "[yn salad]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un fromage",
+    "chinese": "奶酪",
+    "phonetic": "[œ̃ fʀɔmaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "une glace",
+    "chinese": "冰淇淋",
+    "phonetic": "[yn glas]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "une boisson",
+    "chinese": "饮料",
+    "phonetic": "[yn bwasɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un thé",
+    "chinese": "茶",
+    "phonetic": "[œ̃ te]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un café",
+    "chinese": "咖啡",
+    "phonetic": "[œ̃ kafe]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "un soda",
+    "chinese": "汽水",
+    "phonetic": "[œ̃ soda]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "une boisson gazeuse",
+    "chinese": "碳酸饮料",
+    "phonetic": "[yn bwasɔ̃ gazøz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un jus de fruit",
+    "chinese": "果汁",
+    "phonetic": "[œ̃ ʒy də fʀɥi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "sucré",
+    "chinese": "甜的",
+    "phonetic": "[sykʀe]",
+    "part_of_speech": "形容词 adj.",
+    "category": "食物"
+  },
+  {
+    "french": "le sucre",
+    "chinese": "糖",
+    "phonetic": "[lə sykʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "salé",
+    "chinese": "咸的",
+    "phonetic": "[sale]",
+    "part_of_speech": "形容词 adj.",
+    "category": "食物"
+  },
+  {
+    "french": "le sel",
+    "chinese": "盐",
+    "phonetic": "[lə sɛl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "épicé",
+    "chinese": "辣的",
+    "phonetic": "[epise]",
+    "part_of_speech": "形容词 adj.",
+    "category": "食物"
+  },
+  {
+    "french": "une épice",
+    "chinese": "香料",
+    "phonetic": "[yn epis]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "délicieux",
+    "chinese": "美味的",
+    "phonetic": "[delisjø]",
+    "part_of_speech": "形容词 adj.",
+    "category": "食物"
+  },
+  {
+    "french": "dégoûtant",
+    "chinese": "难吃的",
+    "phonetic": "[degutɑ̃]",
+    "part_of_speech": "形容词 adj.",
+    "category": "食物"
+  },
+  {
+    "french": "une cuillère",
+    "chinese": "勺子",
+    "phonetic": "[yn kɥijɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "une fourchette",
+    "chinese": "叉子",
+    "phonetic": "[yn fuʀʃɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un couteau",
+    "chinese": "刀",
+    "phonetic": "[œ̃ kuto]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "une assiette",
+    "chinese": "盘子",
+    "phonetic": "[yn asjɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "食物"
+  },
+  {
+    "french": "un verre",
+    "chinese": "杯子",
+    "phonetic": "[œ̃ vɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "食物"
+  },
+  {
+    "french": "manger",
+    "chinese": "吃",
+    "phonetic": "[mɑ̃ʒe]",
+    "part_of_speech": "动词 v.",
+    "category": "食物"
+  },
+  {
+    "french": "boire",
+    "chinese": "喝",
+    "phonetic": "[bwaʀ]",
+    "part_of_speech": "动词 v.",
+    "category": "食物"
+  },
+  {
+    "french": "goûter",
+    "chinese": "品尝",
+    "phonetic": "[gute]",
+    "part_of_speech": "动词 v.",
+    "category": "食物"
+  },
+  {
+    "french": "commander",
+    "chinese": "点餐",
+    "phonetic": "[kɔmɑ̃de]",
+    "part_of_speech": "动词 v.",
+    "category": "食物"
+  },
+  {
+    "french": "le matin",
+    "chinese": "早上",
+    "phonetic": "[lə matɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "le midi",
+    "chinese": "中午",
+    "phonetic": "[lə midi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "l'après-midi",
+    "chinese": "下午",
+    "phonetic": "[lapʀɛmidi]",
+    "part_of_speech": "阳性/阴性名词 n.",
+    "category": "时间"
+  },
+  {
+    "french": "la fin de journée",
+    "chinese": "傍晚",
+    "phonetic": "[la fɛ̃ də ʒuʀne]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "时间"
+  },
+  {
+    "french": "le soir",
+    "chinese": "晚上",
+    "phonetic": "[lə swaʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "la nuit",
+    "chinese": "夜晚",
+    "phonetic": "[la nɥi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "时间"
+  },
+  {
+    "french": "minuit",
+    "chinese": "午夜",
+    "phonetic": "[minɥi]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "时间"
+  },
+  {
+    "french": "le soleil",
+    "chinese": "太阳",
+    "phonetic": "[lə sɔlɛj]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "天气"
+  },
+  {
+    "french": "la pluie",
+    "chinese": "雨",
+    "phonetic": "[la plɥi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "天气"
+  },
+  {
+    "french": "un nuage",
+    "chinese": "云",
+    "phonetic": "[œ̃ nyaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "天气"
+  },
+  {
+    "french": "le vent",
+    "chinese": "风",
+    "phonetic": "[lə vɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "天气"
+  },
+  {
+    "french": "la neige",
+    "chinese": "雪",
+    "phonetic": "[la nɛʒ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "天气"
+  },
+  {
+    "french": "le ciel",
+    "chinese": "天空",
+    "phonetic": "[lə sjɛl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "天气"
+  },
+  {
+    "french": "la température",
+    "chinese": "温度",
+    "phonetic": "[la tɑ̃peʀatyʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "天气"
+  },
+  {
+    "french": "l'été",
+    "chinese": "夏天",
+    "phonetic": "[lete]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "l'hiver",
+    "chinese": "冬天",
+    "phonetic": "[livɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "le printemps",
+    "chinese": "春天",
+    "phonetic": "[lə pʀɛ̃tɑ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "l'automne",
+    "chinese": "秋天",
+    "phonetic": "[lotɔn]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la montagne",
+    "chinese": "山",
+    "phonetic": "[la mɔ̃taɲ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la plage",
+    "chinese": "海滩",
+    "phonetic": "[la plaʒ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la mer",
+    "chinese": "海",
+    "phonetic": "[la mɛʀ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "le lac",
+    "chinese": "湖",
+    "phonetic": "[lə lak]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la campagne",
+    "chinese": "乡村",
+    "phonetic": "[la kɑ̃paɲ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la côte",
+    "chinese": "海岸",
+    "phonetic": "[la kot]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la forêt",
+    "chinese": "森林",
+    "phonetic": "[la fɔʀɛ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "un camping",
+    "chinese": "露营地",
+    "phonetic": "[œ̃ kɑ̃piŋ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "un parasol",
+    "chinese": "遮阳伞",
+    "phonetic": "[œ̃ paʀasɔl]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "un souvenir",
+    "chinese": "纪念品",
+    "phonetic": "[œ̃ suvǝniʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "季节假期"
+  },
+  {
+    "french": "aller à l'étranger",
+    "chinese": "出国",
+    "phonetic": "[ale a letʀɑ̃ʒe]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "rester à la maison",
+    "chinese": "待在家里",
+    "phonetic": "[ʀɛste a la mɛzɔ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "camper",
+    "chinese": "露营",
+    "phonetic": "[kɑ̃pe]",
+    "part_of_speech": "动词 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "nager",
+    "chinese": "游泳",
+    "phonetic": "[naʒe]",
+    "part_of_speech": "动词 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "se baigner",
+    "chinese": "洗澡/游泳",
+    "phonetic": "[sə bɛɲe]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "se promener",
+    "chinese": "散步",
+    "phonetic": "[sə pʀɔmǝne]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "visiter",
+    "chinese": "参观",
+    "phonetic": "[vizite]",
+    "part_of_speech": "动词 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "bronzer",
+    "chinese": "晒黑",
+    "phonetic": "[bʀɔ̃ze]",
+    "part_of_speech": "动词 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "se reposer",
+    "chinese": "休息",
+    "phonetic": "[sə ʀəpoze]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "se détendre",
+    "chinese": "放松",
+    "phonetic": "[sə detɑ̃dʀ]",
+    "part_of_speech": "动词短语 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "marcher",
+    "chinese": "走路",
+    "phonetic": "[maʀʃe]",
+    "part_of_speech": "动词 v.",
+    "category": "季节假期"
+  },
+  {
+    "french": "une excursion",
+    "chinese": "短途旅行",
+    "phonetic": "[yn ɛkskyʀsjɔ̃]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "la randonnée",
+    "chinese": "徒步旅行",
+    "phonetic": "[la ʀɑ̃dɔne]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "季节假期"
+  },
+  {
+    "french": "une naissance",
+    "chinese": "出生",
+    "phonetic": "[yn nɛsɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "事件"
+  },
+  {
+    "french": "un anniversaire",
+    "chinese": "生日/周年纪念",
+    "phonetic": "[œ̃n anivɛʀsɛʀ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "un mariage",
+    "chinese": "婚礼",
+    "phonetic": "[œ̃ maʀjaʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "une fête",
+    "chinese": "派对/节日",
+    "phonetic": "[yn fɛt]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "事件"
+  },
+  {
+    "french": "un gâteau",
+    "chinese": "蛋糕",
+    "phonetic": "[œ̃ gato]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "une bougie",
+    "chinese": "蜡烛",
+    "phonetic": "[yn buʒi]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "事件"
+  },
+  {
+    "french": "une surprise",
+    "chinese": "惊喜",
+    "phonetic": "[yn syʀpʀiz]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "事件"
+  },
+  {
+    "french": "un bonbon",
+    "chinese": "糖果",
+    "phonetic": "[œ̃ bɔ̃bɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "un DJ",
+    "chinese": "DJ",
+    "phonetic": "[œ̃ di ʒej]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "un costume",
+    "chinese": "服装/戏服",
+    "phonetic": "[œ̃ kɔstym]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "事件"
+  },
+  {
+    "french": "une ambiance",
+    "chinese": "气氛",
+    "phonetic": "[yn ɑ̃bjɑ̃s]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "事件"
+  },
+  {
+    "french": "s'amuser",
+    "chinese": "玩得开心",
+    "phonetic": "[samuze]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "apporter un cadeau",
+    "chinese": "带礼物",
+    "phonetic": "[apɔʀte œ̃ kado]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "décorer une salle",
+    "chinese": "装饰房间",
+    "phonetic": "[dekɔʀe yn sal]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "se déguiser",
+    "chinese": "装扮",
+    "phonetic": "[sə deɡize]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "offrir un cadeau",
+    "chinese": "送礼物",
+    "phonetic": "[ɔfʀiʀ œ̃ kado]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "s'occuper des boissons",
+    "chinese": "负责饮料",
+    "phonetic": "[sɔkype de bwasɔ̃]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "préparer un gâteau",
+    "chinese": "准备蛋糕",
+    "phonetic": "[pʀepaʀe œ̃ gato]",
+    "part_of_speech": "动词短语 v.",
+    "category": "事件"
+  },
+  {
+    "french": "un animal domestique",
+    "chinese": "宠物",
+    "phonetic": "[œ̃n animal dɔmɛstik]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un chat",
+    "chinese": "猫",
+    "phonetic": "[œ̃ ʃa]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un chien",
+    "chinese": "狗",
+    "phonetic": "[œ̃ ʃjɛ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un oiseau",
+    "chinese": "鸟",
+    "phonetic": "[œ̃n wazo]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un poisson rouge",
+    "chinese": "金鱼",
+    "phonetic": "[œ̃ pwasɔ̃ ʀuʒ]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "une tortue",
+    "chinese": "乌龟",
+    "phonetic": "[yn tɔʀty]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "动物"
+  },
+  {
+    "french": "un insecte",
+    "chinese": "昆虫",
+    "phonetic": "[œ̃n ɛ̃sɛkt]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un papillon",
+    "chinese": "蝴蝶",
+    "phonetic": "[œ̃ papijɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "une cage",
+    "chinese": "笼子",
+    "phonetic": "[yn kaʒ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "动物"
+  },
+  {
+    "french": "une niche",
+    "chinese": "狗窝",
+    "phonetic": "[yn niʃ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "动物"
+  },
+  {
+    "french": "un aquarium",
+    "chinese": "鱼缸",
+    "phonetic": "[œ̃n akwaʀjɔm]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "une poule",
+    "chinese": "母鸡",
+    "phonetic": "[yn pul]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "动物"
+  },
+  {
+    "french": "une vache",
+    "chinese": "奶牛",
+    "phonetic": "[yn vaʃ]",
+    "part_of_speech": "阴性名词 n.f.",
+    "category": "动物"
+  },
+  {
+    "french": "un cheval",
+    "chinese": "马",
+    "phonetic": "[œ̃ ʃəval]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un mouton",
+    "chinese": "绵羊",
+    "phonetic": "[œ̃ mutɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
+  },
+  {
+    "french": "un cochon",
+    "chinese": "猪",
+    "phonetic": "[œ̃ kɔʃɔ̃]",
+    "part_of_speech": "阳性名词 n.m.",
+    "category": "动物"
   }
 ]
