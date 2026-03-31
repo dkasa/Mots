@@ -11,7 +11,7 @@ export interface Word {
 
 export interface WordWithStatus extends Word {
   id: string;
-  grade: 71 | 72 | 81 | 82 | 91 | 92;
+  grade: Grade;
   isLearned: boolean;
   isMastered: boolean;
 }
