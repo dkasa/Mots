@@ -356,7 +356,9 @@ class ApiService {
 
   // AI查词
   async lookupWord(word: string): Promise<any> {
-    const response = await this.client.post('/ai/lookup-word', { word });
+    const response = await this.client.post('/ai/lookup-word', { word }, {
+      timeout: 30000, // 30秒超时，AI模型响应较慢
+    });
     return response.data;
   }
 
