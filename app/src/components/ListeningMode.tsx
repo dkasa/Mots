@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Grade } from '../types/vocabulary';
+import { Grade, SelectionMode } from '../types/vocabulary';
 
 interface Subtitle {
   id: number;
@@ -25,7 +25,7 @@ interface ListeningModeProps {
     selectedUnits: number[];
     selectedLessons: string[];
   };
-  selectionMode?: 'grade-all' | 'grade-course' | 'grade-count';
+  selectionMode?: SelectionMode;
   listeningCategory?: 'all' | 'textbook' | 'extracurricular';
 }
 
