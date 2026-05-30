@@ -567,6 +567,7 @@ function App() {
             grade={currentGrade}
             darkMode={darkMode}
             courseSelection={courseSelection}
+            selectionMode={selectionMode}
             listeningCategory="all"
           />
         ) : (
