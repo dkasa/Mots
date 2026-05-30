@@ -166,8 +166,8 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
       return true; // 如果没有选择单元，显示所有材料
     }
     
-    // 从标题中提取单元号
-    const unitMatch = material.title.match(/Unité (\d+)/i);
+    // 从标题中提取单元号 - 支持 "Unité {n}" 和 "U{n}" 两种格式
+    const unitMatch = material.title.match(/Unité (\d+)/i) || material.title.match(/\bU(\d+)/i);
     if (!unitMatch) return false;
     
     const unitNumber = parseInt(unitMatch[1]);
