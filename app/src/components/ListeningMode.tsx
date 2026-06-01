@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Grade } from '../types/vocabulary';
+import { Grade, SelectionMode } from '../types/vocabulary';
 
 interface Subtitle {
   id: number;
@@ -25,10 +25,11 @@ interface ListeningModeProps {
     selectedUnits: number[];
     selectedLessons: string[];
   };
+  selectionMode?: SelectionMode;
   listeningCategory?: 'all' | 'textbook' | 'extracurricular';
 }
 
-export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, courseSelection, listeningCategory = 'all' }) => {
+export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, courseSelection, selectionMode = 'grade-all', listeningCategory = 'all' }) => {
   const [materials, setMaterials] = useState<ListeningMaterial[]>([]);
   const [currentMaterial, setCurrentMaterial] = useState<ListeningMaterial | null>(null);
   const [subtitles, setSubtitles] = useState<Subtitle[]>([]);
@@ -162,12 +163,17 @@ export const ListeningMode: React.FC<ListeningModeProps> = ({ grade, darkMode, c
       return true;
     }
     
+    // 全部模式（grade-all）：不按单元过滤，显示所有材料
+    if (selectionMode === 'grade-all') {
+      return true;
+    }
+    
     if (!courseSelection?.selectedUnits || courseSelection.selectedUnits.length === 0) {
       return true; // 如果没有选择单元，显示所有材料
     }
     
-    // 从标题中提取单元号
-    const unitMatch = material.title.match(/Unité (\d+)/i);
+    // 从标题中提取单元号 - 支持 "Unité {n}" 和 "U{n}" 两种格式
+    const unitMatch = material.title.match(/Unité (\d+)/i) || material.title.match(/\bU(\d+)/i);
     if (!unitMatch) return false;
     
     const unitNumber = parseInt(unitMatch[1]);
