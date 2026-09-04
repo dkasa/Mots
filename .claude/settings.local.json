@@ -6,7 +6,10 @@
       "Bash(npx tsc:*)",
       "Bash(pnpm run:*)",
       "Bash(sed -i \"s/''delf-a2-words''/93/g; s/''delf-a2-phrases''/94/g\" app/src/hooks/useAllVocabularyData.ts)",
-      "Bash(sed -i 's/`delf-words-\\\\${index}`/`${93}-\\\\${index}`/g; s/`delf-phrases-\\\\${index}`/`${94}-\\\\${index}`/g' app/src/hooks/useAllVocabularyData.ts)"
+      "Bash(sed -i 's/`delf-words-\\\\${index}`/`${93}-\\\\${index}`/g; s/`delf-phrases-\\\\${index}`/`${94}-\\\\${index}`/g' app/src/hooks/useAllVocabularyData.ts)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git -c http.proxy= -c https.proxy= push Mots main)"
     ]
   }
 }
